@@ -45,9 +45,9 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         int level = 1;
         if (args.length >= 2) {
             try { level = Integer.parseInt(args[1]); }
-            catch (Exception e) { level = EnchantManager.numeralToNumber(args[1]); }
+            catch (Exception e) { level = Enchant.numeralToNumber(args[1]); }
         }
-        EnchantManager.addEnchant(player.getInventory().getItemInMainHand(), name, level);
+        Enchant.addEnchant(player.getInventory().getItemInMainHand(), name, level);
         if (level > 0) player.sendMessage("Fishchantment added to item in hand.");
         else player.sendMessage("Fishchantment removed from item in hand.");
         return true;

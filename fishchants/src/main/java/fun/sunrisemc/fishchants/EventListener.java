@@ -22,7 +22,7 @@ public class EventListener implements Listener {
         ProjectileSource shooter = event.getEntity().getShooter();
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
-        Enchants.GrassSeeds.onArrowHitBlock(player, projectile, player.getInventory().getItemInMainHand(), event.getHitBlock());
+        EnchantDefinitions.GrassSeeds.onArrowHitBlock(player, projectile, player.getInventory().getItemInMainHand(), event.getHitBlock());
     }
 
     @EventHandler
@@ -38,16 +38,16 @@ public class EventListener implements Listener {
         Player player = (Player) damager;
         LivingEntity entity = (LivingEntity) event.getEntity();
         ItemStack mainHand = player.getInventory().getItemInMainHand();
-        Enchants.LifeSteal.onPlayerAttackEntity(player, entity, mainHand, event.getDamage());
-        Enchants.Poision.onPlayerAttackEntity(player, entity, mainHand);
-        Enchants.Wither.onPlayerAttackEntity(player, entity, mainHand);
-        Enchants.Helium.onPlayerAttackEntity(player, entity, mainHand);
-        Enchants.Glow.onPlayerAttackEntity(player, entity, mainHand);
-        Enchants.Blindness.onPlayerAttackEntity(player, entity, mainHand);
-        Enchants.Confusion.onPlayerAttackEntity(player, entity, mainHand);
-        Enchants.Weakness.onPlayerAttackEntity(player, entity, mainHand);
-        Enchants.Hunger.onPlayerAttackEntity(player, entity, mainHand);
-        Enchants.Slowness.onPlayerAttackEntity(player, entity, mainHand);
+        EnchantDefinitions.LifeSteal.onPlayerAttackEntity(player, entity, mainHand, event.getDamage());
+        EnchantDefinitions.Poision.onPlayerAttackEntity(player, entity, mainHand);
+        EnchantDefinitions.Wither.onPlayerAttackEntity(player, entity, mainHand);
+        EnchantDefinitions.Helium.onPlayerAttackEntity(player, entity, mainHand);
+        EnchantDefinitions.Glow.onPlayerAttackEntity(player, entity, mainHand);
+        EnchantDefinitions.Blindness.onPlayerAttackEntity(player, entity, mainHand);
+        EnchantDefinitions.Confusion.onPlayerAttackEntity(player, entity, mainHand);
+        EnchantDefinitions.Weakness.onPlayerAttackEntity(player, entity, mainHand);
+        EnchantDefinitions.Hunger.onPlayerAttackEntity(player, entity, mainHand);
+        EnchantDefinitions.Slowness.onPlayerAttackEntity(player, entity, mainHand);
     }
 
     @EventHandler
@@ -55,7 +55,7 @@ public class EventListener implements Listener {
         if (event.isCancelled()) return;
         ItemStack item = event.getItem();
         Player player = event.getPlayer();
-        Enchants.Unbreakable.onItemTakeDamage(player, item);
+        EnchantDefinitions.Unbreakable.onItemTakeDamage(player, item);
     }
 
     @EventHandler
@@ -66,7 +66,7 @@ public class EventListener implements Listener {
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
         ItemStack mainHand = player.getInventory().getItemInMainHand();
-        Enchants.Range.onPlayerShootProjectile(player, projectile, mainHand);
-        Enchants.Accurate.onPlayerShootProjectile(player, projectile, mainHand);
+        EnchantDefinitions.Range.onPlayerShootProjectile(player, projectile, mainHand);
+        EnchantDefinitions.Accurate.onPlayerShootProjectile(player, projectile, mainHand);
     }
 }

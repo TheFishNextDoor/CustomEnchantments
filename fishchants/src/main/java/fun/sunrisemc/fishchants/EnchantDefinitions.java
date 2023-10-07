@@ -16,37 +16,26 @@ import org.bukkit.util.Vector;
 
 import net.md_5.bungee.api.ChatColor;
 
-class Enchants {
+class EnchantDefinitions {
 
-    // World Modifying
     static class GrassSeeds {
         final static String NAME = ChatColor.GRAY + "Grass Seeds";
 
         static void onArrowHitBlock(Player player, Projectile projectile, ItemStack bow, Block block) {
             if (player == null || projectile == null || bow == null || block == null) return;
-            if (!EnchantManager.hasEnchant(bow, NAME)) return;
+            if (!Enchant.hasEnchant(bow, NAME)) return;
             if (block.getType() != Material.DIRT) return;
             projectile.remove();
             block.setType(Material.GRASS_BLOCK);
         }
     }
 
-    static class Area {
-
-    }
-
-    static class Clear {
-        
-    }
-
-    // Mechanic Modifying
-
     static class Unbreakable {
         final static String NAME = ChatColor.GRAY + "Unbreakable";
 
         static void onItemTakeDamage(Player player, ItemStack item) {
             if (player == null || item == null) return;
-            if (!EnchantManager.hasEnchant(item, NAME)) return;
+            if (!Enchant.hasEnchant(item, NAME)) return;
             ItemMeta meta = item.getItemMeta();
             if (!(meta instanceof Damageable)) return;
             Damageable damageable = (Damageable) meta;
@@ -55,14 +44,12 @@ class Enchants {
         }
     }
 
-    // Combat Modifying
-
     static class LifeSteal {
         final static String NAME = ChatColor.GRAY + "Life Steal";
 
         static void onPlayerAttackEntity(Player player, Entity entity, ItemStack weapon, double damage) {
             if (player == null || entity == null || weapon == null || damage == 0) return;
-            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            final int level = Enchant.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
             heal(player, calcAddedHealth(damage, level));
         }
@@ -94,7 +81,7 @@ class Enchants {
 
         static void onPlayerShootProjectile(Player player, Projectile projectile, ItemStack item) {
             if (player == null || projectile == null || item == null) return;
-            final int level = EnchantManager.getEnchantLevel(item, NAME);
+            final int level = Enchant.getEnchantLevel(item, NAME);
             if (level < 1) return;
             projectile.setVelocity(projectile.getVelocity().multiply(1 + (level/5)));
         }
@@ -105,7 +92,7 @@ class Enchants {
 
         static void onPlayerShootProjectile(Player player, Projectile projectile, ItemStack item) {
             if (player == null || projectile == null || item == null) return;
-            if (!EnchantManager.hasEnchant(item, NAME)) return;
+            if (!Enchant.hasEnchant(item, NAME)) return;
             Vector direction = player.getEyeLocation().getDirection();
             Vector velocity = projectile.getVelocity();
             velocity.setX(direction.getX() * velocity.length());
@@ -115,18 +102,12 @@ class Enchants {
         }
     }
 
-    static class Shockwave {
-
-    }
-
-    // Effect Modifying
-
     static class Poision {
         final static String NAME = ChatColor.GRAY + "Poison";
 
         static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
             if (attacker == null || reciever == null || weapon == null) return;
-            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            final int level = Enchant.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20 + (level * 10), level/3), false);
         }
@@ -137,7 +118,7 @@ class Enchants {
 
         static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
             if (attacker == null || reciever == null || weapon == null) return;
-            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            final int level = Enchant.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 + (level * 20), level/5), false);
         }
@@ -148,7 +129,7 @@ class Enchants {
 
         static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
             if (attacker == null || reciever == null || weapon == null) return;
-            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            final int level = Enchant.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 20, level - 1), false);
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 20 + (level * 10), 0), false);
@@ -160,7 +141,7 @@ class Enchants {
 
         static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
             if (attacker == null || reciever == null || weapon == null) return;
-            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            final int level = Enchant.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0), false);
         }
@@ -171,7 +152,7 @@ class Enchants {
 
         static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
             if (attacker == null || reciever == null || weapon == null) return;
-            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            final int level = Enchant.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, level * 20, 0), false);
         }
@@ -182,7 +163,7 @@ class Enchants {
 
         static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
             if (attacker == null || reciever == null || weapon == null) return;
-            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            final int level = Enchant.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, level * 20, 0), false);
         }
@@ -193,7 +174,7 @@ class Enchants {
 
         static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
             if (attacker == null || reciever == null || weapon == null) return;
-            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            final int level = Enchant.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20 + (level * 10), level/4), false);
         }
@@ -204,7 +185,7 @@ class Enchants {
 
         static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
             if (attacker == null || reciever == null || weapon == null) return;
-            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            final int level = Enchant.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, level * 20, level/2), false);
         }
@@ -215,7 +196,7 @@ class Enchants {
 
         static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
             if (attacker == null || reciever == null || weapon == null) return;
-            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            final int level = Enchant.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, level * 20, level/2), false);
         }

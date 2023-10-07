@@ -7,26 +7,26 @@ import java.util.List;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-class EnchantManager {
+class Enchant {
     private static final boolean NUMERALS = true;
     private ArrayList<FishchantmentCommandData> commands = new ArrayList<FishchantmentCommandData>();
 
     void registerEnchants() {
         commands = new ArrayList<FishchantmentCommandData>();
-        new FishchantmentCommandData(Enchants.GrassSeeds.NAME, "grass_seeds");
-        new FishchantmentCommandData(Enchants.Unbreakable.NAME, "unbreakable");
-        new FishchantmentCommandData(Enchants.LifeSteal.NAME, "life_steal");
-        new FishchantmentCommandData(Enchants.Range.NAME, "range");
-        new FishchantmentCommandData(Enchants.Accurate.NAME, "accurate");
-        new FishchantmentCommandData(Enchants.Poision.NAME, "poison");
-        new FishchantmentCommandData(Enchants.Wither.NAME, "wither");
-        new FishchantmentCommandData(Enchants.Helium.NAME, "helium");
-        new FishchantmentCommandData(Enchants.Glow.NAME, "glow");
-        new FishchantmentCommandData(Enchants.Blindness.NAME, "blindess");
-        new FishchantmentCommandData(Enchants.Confusion.NAME, "confusion");
-        new FishchantmentCommandData(Enchants.Weakness.NAME, "weakness");
-        new FishchantmentCommandData(Enchants.Hunger.NAME, "hunger");
-        new FishchantmentCommandData(Enchants.Slowness.NAME, "slowness");
+        new FishchantmentCommandData(EnchantDefinitions.GrassSeeds.NAME, "grass_seeds");
+        new FishchantmentCommandData(EnchantDefinitions.Unbreakable.NAME, "unbreakable");
+        new FishchantmentCommandData(EnchantDefinitions.LifeSteal.NAME, "life_steal");
+        new FishchantmentCommandData(EnchantDefinitions.Range.NAME, "range");
+        new FishchantmentCommandData(EnchantDefinitions.Accurate.NAME, "accurate");
+        new FishchantmentCommandData(EnchantDefinitions.Poision.NAME, "poison");
+        new FishchantmentCommandData(EnchantDefinitions.Wither.NAME, "wither");
+        new FishchantmentCommandData(EnchantDefinitions.Helium.NAME, "helium");
+        new FishchantmentCommandData(EnchantDefinitions.Glow.NAME, "glow");
+        new FishchantmentCommandData(EnchantDefinitions.Blindness.NAME, "blindess");
+        new FishchantmentCommandData(EnchantDefinitions.Confusion.NAME, "confusion");
+        new FishchantmentCommandData(EnchantDefinitions.Weakness.NAME, "weakness");
+        new FishchantmentCommandData(EnchantDefinitions.Hunger.NAME, "hunger");
+        new FishchantmentCommandData(EnchantDefinitions.Slowness.NAME, "slowness");
     }
 
     class FishchantmentCommandData {
