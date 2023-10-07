@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -178,5 +182,14 @@ public class Plugin extends JavaPlugin {
       case 1: return "I";
       default: return "";
     }
+  }
+
+  public static ItemStack getItemInHand(Player player) {
+    PlayerInventory inv = player.getInventory();
+    ItemStack mainHand = inv.getItemInMainHand();
+    ItemStack offHand = inv.getItemInOffHand();
+    if (mainHand.getType() != Material.AIR) return mainHand;
+    if (offHand.getType() != Material.AIR) return offHand;
+    return mainHand;
   }
 }

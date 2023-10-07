@@ -1,5 +1,6 @@
 package fun.sunrisemc.fishchantments;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -41,14 +42,16 @@ public class EventListener implements Listener {
         ProjectileSource shooter = event.getEntity().getShooter();
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
-        GrassSeeds.onArrowHitBlock(plugin, player, projectile, player.getInventory().getItemInMainHand(), event.getHitBlock());
+        GrassSeeds.onArrowHitBlock(plugin, player, projectile, Plugin.getItemInHand(player), event.getHitBlock());
     }
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.isCancelled()) return;
         Entity damager = event.getDamager();
+        boolean RANGED_ATTACK = false;
         if (damager instanceof Projectile) { // Include ranged player attacks
+            RANGED_ATTACK = true;
             Projectile projectile = (Projectile) damager;
             ProjectileSource shooter = projectile.getShooter();
             if (shooter instanceof Player) damager = (Player) shooter;
@@ -56,17 +59,20 @@ public class EventListener implements Listener {
         if (!(damager instanceof Player && event.getEntity() instanceof LivingEntity)) return;
         Player player = (Player) damager;
         LivingEntity entity = (LivingEntity) event.getEntity();
-        ItemStack mainHand = player.getInventory().getItemInMainHand();
-        LifeSteal.onPlayerAttackEntity(plugin, player, entity, mainHand, event.getDamage());
-        Poison.onPlayerAttackEntity(plugin, player, entity, mainHand);
-        Wither.onPlayerAttackEntity(plugin, player, entity, mainHand);
-        Helium.onPlayerAttackEntity(plugin, player, entity, mainHand);
-        Glow.onPlayerAttackEntity(plugin, player, entity, mainHand);
-        Blindness.onPlayerAttackEntity(plugin, player, entity, mainHand);
-        Confusion.onPlayerAttackEntity(plugin, player, entity, mainHand);
-        Weakness.onPlayerAttackEntity(plugin, player, entity, mainHand);
-        Hunger.onPlayerAttackEntity(plugin, player, entity, mainHand);
-        Slowness.onPlayerAttackEntity(plugin, player, entity, mainHand);
+        ItemStack weapon = Plugin.getItemInHand(player);
+        Material weaponType = weapon.getType();
+        final boolean RANGED_WEAPON = weaponType == Material.BOW || weaponType == Material.CROSSBOW;
+        if (RANGED_ATTACK != RANGED_WEAPON) return;
+        LifeSteal.onPlayerAttackEntity(plugin, player, entity, weapon, event.getDamage());
+        Poison.onPlayerAttackEntity(plugin, player, entity, weapon);
+        Wither.onPlayerAttackEntity(plugin, player, entity, weapon);
+        Helium.onPlayerAttackEntity(plugin, player, entity, weapon);
+        Glow.onPlayerAttackEntity(plugin, player, entity, weapon);
+        Blindness.onPlayerAttackEntity(plugin, player, entity, weapon);
+        Confusion.onPlayerAttackEntity(plugin, player, entity, weapon);
+        Weakness.onPlayerAttackEntity(plugin, player, entity, weapon);
+        Hunger.onPlayerAttackEntity(plugin, player, entity, weapon);
+        Slowness.onPlayerAttackEntity(plugin, player, entity, weapon);
     }
 
     @EventHandler
@@ -84,8 +90,8 @@ public class EventListener implements Listener {
         ProjectileSource shooter = projectile.getShooter();
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
-        ItemStack mainHand = player.getInventory().getItemInMainHand();
-        Range.onPlayerShootProjectile(plugin, player, projectile, mainHand);
-        Accurate.onPlayerShootProjectile(plugin, player, projectile, mainHand);
+        ItemStack item = Plugin.getItemInHand(player);
+        Range.onPlayerShootProjectile(plugin, player, projectile, item);
+        Accurate.onPlayerShootProjectile(plugin, player, projectile, item);
     }
 }
