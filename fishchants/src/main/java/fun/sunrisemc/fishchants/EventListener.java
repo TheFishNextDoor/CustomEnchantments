@@ -1,10 +1,11 @@
 package fun.sunrisemc.fishchants;
 
-import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
@@ -12,17 +13,23 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
-        if (event.getEntity() instanceof Arrow) {
-            Arrow arrow = (Arrow) event.getEntity();
-            ProjectileSource shooter = arrow.getShooter();
-            if (!(shooter instanceof Player)) return;
-            Player player = (Player) shooter;
-            Enchants.GrassSeeds.onArrowHitBlock(player, arrow, player.getItemInHand(), event.getHitBlock());
-        }
+        Projectile projectile = event.getEntity();
+        ProjectileSource shooter = event.getEntity().getShooter();
+        if (!(shooter instanceof Player)) return;
+        Player player = (Player) shooter;
+        Enchants.GrassSeeds.onArrowHitBlock(player, projectile, player.getInventory().getItemInMainHand(), event.getHitBlock());
     }
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent event) {
-        event.getPlayer().sendMessage("Hi"); // Debug
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        Entity damager = event.getDamager();
+        if (damager instanceof Projectile) {
+            Projectile projectile = (Projectile) damager;
+            ProjectileSource shooter = projectile.getShooter();
+            if (shooter instanceof Player) damager = (Player) shooter;
+        }
+        if (!(damager instanceof Player && event.getEntity() instanceof Entity)) return;
+        Player player = (Player) damager;
+        Enchants.LifeSteal.onPlayerAttackEntity(player, event.getEntity(), player.getInventory().getItemInMainHand(), event.getDamage());
     }
 }
