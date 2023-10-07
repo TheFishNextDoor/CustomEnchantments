@@ -39,7 +39,6 @@ public class EventListener implements Listener {
         Enchants.Wither.onPlayerAttackEntity(player, entity, mainHand);
         Enchants.Helium.onPlayerAttackEntity(player, entity, mainHand);
         Enchants.Glow.onPlayerAttackEntity(player, entity, mainHand);
-        Enchants.BadOmen.onPlayerAttackEntity(player, entity, mainHand);
         Enchants.Blindness.onPlayerAttackEntity(player, entity, mainHand);
         Enchants.Confusion.onPlayerAttackEntity(player, entity, mainHand);
         Enchants.Weakness.onPlayerAttackEntity(player, entity, mainHand);

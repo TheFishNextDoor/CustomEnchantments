@@ -19,7 +19,6 @@ class EnchantManager {
         new FishchantmentCommandData(Enchants.Wither.NAME, "wither");
         new FishchantmentCommandData(Enchants.Helium.NAME, "helium");
         new FishchantmentCommandData(Enchants.Glow.NAME, "glow");
-        new FishchantmentCommandData(Enchants.BadOmen.NAME, "bad_omen");
         new FishchantmentCommandData(Enchants.Blindness.NAME, "blindess");
         new FishchantmentCommandData(Enchants.Confusion.NAME, "confusion");
         new FishchantmentCommandData(Enchants.Weakness.NAME, "weakness");
