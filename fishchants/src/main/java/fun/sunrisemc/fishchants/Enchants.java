@@ -66,7 +66,7 @@ class Enchants {
             if (attacker == null || reciever == null || weapon == null) return;
             final int level = EnchantManager.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
-            reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 60, level-1), false);
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, level * 20, level/3), false);
         }
     }
 
@@ -77,7 +77,96 @@ class Enchants {
             if (attacker == null || reciever == null || weapon == null) return;
             final int level = EnchantManager.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
-            reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, level * 20, 0), false);
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, level * 20, level/3), false);
+        }
+    }
+
+    static class Helium {
+        final static String NAME = ChatColor.GRAY + "Helium";
+
+        static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
+            if (attacker == null || reciever == null || weapon == null) return;
+            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 20, level - 1), false);
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 20 + (level * 10), 0), false);
+        }
+    }
+
+    static class Glow {
+        final static String NAME = ChatColor.GRAY + "Glow";
+
+        static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
+            if (attacker == null || reciever == null || weapon == null) return;
+            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0), false);
+        }
+    }
+
+    static class BadOmen {
+        final static String NAME = ChatColor.GRAY + "Bad Omen";
+
+        static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
+            if (attacker == null || reciever == null || weapon == null) return;
+            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.BAD_OMEN, level * 2400, level/2), false);
+        }
+    }
+
+    static class Blindness {
+        final static String NAME = ChatColor.GRAY + "Blindness";
+
+        static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
+            if (attacker == null || reciever == null || weapon == null) return;
+            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, level * 20, 0), false);
+        }
+    }
+
+    static class Confusion {
+        final static String NAME = ChatColor.GRAY + "Confusion";
+
+        static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
+            if (attacker == null || reciever == null || weapon == null) return;
+            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, level * 20, 0), false);
+        }
+    }
+
+    static class Weakness {
+        final static String NAME = ChatColor.GRAY + "Weakness";
+
+        static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
+            if (attacker == null || reciever == null || weapon == null) return;
+            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, level * 10, level/3), false);
+        }
+    }
+
+    static class Hunger {
+        final static String NAME = ChatColor.GRAY + "Hunger";
+
+        static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
+            if (attacker == null || reciever == null || weapon == null) return;
+            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, level * 20, level/2), false);
+        }
+    }
+
+    static class Slowness {
+        final static String NAME = ChatColor.GRAY + "Slowness";
+
+        static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
+            if (attacker == null || reciever == null || weapon == null) return;
+            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, level * 20, level/2), false);
         }
     }
 }

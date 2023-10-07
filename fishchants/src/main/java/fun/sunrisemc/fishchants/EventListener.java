@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
 public class EventListener implements Listener {
@@ -32,8 +33,17 @@ public class EventListener implements Listener {
         if (!(damager instanceof Player && event.getEntity() instanceof LivingEntity)) return;
         Player player = (Player) damager;
         LivingEntity entity = (LivingEntity) event.getEntity();
-        Enchants.LifeSteal.onPlayerAttackEntity(player, entity, player.getInventory().getItemInMainHand(), event.getDamage());
-        Enchants.Poision.onPlayerAttackEntity(player, entity, player.getInventory().getItemInMainHand());
-        Enchants.Wither.onPlayerAttackEntity(player, entity, player.getInventory().getItemInMainHand());
+        ItemStack mainHand = player.getInventory().getItemInMainHand();
+        Enchants.LifeSteal.onPlayerAttackEntity(player, entity, mainHand, event.getDamage());
+        Enchants.Poision.onPlayerAttackEntity(player, entity, mainHand);
+        Enchants.Wither.onPlayerAttackEntity(player, entity, mainHand);
+        Enchants.Helium.onPlayerAttackEntity(player, entity, mainHand);
+        Enchants.Glow.onPlayerAttackEntity(player, entity, mainHand);
+        Enchants.BadOmen.onPlayerAttackEntity(player, entity, mainHand);
+        Enchants.Blindness.onPlayerAttackEntity(player, entity, mainHand);
+        Enchants.Confusion.onPlayerAttackEntity(player, entity, mainHand);
+        Enchants.Weakness.onPlayerAttackEntity(player, entity, mainHand);
+        Enchants.Hunger.onPlayerAttackEntity(player, entity, mainHand);
+        Enchants.Slowness.onPlayerAttackEntity(player, entity, mainHand);
     }
 }
