@@ -14,7 +14,10 @@ class EnchantManager {
     void registerEnchants() {
         commands = new ArrayList<FishchantmentCommandData>();
         new FishchantmentCommandData(Enchants.GrassSeeds.NAME, "grass_seeds");
+        new FishchantmentCommandData(Enchants.Unbreakable.NAME, "unbreakable");
         new FishchantmentCommandData(Enchants.LifeSteal.NAME, "life_steal");
+        new FishchantmentCommandData(Enchants.Range.NAME, "range");
+        new FishchantmentCommandData(Enchants.Accurate.NAME, "accurate");
         new FishchantmentCommandData(Enchants.Poision.NAME, "poison");
         new FishchantmentCommandData(Enchants.Wither.NAME, "wither");
         new FishchantmentCommandData(Enchants.Helium.NAME, "helium");
@@ -82,7 +85,9 @@ class EnchantManager {
 
     static int getEnchantLevel(ItemStack item, String name) {
         if (item == null) return 0;
-        List<String> lore = item.getItemMeta().getLore();
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return 0;
+        List<String> lore = meta.getLore();
         if (lore == null) return 0;
         Iterator<String> loreIter = lore.iterator();
         while (loreIter.hasNext()) {

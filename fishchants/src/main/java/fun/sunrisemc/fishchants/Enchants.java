@@ -8,13 +8,17 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import net.md_5.bungee.api.ChatColor;
 
 class Enchants {
 
+    // World Modifying
     static class GrassSeeds {
         final static String NAME = ChatColor.GRAY + "Grass Seeds";
 
@@ -26,6 +30,32 @@ class Enchants {
             block.setType(Material.GRASS_BLOCK);
         }
     }
+
+    static class Area {
+
+    }
+
+    static class Clear {
+        
+    }
+
+    // Mechanic Modifying
+
+    static class Unbreakable {
+        final static String NAME = ChatColor.GRAY + "Unbreakable";
+
+        static void onItemTakeDamage(Player player, ItemStack item) {
+            if (player == null || item == null) return;
+            if (!EnchantManager.hasEnchant(item, NAME)) return;
+            ItemMeta meta = item.getItemMeta();
+            if (!(meta instanceof Damageable)) return;
+            Damageable damageable = (Damageable) meta;
+            if (!damageable.hasDamage()) return;
+            damageable.setDamage(0);
+        }
+    }
+
+    // Combat Modifying
 
     static class LifeSteal {
         final static String NAME = ChatColor.GRAY + "Life Steal";
@@ -58,6 +88,38 @@ class Enchants {
             player.setHealth(newHealth);
         }
     }
+
+    static class Range {
+        final static String NAME = ChatColor.GRAY + "Range";
+
+        static void onPlayerShootProjectile(Player player, Projectile projectile, ItemStack item) {
+            if (player == null || projectile == null || item == null) return;
+            final int level = EnchantManager.getEnchantLevel(item, NAME);
+            if (level < 1) return;
+            projectile.setVelocity(projectile.getVelocity().multiply(1 + (level/5)));
+        }
+    }
+
+    static class Accurate {
+        final static String NAME = ChatColor.GRAY + "Accurate";
+
+        static void onPlayerShootProjectile(Player player, Projectile projectile, ItemStack item) {
+            if (player == null || projectile == null || item == null) return;
+            if (!EnchantManager.hasEnchant(item, NAME)) return;
+            Vector direction = player.getEyeLocation().getDirection();
+            Vector velocity = projectile.getVelocity();
+            velocity.setX(direction.getX() * velocity.length());
+            velocity.setY(direction.getY() * velocity.length());
+            velocity.setZ(direction.getZ() * velocity.length());
+            projectile.setVelocity(velocity);
+        }
+    }
+
+    static class Shockwave {
+
+    }
+
+    // Effect Modifying
 
     static class Poision {
         final static String NAME = ChatColor.GRAY + "Poison";
