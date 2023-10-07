@@ -4,9 +4,12 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -53,6 +56,28 @@ class Enchants {
             double newHealth = player.getHealth() + amount;
             if (newHealth > maxHealth) newHealth = maxHealth;
             player.setHealth(newHealth);
+        }
+    }
+
+    static class Poision {
+        final static String NAME = ChatColor.GRAY + "Poison";
+
+        static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
+            if (attacker == null || reciever == null || weapon == null) return;
+            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 60, level-1), false);
+        }
+    }
+
+    static class Wither {
+        final static String NAME = ChatColor.GRAY + "Wither";
+
+        static void onPlayerAttackEntity(Player attacker, LivingEntity reciever, ItemStack weapon) {
+            if (attacker == null || reciever == null || weapon == null) return;
+            final int level = EnchantManager.getEnchantLevel(weapon, NAME);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, level * 20, 0), false);
         }
     }
 }

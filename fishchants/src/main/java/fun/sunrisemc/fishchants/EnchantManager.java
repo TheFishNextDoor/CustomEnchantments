@@ -4,16 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import net.md_5.bungee.api.ChatColor;
 
 class EnchantManager {
     private static final boolean NUMERALS = true;
@@ -23,6 +15,8 @@ class EnchantManager {
         commands = new ArrayList<FishchantmentCommandData>();
         new FishchantmentCommandData(Enchants.GrassSeeds.NAME, "grass_seeds");
         new FishchantmentCommandData(Enchants.LifeSteal.NAME, "life_steal");
+        new FishchantmentCommandData(Enchants.Poision.NAME, "poison");
+        new FishchantmentCommandData(Enchants.Wither.NAME, "wither");
     }
 
     class FishchantmentCommandData {
