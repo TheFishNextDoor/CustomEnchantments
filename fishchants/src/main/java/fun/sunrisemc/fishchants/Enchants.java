@@ -66,7 +66,7 @@ class Enchants {
             if (attacker == null || reciever == null || weapon == null) return;
             final int level = EnchantManager.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
-            reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, level * 20, level/3), false);
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20 + level * 10, level/3), false);
         }
     }
 
@@ -77,7 +77,7 @@ class Enchants {
             if (attacker == null || reciever == null || weapon == null) return;
             final int level = EnchantManager.getEnchantLevel(weapon, NAME);
             if (level < 1) return;
-            reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, level * 20, level/3), false);
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 + level * 20, level/5), false);
         }
     }
 
