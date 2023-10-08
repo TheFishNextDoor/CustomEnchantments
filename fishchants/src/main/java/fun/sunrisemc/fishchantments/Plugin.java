@@ -113,7 +113,7 @@ public class Plugin extends JavaPlugin {
   public static ItemStack addEnchant(ItemStack item, FishchantmentCommandData data, Integer level) {
     if (hasEnchant(item, data.getEnchantment())) removeEnchant(item, data);
     if (level < 1) return item;
-    if (level > 10) level = 10;
+    if (level > data.getMaxLevel()) level = data.getMaxLevel();
     item.addEnchantment(data.getEnchantment(), level);
     ItemMeta meta = item.getItemMeta();
     List<String> lore = meta.getLore();

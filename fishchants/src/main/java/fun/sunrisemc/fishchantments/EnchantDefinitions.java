@@ -1,6 +1,5 @@
 package fun.sunrisemc.fishchantments;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -11,7 +10,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -73,10 +71,7 @@ public class EnchantDefinitions {
             if (level < 1) return;
             ItemStack usedTool = bow;
             boolean hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
-            if (!hasDrops) {
-                usedTool = new ItemStack(Material.SHEARS);
-                hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
-            }
+            if (!hasDrops) hasDrops = !block.getDrops(new ItemStack(new ItemStack(Material.SHEARS))).isEmpty();
             if (!hasDrops && level >= 2) {
                 usedTool = new ItemStack(Material.WOODEN_PICKAXE);
                 hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
@@ -109,7 +104,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 1;
         }
 
         @Override
@@ -291,7 +286,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 1;
         }
 
         @Override
@@ -452,7 +447,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Helium";
+            return "Levitating";
         }
 
         @Override
@@ -494,8 +489,7 @@ public class EnchantDefinitions {
             if (attacker == null || reciever == null || weapon == null) return;
             final int level = Plugin.getEnchantLevel(weapon, plugin.HELIUM);
             if (level < 1) return;
-            reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 20, level - 1), false);
-            reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 20 + (level * 10), 0), false);
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 20, 0), false);
         }
     }
 

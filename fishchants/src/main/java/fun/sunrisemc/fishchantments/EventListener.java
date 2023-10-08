@@ -66,7 +66,7 @@ public class EventListener implements Listener {
         ItemStack weapon = Plugin.getItemInHand(player);
         Material weaponType = weapon.getType();
         final boolean RANGED_WEAPON = weaponType == Material.BOW || weaponType == Material.CROSSBOW;
-        if (RANGED_ATTACK != RANGED_WEAPON) return;
+        if (!RANGED_ATTACK && RANGED_WEAPON) return;
         LifeSteal.onPlayerAttackEntity(plugin, player, entity, weapon, event.getDamage());
         Poison.onPlayerAttackEntity(plugin, player, entity, weapon);
         Wither.onPlayerAttackEntity(plugin, player, entity, weapon);

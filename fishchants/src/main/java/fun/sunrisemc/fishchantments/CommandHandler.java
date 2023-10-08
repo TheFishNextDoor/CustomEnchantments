@@ -43,6 +43,10 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         String getLore() {
             return ChatColor.GRAY + ENCHANT.getName();
         }
+
+        int getMaxLevel() {
+            return ENCHANT.getMaxLevel();
+        }
     }
 
     void registerEnchants() {
@@ -54,8 +58,8 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         new FishchantmentCommandData(plugin.ACCURATE, "accurate");
         new FishchantmentCommandData(plugin.POISON, "poison");
         new FishchantmentCommandData(plugin.WITHER, "wither");
-        new FishchantmentCommandData(plugin.HELIUM, "helium");
-        new FishchantmentCommandData(plugin.GLOW, "glow");
+        new FishchantmentCommandData(plugin.HELIUM, "levitation");
+        new FishchantmentCommandData(plugin.GLOW, "glowing");
         new FishchantmentCommandData(plugin.BLINDNESS, "blindess");
         new FishchantmentCommandData(plugin.CONFUSION, "confusion");
         new FishchantmentCommandData(plugin.WEAKNESS, "weakness");
@@ -91,7 +95,16 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player)) return null;
         if (command.getName().equalsIgnoreCase("fenchant")) {
             if (args.length == 1) return getEnchantCommandNames();
-            else if (args.length == 2) return Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
+            else if (args.length == 2) {
+                ArrayList<String> levels = new ArrayList<>();
+                FishchantmentCommandData data = getData(args[0]);
+                if (data == null) return null;
+                int maxLevel = data.getMaxLevel();
+                for (Integer i=0; i<=maxLevel; i++) {
+                    levels.add(i.toString());
+                }
+                return levels;
+            }
             else return null;
         }
         return null;
