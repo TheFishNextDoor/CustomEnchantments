@@ -1,5 +1,6 @@
 package fun.sunrisemc.fishchantments;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -18,15 +20,15 @@ import org.bukkit.util.Vector;
 
 public class EnchantDefinitions {
 
-    public static class GrassSeeds extends Enchantment {
+    public static class Destructive extends Enchantment {
 
-        public GrassSeeds(NamespacedKey key) {
+        public Destructive(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Grass Seeds";
+            return "Destructive";
         }
 
         @Override
@@ -56,6 +58,7 @@ public class EnchantDefinitions {
 
         @Override
         public boolean conflictsWith(Enchantment other) {
+            if (other == Enchantment.ARROW_INFINITE) return true;
             return false;
         }
 
@@ -66,10 +69,13 @@ public class EnchantDefinitions {
 
         static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
             if (player == null || projectile == null || bow == null || block == null) return;
-            if (!Plugin.hasEnchant(bow, plugin.GRASS_SEEDS)) return;
-            if (block.getType() != Material.DIRT) return;
+            if (!Plugin.hasEnchant(bow, plugin.DESTRUCTIVE)) return;
+            if (block.getDrops(new ItemStack(Material.SHEARS)).isEmpty()) return;
+            BlockBreakEvent event = new BlockBreakEvent(block, player);
+            Bukkit.getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) return;
             projectile.remove();
-            block.setType(Material.GRASS_BLOCK);
+            block.breakNaturally(bow);
         }
     }
 
@@ -263,7 +269,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Accurate";
+            return "Precision";
         }
 
         @Override
@@ -321,7 +327,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Poison";
+            return "Venom";
         }
 
         @Override
@@ -375,7 +381,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Wither";
+            return "Withering";
         }
 
         @Override
@@ -484,7 +490,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Glow";
+            return "Radiance";
         }
 
         @Override
@@ -538,7 +544,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Blindness";
+            return "Obscure";
         }
 
         @Override
@@ -592,7 +598,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Confusion";
+            return "Disorienting";
         }
 
         @Override
@@ -646,7 +652,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Weakness";
+            return "Debilitating";
         }
 
         @Override
@@ -700,7 +706,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Hunger";
+            return "Starving";
         }
 
         @Override
@@ -754,7 +760,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Slowness";
+            return "Crippling";
         }
 
         @Override

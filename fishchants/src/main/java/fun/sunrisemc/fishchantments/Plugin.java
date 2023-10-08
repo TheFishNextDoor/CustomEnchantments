@@ -2,6 +2,7 @@ package fun.sunrisemc.fishchantments;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -9,7 +10,6 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,7 +20,7 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Accurate;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Blindness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Confusion;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Glow;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.GrassSeeds;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Destructive;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Helium;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Hunger;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.LifeSteal;
@@ -36,7 +36,7 @@ public class Plugin extends JavaPlugin {
   private static final Logger LOGGER = Logger.getLogger("Fishchantments");
   private CommandHandler commandHandler;
 
-  public final NamespacedKey GRASS_SEEDS_KEY = new NamespacedKey(this, "grass_seeds_fishchantment");
+  public final NamespacedKey DESTRUCTIVE_KEY = new NamespacedKey(this, "destructive_fishchantment");
   public final NamespacedKey UNBREAKABLE_KEY = new NamespacedKey(this, "unbreakable_fishchantment");
   public final NamespacedKey LIFE_STEAL_KEY = new NamespacedKey(this, "life_steal_fishchantment");
   public final NamespacedKey RANGE_KEY = new NamespacedKey(this, "range_fishchantment");
@@ -51,7 +51,7 @@ public class Plugin extends JavaPlugin {
   public final NamespacedKey HUNGER_KEY = new NamespacedKey(this, "hunger_fishchantment");
   public final NamespacedKey SLOWNESS_KEY  = new NamespacedKey(this, "slowness_fishchantment");
 
-  public final Enchantment GRASS_SEEDS = new GrassSeeds(GRASS_SEEDS_KEY);
+  public final Enchantment DESTRUCTIVE = new Destructive(DESTRUCTIVE_KEY);
   public final Enchantment UNBREAKABLE = new Unbreakable(UNBREAKABLE_KEY);
   public final Enchantment LIFE_STEAL = new LifeSteal(LIFE_STEAL_KEY);
   public final Enchantment RANGE = new Range(RANGE_KEY);
@@ -67,7 +67,7 @@ public class Plugin extends JavaPlugin {
   public final Enchantment SLOWNESS = new Slowness(SLOWNESS_KEY);
 
   public void onEnable() {
-    register(GRASS_SEEDS);
+    register(DESTRUCTIVE);
     register(UNBREAKABLE);
     register(LIFE_STEAL);
     register(RANGE);
@@ -138,6 +138,14 @@ public class Plugin extends JavaPlugin {
     meta.setLore(newLore);
     item.setItemMeta(meta);
     return item;
+  }
+
+  public boolean hasEnchant(ItemStack item) {
+    Iterator<FishchantmentCommandData> dataIter = commandHandler.getAllData().iterator();
+    while(dataIter.hasNext()) {
+      if (hasEnchant(item, dataIter.next().getEnchantment())) return true;
+    }
+    return false;
   }
 
   public static boolean hasEnchant(ItemStack item, Enchantment enchant) {

@@ -47,7 +47,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 
     void registerEnchants() {
         commands = new ArrayList<FishchantmentCommandData>();
-        new FishchantmentCommandData(plugin.GRASS_SEEDS, "grass_seeds");
+        new FishchantmentCommandData(plugin.DESTRUCTIVE, "destructive");
         new FishchantmentCommandData(plugin.UNBREAKABLE, "unbreakable");
         new FishchantmentCommandData(plugin.LIFE_STEAL, "life_steal");
         new FishchantmentCommandData(plugin.RANGE, "range");
@@ -79,6 +79,10 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             if (commandData.getCommandName().equalsIgnoreCase(commandName)) return commandData;
         }
         return null;
+    }
+
+    ArrayList<FishchantmentCommandData> getAllData() {
+        return commands;
     }
 
     @Override

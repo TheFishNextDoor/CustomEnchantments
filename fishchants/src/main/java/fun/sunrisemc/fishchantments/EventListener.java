@@ -10,15 +10,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerItemDamageEvent;
+import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Accurate;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Blindness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Confusion;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Destructive;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Glow;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.GrassSeeds;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Helium;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Hunger;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.LifeSteal;
@@ -28,6 +31,7 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Slowness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Unbreakable;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Weakness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
+import net.md_5.bungee.api.ChatColor;
 
 public class EventListener implements Listener {
     private final Plugin plugin;
@@ -42,7 +46,7 @@ public class EventListener implements Listener {
         ProjectileSource shooter = event.getEntity().getShooter();
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
-        GrassSeeds.onArrowHitBlock(plugin, player, projectile, Plugin.getItemInHand(player), event.getHitBlock());
+        Destructive.onArrowHitBlock(plugin, player, projectile, Plugin.getItemInHand(player), event.getHitBlock());
     }
 
     @EventHandler
@@ -93,5 +97,20 @@ public class EventListener implements Listener {
         ItemStack item = Plugin.getItemInHand(player);
         Range.onPlayerShootProjectile(plugin, player, projectile, item);
         Accurate.onPlayerShootProjectile(plugin, player, projectile, item);
+    }
+
+    @EventHandler
+    public void disableAnvilEditingOfFishchantments(InventoryClickEvent event) {
+        if (!(event.getInventory() instanceof AnvilInventory)) return;
+        if (!(event.getWhoClicked() instanceof Player)) return;
+        AnvilInventory anvil = (AnvilInventory) event.getInventory();
+        Player player = (Player) event.getWhoClicked();
+        if (event.getSlotType() != SlotType.RESULT) return;
+        ItemStack result = anvil.getItem(event.getRawSlot());
+        ItemStack zero = anvil.getItem(0);
+        ItemStack one = anvil.getItem(1);
+        if (!(plugin.hasEnchant(result) || plugin.hasEnchant(zero) || plugin.hasEnchant(one))) return;
+        event.setCancelled(true);
+        player.sendMessage(ChatColor.RED + "You cannot edit items that have custom enchants.");
     }
 }
