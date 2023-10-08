@@ -1,17 +1,20 @@
 package fun.sunrisemc.fishchantments;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
@@ -28,6 +31,7 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.LifeSteal;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Poison;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Range;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Slowness;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Tilling;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Unbreakable;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Weakness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
@@ -46,7 +50,9 @@ public class EventListener implements Listener {
         ProjectileSource shooter = event.getEntity().getShooter();
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
-        Destructive.onArrowHitBlock(plugin, player, projectile, Plugin.getItemInHand(player), event.getHitBlock());
+        ItemStack item = Plugin.getItemInHand(player);
+        Destructive.onArrowHitBlock(plugin, player, projectile, item, event.getHitBlock());
+        Tilling.onArrowHitBlock(plugin, player, projectile, item, event.getHitBlock());
     }
 
     @EventHandler
@@ -97,6 +103,16 @@ public class EventListener implements Listener {
         ItemStack item = Plugin.getItemInHand(player);
         Range.onPlayerShootProjectile(plugin, player, projectile, item);
         Accurate.onPlayerShootProjectile(plugin, player, projectile, item);
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        Block clickedBlock = event.getClickedBlock();
+        if (clickedBlock != null && event.getItem() != null) {
+            Material itemType = event.getItem().getType();
+            if (!itemType.name().toUpperCase().contains("_HOE")) return;
+            Tilling.onTill(plugin, event.getPlayer(), Plugin.getItemInHand(event.getPlayer()), clickedBlock);
+        }
     }
 
     @EventHandler

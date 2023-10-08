@@ -24,6 +24,7 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Blindness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Confusion;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Glow;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Destructive;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Tilling;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Helium;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Hunger;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.LifeSteal;
@@ -40,6 +41,7 @@ public class Plugin extends JavaPlugin {
   private CommandHandler commandHandler;
 
   public final NamespacedKey DESTRUCTIVE_KEY = new NamespacedKey(this, "destructive_fishchantment");
+  public final NamespacedKey TILLING_KEY = new NamespacedKey(this, "tilling_fishchantment");
   public final NamespacedKey UNBREAKABLE_KEY = new NamespacedKey(this, "unbreakable_fishchantment");
   public final NamespacedKey LIFE_STEAL_KEY = new NamespacedKey(this, "life_steal_fishchantment");
   public final NamespacedKey RANGE_KEY = new NamespacedKey(this, "range_fishchantment");
@@ -55,6 +57,7 @@ public class Plugin extends JavaPlugin {
   public final NamespacedKey SLOWNESS_KEY  = new NamespacedKey(this, "slowness_fishchantment");
 
   public final Enchantment DESTRUCTIVE = new Destructive(DESTRUCTIVE_KEY);
+  public final Enchantment TILLING = new Tilling(TILLING_KEY);
   public final Enchantment UNBREAKABLE = new Unbreakable(UNBREAKABLE_KEY);
   public final Enchantment LIFE_STEAL = new LifeSteal(LIFE_STEAL_KEY);
   public final Enchantment RANGE = new Range(RANGE_KEY);
@@ -71,6 +74,7 @@ public class Plugin extends JavaPlugin {
 
   public void onEnable() {
     register(DESTRUCTIVE);
+    register(TILLING);
     register(UNBREAKABLE);
     register(LIFE_STEAL);
     register(RANGE);
@@ -208,5 +212,9 @@ public class Plugin extends JavaPlugin {
     BlockBreakEvent event = new BlockBreakEvent(block, player);
       Bukkit.getServer().getPluginManager().callEvent(event);
       return !event.isCancelled();
+  }
+
+  public static boolean isTillable(Material material) {
+    return material == Material.DIRT || material == Material.GRASS_BLOCK || material == Material.GRASS_PATH;
   }
 }

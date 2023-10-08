@@ -66,7 +66,7 @@ public class EnchantDefinitions {
         }
 
         static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
-            if (player == null || projectile == null || bow == null || block == null) return;
+            if (plugin == null || player == null || projectile == null || bow == null || block == null) return;
             final int level = Plugin.getEnchantLevel(bow, plugin.DESTRUCTIVE);
             if (level < 1) return;
             ItemStack usedTool = bow;
@@ -89,6 +89,76 @@ public class EnchantDefinitions {
             projectile.remove();
             block.breakNaturally(usedTool);
         }
+    }
+
+    public static class Tilling extends Enchantment {
+
+        public Tilling(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Tilling";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            return true;
+        }
+
+        static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
+            if (plugin == null || player == null || projectile == null || bow == null || block == null) return;
+            if (!Plugin.hasEnchant(bow, plugin.TILLING)) return;
+            projectile.remove();
+            till(player, block);
+        }
+
+        static void onTill(Plugin plugin, Player player, ItemStack hoe, Block block) {
+            if (plugin == null || player == null || hoe == null || block == null) return;
+            if (!Plugin.hasEnchant(hoe, plugin.TILLING)) return;
+            till(player, block);
+        }
+
+        static void till(Player player, Block block) {
+            int x = block.getX(); int y = block.getY(); int z = block.getZ();
+            int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
+            for (int[] coords : allCoords) {
+                Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
+                if (Plugin.isTillable(modifiedBlock.getType()) && Plugin.playerCanModify(player, modifiedBlock)) modifiedBlock.setType(Material.FARMLAND);
+            }
+        }
+        
     }
 
     public static class Unbreakable extends Enchantment {
@@ -138,7 +208,7 @@ public class EnchantDefinitions {
         }
 
         static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, PlayerItemDamageEvent event) {
-            if (player == null || item == null) return;
+            if (plugin == null || player == null || item == null) return;
             if (!Plugin.hasEnchant(item, plugin.UNBREAKABLE)) return;
             event.setCancelled(true);
         }
@@ -191,7 +261,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, ItemStack weapon, double damage) {
-            if (player == null || entity == null || weapon == null || damage == 0) return;
+            if (plugin == null || player == null || entity == null || weapon == null || damage == 0) return;
             final int level = Plugin.getEnchantLevel(weapon, plugin.LIFE_STEAL);
             if (level < 1) return;
             heal(player, calcAddedHealth(damage, level));
@@ -266,7 +336,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
-            if (player == null || projectile == null || item == null) return;
+            if (plugin == null || player == null || projectile == null || item == null) return;
             final int level = Plugin.getEnchantLevel(item, plugin.RANGE);
             if (level < 1) return;
             projectile.setVelocity(projectile.getVelocity().multiply(1 + (level/5)));
@@ -320,7 +390,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
-            if (player == null || projectile == null || item == null) return;
+            if (plugin == null || player == null || projectile == null || item == null) return;
             if (!Plugin.hasEnchant(item, plugin.ACCURATE)) return;
             Vector direction = player.getEyeLocation().getDirection();
             Vector velocity = projectile.getVelocity();
@@ -378,7 +448,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon) {
-            if (attacker == null || reciever == null || weapon == null) return;
+            if (plugin == null || attacker == null || reciever == null || weapon == null) return;
             final int level = Plugin.getEnchantLevel(weapon, plugin.POISON);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20 + (level * 10), level/3), false);
@@ -432,7 +502,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon) {
-            if (attacker == null || reciever == null || weapon == null) return;
+            if (plugin == null || attacker == null || reciever == null || weapon == null) return;
             final int level = Plugin.getEnchantLevel(weapon, plugin.WITHER);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 + (level * 20), level/5), false);
@@ -486,7 +556,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon) {
-            if (attacker == null || reciever == null || weapon == null) return;
+            if (plugin == null || attacker == null || reciever == null || weapon == null) return;
             final int level = Plugin.getEnchantLevel(weapon, plugin.HELIUM);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 20, 0), false);
@@ -540,7 +610,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon) {
-            if (attacker == null || reciever == null || weapon == null) return;
+            if (plugin == null || attacker == null || reciever == null || weapon == null) return;
             final int level = Plugin.getEnchantLevel(weapon, plugin.GLOW);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0), false);
@@ -594,7 +664,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon) {
-            if (attacker == null || reciever == null || weapon == null) return;
+            if (plugin == null || attacker == null || reciever == null || weapon == null) return;
             final int level = Plugin.getEnchantLevel(weapon, plugin.BLINDNESS);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, level * 20, 0), false);
@@ -648,7 +718,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon) {
-            if (attacker == null || reciever == null || weapon == null) return;
+            if (plugin == null || attacker == null || reciever == null || weapon == null) return;
             final int level = Plugin.getEnchantLevel(weapon, plugin.CONFUSION);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, level * 20, 0), false);
@@ -702,7 +772,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon) {
-            if (attacker == null || reciever == null || weapon == null) return;
+            if (plugin == null || attacker == null || reciever == null || weapon == null) return;
             final int level = Plugin.getEnchantLevel(weapon, plugin.WEAKNESS);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20 + (level * 10), level/4), false);
@@ -756,7 +826,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon) {
-            if (attacker == null || reciever == null || weapon == null) return;
+            if (plugin == null || attacker == null || reciever == null || weapon == null) return;
             final int level = Plugin.getEnchantLevel(weapon, plugin.HUNGER);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, level * 20, level/2), false);
@@ -810,7 +880,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon) {
-            if (attacker == null || reciever == null || weapon == null) return;
+            if (plugin == null || attacker == null || reciever == null || weapon == null) return;
             final int level = Plugin.getEnchantLevel(weapon, plugin.SLOWNESS);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, level * 20, level/2), false);
