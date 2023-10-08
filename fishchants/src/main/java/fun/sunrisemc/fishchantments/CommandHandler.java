@@ -1,7 +1,6 @@
 package fun.sunrisemc.fishchantments;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -60,7 +59,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         new FishchantmentCommandData(plugin.POISON, "poison");
         new FishchantmentCommandData(plugin.WITHER, "wither");
         new FishchantmentCommandData(plugin.HELIUM, "levitation");
-        new FishchantmentCommandData(plugin.GLOW, "glowing");
+        new FishchantmentCommandData(plugin.GLOWING, "glowing");
         new FishchantmentCommandData(plugin.BLINDNESS, "blindess");
         new FishchantmentCommandData(plugin.CONFUSION, "confusion");
         new FishchantmentCommandData(plugin.WEAKNESS, "weakness");

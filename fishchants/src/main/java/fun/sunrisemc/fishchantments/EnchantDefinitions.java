@@ -563,9 +563,9 @@ public class EnchantDefinitions {
         }
     }
 
-    public static class Glow extends Enchantment {
+    public static class Glowing extends Enchantment {
 
-        public Glow(NamespacedKey key) {
+        public Glowing(NamespacedKey key) {
             super(key);
         }
 
@@ -611,7 +611,7 @@ public class EnchantDefinitions {
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon) {
             if (plugin == null || attacker == null || reciever == null || weapon == null) return;
-            final int level = Plugin.getEnchantLevel(weapon, plugin.GLOW);
+            final int level = Plugin.getEnchantLevel(weapon, plugin.GLOWING);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0), false);
         }

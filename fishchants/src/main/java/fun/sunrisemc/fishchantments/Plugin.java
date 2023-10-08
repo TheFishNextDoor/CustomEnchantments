@@ -22,7 +22,7 @@ import fun.sunrisemc.fishchantments.CommandHandler.FishchantmentCommandData;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Accurate;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Blindness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Confusion;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Glow;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Glowing;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Destructive;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Tilling;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Helium;
@@ -36,7 +36,7 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Weakness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
 
 public class Plugin extends JavaPlugin {
-  private static final boolean NUMERALS = true;
+  private static final boolean NUMERALS = false;
   private static final Logger LOGGER = Logger.getLogger("Fishchantments");
   private CommandHandler commandHandler;
 
@@ -49,7 +49,7 @@ public class Plugin extends JavaPlugin {
   public final NamespacedKey POISON_KEY = new NamespacedKey(this, "poison_fishchantment");
   public final NamespacedKey WITHER_KEY = new NamespacedKey(this, "wither_fishchantment");
   public final NamespacedKey HELIUM_KEY = new NamespacedKey(this, "helium_fishchantment");
-  public final NamespacedKey GLOW_KEY = new NamespacedKey(this, "glow_fishchantment");
+  public final NamespacedKey GLOWING_KEY = new NamespacedKey(this, "glowing_fishchantment");
   public final NamespacedKey BLINDNESS_KEY = new NamespacedKey(this, "blindness_fishchantment");
   public final NamespacedKey CONFUSION_KEY = new NamespacedKey(this, "confusion_fishchantment");
   public final NamespacedKey WEAKNESS_KEY = new NamespacedKey(this, "weakness_fishchantment");
@@ -65,7 +65,7 @@ public class Plugin extends JavaPlugin {
   public final Enchantment POISON = new Poison(POISON_KEY);
   public final Enchantment WITHER = new Wither(WITHER_KEY);
   public final Enchantment HELIUM = new Helium(HELIUM_KEY);
-  public final Enchantment GLOW = new Glow(GLOW_KEY);
+  public final Enchantment GLOWING = new Glowing(GLOWING_KEY);
   public final Enchantment BLINDNESS = new Blindness(BLINDNESS_KEY);
   public final Enchantment CONFUSION = new Confusion(CONFUSION_KEY);
   public final Enchantment WEAKNESS = new Weakness(WEAKNESS_KEY);
@@ -82,7 +82,7 @@ public class Plugin extends JavaPlugin {
     register(POISON);
     register(WITHER);
     register(HELIUM);
-    register(GLOW);
+    register(GLOWING);
     register(BLINDNESS);
     register(CONFUSION);
     register(WEAKNESS);
