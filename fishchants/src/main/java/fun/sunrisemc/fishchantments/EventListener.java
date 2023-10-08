@@ -1,14 +1,23 @@
 package fun.sunrisemc.fishchantments;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -17,18 +26,23 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Crops;
 import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Accurate;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Blindness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Confusion;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Crush;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Destructive;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Fling;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Food;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Glowing;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Helium;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Hunger;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.LifeSteal;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Poison;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Range;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Replanting;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Slowness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Tilling;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Unbreakable;
@@ -44,7 +58,7 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void onProjectileHit(ProjectileHitEvent event) {
+    public void onArrowHitBlock(ProjectileHitEvent event) {
         Projectile projectile = event.getEntity();
         ProjectileSource shooter = event.getEntity().getShooter();
         if (!(shooter instanceof Player)) return;
@@ -55,7 +69,7 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+    public void onPlayerAttackEntity(EntityDamageByEntityEvent event) {
         if (event.isCancelled()) return;
         Entity damager = event.getDamager();
         boolean RANGED_ATTACK = false;
@@ -72,20 +86,23 @@ public class EventListener implements Listener {
         Material weaponType = weapon.getType();
         final boolean RANGED_WEAPON = weaponType == Material.BOW || weaponType == Material.CROSSBOW;
         if (!RANGED_ATTACK && RANGED_WEAPON) return;
-        LifeSteal.onPlayerAttackEntity(plugin, player, entity, weapon, event.getDamage());
-        Poison.onPlayerAttackEntity(plugin, player, entity, weapon);
-        Wither.onPlayerAttackEntity(plugin, player, entity, weapon);
-        Helium.onPlayerAttackEntity(plugin, player, entity, weapon);
-        Glowing.onPlayerAttackEntity(plugin, player, entity, weapon);
-        Blindness.onPlayerAttackEntity(plugin, player, entity, weapon);
-        Confusion.onPlayerAttackEntity(plugin, player, entity, weapon);
-        Weakness.onPlayerAttackEntity(plugin, player, entity, weapon);
-        Hunger.onPlayerAttackEntity(plugin, player, entity, weapon);
-        Slowness.onPlayerAttackEntity(plugin, player, entity, weapon);
+        final double damage = event.getDamage();
+        if (plugin == null || player == null || entity == null || weapon == null || damage == 0) return;
+        LifeSteal.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
+        Fling.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
+        Poison.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
+        Wither.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
+        Helium.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
+        Glowing.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
+        Blindness.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
+        Confusion.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
+        Weakness.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
+        Hunger.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
+        Slowness.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
     }
 
     @EventHandler
-    public void onItemDamage(PlayerItemDamageEvent event) {
+    public void onItemTakeDamage(PlayerItemDamageEvent event) {
         if (event.isCancelled()) return;
         ItemStack item = event.getItem();
         Player player = event.getPlayer();
@@ -93,7 +110,7 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void onProjectileLaunch(ProjectileLaunchEvent event) {
+    public void onPlayerShootProjectile(ProjectileLaunchEvent event) {
         if (event.isCancelled()) return;
         Projectile projectile = event.getEntity();
         ProjectileSource shooter = projectile.getShooter();
@@ -105,14 +122,63 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event) {
+    public void onTill(PlayerInteractEvent event) {
+        if (event.isCancelled()) return;
         Block clickedBlock = event.getClickedBlock();
-        if (clickedBlock != null && event.getItem() != null) {
-            Material itemType = event.getItem().getType();
-            if (!itemType.name().toUpperCase().contains("_HOE")) return;
-            Tilling.onTill(plugin, event.getPlayer(), Plugin.getItemInHand(event.getPlayer()), clickedBlock);
-        }
+        if (clickedBlock == null || event.getItem() == null) return;
+        Material itemType = event.getItem().getType();
+        Tilling.onTill(plugin, event.getPlayer(), Plugin.getItemInHand(event.getPlayer()), clickedBlock);
     }
+
+    @EventHandler
+    public void onHungerLoss(FoodLevelChangeEvent event) {
+        if (event.isCancelled()) return;
+        if (!(event.getEntity() instanceof Player)) return;
+        Player player = (Player) event.getEntity();
+        ItemStack helmet = player.getInventory().getHelmet();
+        if (helmet == null) return;
+        Food.onHungerLoss(plugin, player, helmet, event);
+    }
+
+    @EventHandler
+    public void onFall(EntityDamageEvent event) {
+        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) return;
+        Entity damagedEntity = event.getEntity();
+        if (!(damagedEntity instanceof Player)) return;
+        Player player = (Player) damagedEntity;
+        ItemStack boots = player.getInventory().getBoots();
+        if (boots == null) return;
+        final double fallDamage = event.getDamage();
+        ArrayList<LivingEntity> nearbyMobs = new ArrayList<>();
+        for (Entity entity : player.getNearbyEntities(1, 1, 1)) {
+            if (entity instanceof LivingEntity) nearbyMobs.add((LivingEntity) entity);
+        }
+        Crush.onFall(plugin, player, boots, fallDamage, nearbyMobs);
+    }
+
+    @EventHandler
+    public void onRightClickCrop(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        Action action = event.getAction();
+        if (action != Action.RIGHT_CLICK_BLOCK) return;
+        Block clickedBlock = event.getClickedBlock();
+        if (clickedBlock == null) return;
+        ItemStack item = Plugin.getItemInHand(player);
+        if (item == null) return;
+        Replanting.onRightClick(plugin, player, item, clickedBlock);
+    }
+
+    @EventHandler
+    public void onHarvestCrop(BlockBreakEvent event) {
+        if (event.isCancelled()) return;
+        Player player = event.getPlayer();
+        Block block = event.getBlock();
+        if (player == null || block == null) return;
+        ItemStack item = Plugin.getItemInHand(player);
+        if (item == null) return;
+        Replanting.onBlockBreak(plugin, player, item, block, event);
+    }
+    
 
     @EventHandler
     public void disableAnvilEditingOfFishchantments(InventoryClickEvent event) {

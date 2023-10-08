@@ -1,9 +1,7 @@
 package fun.sunrisemc.fishchantments;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -25,25 +23,32 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Confusion;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Glowing;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Destructive;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Tilling;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Replanting;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Helium;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Hunger;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.LifeSteal;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Fling;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Poison;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Range;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Slowness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Unbreakable;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Food;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Crush;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Weakness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
 
 public class Plugin extends JavaPlugin {
-  private static final boolean NUMERALS = false;
   private static final Logger LOGGER = Logger.getLogger("Fishchantments");
   private CommandHandler commandHandler;
 
   public final NamespacedKey DESTRUCTIVE_KEY = new NamespacedKey(this, "destructive_fishchantment");
   public final NamespacedKey TILLING_KEY = new NamespacedKey(this, "tilling_fishchantment");
+  public final NamespacedKey REPLANTING_KEY = new NamespacedKey(this, "replanting_fishchantment");
   public final NamespacedKey UNBREAKABLE_KEY = new NamespacedKey(this, "unbreakable_fishchantment");
+  public final NamespacedKey FOOD_KEY = new NamespacedKey(this, "food_fishchantment");
+  public final NamespacedKey CRUSH_KEY = new NamespacedKey(this, "CRUSH_fishchantment");
   public final NamespacedKey LIFE_STEAL_KEY = new NamespacedKey(this, "life_steal_fishchantment");
+  public final NamespacedKey FLING_KEY = new NamespacedKey(this, "fling_fishchantment");
   public final NamespacedKey RANGE_KEY = new NamespacedKey(this, "range_fishchantment");
   public final NamespacedKey ACCURATE_KEY = new NamespacedKey(this, "accurate_fishchantment");
   public final NamespacedKey POISON_KEY = new NamespacedKey(this, "poison_fishchantment");
@@ -58,8 +63,12 @@ public class Plugin extends JavaPlugin {
 
   public final Enchantment DESTRUCTIVE = new Destructive(DESTRUCTIVE_KEY);
   public final Enchantment TILLING = new Tilling(TILLING_KEY);
+  public final Enchantment REPLANTING = new Replanting(REPLANTING_KEY);
   public final Enchantment UNBREAKABLE = new Unbreakable(UNBREAKABLE_KEY);
+  public final Enchantment FOOD = new Food(FOOD_KEY);
+  public final Enchantment CRUSH = new Crush(CRUSH_KEY);
   public final Enchantment LIFE_STEAL = new LifeSteal(LIFE_STEAL_KEY);
+  public final Enchantment FLING = new Fling(FLING_KEY);
   public final Enchantment RANGE = new Range(RANGE_KEY);
   public final Enchantment ACCURATE = new Accurate(ACCURATE_KEY);
   public final Enchantment POISON = new Poison(POISON_KEY);
@@ -75,8 +84,12 @@ public class Plugin extends JavaPlugin {
   public void onEnable() {
     register(DESTRUCTIVE);
     register(TILLING);
+    register(REPLANTING);
     register(UNBREAKABLE);
+    register(FOOD);
+    register(CRUSH);
     register(LIFE_STEAL);
+    register(FLING);
     register(RANGE);
     register(ACCURATE);
     register(POISON);
@@ -114,39 +127,6 @@ public class Plugin extends JavaPlugin {
     LOGGER.info("Fishchants disabled");
   }
 
-  public static ItemStack addEnchant(ItemStack item, FishchantmentCommandData data, Integer level) {
-    if (hasEnchant(item, data.getEnchantment())) removeEnchant(item, data);
-    if (level < 1) return item;
-    if (level > data.getMaxLevel()) level = data.getMaxLevel();
-    item.addEnchantment(data.getEnchantment(), level);
-    ItemMeta meta = item.getItemMeta();
-    List<String> lore = meta.getLore();
-    if (lore == null) lore = new ArrayList<String>();
-    if (level == 1) lore.add(0, data.getLore());
-    else {
-        String levelString = NUMERALS ? numberToNumeral(level) : level.toString();
-        lore.add(0, data.getLore() + " " + levelString);
-    }
-    meta.setLore(lore);
-    item.setItemMeta(meta);
-    return item;
-  }
-
-  public static ItemStack removeEnchant(ItemStack item, FishchantmentCommandData data) {
-    if (!hasEnchant(item, data.getEnchantment())) return item;
-    item.removeEnchantment(data.getEnchantment());
-    ItemMeta meta = item.getItemMeta();
-    List<String> lore = meta.getLore();
-    if (lore == null) return item;
-    List<String> newLore = new ArrayList<>();
-    for (String line : lore) {
-        if (!line.contains(data.getLore())) newLore.add(line);
-    }
-    meta.setLore(newLore);
-    item.setItemMeta(meta);
-    return item;
-  }
-
   public boolean hasEnchant(ItemStack item) {
     Iterator<FishchantmentCommandData> dataIter = commandHandler.getAllData().iterator();
     while(dataIter.hasNext()) {
@@ -167,38 +147,6 @@ public class Plugin extends JavaPlugin {
     return meta.getEnchantLevel(enchant);
   }
 
-  static int numeralToNumber(String numeral) {
-    switch (numeral.toUpperCase()) {
-      case "X": return 10;
-      case "IX": return 9;
-      case "VIII": return 8;
-      case "VII": return 7;
-      case "VI": return 6;
-      case "V": return 5;
-      case "IV": return 4;
-      case "III": return 3;
-      case "II": return 2;
-      case "I": return 1;
-      default: return 0;
-    }
-  }
-
-  public static String numberToNumeral(int number) {
-    switch (number) {
-      case 10: return "X";
-      case 9: return "IX";
-      case 8: return "VIII";
-      case 7: return "VII";
-      case 6: return "VI";
-      case 5: return "V";
-      case 4: return "IV";
-      case 3: return "III";
-      case 2: return "II";
-      case 1: return "I";
-      default: return "";
-    }
-  }
-
   public static ItemStack getItemInHand(Player player) {
     PlayerInventory inv = player.getInventory();
     ItemStack mainHand = inv.getItemInMainHand();
@@ -210,11 +158,7 @@ public class Plugin extends JavaPlugin {
 
   public static boolean playerCanModify(Player player, Block block) {
     BlockBreakEvent event = new BlockBreakEvent(block, player);
-      Bukkit.getServer().getPluginManager().callEvent(event);
-      return !event.isCancelled();
-  }
-
-  public static boolean isTillable(Material material) {
-    return material == Material.DIRT || material == Material.GRASS_BLOCK || material == Material.GRASS_PATH;
+    Bukkit.getServer().getPluginManager().callEvent(event);
+    return !event.isCancelled();
   }
 }
