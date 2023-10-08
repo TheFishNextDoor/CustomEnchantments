@@ -17,8 +17,8 @@ import net.md_5.bungee.api.ChatColor;
 
 public class CommandHandler implements CommandExecutor, TabCompleter {
     private static final boolean NUMERALS = false;
-    private ArrayList<FishchantmentCommandData> commands = new ArrayList<FishchantmentCommandData>();
     private final Plugin plugin;
+    private ArrayList<FishchantmentCommandData> commands = new ArrayList<FishchantmentCommandData>();
 
     CommandHandler(Plugin plugin) {
         this.plugin = plugin;
@@ -51,6 +51,49 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         }
     }
 
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (!sender.hasPermission(command.getPermission())) return null;
+        if (!(sender instanceof Player)) return null;
+        if (command.getName().equalsIgnoreCase("fenchant")) {
+            if (args.length == 1) return getEnchantCommandNames();
+            else if (args.length == 2) {
+                ArrayList<String> levels = new ArrayList<>();
+                FishchantmentCommandData data = getData(args[0]);
+                if (data == null) return null;
+                int maxLevel = data.getMaxLevel();
+                for (Integer i=0; i<=maxLevel; i++) {
+                    levels.add(i.toString());
+                }
+                return levels;
+            }
+            else return null;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!sender.hasPermission(command.getPermission())) return false;
+        if (!(sender instanceof Player)) return false;
+        Player player = (Player) sender;
+        if (!command.getName().equalsIgnoreCase("fenchant")) return false;
+        if (args.length == 0) return false;
+        String commandName = args[0];
+        FishchantmentCommandData data = getData(commandName);
+        Enchantment enchantment = data.getEnchantment();
+        if (enchantment == null) return false;
+        int level = 1;
+        if (args.length >= 2) {
+            try { level = Integer.parseInt(args[1]); }
+            catch (Exception e) { level = numeralToNumber(args[1]); }
+        }
+        addEnchant(player.getInventory().getItemInMainHand(), data, level);
+        if (level > 0) player.sendMessage("Fishchantment added to item in hand.");
+        else player.sendMessage("Fishchantment removed from item in hand.");
+        return true;
+    }
+
     void registerEnchants() {
         commands = new ArrayList<FishchantmentCommandData>();
         new FishchantmentCommandData(plugin.DESTRUCTIVE, "destructive");
@@ -73,6 +116,9 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         new FishchantmentCommandData(plugin.WEAKNESS, "weakness");
         new FishchantmentCommandData(plugin.HUNGER, "hunger");
         new FishchantmentCommandData(plugin.SLOWNESS, "slowness");
+        for (Enchantment enchantment : Enchantment.values()) {
+            new FishchantmentCommandData(enchantment, enchantment.getName().toLowerCase().replaceAll(" ", "_"));
+        }
     }
 
     ArrayList<String> getEnchantCommandNames() {
@@ -139,7 +185,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         return item;
     }
 
-    static int numeralToNumber(String numeral) {
+    private static int numeralToNumber(String numeral) {
         switch (numeral.toUpperCase()) {
             case "X": return 10;
             case "IX": return 9;
@@ -155,7 +201,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         }
     }
 
-    public static String numberToNumeral(int number) {
+    private static String numberToNumeral(int number) {
         switch (number) {
             case 10: return "X";
             case 9: return "IX";
@@ -169,52 +215,5 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             case 1: return "I";
             default: return "";
         }
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (!sender.hasPermission(command.getPermission())) return null;
-        if (!(sender instanceof Player)) return null;
-        if (command.getName().equalsIgnoreCase("fenchant")) {
-            if (args.length == 1) return getEnchantCommandNames();
-            else if (args.length == 2) {
-                ArrayList<String> levels = new ArrayList<>();
-                FishchantmentCommandData data = getData(args[0]);
-                if (data == null) return null;
-                int maxLevel = data.getMaxLevel();
-                for (Integer i=0; i<=maxLevel; i++) {
-                    levels.add(i.toString());
-                }
-                return levels;
-            }
-            else return null;
-        }
-        return null;
-    }
-    
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission(command.getPermission())) return false;
-        if (!(sender instanceof Player)) return false;
-        Player player = (Player) sender;
-        if (command.getName().equalsIgnoreCase("fenchant")) return fishchant(player, args);
-        return false;
-    }
-
-    boolean fishchant(Player player, String[] args) {
-        if (args.length == 0) return false;
-        String commandName = args[0];
-        FishchantmentCommandData data = getData(commandName);
-        Enchantment enchantment = data.getEnchantment();
-        if (enchantment == null) return false;
-        int level = 1;
-        if (args.length >= 2) {
-            try { level = Integer.parseInt(args[1]); }
-            catch (Exception e) { level = numeralToNumber(args[1]); }
-        }
-        addEnchant(player.getInventory().getItemInMainHand(), data, level);
-        if (level > 0) player.sendMessage("Fishchantment added to item in hand.");
-        else player.sendMessage("Fishchantment removed from item in hand.");
-        return true;
     }
 }

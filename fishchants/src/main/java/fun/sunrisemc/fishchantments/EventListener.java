@@ -173,7 +173,6 @@ public class EventListener implements Listener {
         Replanting.onBlockBreak(plugin, player, item, block, event);
     }
 
-
     @EventHandler
     public void onSuffocation(EntityDamageEvent event) {
         if (event.getCause() != EntityDamageEvent.DamageCause.SUFFOCATION) return;
@@ -184,7 +183,6 @@ public class EventListener implements Listener {
         Worm.onSuffocate(plugin, player, helmet, event);
     }
     
-
     @EventHandler
     public void disableAnvilEditingOfFishchantments(InventoryClickEvent event) {
         if (!(event.getInventory() instanceof AnvilInventory)) return;
@@ -195,7 +193,7 @@ public class EventListener implements Listener {
         ItemStack result = anvil.getItem(event.getRawSlot());
         ItemStack zero = anvil.getItem(0);
         ItemStack one = anvil.getItem(1);
-        if (!(plugin.hasEnchant(result) || plugin.hasEnchant(zero) || plugin.hasEnchant(one))) return;
+        if (!(plugin.hasCustomEnchant(result) || plugin.hasCustomEnchant(zero) || plugin.hasCustomEnchant(one))) return;
         event.setCancelled(true);
         player.sendMessage(ChatColor.RED + "You cannot edit items that have custom enchants.");
     }

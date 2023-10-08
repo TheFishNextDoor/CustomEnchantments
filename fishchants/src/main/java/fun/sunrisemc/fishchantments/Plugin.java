@@ -105,33 +105,18 @@ public class Plugin extends JavaPlugin {
     register(WEAKNESS);
     register(HUNGER);
     register(SLOWNESS);
-
     commandHandler = new CommandHandler(this);
-    getCommand("fenchant").setExecutor(commandHandler);
     commandHandler.registerEnchants();
-
+    getCommand("fenchant").setExecutor(commandHandler);
     getServer().getPluginManager().registerEvents(new EventListener(this), this);
-
     LOGGER.info("Fishchantments enabled");
-  }
-
-  private void register(Enchantment enchant) {
-    try {
-      Field f = Enchantment.class.getDeclaredField("acceptingNew");
-      f.setAccessible(true);
-      f.set(null, true);
-      Enchantment.registerEnchantment(enchant); 
-    } 
-    catch (Exception e) {
-      System.out.println("Failed to load enchant " + enchant.getName() + ": " + e.getMessage());
-    }
   }
 
   public void onDisable() {
     LOGGER.info("Fishchants disabled");
   }
 
-  public boolean hasEnchant(ItemStack item) {
+  public boolean hasCustomEnchant(ItemStack item) {
     Iterator<FishchantmentCommandData> dataIter = commandHandler.getAllData().iterator();
     while(dataIter.hasNext()) {
       if (hasEnchant(item, dataIter.next().getEnchantment())) return true;
@@ -164,5 +149,17 @@ public class Plugin extends JavaPlugin {
     BlockBreakEvent event = new BlockBreakEvent(block, player);
     Bukkit.getServer().getPluginManager().callEvent(event);
     return !event.isCancelled();
+  }
+
+  private static void register(Enchantment enchant) {
+    try {
+      Field f = Enchantment.class.getDeclaredField("acceptingNew");
+      f.setAccessible(true);
+      f.set(null, true);
+      Enchantment.registerEnchantment(enchant); 
+    } 
+    catch (Exception e) {
+      System.out.println("Failed to load enchant " + enchant.getName() + ": " + e.getMessage());
+    }
   }
 }

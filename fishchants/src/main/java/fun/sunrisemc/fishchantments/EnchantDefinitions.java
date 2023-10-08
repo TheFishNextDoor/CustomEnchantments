@@ -468,7 +468,7 @@ public class EnchantDefinitions {
             }
         }
 
-        static double calcDamage(double damage, int level) {
+        private static double calcDamage(double damage, int level) {
             if (level == 1) return damage/3;
             else if (level == 2) return damage/2;
             else if (level == 3) return damage;
@@ -536,7 +536,7 @@ public class EnchantDefinitions {
             heal(player, calcAddedHealth(damage, level));
         }
 
-        static double calcAddedHealth(double damage, int level) {
+        private static double calcAddedHealth(double damage, int level) {
             if (level == 1) return damage/6;
             else if (level == 2) return damage/5;
             else if (level == 3) return damage/4;
@@ -620,7 +620,6 @@ public class EnchantDefinitions {
         }
     }
         
-
     public static class Range extends Enchantment {
 
         public Range(NamespacedKey key) {
