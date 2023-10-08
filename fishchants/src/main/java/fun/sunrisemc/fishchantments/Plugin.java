@@ -6,10 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -199,5 +202,11 @@ public class Plugin extends JavaPlugin {
     if (mainHand.getType() != Material.AIR) return mainHand;
     if (offHand.getType() != Material.AIR) return offHand;
     return mainHand;
+  }
+
+  public static boolean playerCanModify(Player player, Block block) {
+    BlockBreakEvent event = new BlockBreakEvent(block, player);
+      Bukkit.getServer().getPluginManager().callEvent(event);
+      return !event.isCancelled();
   }
 }

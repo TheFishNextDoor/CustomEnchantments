@@ -33,7 +33,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 1;
+            return 4;
         }
 
         @Override
@@ -69,13 +69,30 @@ public class EnchantDefinitions {
 
         static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
             if (player == null || projectile == null || bow == null || block == null) return;
-            if (!Plugin.hasEnchant(bow, plugin.DESTRUCTIVE)) return;
-            if (block.getDrops(new ItemStack(Material.SHEARS)).isEmpty()) return;
-            BlockBreakEvent event = new BlockBreakEvent(block, player);
-            Bukkit.getServer().getPluginManager().callEvent(event);
-            if (event.isCancelled()) return;
+            final int level = Plugin.getEnchantLevel(bow, plugin.DESTRUCTIVE);
+            if (level < 1) return;
+            ItemStack usedTool = bow;
+            boolean hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
+            if (!hasDrops) {
+                usedTool = new ItemStack(Material.SHEARS);
+                hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
+            }
+            if (!hasDrops && level >= 2) {
+                usedTool = new ItemStack(Material.WOODEN_PICKAXE);
+                hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
+            }
+            if (!hasDrops && level >= 3) {
+                usedTool = new ItemStack(Material.IRON_PICKAXE);
+                hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
+            }
+            if (!hasDrops && level >= 4) {
+                usedTool = new ItemStack(Material.DIAMOND_PICKAXE);
+                hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
+            }
+            if (!hasDrops) return;
+            if (!Plugin.playerCanModify(player, block)) return;
             projectile.remove();
-            block.breakNaturally(bow);
+            block.breakNaturally(usedTool);
         }
     }
 
