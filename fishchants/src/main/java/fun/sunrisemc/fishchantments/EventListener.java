@@ -1,12 +1,8 @@
 package fun.sunrisemc.fishchantments;
 
 import java.util.ArrayList;
-import java.util.Collection;
-
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -26,7 +22,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Crops;
 import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Accurate;
@@ -48,6 +43,7 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Tilling;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Unbreakable;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Weakness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Worm;
 import net.md_5.bungee.api.ChatColor;
 
 public class EventListener implements Listener {
@@ -123,10 +119,8 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onTill(PlayerInteractEvent event) {
-        if (event.isCancelled()) return;
         Block clickedBlock = event.getClickedBlock();
         if (clickedBlock == null || event.getItem() == null) return;
-        Material itemType = event.getItem().getType();
         Tilling.onTill(plugin, event.getPlayer(), Plugin.getItemInHand(event.getPlayer()), clickedBlock);
     }
 
@@ -177,6 +171,17 @@ public class EventListener implements Listener {
         ItemStack item = Plugin.getItemInHand(player);
         if (item == null) return;
         Replanting.onBlockBreak(plugin, player, item, block, event);
+    }
+
+
+    @EventHandler
+    public void onSuffocation(EntityDamageEvent event) {
+        if (event.getCause() != EntityDamageEvent.DamageCause.SUFFOCATION) return;
+        if (!(event.getEntity() instanceof Player)) return;
+        Player player = (Player) event.getEntity();
+        ItemStack helmet = player.getInventory().getHelmet();
+        if (helmet == null) return;
+        Worm.onSuffocate(plugin, player, helmet, event);
     }
     
 

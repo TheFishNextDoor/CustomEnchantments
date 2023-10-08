@@ -58,6 +58,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         new FishchantmentCommandData(plugin.REPLANTING, "replanting");
         new FishchantmentCommandData(plugin.UNBREAKABLE, "unbreakable");
         new FishchantmentCommandData(plugin.FOOD, "food");
+        new FishchantmentCommandData(plugin.WORM, "worm");
         new FishchantmentCommandData(plugin.CRUSH, "crush");
         new FishchantmentCommandData(plugin.LIFE_STEAL, "life_steal");
         new FishchantmentCommandData(plugin.FLING, "fling");

@@ -17,6 +17,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
@@ -357,6 +358,58 @@ public class EnchantDefinitions {
         static void onHungerLoss(Plugin plugin, Player player, ItemStack item, FoodLevelChangeEvent event) {
             if (!Plugin.hasEnchant(item, plugin.FOOD)) return;
             event.setFoodLevel(20);
+        }
+    }
+
+    public static class Worm extends Enchantment {
+
+        public Worm(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Worm";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            return true;
+        }
+
+        static void onSuffocate(Plugin plugin, Player player, ItemStack item, EntityDamageEvent event) {
+            if (!Plugin.hasEnchant(item, plugin.WORM)) return;
+            event.setCancelled(true);
         }
     }
 

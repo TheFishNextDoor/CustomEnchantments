@@ -33,6 +33,7 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Range;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Slowness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Unbreakable;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Food;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Worm;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Crush;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Weakness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
@@ -46,6 +47,7 @@ public class Plugin extends JavaPlugin {
   public final NamespacedKey REPLANTING_KEY = new NamespacedKey(this, "replanting_fishchantment");
   public final NamespacedKey UNBREAKABLE_KEY = new NamespacedKey(this, "unbreakable_fishchantment");
   public final NamespacedKey FOOD_KEY = new NamespacedKey(this, "food_fishchantment");
+  public final NamespacedKey WORM_KEY = new NamespacedKey(this, "worm_fishchantment");
   public final NamespacedKey CRUSH_KEY = new NamespacedKey(this, "CRUSH_fishchantment");
   public final NamespacedKey LIFE_STEAL_KEY = new NamespacedKey(this, "life_steal_fishchantment");
   public final NamespacedKey FLING_KEY = new NamespacedKey(this, "fling_fishchantment");
@@ -66,6 +68,7 @@ public class Plugin extends JavaPlugin {
   public final Enchantment REPLANTING = new Replanting(REPLANTING_KEY);
   public final Enchantment UNBREAKABLE = new Unbreakable(UNBREAKABLE_KEY);
   public final Enchantment FOOD = new Food(FOOD_KEY);
+  public final Enchantment WORM = new Worm(WORM_KEY);
   public final Enchantment CRUSH = new Crush(CRUSH_KEY);
   public final Enchantment LIFE_STEAL = new LifeSteal(LIFE_STEAL_KEY);
   public final Enchantment FLING = new Fling(FLING_KEY);
@@ -87,6 +90,7 @@ public class Plugin extends JavaPlugin {
     register(REPLANTING);
     register(UNBREAKABLE);
     register(FOOD);
+    register(WORM);
     register(CRUSH);
     register(LIFE_STEAL);
     register(FLING);
