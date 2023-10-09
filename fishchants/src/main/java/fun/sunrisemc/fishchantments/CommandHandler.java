@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import net.md_5.bungee.api.ChatColor;
 
 public class CommandHandler implements CommandExecutor, TabCompleter {
+    private static final boolean INCLUDE_VANILLA = true;
     private static final boolean NUMERALS = false;
     private final Plugin plugin;
     private ArrayList<FishchantmentCommandData> commands = new ArrayList<FishchantmentCommandData>();
@@ -25,12 +26,14 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
     }
 
     class FishchantmentCommandData {
+        private final boolean FISHCHANTMENT;
         private final Enchantment ENCHANT;
         private final String COMMAND_NAME;
 
-        FishchantmentCommandData(Enchantment enchant, String commandName) {
+        FishchantmentCommandData(Enchantment enchant, String commandName, boolean isFishchantment) {
             this.ENCHANT = enchant;
             this.COMMAND_NAME = commandName;
+            this.FISHCHANTMENT = isFishchantment;
             commands.add(this);
         }
 
@@ -48,6 +51,10 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 
         int getMaxLevel() {
             return ENCHANT.getMaxLevel();
+        }
+
+        boolean isFischantment() {
+            return FISHCHANTMENT;
         }
     }
 
@@ -88,36 +95,42 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             try { level = Integer.parseInt(args[1]); }
             catch (Exception e) { level = numeralToNumber(args[1]); }
         }
-        addEnchant(player.getInventory().getItemInMainHand(), data, level);
-        if (level > 0) player.sendMessage("Fishchantment added to item in hand.");
-        else player.sendMessage("Fishchantment removed from item in hand.");
+        if (level > 0) {
+            if (addEnchant(player.getInventory().getItemInMainHand(), data, level, true)) player.sendMessage("Enchantment added to item in hand.");
+            else player.sendMessage(ChatColor.RED + "Enchantment could not be added to item in hand.");
+        }
+        else {
+            if (removeEnchant(player.getInventory().getItemInMainHand(), data)) player.sendMessage("Enchantment removed from item in hand.");
+            else player.sendMessage(ChatColor.RED + "Enchantment could not be removed from item in hand.");
+        }
         return true;
     }
 
     void registerEnchants() {
         commands = new ArrayList<FishchantmentCommandData>();
-        new FishchantmentCommandData(plugin.DESTRUCTIVE, "destructive");
-        new FishchantmentCommandData(plugin.TILLING, "tilling");
-        new FishchantmentCommandData(plugin.REPLANTING, "replanting");
-        new FishchantmentCommandData(plugin.UNBREAKABLE, "unbreakable");
-        new FishchantmentCommandData(plugin.FOOD, "food");
-        new FishchantmentCommandData(plugin.WORM, "worm");
-        new FishchantmentCommandData(plugin.CRUSH, "crush");
-        new FishchantmentCommandData(plugin.LIFE_STEAL, "life_steal");
-        new FishchantmentCommandData(plugin.FLING, "fling");
-        new FishchantmentCommandData(plugin.RANGE, "range");
-        new FishchantmentCommandData(plugin.ACCURATE, "accurate");
-        new FishchantmentCommandData(plugin.POISON, "poison");
-        new FishchantmentCommandData(plugin.WITHER, "wither");
-        new FishchantmentCommandData(plugin.HELIUM, "levitation");
-        new FishchantmentCommandData(plugin.GLOWING, "glowing");
-        new FishchantmentCommandData(plugin.BLINDNESS, "blindess");
-        new FishchantmentCommandData(plugin.CONFUSION, "confusion");
-        new FishchantmentCommandData(plugin.WEAKNESS, "weakness");
-        new FishchantmentCommandData(plugin.HUNGER, "hunger");
-        new FishchantmentCommandData(plugin.SLOWNESS, "slowness");
+        new FishchantmentCommandData(plugin.DESTRUCTIVE, "destructive", true);
+        new FishchantmentCommandData(plugin.TILLING, "tilling", true);
+        new FishchantmentCommandData(plugin.REPLANTING, "replanting", true);
+        new FishchantmentCommandData(plugin.UNBREAKABLE, "unbreakable", true);
+        new FishchantmentCommandData(plugin.FOOD, "food", true);
+        new FishchantmentCommandData(plugin.WORM, "worm", true);
+        new FishchantmentCommandData(plugin.CRUSH, "crush", true);
+        new FishchantmentCommandData(plugin.LIFE_STEAL, "life_steal", true);
+        new FishchantmentCommandData(plugin.FLING, "fling", true);
+        new FishchantmentCommandData(plugin.RANGE, "range", true);
+        new FishchantmentCommandData(plugin.ACCURATE, "accurate", true);
+        new FishchantmentCommandData(plugin.POISON, "poison", true);
+        new FishchantmentCommandData(plugin.WITHER, "wither", true);
+        new FishchantmentCommandData(plugin.HELIUM, "levitation", true);
+        new FishchantmentCommandData(plugin.GLOWING, "glowing", true);
+        new FishchantmentCommandData(plugin.BLINDNESS, "blindess", true);
+        new FishchantmentCommandData(plugin.CONFUSION, "confusion", true);
+        new FishchantmentCommandData(plugin.WEAKNESS, "weakness", true);
+        new FishchantmentCommandData(plugin.HUNGER, "hunger", true);
+        new FishchantmentCommandData(plugin.SLOWNESS, "slowness", true);
+        if (!INCLUDE_VANILLA) return;
         for (Enchantment enchantment : Enchantment.values()) {
-            new FishchantmentCommandData(enchantment, enchantment.getName().toLowerCase().replaceAll(" ", "_"));
+            new FishchantmentCommandData(enchantment, enchantment.getName().toLowerCase().replaceAll(" ", "_"), false);
         }
     }
 
@@ -152,11 +165,14 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         return commands;
     }
     
-    public static ItemStack addEnchant(ItemStack item, FishchantmentCommandData data, Integer level) {
-        if (Plugin.hasEnchant(item, data.getEnchantment())) removeEnchant(item, data);
-        if (level < 1) return item;
+    public boolean addEnchant(ItemStack item, FishchantmentCommandData data, Integer level, boolean force) {
+        if (level < 1) return false;
+        Enchantment enchantment = data.getEnchantment();
+        if (Plugin.hasEnchant(item, enchantment) && (force || level > Plugin.getEnchantLevel(item, enchantment))) removeEnchant(item, data);
         if (level > data.getMaxLevel()) level = data.getMaxLevel();
-        item.addEnchantment(data.getEnchantment(), level);
+        try { item.addEnchantment(enchantment, level); }
+        catch (Exception e) { return false; }
+         if (!data.isFischantment()) return true;
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
         if (lore == null) lore = new ArrayList<String>();
@@ -167,22 +183,23 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         }
         meta.setLore(lore);
         item.setItemMeta(meta);
-        return item;
+        return true;
     }
 
-    public static ItemStack removeEnchant(ItemStack item, FishchantmentCommandData data) {
-        if (!Plugin.hasEnchant(item, data.getEnchantment())) return item;
+    public static boolean removeEnchant(ItemStack item, FishchantmentCommandData data) {
+        if (!Plugin.hasEnchant(item, data.getEnchantment())) return false;
         item.removeEnchantment(data.getEnchantment());
+        if (!data.isFischantment()) return true;
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
-        if (lore == null) return item;
+        if (lore == null) return true;
         List<String> newLore = new ArrayList<>();
         for (String line : lore) {
             if (!line.contains(data.getLore())) newLore.add(line);
         }
         meta.setLore(newLore);
         item.setItemMeta(meta);
-        return item;
+        return true;
     }
 
     private static int numeralToNumber(String numeral) {

@@ -159,7 +159,7 @@ public class EnchantDefinitions {
             till(player, block);
         }
 
-        static void till(Player player, Block block) {
+        private static void till(Player player, Block block) {
             int x = block.getX(); int y = block.getY(); int z = block.getZ();
             int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
             for (int[] coords : allCoords) {
@@ -168,7 +168,7 @@ public class EnchantDefinitions {
             }
         }
 
-        static boolean isTillable(Material material) {
+        private static boolean isTillable(Material material) {
             return material == Material.DIRT || material == Material.GRASS_BLOCK || material == Material.GRASS_PATH;
         }
         

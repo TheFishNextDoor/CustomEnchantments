@@ -120,6 +120,7 @@ public class EventListener implements Listener {
     @EventHandler
     public void onTill(PlayerInteractEvent event) {
         Block clickedBlock = event.getClickedBlock();
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (clickedBlock == null || event.getItem() == null) return;
         Tilling.onTill(plugin, event.getPlayer(), Plugin.getItemInHand(event.getPlayer()), clickedBlock);
     }
@@ -193,7 +194,7 @@ public class EventListener implements Listener {
         ItemStack result = anvil.getItem(event.getRawSlot());
         ItemStack zero = anvil.getItem(0);
         ItemStack one = anvil.getItem(1);
-        if (!(plugin.hasCustomEnchant(result) || plugin.hasCustomEnchant(zero) || plugin.hasCustomEnchant(one))) return;
+        if (!(plugin.hasFishchantment(result) || plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return;
         event.setCancelled(true);
         player.sendMessage(ChatColor.RED + "You cannot edit items that have custom enchants.");
     }

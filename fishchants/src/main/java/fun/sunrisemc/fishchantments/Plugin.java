@@ -116,10 +116,11 @@ public class Plugin extends JavaPlugin {
     LOGGER.info("Fishchants disabled");
   }
 
-  public boolean hasCustomEnchant(ItemStack item) {
+  public boolean hasFishchantment(ItemStack item) {
     Iterator<FishchantmentCommandData> dataIter = commandHandler.getAllData().iterator();
     while(dataIter.hasNext()) {
-      if (hasEnchant(item, dataIter.next().getEnchantment())) return true;
+      FishchantmentCommandData data = dataIter.next();
+      if (data.isFischantment() && hasEnchant(item, data.getEnchantment())) return true;
     }
     return false;
   }
