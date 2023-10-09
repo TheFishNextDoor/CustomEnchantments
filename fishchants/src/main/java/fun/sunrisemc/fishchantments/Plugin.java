@@ -3,7 +3,6 @@ package fun.sunrisemc.fishchantments;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -150,7 +149,7 @@ public class Plugin extends JavaPlugin {
       Enchantment.registerEnchantment(enchant); 
     } 
     catch (Exception e) {
-      System.out.println("Failed to load enchant " + enchant.getName() + ": " + e.getMessage());
+      LOGGER.warning("Failed to load enchant " + enchant.getName() + ": " + e.getMessage());
     }
   }
 }

@@ -80,7 +80,6 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
         if (lore == null) lore = new ArrayList<String>();
-        if (level == 1) lore.add(0, getLore(enchantment, level));
         lore.add(0, getLore(enchantment, level));
         meta.setLore(lore);
         item.setItemMeta(meta);
