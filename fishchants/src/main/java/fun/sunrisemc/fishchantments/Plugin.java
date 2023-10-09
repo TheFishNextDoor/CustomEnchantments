@@ -1,7 +1,9 @@
 package fun.sunrisemc.fishchantments;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -16,7 +18,6 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fun.sunrisemc.fishchantments.CommandHandler.FishchantmentCommandData;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Accurate;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Blindness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Confusion;
@@ -40,49 +41,28 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
 
 public class Plugin extends JavaPlugin {
   private static final Logger LOGGER = Logger.getLogger("Fishchantments");
-  private CommandHandler commandHandler;
+  private ArrayList<Enchantment> fishchantments = new ArrayList<>();
 
-  public final NamespacedKey DESTRUCTIVE_KEY = new NamespacedKey(this, "destructive_fishchantment");
-  public final NamespacedKey TILLING_KEY = new NamespacedKey(this, "tilling_fishchantment");
-  public final NamespacedKey REPLANTING_KEY = new NamespacedKey(this, "replanting_fishchantment");
-  public final NamespacedKey UNBREAKABLE_KEY = new NamespacedKey(this, "unbreakable_fishchantment");
-  public final NamespacedKey FOOD_KEY = new NamespacedKey(this, "food_fishchantment");
-  public final NamespacedKey WORM_KEY = new NamespacedKey(this, "worm_fishchantment");
-  public final NamespacedKey CRUSH_KEY = new NamespacedKey(this, "CRUSH_fishchantment");
-  public final NamespacedKey LIFE_STEAL_KEY = new NamespacedKey(this, "life_steal_fishchantment");
-  public final NamespacedKey FLING_KEY = new NamespacedKey(this, "fling_fishchantment");
-  public final NamespacedKey RANGE_KEY = new NamespacedKey(this, "range_fishchantment");
-  public final NamespacedKey ACCURATE_KEY = new NamespacedKey(this, "accurate_fishchantment");
-  public final NamespacedKey POISON_KEY = new NamespacedKey(this, "poison_fishchantment");
-  public final NamespacedKey WITHER_KEY = new NamespacedKey(this, "wither_fishchantment");
-  public final NamespacedKey HELIUM_KEY = new NamespacedKey(this, "helium_fishchantment");
-  public final NamespacedKey GLOWING_KEY = new NamespacedKey(this, "glowing_fishchantment");
-  public final NamespacedKey BLINDNESS_KEY = new NamespacedKey(this, "blindness_fishchantment");
-  public final NamespacedKey CONFUSION_KEY = new NamespacedKey(this, "confusion_fishchantment");
-  public final NamespacedKey WEAKNESS_KEY = new NamespacedKey(this, "weakness_fishchantment");
-  public final NamespacedKey HUNGER_KEY = new NamespacedKey(this, "hunger_fishchantment");
-  public final NamespacedKey SLOWNESS_KEY  = new NamespacedKey(this, "slowness_fishchantment");
-
-  public final Enchantment DESTRUCTIVE = new Destructive(DESTRUCTIVE_KEY);
-  public final Enchantment TILLING = new Tilling(TILLING_KEY);
-  public final Enchantment REPLANTING = new Replanting(REPLANTING_KEY);
-  public final Enchantment UNBREAKABLE = new Unbreakable(UNBREAKABLE_KEY);
-  public final Enchantment FOOD = new Food(FOOD_KEY);
-  public final Enchantment WORM = new Worm(WORM_KEY);
-  public final Enchantment CRUSH = new Crush(CRUSH_KEY);
-  public final Enchantment LIFE_STEAL = new LifeSteal(LIFE_STEAL_KEY);
-  public final Enchantment FLING = new Fling(FLING_KEY);
-  public final Enchantment RANGE = new Range(RANGE_KEY);
-  public final Enchantment ACCURATE = new Accurate(ACCURATE_KEY);
-  public final Enchantment POISON = new Poison(POISON_KEY);
-  public final Enchantment WITHER = new Wither(WITHER_KEY);
-  public final Enchantment HELIUM = new Helium(HELIUM_KEY);
-  public final Enchantment GLOWING = new Glowing(GLOWING_KEY);
-  public final Enchantment BLINDNESS = new Blindness(BLINDNESS_KEY);
-  public final Enchantment CONFUSION = new Confusion(CONFUSION_KEY);
-  public final Enchantment WEAKNESS = new Weakness(WEAKNESS_KEY);
-  public final Enchantment HUNGER = new Hunger(HUNGER_KEY);
-  public final Enchantment SLOWNESS = new Slowness(SLOWNESS_KEY);
+  public final Enchantment DESTRUCTIVE = new Destructive(new NamespacedKey(this, "destructive_fishchantment"));
+  public final Enchantment TILLING = new Tilling(new NamespacedKey(this, "tilling_fishchantment"));
+  public final Enchantment REPLANTING = new Replanting(new NamespacedKey(this, "replanting_fishchantment"));
+  public final Enchantment UNBREAKABLE = new Unbreakable(new NamespacedKey(this, "unbreakable_fishchantment"));
+  public final Enchantment FOOD = new Food(new NamespacedKey(this, "food_fishchantment"));
+  public final Enchantment WORM = new Worm(new NamespacedKey(this, "worm_fishchantment"));
+  public final Enchantment CRUSH = new Crush(new NamespacedKey(this, "CRUSH_fishchantment"));
+  public final Enchantment LIFE_STEAL = new LifeSteal(new NamespacedKey(this, "life_steal_fishchantment"));
+  public final Enchantment FLING = new Fling(new NamespacedKey(this, "fling_fishchantment"));
+  public final Enchantment RANGE = new Range(new NamespacedKey(this, "range_fishchantment"));
+  public final Enchantment ACCURATE = new Accurate(new NamespacedKey(this, "accurate_fishchantment"));
+  public final Enchantment POISON = new Poison(new NamespacedKey(this, "poison_fishchantment"));
+  public final Enchantment WITHER = new Wither(new NamespacedKey(this, "wither_fishchantment"));
+  public final Enchantment HELIUM = new Helium(new NamespacedKey(this, "helium_fishchantment"));
+  public final Enchantment GLOWING = new Glowing(new NamespacedKey(this, "glowing_fishchantment"));
+  public final Enchantment BLINDNESS = new Blindness(new NamespacedKey(this, "blindness_fishchantment"));
+  public final Enchantment CONFUSION = new Confusion(new NamespacedKey(this, "confusion_fishchantment"));
+  public final Enchantment WEAKNESS = new Weakness(new NamespacedKey(this, "weakness_fishchantment"));
+  public final Enchantment HUNGER = new Hunger(new NamespacedKey(this, "hunger_fishchantment"));
+  public final Enchantment SLOWNESS = new Slowness(new NamespacedKey(this, "slowness_fishchantment"));
 
   public void onEnable() {
     register(DESTRUCTIVE);
@@ -105,9 +85,7 @@ public class Plugin extends JavaPlugin {
     register(WEAKNESS);
     register(HUNGER);
     register(SLOWNESS);
-    commandHandler = new CommandHandler(this);
-    commandHandler.registerEnchants();
-    getCommand("fenchant").setExecutor(commandHandler);
+    getCommand("fenchant").setExecutor(new CommandHandler(this));
     getServer().getPluginManager().registerEvents(new EventListener(this), this);
     LOGGER.info("Fishchantments enabled");
   }
@@ -116,11 +94,22 @@ public class Plugin extends JavaPlugin {
     LOGGER.info("Fishchants disabled");
   }
 
+  public ArrayList<Enchantment> getFishchantments() {
+    return fishchantments;
+  }
+
   public boolean hasFishchantment(ItemStack item) {
-    Iterator<FishchantmentCommandData> dataIter = commandHandler.getAllData().iterator();
-    while(dataIter.hasNext()) {
-      FishchantmentCommandData data = dataIter.next();
-      if (data.isFischantment() && hasEnchant(item, data.getEnchantment())) return true;
+    Iterator<Enchantment> enchants = item.getItemMeta().getEnchants().keySet().iterator();
+    while (enchants.hasNext()) {
+      if (isFishchantment(enchants.next())) return true;
+    }
+    return false;
+  }
+
+  public boolean isFishchantment(Enchantment enchantment) {
+    Iterator<Enchantment> iter = fishchantments.iterator();
+    while (iter.hasNext()) {
+      if (iter.next() == enchantment) return true;
     }
     return false;
   }
@@ -152,7 +141,8 @@ public class Plugin extends JavaPlugin {
     return !event.isCancelled();
   }
 
-  private static void register(Enchantment enchant) {
+  private void register(Enchantment enchant) {
+    fishchantments.add(enchant);
     try {
       Field f = Enchantment.class.getDeclaredField("acceptingNew");
       f.setAccessible(true);
