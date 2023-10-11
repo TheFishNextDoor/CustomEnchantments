@@ -84,8 +84,7 @@ public class EventListener implements Listener {
         LivingEntity entity = (LivingEntity) event.getEntity();
         ItemStack weapon = Plugin.getItemInHand(player);
         Material weaponType = weapon.getType();
-        final boolean RANGED_WEAPON = weaponType == Material.BOW || weaponType == Material.CROSSBOW;
-        if (!RANGED_ATTACK && RANGED_WEAPON) return;
+        if (!RANGED_ATTACK && Plugin.isRangedWeapon(weaponType) && !Plugin.isMeleeWeapon(weaponType)) return;
         final double damage = event.getDamage();
         if (plugin == null || player == null || entity == null || weapon == null || damage == 0) return;
         LifeSteal.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);

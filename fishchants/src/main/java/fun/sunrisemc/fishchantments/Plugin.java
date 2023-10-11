@@ -97,7 +97,7 @@ public class Plugin extends JavaPlugin {
   }
 
   public ArrayList<Enchantment> getFishchantments() {
-    return fishchantments;
+    return new ArrayList<>(fishchantments);
   }
 
   public boolean hasFishchantment(ItemStack item) {
@@ -120,20 +120,25 @@ public class Plugin extends JavaPlugin {
   public boolean isFishchantment(Enchantment enchantment) {
     if (enchantment == null) return false;
     Iterator<Enchantment> fishchantments = getFishchantments().iterator();
-    while (fishchantments.hasNext()) { // The ol double checker
-      if (fishchantments.next().getName().equals(enchantment.getName())) return true;
+    while (fishchantments.hasNext()) {
+      String name = fishchantments.next().getName();
+      if (name.equals(enchantment.getName())) return true;
     }
     return false;
   }
 
   public boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
     if (level < 1) return false;
+    if (!force && !isCompatible(item, enchantment)) return false;
     int currentLevel = Plugin.getEnchantLevel(item, enchantment);
     if (!force && level < currentLevel) return false;
     if (combine && level == currentLevel) level++;
     removeEnchant(item, enchantment);
     if (level > enchantment.getMaxLevel()) level = enchantment.getMaxLevel();
-    try { item.addEnchantment(enchantment, level); }
+    try {
+      if (force) item.addUnsafeEnchantment(enchantment, level); 
+      else item.addEnchantment(enchantment, level); 
+    }
     catch (Exception e) { return false; }
 
     // Lore
@@ -144,6 +149,20 @@ public class Plugin extends JavaPlugin {
     lore.add(0, getLore(enchantment, level));
     meta.setLore(lore);
     item.setItemMeta(meta);
+    return true;
+  }
+
+  public boolean isCompatible(ItemStack item, Enchantment enchantment) {
+    if (item == null || enchantment == null) return false;
+    if (!enchantment.canEnchantItem(item)) return false;
+
+    // Conflicts
+    if (!item.hasItemMeta()) return true;
+    Iterator<Enchantment> iter = item.getItemMeta().getEnchants().keySet().iterator();
+    while (iter.hasNext()) {
+      Enchantment ienchantment = iter.next();
+      if (enchantment.conflictsWith(ienchantment) || ienchantment.conflictsWith(enchantment)) return false;
+    }
     return true;
   }
 
@@ -192,6 +211,66 @@ public class Plugin extends JavaPlugin {
     BlockBreakEvent event = new BlockBreakEvent(block, player);
     Bukkit.getServer().getPluginManager().callEvent(event);
     return !event.isCancelled();
+  }
+
+  public static boolean isEnchantable(Material material) {
+    return isTool(material) || isWeapon(material)  || isArmor(material);
+  }
+
+  public static boolean isTool(Material material) {
+    return isPickaxe(material) || isShovel(material) || isAxe(material) || isHoe(material);
+  }
+
+  public static boolean isPickaxe(Material material) {
+    return material.name().endsWith("_PICKAXE"); 
+  }
+
+  public static boolean isShovel(Material material) {
+    return material.name().endsWith("_SHOVEL"); 
+  }
+
+  public static boolean isHoe(Material material) {
+    return material.name().endsWith("_HOE"); 
+  }
+
+  public static boolean isWeapon(Material material) {
+    return isMeleeWeapon(material) || isRangedWeapon(material);
+  }
+
+  public static boolean isMeleeWeapon(Material material) {
+     return isSword(material) || isAxe(material) || material == Material.TRIDENT;
+  }
+
+  public static boolean isSword(Material material) {
+    return material.name().endsWith("_SWORD");
+  }
+
+  public static boolean isAxe(Material material) {
+    return material.name().endsWith("_AXE");
+  }
+
+  public static boolean isRangedWeapon(Material material) {
+    return material == Material.BOW || material == Material.CROSSBOW || material == Material.TRIDENT;
+  }
+
+  public static boolean isArmor(Material material) {
+    return isHelmet(material) || isChestplate(material) || isLeggings(material) || isBoots(material);
+  }
+
+  public static boolean isHelmet(Material material) {
+    return material.name().endsWith("_HELMET");
+  }
+
+  public static boolean isChestplate(Material material) {
+    return material.name().endsWith("_CHESTPLATE");
+  }
+
+  public static boolean isLeggings(Material material) {
+    return material.name().endsWith("_LEGGINGS");
+  }
+
+  public static boolean isBoots(Material material) {
+    return material.name().endsWith("_BOOTS");
   }
 
   private void register(Enchantment enchant) {

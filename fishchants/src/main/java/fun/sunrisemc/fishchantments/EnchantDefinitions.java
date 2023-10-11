@@ -65,13 +65,13 @@ public class EnchantDefinitions {
 
         @Override
         public boolean conflictsWith(Enchantment other) {
-            if (other == Enchantment.ARROW_INFINITE) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isRangedWeapon(item.getType());
         }
 
         static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
@@ -143,7 +143,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isHoe(item.getType());
         }
 
         static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
@@ -217,7 +218,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isHoe(item.getType());
         }
 
         static void onRightClick(Plugin plugin, Player player, ItemStack item, Block block) {
@@ -299,7 +301,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isEnchantable(item.getType());
         }
 
         static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, PlayerItemDamageEvent event) {
@@ -352,7 +355,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isHelmet(item.getType());
         }
 
         static void onHungerLoss(Plugin plugin, Player player, ItemStack item, FoodLevelChangeEvent event) {
@@ -404,7 +408,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isHelmet(item.getType());
         }
 
         static void onSuffocate(Plugin plugin, Player player, ItemStack item, EntityDamageEvent event) {
@@ -451,12 +456,14 @@ public class EnchantDefinitions {
 
         @Override
         public boolean conflictsWith(Enchantment other) {
+            if (other == Enchantment.PROTECTION_FALL) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isBoots(item.getType());
         }
 
         static void onFall(Plugin plugin, Player player, ItemStack item, double fallDamage, ArrayList<LivingEntity> fellOn) {
@@ -526,7 +533,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, ItemStack weapon, double damage, boolean ranged) {
@@ -601,7 +609,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, ItemStack weapon, double damage, boolean ranged) {
@@ -663,7 +672,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isRangedWeapon(item.getType());
         }
 
         static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
@@ -717,7 +727,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isRangedWeapon(item.getType());
         }
 
         static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
@@ -775,7 +786,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
@@ -828,7 +840,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
@@ -881,7 +894,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
@@ -934,7 +948,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
@@ -987,7 +1002,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
@@ -1040,7 +1056,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
@@ -1093,7 +1110,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
@@ -1146,7 +1164,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
@@ -1199,7 +1218,8 @@ public class EnchantDefinitions {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            return true;
+            if (item == null) return false;
+            return Plugin.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {

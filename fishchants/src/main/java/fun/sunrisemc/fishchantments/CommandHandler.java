@@ -1,6 +1,7 @@
 package fun.sunrisemc.fishchantments;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -24,8 +26,9 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (!sender.hasPermission(command.getPermission())) return null;
         if (!(sender instanceof Player)) return null;
+        Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("fenchant")) {
-            if (args.length == 1) return getEnchantCommandNames();
+            if (args.length == 1) return getEnchantCommandNames(Plugin.getItemInHand(player));
             else if (args.length == 2) {
                 ArrayList<String> levels = new ArrayList<>();
                 Enchantment enchantment = getEnchantment(args[0]);
@@ -68,22 +71,29 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
     }
 
     private Enchantment getEnchantment(String name) {
-        Iterator<Enchantment> fcIter = plugin.getFishchantments().iterator();
-        while (fcIter.hasNext()) {
-            Enchantment enchantment = fcIter.next();
+        ArrayList<Enchantment> enchants = plugin.getFishchantments();
+        enchants.addAll(Arrays.asList(Enchantment.values()));
+        Iterator<Enchantment> enchantIter = enchants.iterator();
+        while (enchantIter.hasNext()) {
+            Enchantment enchantment = enchantIter.next();
             if (getEnchantCommandName(enchantment).equalsIgnoreCase(name)) return enchantment; 
         }
         return null;
     }
 
-    private ArrayList<String> getEnchantCommandNames() {
+    private ArrayList<String> getEnchantCommandNames(ItemStack item) {
         ArrayList<Enchantment> enchants = plugin.getFishchantments();
+        enchants.addAll(Arrays.asList(Enchantment.values()));
         Iterator<Enchantment> enchantIter = enchants.iterator();
         ArrayList<String> names = new ArrayList<>();
+        ArrayList<String> allNames = new ArrayList<>();
         while (enchantIter.hasNext()) {
-            names.add(getEnchantCommandName(enchantIter.next()));
+            Enchantment enchantment = enchantIter.next();
+            String name = getEnchantCommandName(enchantment);
+            allNames.add(name);
+            if (plugin.isCompatible(item, enchantment) || Plugin.hasEnchant(item, enchantment)) names.add(name);
         }
-        return names;
+        return names.size() == 0 ? allNames : names;
     }
 
     @SuppressWarnings("deprecation")
