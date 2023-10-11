@@ -10,13 +10,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import net.md_5.bungee.api.ChatColor;
 
 public class CommandHandler implements CommandExecutor, TabCompleter {
-    private static final boolean NUMERALS = false;
     private final Plugin plugin;
 
     CommandHandler(Plugin plugin) {
@@ -60,46 +57,13 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             catch (Exception e) { level = numeralToNumber(args[1]); }
         }
         if (level > 0) {
-            if (addEnchant(player.getInventory().getItemInMainHand(), enchantment, level, true)) player.sendMessage("Enchantment added to item in hand.");
+            if (plugin.addEnchant(player.getInventory().getItemInMainHand(), enchantment, level, true, false)) player.sendMessage("Enchantment added to item in hand.");
             else player.sendMessage(ChatColor.RED + "Enchantment could not be added to item in hand.");
         }
         else {
-            if (removeEnchant(player.getInventory().getItemInMainHand(), enchantment)) player.sendMessage("Enchantment removed from item in hand.");
+            if (plugin.removeEnchant(player.getInventory().getItemInMainHand(), enchantment)) player.sendMessage("Enchantment removed from item in hand.");
             else player.sendMessage(ChatColor.RED + "Enchantment could not be removed from item in hand.");
         }
-        return true;
-    }
-
-    private boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force) {
-        if (level < 1) return false;
-        if (Plugin.hasEnchant(item, enchantment) && (force || level > Plugin.getEnchantLevel(item, enchantment))) removeEnchant(item, enchantment);
-        if (level > enchantment.getMaxLevel()) level = enchantment.getMaxLevel();
-        try { item.addEnchantment(enchantment, level); }
-        catch (Exception e) { return false; }
-        if (!plugin.isFishchantment(enchantment)) return true;
-        ItemMeta meta = item.getItemMeta();
-        List<String> lore = meta.getLore();
-        if (lore == null) lore = new ArrayList<String>();
-        lore.add(0, getLore(enchantment, level));
-        meta.setLore(lore);
-        item.setItemMeta(meta);
-        return true;
-    }
-
-    private boolean removeEnchant(ItemStack item, Enchantment enchantment) {
-        if (!Plugin.hasEnchant(item, enchantment)) return false;
-        item.removeEnchantment(enchantment);
-        if (!plugin.isFishchantment(enchantment)) return true;
-        ItemMeta meta = item.getItemMeta();
-        List<String> lore = meta.getLore();
-        if (lore == null) return true;
-        List<String> newLore = new ArrayList<>();
-        String enchantLore = getLore(enchantment, 1);
-        for (String line : lore) {
-            if (!line.contains(enchantLore)) newLore.add(line);
-        }
-        meta.setLore(newLore);
-        item.setItemMeta(meta);
         return true;
     }
 
@@ -124,29 +88,6 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 
     private String getEnchantCommandName(Enchantment enchantment) {
         return enchantment.getName().toLowerCase().replaceAll(" ", "_");
-    }
-
-    private static String getLore(Enchantment enchantment, Integer level) {
-        if (level < 0) return null;
-        String lore = ChatColor.GRAY + enchantment.getName();
-        if (level == 1) return lore;
-        else return lore + " " + (NUMERALS ? numberToNumeral(level) : level.toString());
-    }
-
-    private static String numberToNumeral(int number) {
-        switch (number) {
-            case 10: return "X";
-            case 9: return "IX";
-            case 8: return "VIII";
-            case 7: return "VII";
-            case 6: return "VI";
-            case 5: return "V";
-            case 4: return "IV";
-            case 3: return "III";
-            case 2: return "II";
-            case 1: return "I";
-            default: return "";
-        }
     }
 
     private static int numeralToNumber(String numeral) {

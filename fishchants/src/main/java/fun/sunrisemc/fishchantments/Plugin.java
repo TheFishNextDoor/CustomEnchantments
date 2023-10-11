@@ -3,6 +3,7 @@ package fun.sunrisemc.fishchantments;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -34,12 +35,14 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Slowness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Unbreakable;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Food;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Worm;
+import net.md_5.bungee.api.ChatColor;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Crush;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Weakness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
 
 public class Plugin extends JavaPlugin {
   private static final Logger LOGGER = Logger.getLogger("Fishchantments");
+  private static final boolean NUMERALS = false;
   private ArrayList<Enchantment> fishchantments = new ArrayList<>();
 
   public final Enchantment DESTRUCTIVE = new Destructive(new NamespacedKey(this, "destructive_fishchantment"));
@@ -98,19 +101,69 @@ public class Plugin extends JavaPlugin {
   }
 
   public boolean hasFishchantment(ItemStack item) {
-    Iterator<Enchantment> enchants = item.getItemMeta().getEnchants().keySet().iterator();
-    while (enchants.hasNext()) {
-      if (isFishchantment(enchants.next())) return true;
+    return getFishchantments(item).size() > 0;
+  }
+
+  public ArrayList<Enchantment> getFishchantments(ItemStack item) {
+    ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
+    if (item == null) return foundFishchantments;
+    if (!item.hasItemMeta()) return foundFishchantments;
+    Iterator<Enchantment> enchantments = item.getItemMeta().getEnchants().keySet().iterator();
+    while (enchantments.hasNext()) {
+      Enchantment enchantment = enchantments.next();
+      if (isFishchantment(enchantment)) foundFishchantments.add(enchantment);
+    }
+    return foundFishchantments;
+  }
+
+  public boolean isFishchantment(Enchantment enchantment) {
+    if (enchantment == null) return false;
+    Iterator<Enchantment> fishchantments = getFishchantments().iterator();
+    while (fishchantments.hasNext()) { // The ol double checker
+      if (fishchantments.next().getName().equals(enchantment.getName())) return true;
     }
     return false;
   }
 
-  public boolean isFishchantment(Enchantment enchantment) {
-    Iterator<Enchantment> iter = fishchantments.iterator();
-    while (iter.hasNext()) {
-      if (iter.next() == enchantment) return true;
+  public boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
+    if (level < 1) return false;
+    int currentLevel = Plugin.getEnchantLevel(item, enchantment);
+    if (!force && level < currentLevel) return false;
+    if (combine && level == currentLevel) level++;
+    removeEnchant(item, enchantment);
+    if (level > enchantment.getMaxLevel()) level = enchantment.getMaxLevel();
+    try { item.addEnchantment(enchantment, level); }
+    catch (Exception e) { return false; }
+
+    // Lore
+    if (!isFishchantment(enchantment)) return true;
+    ItemMeta meta = item.getItemMeta();
+    List<String> lore = meta.getLore();
+    if (lore == null) lore = new ArrayList<String>();
+    lore.add(0, getLore(enchantment, level));
+    meta.setLore(lore);
+    item.setItemMeta(meta);
+    return true;
+  }
+
+  public boolean removeEnchant(ItemStack item, Enchantment enchantment) {
+    if (item == null) return false;
+    final boolean HASENCHANT = Plugin.hasEnchant(item, enchantment);
+    if (HASENCHANT) item.removeEnchantment(enchantment);
+
+    // Lore
+    if (!isFishchantment(enchantment)) return HASENCHANT;
+    ItemMeta meta = item.getItemMeta();
+    List<String> lore = meta.getLore();
+    if (lore == null) return HASENCHANT;
+    List<String> newLore = new ArrayList<>();
+    String enchantLore = getLore(enchantment, 1);
+    for (String line : lore) {
+      if (!line.contains(enchantLore)) newLore.add(line);
     }
-    return false;
+    meta.setLore(newLore);
+    item.setItemMeta(meta);
+    return HASENCHANT;
   }
 
   public static boolean hasEnchant(ItemStack item, Enchantment enchant) {
@@ -150,6 +203,29 @@ public class Plugin extends JavaPlugin {
     } 
     catch (Exception e) {
       LOGGER.warning("Failed to load enchant " + enchant.getName() + ": " + e.getMessage());
+    }
+  }
+
+  private static String getLore(Enchantment enchantment, Integer level) {
+    if (level < 0) return null;
+    String lore = ChatColor.GRAY + enchantment.getName();
+    if (level == 1) return lore;
+    else return lore + " " + (NUMERALS ? numberToNumeral(level) : level.toString());
+  }
+
+  private static String numberToNumeral(int number) {
+    switch (number) {
+        case 10: return "X";
+        case 9: return "IX";
+        case 8: return "VIII";
+        case 7: return "VII";
+        case 6: return "VI";
+        case 5: return "V";
+        case 4: return "IV";
+        case 3: return "III";
+        case 2: return "II";
+        case 1: return "I";
+        default: return "";
     }
   }
 }

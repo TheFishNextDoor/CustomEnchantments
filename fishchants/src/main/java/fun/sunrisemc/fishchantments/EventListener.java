@@ -3,6 +3,7 @@ package fun.sunrisemc.fishchantments;
 import java.util.ArrayList;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -18,6 +19,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.AnvilInventory;
@@ -47,6 +49,7 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Worm;
 import net.md_5.bungee.api.ChatColor;
 
 public class EventListener implements Listener {
+    private static final boolean ALLOW_EDIT = true;
     private final Plugin plugin;
 
     EventListener(Plugin plugin) {
@@ -185,7 +188,8 @@ public class EventListener implements Listener {
     }
     
     @EventHandler
-    public void disableAnvilEditingOfFishchantments(InventoryClickEvent event) {
+    public void onAnvilComplete(InventoryClickEvent event) {
+        if (event.isCancelled()) return;
         if (!(event.getInventory() instanceof AnvilInventory)) return;
         if (!(event.getWhoClicked() instanceof Player)) return;
         AnvilInventory anvil = (AnvilInventory) event.getInventory();
@@ -194,8 +198,42 @@ public class EventListener implements Listener {
         ItemStack result = anvil.getItem(event.getRawSlot());
         ItemStack zero = anvil.getItem(0);
         ItemStack one = anvil.getItem(1);
-        if (!(plugin.hasFishchantment(result) || plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return;
-        event.setCancelled(true);
-        player.sendMessage(ChatColor.RED + "You cannot edit items that have custom enchants.");
+        if (!(plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return;
+        if (plugin.hasFishchantment(result)) return; // Don't need to fix
+        if (ALLOW_EDIT) {
+            ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
+            fishchantments.addAll(plugin.getFishchantments(one));
+            for (int i = 0; i < fishchantments.size(); i++) {
+                Enchantment enchantment = fishchantments.get(i);
+                int zeroLevel = Plugin.getEnchantLevel(zero, enchantment);
+                int oneLevel = Plugin.getEnchantLevel(one, enchantment);
+                int level = zeroLevel > oneLevel ? zeroLevel : oneLevel;
+                plugin.addEnchant(result, enchantment, level, false, true);
+            }
+        }
+        else {
+            event.setCancelled(true);
+            player.sendMessage(ChatColor.RED + "You cannot edit items that have custom enchants.");
+        }
+    }
+
+    @EventHandler
+    public void onAnvilPrepare(PrepareAnvilEvent event) {
+        ItemStack zero = event.getInventory().getItem(0);
+        ItemStack one = event.getInventory().getItem(1);
+        if (!(plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return;
+        if (!ALLOW_EDIT) return;
+        ItemStack result = event.getResult();
+        if (plugin.hasFishchantment(result)) return; // Don't need to fix
+        ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
+        fishchantments.addAll(plugin.getFishchantments(one));
+        for (int i = 0; i < fishchantments.size(); i++) {
+            Enchantment enchantment = fishchantments.get(i);
+            int zeroLevel = Plugin.getEnchantLevel(zero, enchantment);
+            int oneLevel = Plugin.getEnchantLevel(one, enchantment);
+            int level = zeroLevel > oneLevel ? zeroLevel : oneLevel;
+            plugin.addEnchant(result, enchantment, level, false, true);
+        }
+        event.setResult(result);
     }
 }
