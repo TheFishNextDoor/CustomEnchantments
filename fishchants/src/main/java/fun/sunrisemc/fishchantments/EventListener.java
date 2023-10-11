@@ -23,6 +23,7 @@ import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.AnvilInventory;
+import org.bukkit.inventory.GrindstoneInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
@@ -186,7 +187,27 @@ public class EventListener implements Listener {
         if (helmet == null) return;
         Worm.onSuffocate(plugin, player, helmet, event);
     }
-    
+
+    @EventHandler
+    public void onAnvilPrepare(PrepareAnvilEvent event) {
+        ItemStack zero = event.getInventory().getItem(0);
+        ItemStack one = event.getInventory().getItem(1);
+        if (!(plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return;
+        if (!ALLOW_EDIT) return;
+        ItemStack result = event.getResult();
+        if (plugin.hasFishchantment(result)) return; // Don't need to fix
+        ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
+        fishchantments.addAll(plugin.getFishchantments(one));
+        for (int i = 0; i < fishchantments.size(); i++) {
+            Enchantment enchantment = fishchantments.get(i);
+            int zeroLevel = Plugin.getEnchantLevel(zero, enchantment);
+            int oneLevel = Plugin.getEnchantLevel(one, enchantment);
+            int level = zeroLevel > oneLevel ? zeroLevel : oneLevel;
+            plugin.addEnchant(result, enchantment, level, false, true);
+        }
+        event.setResult(result);
+    }
+
     @EventHandler
     public void onAnvilComplete(InventoryClickEvent event) {
         if (event.isCancelled()) return;
@@ -218,22 +239,21 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void onAnvilPrepare(PrepareAnvilEvent event) {
-        ItemStack zero = event.getInventory().getItem(0);
-        ItemStack one = event.getInventory().getItem(1);
+    public void onGrindstoneComplete(InventoryClickEvent event) {
+        if (event.isCancelled()) return;
+        if (!(event.getInventory() instanceof GrindstoneInventory)) return;
+        if (!(event.getWhoClicked() instanceof Player)) return;
+        GrindstoneInventory grindstone = (GrindstoneInventory) event.getInventory();
+        if (event.getSlotType() != SlotType.RESULT) return;
+        ItemStack result = grindstone.getItem(event.getRawSlot());
+        ItemStack zero = grindstone.getItem(0);
+        ItemStack one = grindstone.getItem(1);
         if (!(plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return;
-        if (!ALLOW_EDIT) return;
-        ItemStack result = event.getResult();
-        if (plugin.hasFishchantment(result)) return; // Don't need to fix
         ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
         fishchantments.addAll(plugin.getFishchantments(one));
         for (int i = 0; i < fishchantments.size(); i++) {
             Enchantment enchantment = fishchantments.get(i);
-            int zeroLevel = Plugin.getEnchantLevel(zero, enchantment);
-            int oneLevel = Plugin.getEnchantLevel(one, enchantment);
-            int level = zeroLevel > oneLevel ? zeroLevel : oneLevel;
-            plugin.addEnchant(result, enchantment, level, false, true);
+            plugin.removeEnchant(result, enchantment);
         }
-        event.setResult(result);
     }
 }

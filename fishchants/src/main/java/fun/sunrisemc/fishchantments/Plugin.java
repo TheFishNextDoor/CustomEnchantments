@@ -116,6 +116,7 @@ public class Plugin extends JavaPlugin {
     return foundFishchantments;
   }
 
+  @SuppressWarnings("deprecation")
   public boolean isFishchantment(Enchantment enchantment) {
     if (enchantment == null) return false;
     Iterator<Enchantment> fishchantments = getFishchantments().iterator();
@@ -202,10 +203,11 @@ public class Plugin extends JavaPlugin {
       Enchantment.registerEnchantment(enchant); 
     } 
     catch (Exception e) {
-      LOGGER.warning("Failed to load enchant " + enchant.getName() + ": " + e.getMessage());
+      LOGGER.warning("Failed to load enchant " + enchant.toString() + ": " + e.getMessage());
     }
   }
 
+  @SuppressWarnings("deprecation")
   private static String getLore(Enchantment enchantment, Integer level) {
     if (level < 0) return null;
     String lore = ChatColor.GRAY + enchantment.getName();

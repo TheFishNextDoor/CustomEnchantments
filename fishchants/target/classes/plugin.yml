@@ -1,6 +1,6 @@
 name: Fishchantments
 main: fun.sunrisemc.fishchantments.Plugin
-version: 0.2.0
+version: 0.2.1
 api-version: 1.15
 authors: ["TheFishNextDoor"]
 description: Custom Enchantments by TheFishNextDoor
