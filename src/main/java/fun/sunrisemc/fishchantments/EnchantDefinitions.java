@@ -2,8 +2,10 @@ package fun.sunrisemc.fishchantments;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -255,6 +257,98 @@ public class EnchantDefinitions {
                 block.getWorld().dropItemNaturally(block.getLocation(), drop);
             }
             return true;
+        }
+    }
+
+    public static class Excavating extends Enchantment {
+
+        public Excavating(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Excavating";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isTool(item.getType());
+        }
+
+        static void onBlockBreak(Plugin plugin, Player player, ItemStack item, Block block, BlockBreakEvent event) {
+            if (!Plugin.hasEnchant(item, plugin.EXCAVATING)) return;
+            Vector direction = player.getLocation().getDirection();
+            double x = Math.abs(direction.getX());
+            double y = Math.abs(direction.getY());
+            double z = Math.abs(direction.getZ());
+            ArrayList<Block> blocks = new ArrayList<>();
+            if (x > y && x > z) { // Looking along x axis
+                blocks.add(block.getRelative(0, 0, 1));
+                blocks.add(block.getRelative(0, 0, -1));
+                blocks.add(block.getRelative(0, 1, 0));
+                blocks.add(block.getRelative(0, -1, 0));
+                blocks.add(block.getRelative(0, 1, 1));
+                blocks.add(block.getRelative(0, 1, -1));
+                blocks.add(block.getRelative(0, -1, 1));
+                blocks.add(block.getRelative(0, -1, -1));
+            }
+            else if (z > x && z > y) {// Looking along z axis
+                blocks.add(block.getRelative(0, 1, 0));
+                blocks.add(block.getRelative(0, -1, 0));
+                blocks.add(block.getRelative(1, 0, 0));
+                blocks.add(block.getRelative(-1, 0, 0));
+                blocks.add(block.getRelative(1, 1, 0));
+                blocks.add(block.getRelative(1, -1, 0));
+                blocks.add(block.getRelative(-1, 1, 0));
+                blocks.add(block.getRelative(-1, -1, 0));
+            }
+            else if (y > x && y > z) { // Looking along Y axis
+                blocks.add(block.getRelative(0, 0, 1));
+                blocks.add(block.getRelative(0, 0, -1));
+                blocks.add(block.getRelative(1, 0, 0));
+                blocks.add(block.getRelative(-1, 0, 0));
+                blocks.add(block.getRelative(1, 0, 1));
+                blocks.add(block.getRelative(1, 0, -1));
+                blocks.add(block.getRelative(-1, 0, 1));
+                blocks.add(block.getRelative(-1, 0, -1));
+            }
+            Iterator<Block> iter = blocks.iterator();
+            while (iter.hasNext()) {
+                Block iblock = iter.next();
+                if (Plugin.playerCanModify(player, iblock) && (!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) iblock.breakNaturally(item);
+            }
         }
     }
 

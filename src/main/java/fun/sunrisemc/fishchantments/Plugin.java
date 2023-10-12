@@ -57,15 +57,18 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Jump;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Resistance;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Regeneration;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Excavating;;
 
 public class Plugin extends JavaPlugin {
   private static final Logger LOGGER = Logger.getLogger("Fishchantments");
   private static final boolean NUMERALS = false;
+  private static ArrayList<BlockBreakEvent> checking = new ArrayList<>();
   private ArrayList<Enchantment> fishchantments = new ArrayList<>();
 
   public final Enchantment DESTRUCTIVE = new Destructive(new NamespacedKey(this, "destructive_fishchantment"));
   public final Enchantment TILLING = new Tilling(new NamespacedKey(this, "tilling_fishchantment"));
   public final Enchantment REPLANTING = new Replanting(new NamespacedKey(this, "replanting_fishchantment"));
+  public final Enchantment EXCAVATING = new Excavating(new NamespacedKey(this, "excavating_fishchantment"));
   public final Enchantment UNBREAKABLE = new Unbreakable(new NamespacedKey(this, "unbreakable_fishchantment"));
   public final Enchantment FOOD = new Food(new NamespacedKey(this, "food_fishchantment"));
   public final Enchantment WORM = new Worm(new NamespacedKey(this, "worm_fishchantment"));
@@ -106,6 +109,7 @@ public class Plugin extends JavaPlugin {
     register(DESTRUCTIVE);
     register(TILLING);
     register(REPLANTING);
+    register(EXCAVATING);
     register(UNBREAKABLE);
     register(FOOD);
     register(WORM);
@@ -261,8 +265,14 @@ public class Plugin extends JavaPlugin {
 
   public static boolean playerCanModify(Player player, Block block) {
     BlockBreakEvent event = new BlockBreakEvent(block, player);
+    checking.add(event); 
     Bukkit.getServer().getPluginManager().callEvent(event);
+    checking.remove(event);
     return !event.isCancelled();
+  }
+
+  public static boolean isReal(BlockBreakEvent event) {
+    return !checking.contains(event);
   }
 
   public static boolean isEnchantable(Material material) {

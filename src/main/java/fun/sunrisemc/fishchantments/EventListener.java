@@ -1,6 +1,7 @@
 package fun.sunrisemc.fishchantments;
 
 import java.util.ArrayList;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -47,6 +48,7 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Unbreakable;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Weakness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Worm;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Excavating;
 import net.md_5.bungee.api.ChatColor;
 
 public class EventListener implements Listener {
@@ -167,14 +169,16 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void onHarvestCrop(BlockBreakEvent event) {
+    public void onBlockBreak(BlockBreakEvent event) {
         if (event.isCancelled()) return;
+        if (!Plugin.isReal(event)) return;
         Player player = event.getPlayer();
         Block block = event.getBlock();
         if (player == null || block == null) return;
         ItemStack item = Plugin.getItemInHand(player);
         if (item == null) return;
         Replanting.onBlockBreak(plugin, player, item, block, event);
+        Excavating.onBlockBreak(plugin, player, item, block, event);
     }
 
     @EventHandler
