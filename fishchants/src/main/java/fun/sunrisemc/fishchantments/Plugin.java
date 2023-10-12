@@ -20,25 +20,43 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Accurate;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Blindness;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.ConduitPower;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Confusion;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Glowing;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Haste;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.HealthBoost;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Destructive;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.DolphinsGrace;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.FireResistance;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Tilling;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Replanting;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.SlowFall;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Helium;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.HeroOfTheVillage;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Hunger;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Invisibility;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.LifeSteal;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.MiningFatigueCurse;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.NightVision;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Fling;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Poison;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Range;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Slowness;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.SlownessCurse;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Speed;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Strength;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Unbreakable;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.WaterBreathing;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Food;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Worm;
 import net.md_5.bungee.api.ChatColor;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Crush;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Weakness;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.WeaknessCurse;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Jump;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Resistance;
+import fun.sunrisemc.fishchantments.EnchantDefinitions.Regeneration;
 
 public class Plugin extends JavaPlugin {
   private static final Logger LOGGER = Logger.getLogger("Fishchantments");
@@ -65,6 +83,24 @@ public class Plugin extends JavaPlugin {
   public final Enchantment WEAKNESS = new Weakness(new NamespacedKey(this, "weakness_fishchantment"));
   public final Enchantment HUNGER = new Hunger(new NamespacedKey(this, "hunger_fishchantment"));
   public final Enchantment SLOWNESS = new Slowness(new NamespacedKey(this, "slowness_fishchantment"));
+  public final Enchantment SPEED = new Speed(new NamespacedKey(this, "speed_fishchantment"));
+  public final Enchantment JUMP = new Jump(new NamespacedKey(this, "jump_fishchantment"));
+  public final Enchantment SLOW_FALL = new SlowFall(new NamespacedKey(this, "slow_fall_fishchantment"));
+  public final Enchantment RESISTANCE = new Resistance(new NamespacedKey(this, "resistance_fishchantment"));
+  public final Enchantment REGENERATION = new Regeneration(new NamespacedKey(this, "regeneration_fishchantment"));
+  public final Enchantment INVISIBILITY = new Invisibility(new NamespacedKey(this, "invisibility_fishchantment"));
+  public final Enchantment FIRE_RESISTANCE = new FireResistance(new NamespacedKey(this, "fire_resistance_fishchantment"));
+  public final Enchantment WATER_BREATHING = new WaterBreathing(new NamespacedKey(this, "water_breathing_fishchantment"));
+  public final Enchantment STRENGTH = new Strength(new NamespacedKey(this, "strength_fishchantment"));
+  public final Enchantment HASTE = new Haste(new NamespacedKey(this, "haste_fishchantment"));
+  public final Enchantment HEALTH_BOOST = new HealthBoost(new NamespacedKey(this, "health_boost_fishchantment"));
+  public final Enchantment NIGHT_VISION = new NightVision(new NamespacedKey(this, "night_vision_fishchantment"));
+  public final Enchantment DOLPHINS_GRACE = new DolphinsGrace(new NamespacedKey(this, "dolphins_grace_fishchantment"));
+  public final Enchantment CONDUIT_POWER = new ConduitPower(new NamespacedKey(this, "conduit_power_fishchantment"));
+  public final Enchantment HERO_OF_THE_VILLAGE = new HeroOfTheVillage(new NamespacedKey(this, "hero_of_the_village_fishchantment"));
+  public final Enchantment MINING_FATIGUE_CURSE = new MiningFatigueCurse(new NamespacedKey(this, "mining_fatigue_curse_fishchantment"));
+  public final Enchantment SLOWNESS_CURSE = new SlownessCurse(new NamespacedKey(this, "slowness_curse_fishchantment"));
+  public final Enchantment WEAKNESS_CURSE = new WeaknessCurse(new NamespacedKey(this, "weakness_curse_fishchantment"));
 
   public void onEnable() {
     register(DESTRUCTIVE);
@@ -87,8 +123,27 @@ public class Plugin extends JavaPlugin {
     register(WEAKNESS);
     register(HUNGER);
     register(SLOWNESS);
+    register(SPEED);
+    register(JUMP);
+    register(SLOW_FALL);
+    register(RESISTANCE);
+    register(REGENERATION);
+    register(INVISIBILITY);
+    register(FIRE_RESISTANCE);
+    register(WATER_BREATHING);
+    register(STRENGTH);
+    register(HASTE);
+    register(HEALTH_BOOST);
+    register(NIGHT_VISION);
+    register(DOLPHINS_GRACE);
+    register(CONDUIT_POWER);
+    register(HERO_OF_THE_VILLAGE);
+    register(MINING_FATIGUE_CURSE);
+    register(SLOWNESS_CURSE);
+    register(WEAKNESS_CURSE);
     getCommand("fenchant").setExecutor(new CommandHandler(this));
     getServer().getPluginManager().registerEvents(new EventListener(this), this);
+    startTimer(this);
     LOGGER.info("Fishchantments enabled");
   }
 
@@ -128,17 +183,14 @@ public class Plugin extends JavaPlugin {
   }
 
   public boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
+    if (item == null) return false;
     if (level < 1) return false;
     if (!force && !isCompatible(item, enchantment)) return false;
     int currentLevel = Plugin.getEnchantLevel(item, enchantment);
     if (!force && level < currentLevel) return false;
-    if (combine && level == currentLevel) level++;
+    if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++;
     removeEnchant(item, enchantment);
-    if (level > enchantment.getMaxLevel()) level = enchantment.getMaxLevel();
-    try {
-      if (force) item.addUnsafeEnchantment(enchantment, level); 
-      else item.addEnchantment(enchantment, level); 
-    }
+    try { item.addUnsafeEnchantment(enchantment, level); }
     catch (Exception e) { return false; }
 
     // Lore
@@ -286,10 +338,47 @@ public class Plugin extends JavaPlugin {
     }
   }
 
+  private void startTimer(final Plugin plugin) {
+    Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+      @Override
+      public void run() {
+        Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
+        Player player;
+        while (players.hasNext()) {
+          player = players.next();
+          ItemStack helmet = player.getInventory().getHelmet();
+          ItemStack chestplate = player.getInventory().getChestplate();
+          ItemStack leggings = player.getInventory().getLeggings();
+          ItemStack boots = player.getInventory().getBoots();
+          Speed.onTimer(plugin, player, leggings); 
+          Jump.onTimer(plugin, player, boots); 
+          SlowFall.onTimer(plugin, player, boots); 
+          Resistance.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+          Regeneration.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+          Invisibility.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+          Glowing.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+          FireResistance.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+          WaterBreathing.onTimer(plugin, player, helmet);
+          Strength.onTimer(plugin, player, chestplate);
+          Haste.onTimer(plugin, player, chestplate);
+          HealthBoost.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+          NightVision.onTimer(plugin, player, helmet);
+          Helium.onTimer(plugin, player, boots);
+          DolphinsGrace.onTimer(plugin, player, leggings);
+          ConduitPower.onTimer(plugin, player, helmet);
+          HeroOfTheVillage.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+          MiningFatigueCurse.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+          SlownessCurse.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+          WeaknessCurse.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+        }
+      }
+    }, 142L, 100L);
+  }
+
   @SuppressWarnings("deprecation")
   private static String getLore(Enchantment enchantment, Integer level) {
     if (level < 0) return null;
-    String lore = ChatColor.GRAY + enchantment.getName();
+    String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
     if (level == 1) return lore;
     else return lore + " " + (NUMERALS ? numberToNumeral(level) : level.toString());
   }

@@ -431,7 +431,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -503,7 +503,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -579,7 +579,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -642,7 +642,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -677,7 +677,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
-            if (plugin == null || player == null || projectile == null || item == null) return;
+            if (plugin == null || player == null || projectile == null) return;
             final int level = Plugin.getEnchantLevel(item, plugin.RANGE);
             if (level < 1) return;
             projectile.setVelocity(projectile.getVelocity().multiply(1 + (level/5)));
@@ -732,7 +732,7 @@ public class EnchantDefinitions {
         }
 
         static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
-            if (plugin == null || player == null || projectile == null || item == null) return;
+            if (plugin == null || player == null || projectile == null) return;
             if (!Plugin.hasEnchant(item, plugin.ACCURATE)) return;
             Vector direction = player.getEyeLocation().getDirection();
             Vector velocity = projectile.getVelocity();
@@ -756,7 +756,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -810,7 +810,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -864,7 +864,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -895,13 +895,19 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType());
+            return Plugin.isWeapon(item.getType()) || Plugin.isBoots(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
             final int level = Plugin.getEnchantLevel(weapon, plugin.HELIUM);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 20, 0), false);
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack boots) {
+            int level = Plugin.getEnchantLevel(boots, plugin.HELIUM);
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 120, level-1), false);
         }
     }
 
@@ -918,7 +924,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -949,13 +955,18 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType());
+            return Plugin.isWeapon(item.getType()) || Plugin.isArmor(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
             final int level = Plugin.getEnchantLevel(weapon, plugin.GLOWING);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0), false);
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+            if (!(Plugin.hasEnchant(helmet, plugin.GLOWING) || Plugin.hasEnchant(chestplate, plugin.GLOWING) || Plugin.hasEnchant(leggings, plugin.GLOWING) || Plugin.hasEnchant(boots, plugin.GLOWING))) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 120, 0), false);
         }
     }
 
@@ -972,7 +983,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -1026,7 +1037,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -1080,7 +1091,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -1134,7 +1145,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -1188,7 +1199,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 10;
+            return 5;
         }
 
         @Override
@@ -1226,6 +1237,1001 @@ public class EnchantDefinitions {
             final int level = Plugin.getEnchantLevel(weapon, plugin.SLOWNESS);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, level * 20, level/2), false);
+        }
+    }
+
+    public static class Speed extends Enchantment {
+
+        public Speed(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Swiftness";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 5;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isLeggings(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack boots) {
+            int level = Plugin.getEnchantLevel(boots, plugin.SPEED);
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 120, level-1), false);
+        }
+    }
+
+    public static class Jump extends Enchantment {
+
+        public Jump(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Leaping";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 5;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isBoots(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack boots) {
+            int level = Plugin.getEnchantLevel(boots, plugin.JUMP);
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 120, level-1), false);
+        }
+    }
+
+    public static class SlowFall extends Enchantment {
+
+        public SlowFall(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Slow Falling";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isBoots(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack boots) {
+            int level = Plugin.getEnchantLevel(boots, plugin.SLOW_FALL);
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 120, level-1), false);
+        }
+    }
+
+    public static class Resistance extends Enchantment {
+
+        public Resistance(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Resistance";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 5;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isArmor(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.RESISTANCE);
+            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.RESISTANCE);
+            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.RESISTANCE);
+            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.RESISTANCE);
+            int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 120, level-1), false);
+        }
+    }
+
+    public static class Regeneration extends Enchantment {
+
+        public Regeneration(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Healing";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 5;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isArmor(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.REGENERATION);
+            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.REGENERATION);
+            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.REGENERATION);
+            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.REGENERATION);
+            int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 120, level-1), false);
+        }
+    }
+
+    public static class Invisibility extends Enchantment {
+
+        public Invisibility(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Invisibility";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isArmor(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+            if (!(Plugin.hasEnchant(helmet, plugin.INVISIBILITY) || Plugin.hasEnchant(chestplate, plugin.INVISIBILITY) || Plugin.hasEnchant(leggings, plugin.INVISIBILITY) || Plugin.hasEnchant(boots, plugin.INVISIBILITY))) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 120, 0), false);
+        }
+    }
+
+    public static class FireResistance extends Enchantment {
+
+        public FireResistance(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Fire Resistance";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isArmor(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+            if (!(Plugin.hasEnchant(helmet, plugin.FIRE_RESISTANCE) || Plugin.hasEnchant(chestplate, plugin.FIRE_RESISTANCE) || Plugin.hasEnchant(leggings, plugin.FIRE_RESISTANCE) || Plugin.hasEnchant(boots, plugin.FIRE_RESISTANCE))) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 120, 0), false);
+        }
+    }
+
+    public static class WaterBreathing extends Enchantment {
+
+        public WaterBreathing(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Gills";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isHelmet(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
+            if (!Plugin.hasEnchant(helmet, plugin.WATER_BREATHING)) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 120, 0), false);
+        }
+    }
+
+    public static class Strength extends Enchantment {
+
+        public Strength(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Strength";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 5;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isChestplate(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
+            int level = Plugin.getEnchantLevel(chestplate, plugin.STRENGTH);
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 120, level-1), false);
+        }
+    }
+
+    public static class Haste extends Enchantment {
+
+        public Haste(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Haste";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 5;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isChestplate(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
+            int level = Plugin.getEnchantLevel(chestplate, plugin.HASTE);
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 120, level-1), false);
+        }
+    }
+
+    public static class HealthBoost extends Enchantment {
+
+        public HealthBoost(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Increased Health";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 5;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isArmor(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.HEALTH_BOOST);
+            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.HEALTH_BOOST);
+            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.HEALTH_BOOST);
+            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.HEALTH_BOOST);
+            int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 120, level-1), false);
+        }
+    }
+
+    public static class NightVision extends Enchantment {
+
+        public NightVision(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Night Vision";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isHelmet(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
+            if (!Plugin.hasEnchant(helmet, plugin.NIGHT_VISION)) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900, 0), false);
+        }
+    }
+
+    public static class DolphinsGrace extends Enchantment {
+
+        public DolphinsGrace(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Dolphins Grace";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isLeggings(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack leggings) {
+            if (!Plugin.hasEnchant(leggings, plugin.DOLPHINS_GRACE)) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 120, 0), false);
+        }
+    }
+
+    public static class ConduitPower extends Enchantment {
+
+        public ConduitPower(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Conduit Power";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 5;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isHelmet(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
+            int level = Plugin.getEnchantLevel(helmet, plugin.CONDUIT_POWER);
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, 120, level-1), false);
+        }
+    }
+
+    public static class HeroOfTheVillage extends Enchantment {
+
+        public HeroOfTheVillage(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Hero of the Village";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 3;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isArmor(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.HERO_OF_THE_VILLAGE);
+            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.HERO_OF_THE_VILLAGE);
+            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.HERO_OF_THE_VILLAGE);
+            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.HERO_OF_THE_VILLAGE);
+            int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE, 120, level-1), false);
+        }
+    }
+
+    public static class MiningFatigueCurse extends Enchantment {
+
+        public MiningFatigueCurse(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Curse of Mining Fatigue";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 2;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return true;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isArmor(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.MINING_FATIGUE_CURSE);
+            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.MINING_FATIGUE_CURSE);
+            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.MINING_FATIGUE_CURSE);
+            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.MINING_FATIGUE_CURSE);
+            int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 120, level-1), false);
+        }
+    }
+
+    public static class SlownessCurse extends Enchantment {
+
+        public SlownessCurse(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Curse of Slowness";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 2;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return true;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isArmor(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.SLOWNESS_CURSE);
+            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.SLOWNESS_CURSE);
+            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.SLOWNESS_CURSE);
+            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.SLOWNESS_CURSE);
+            int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, level-1), false);
+        }
+    }
+
+    public static class WeaknessCurse extends Enchantment {
+
+        public WeaknessCurse(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return "Curse of Weakness";
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 2;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ALL;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return true;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Plugin.isArmor(item.getType());
+        }
+
+        static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.WEAKNESS_CURSE);
+            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.WEAKNESS_CURSE);
+            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.WEAKNESS_CURSE);
+            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.WEAKNESS_CURSE);
+            int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+            if (level < 1) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 120, level-1), false);
         }
     }
 }
