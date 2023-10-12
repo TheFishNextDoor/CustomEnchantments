@@ -189,12 +189,12 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onAnvilPrepare(PrepareAnvilEvent event) {
+        ItemStack result = event.getResult();
         ItemStack zero = event.getInventory().getItem(0);
         ItemStack one = event.getInventory().getItem(1);
         if (!(plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return;
-        if (!ALLOW_EDIT) return;
-        ItemStack result = event.getResult();
         if (plugin.hasFishchantment(result)) return; // Don't need to fix
+        if (!ALLOW_EDIT) return;
         ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
         fishchantments.addAll(plugin.getFishchantments(one));
         for (int i = 0; i < fishchantments.size(); i++) {
@@ -220,20 +220,23 @@ public class EventListener implements Listener {
         ItemStack one = anvil.getItem(1);
         if (!(plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return;
         if (plugin.hasFishchantment(result)) return; // Don't need to fix
-        if (ALLOW_EDIT) {
-            ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
-            fishchantments.addAll(plugin.getFishchantments(one));
-            for (int i = 0; i < fishchantments.size(); i++) {
-                Enchantment enchantment = fishchantments.get(i);
-                int zeroLevel = Plugin.getEnchantLevel(zero, enchantment);
-                int oneLevel = Plugin.getEnchantLevel(one, enchantment);
-                int level = zeroLevel > oneLevel ? zeroLevel : oneLevel;
-                plugin.addEnchant(result, enchantment, level, false, true);
-            }
-        }
-        else {
+        if (!ALLOW_EDIT) {
             event.setCancelled(true);
-            player.sendMessage(ChatColor.RED + "You cannot edit items that have custom enchants.");
+            player.sendMessage(ChatColor.RED + "You cannot edit items that have custom enchantments.");
+            return;
+        }
+        ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
+        fishchantments.addAll(plugin.getFishchantments(one));
+        for (int i = 0; i < fishchantments.size(); i++) {
+            Enchantment enchantment = fishchantments.get(i);
+            int zeroLevel = Plugin.getEnchantLevel(zero, enchantment);
+            int oneLevel = Plugin.getEnchantLevel(one, enchantment);
+            int level = zeroLevel > oneLevel ? zeroLevel : oneLevel;
+            if (!plugin.addEnchant(result, enchantment, level, false, true)) {
+                event.setCancelled(true);
+                player.sendMessage(ChatColor.RED + "Cannot combine conflicting enchantments.");
+                return;
+            }
         }
     }
 
