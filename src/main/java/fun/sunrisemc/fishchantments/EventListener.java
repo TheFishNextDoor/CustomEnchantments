@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -15,6 +16,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -23,7 +25,6 @@ import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
-import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.GrindstoneInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
@@ -49,10 +50,10 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Weakness;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Worm;
 import fun.sunrisemc.fishchantments.EnchantDefinitions.Excavating;
-import net.md_5.bungee.api.ChatColor;
 
 public class EventListener implements Listener {
     private static final boolean ALLOW_EDIT = true;
+    private static final boolean DROP_BOOKS = true;
     private final Plugin plugin;
 
     EventListener(Plugin plugin) {
@@ -197,51 +198,21 @@ public class EventListener implements Listener {
         ItemStack zero = event.getInventory().getItem(0);
         ItemStack one = event.getInventory().getItem(1);
         if (!(plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return;
-        if (plugin.hasFishchantment(result)) return; // Don't need to fix
+        if (result == null && zero != null && one != null) result = zero.clone();
         if (!ALLOW_EDIT) return;
         ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
-        fishchantments.addAll(plugin.getFishchantments(one));
         for (int i = 0; i < fishchantments.size(); i++) {
             Enchantment enchantment = fishchantments.get(i);
-            int zeroLevel = Plugin.getEnchantLevel(zero, enchantment);
-            int oneLevel = Plugin.getEnchantLevel(one, enchantment);
-            int level = zeroLevel > oneLevel ? zeroLevel : oneLevel;
+            int level = Plugin.getEnchantLevel(zero, enchantment);
+            plugin.addEnchant(result, enchantment, level, true, false);
+        }
+        fishchantments = plugin.getFishchantments(one);
+        for (int i = 0; i < fishchantments.size(); i++) {
+            Enchantment enchantment = fishchantments.get(i);
+            int level = Plugin.getEnchantLevel(one, enchantment);
             plugin.addEnchant(result, enchantment, level, false, true);
         }
         event.setResult(result);
-    }
-
-    @EventHandler
-    public void onAnvilComplete(InventoryClickEvent event) {
-        if (event.isCancelled()) return;
-        if (!(event.getInventory() instanceof AnvilInventory)) return;
-        if (!(event.getWhoClicked() instanceof Player)) return;
-        AnvilInventory anvil = (AnvilInventory) event.getInventory();
-        Player player = (Player) event.getWhoClicked();
-        if (event.getSlotType() != SlotType.RESULT) return;
-        ItemStack result = anvil.getItem(event.getRawSlot());
-        ItemStack zero = anvil.getItem(0);
-        ItemStack one = anvil.getItem(1);
-        if (!(plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return;
-        if (plugin.hasFishchantment(result)) return; // Don't need to fix
-        if (!ALLOW_EDIT) {
-            event.setCancelled(true);
-            player.sendMessage(ChatColor.RED + "You cannot edit items that have custom enchantments.");
-            return;
-        }
-        ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
-        fishchantments.addAll(plugin.getFishchantments(one));
-        for (int i = 0; i < fishchantments.size(); i++) {
-            Enchantment enchantment = fishchantments.get(i);
-            int zeroLevel = Plugin.getEnchantLevel(zero, enchantment);
-            int oneLevel = Plugin.getEnchantLevel(one, enchantment);
-            int level = zeroLevel > oneLevel ? zeroLevel : oneLevel;
-            if (!plugin.addEnchant(result, enchantment, level, false, true)) {
-                event.setCancelled(true);
-                player.sendMessage(ChatColor.RED + "Cannot combine conflicting enchantments.");
-                return;
-            }
-        }
     }
 
     @EventHandler
@@ -261,5 +232,11 @@ public class EventListener implements Listener {
             Enchantment enchantment = fishchantments.get(i);
             plugin.removeEnchant(result, enchantment);
         }
+    }
+
+    @EventHandler
+    public void onWitherDeath(EntityDeathEvent event) {
+        if (event.getEntity().getType() != EntityType.WITHER) return;
+        if (DROP_BOOKS) event.getDrops().add(plugin.enchantedBook(plugin.WITHER, 1));
     }
 }

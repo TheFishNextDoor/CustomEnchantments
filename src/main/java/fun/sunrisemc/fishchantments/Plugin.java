@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -155,19 +156,19 @@ public class Plugin extends JavaPlugin {
     LOGGER.info("Fishchants disabled");
   }
 
-  public ArrayList<Enchantment> getFishchantments() {
-    return new ArrayList<>(fishchantments);
-  }
-
   public boolean hasFishchantment(ItemStack item) {
     return getFishchantments(item).size() > 0;
   }
 
+  public ArrayList<Enchantment> getFishchantments() {
+    return new ArrayList<>(fishchantments);
+  }
+  
   public ArrayList<Enchantment> getFishchantments(ItemStack item) {
     ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
     if (item == null) return foundFishchantments;
     if (!item.hasItemMeta()) return foundFishchantments;
-    Iterator<Enchantment> enchantments = item.getItemMeta().getEnchants().keySet().iterator();
+    Iterator<Enchantment> enchantments = getEnchantments(item).iterator();
     while (enchantments.hasNext()) {
       Enchantment enchantment = enchantments.next();
       if (isFishchantment(enchantment)) foundFishchantments.add(enchantment);
@@ -189,13 +190,20 @@ public class Plugin extends JavaPlugin {
   public boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
     if (item == null) return false;
     if (level < 1) return false;
-    if (!force && !isCompatible(item, enchantment)) return false;
-    int currentLevel = Plugin.getEnchantLevel(item, enchantment);
+    if (!force && !hasConflictingEnchantments(item, enchantment)) return false;
+    int currentLevel = getEnchantLevel(item, enchantment);
     if (!force && level < currentLevel) return false;
     if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++;
     removeEnchant(item, enchantment);
-    try { item.addUnsafeEnchantment(enchantment, level); }
-    catch (Exception e) { return false; }
+    if (item.getType() == Material.ENCHANTED_BOOK) {
+      EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+      meta.addStoredEnchant(enchantment, level, true);
+      item.setItemMeta(meta);
+    }
+    else {
+      try { item.addUnsafeEnchantment(enchantment, level); }
+      catch (Exception e) { return false; }
+    }
 
     // Lore
     if (!isFishchantment(enchantment)) return true;
@@ -211,10 +219,11 @@ public class Plugin extends JavaPlugin {
   public boolean isCompatible(ItemStack item, Enchantment enchantment) {
     if (item == null || enchantment == null) return false;
     if (!enchantment.canEnchantItem(item)) return false;
+    return hasConflictingEnchantments(item, enchantment);
+  }
 
-    // Conflicts
-    if (!item.hasItemMeta()) return true;
-    Iterator<Enchantment> iter = item.getItemMeta().getEnchants().keySet().iterator();
+  public boolean hasConflictingEnchantments(ItemStack item, Enchantment enchantment) {
+    Iterator<Enchantment> iter = getEnchantments(item).iterator();
     while (iter.hasNext()) {
       Enchantment ienchantment = iter.next();
       if (enchantment.conflictsWith(ienchantment) || ienchantment.conflictsWith(enchantment)) return false;
@@ -222,10 +231,38 @@ public class Plugin extends JavaPlugin {
     return true;
   }
 
+  public ArrayList<Enchantment> getEnchantments(ItemStack item) {
+    ArrayList<Enchantment> enchantments = new ArrayList<Enchantment>();
+    if (item == null) return enchantments;
+    if (!item.hasItemMeta()) return enchantments;
+    Iterator<Enchantment> iter;
+    if (item.getType() == Material.ENCHANTED_BOOK) {
+      EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+      if (!meta.hasStoredEnchants()) return enchantments;
+      iter = meta.getStoredEnchants().keySet().iterator();
+    }
+    else {
+      ItemMeta meta = item.getItemMeta();
+      if (!meta.hasEnchants()) return enchantments;
+      iter = meta.getEnchants().keySet().iterator();
+    }
+    while (iter.hasNext()) {
+      enchantments.add(iter.next());
+    }
+    return enchantments;
+  }
+
   public boolean removeEnchant(ItemStack item, Enchantment enchantment) {
     if (item == null) return false;
     final boolean HASENCHANT = Plugin.hasEnchant(item, enchantment);
-    if (HASENCHANT) item.removeEnchantment(enchantment);
+    if (HASENCHANT) {
+      if (item.getType() == Material.ENCHANTED_BOOK) {
+        EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+        meta.removeStoredEnchant(enchantment);
+        item.setItemMeta(meta);
+      }
+      else item.removeEnchantment(enchantment);
+    }
 
     // Lore
     if (!isFishchantment(enchantment)) return HASENCHANT;
@@ -248,10 +285,17 @@ public class Plugin extends JavaPlugin {
 
   public static int getEnchantLevel(ItemStack item, Enchantment enchant) {
     if (item == null) return 0;
-    ItemMeta meta = item.getItemMeta();
-    if (meta == null) return 0;
-    if (!meta.hasEnchant(enchant)) return 0;
-    return meta.getEnchantLevel(enchant);
+    if (item.getType() == Material.ENCHANTED_BOOK) {
+      EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+      if (!meta.hasStoredEnchant(enchant)) return 0;
+      return meta.getStoredEnchantLevel(enchant);
+    }
+    else {
+      ItemMeta meta = item.getItemMeta();
+      if (meta == null) return 0;
+      if (!meta.hasEnchant(enchant)) return 0;
+      return meta.getEnchantLevel(enchant);
+    }
   }
 
   public static ItemStack getItemInHand(Player player) {
@@ -273,6 +317,12 @@ public class Plugin extends JavaPlugin {
 
   public static boolean isReal(BlockBreakEvent event) {
     return !checking.contains(event);
+  }
+
+  public ItemStack enchantedBook(Enchantment enchantment, int level) {
+    ItemStack enchantedBook = new ItemStack(Material.ENCHANTED_BOOK);
+    addEnchant(enchantedBook, enchantment, level, true, false);
+    return enchantedBook;
   }
 
   public static boolean isEnchantable(Material material) {
