@@ -9,12 +9,9 @@ import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -63,7 +60,6 @@ import fun.sunrisemc.fishchantments.EnchantDefinitions.Excavating;;
 public class Plugin extends JavaPlugin {
   private static final Logger LOGGER = Logger.getLogger("Fishchantments");
   private static final boolean NUMERALS = false;
-  private static ArrayList<BlockBreakEvent> checking = new ArrayList<>();
   private ArrayList<Enchantment> fishchantments = new ArrayList<>();
 
   public final Enchantment DESTRUCTIVE = new Destructive(new NamespacedKey(this, "destructive_fishchantment"));
@@ -168,7 +164,7 @@ public class Plugin extends JavaPlugin {
     ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
     if (item == null) return foundFishchantments;
     if (!item.hasItemMeta()) return foundFishchantments;
-    Iterator<Enchantment> enchantments = getEnchantments(item).iterator();
+    Iterator<Enchantment> enchantments = Utl.Ench.getEnchantments(item).iterator();
     while (enchantments.hasNext()) {
       Enchantment enchantment = enchantments.next();
       if (isFishchantment(enchantment)) foundFishchantments.add(enchantment);
@@ -190,8 +186,8 @@ public class Plugin extends JavaPlugin {
   public boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
     if (item == null) return false;
     if (level < 1) return false;
-    if (!force && !hasConflictingEnchantments(item, enchantment)) return false;
-    int currentLevel = getEnchantLevel(item, enchantment);
+    if (!force && Utl.Ench.hasConflictingEnchantments(item, enchantment)) return false;
+    int currentLevel = Utl.Ench.getEnchantLevel(item, enchantment);
     if (!force && level < currentLevel) return false;
     if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++;
     removeEnchant(item, enchantment);
@@ -216,45 +212,9 @@ public class Plugin extends JavaPlugin {
     return true;
   }
 
-  public boolean isCompatible(ItemStack item, Enchantment enchantment) {
-    if (item == null || enchantment == null) return false;
-    if (!enchantment.canEnchantItem(item)) return false;
-    return hasConflictingEnchantments(item, enchantment);
-  }
-
-  public boolean hasConflictingEnchantments(ItemStack item, Enchantment enchantment) {
-    Iterator<Enchantment> iter = getEnchantments(item).iterator();
-    while (iter.hasNext()) {
-      Enchantment ienchantment = iter.next();
-      if (enchantment.conflictsWith(ienchantment) || ienchantment.conflictsWith(enchantment)) return false;
-    }
-    return true;
-  }
-
-  public ArrayList<Enchantment> getEnchantments(ItemStack item) {
-    ArrayList<Enchantment> enchantments = new ArrayList<Enchantment>();
-    if (item == null) return enchantments;
-    if (!item.hasItemMeta()) return enchantments;
-    Iterator<Enchantment> iter;
-    if (item.getType() == Material.ENCHANTED_BOOK) {
-      EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-      if (!meta.hasStoredEnchants()) return enchantments;
-      iter = meta.getStoredEnchants().keySet().iterator();
-    }
-    else {
-      ItemMeta meta = item.getItemMeta();
-      if (!meta.hasEnchants()) return enchantments;
-      iter = meta.getEnchants().keySet().iterator();
-    }
-    while (iter.hasNext()) {
-      enchantments.add(iter.next());
-    }
-    return enchantments;
-  }
-
   public boolean removeEnchant(ItemStack item, Enchantment enchantment) {
     if (item == null) return false;
-    final boolean HASENCHANT = Plugin.hasEnchant(item, enchantment);
+    final boolean HASENCHANT = Utl.Ench.hasEnchant(item, enchantment);
     if (HASENCHANT) {
       if (item.getType() == Material.ENCHANTED_BOOK) {
         EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
@@ -279,110 +239,18 @@ public class Plugin extends JavaPlugin {
     return HASENCHANT;
   }
 
-  public static boolean hasEnchant(ItemStack item, Enchantment enchant) {
-    return getEnchantLevel(item, enchant) > 0;
-  }
-
-  public static int getEnchantLevel(ItemStack item, Enchantment enchant) {
-    if (item == null) return 0;
-    if (item.getType() == Material.ENCHANTED_BOOK) {
-      EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-      if (!meta.hasStoredEnchant(enchant)) return 0;
-      return meta.getStoredEnchantLevel(enchant);
-    }
-    else {
-      ItemMeta meta = item.getItemMeta();
-      if (meta == null) return 0;
-      if (!meta.hasEnchant(enchant)) return 0;
-      return meta.getEnchantLevel(enchant);
-    }
-  }
-
-  public static ItemStack getItemInHand(Player player) {
-    PlayerInventory inv = player.getInventory();
-    ItemStack mainHand = inv.getItemInMainHand();
-    ItemStack offHand = inv.getItemInOffHand();
-    if (mainHand.getType() != Material.AIR) return mainHand;
-    if (offHand.getType() != Material.AIR) return offHand;
-    return mainHand;
-  }
-
-  public static boolean playerCanModify(Player player, Block block) {
-    BlockBreakEvent event = new BlockBreakEvent(block, player);
-    checking.add(event); 
-    Bukkit.getServer().getPluginManager().callEvent(event);
-    checking.remove(event);
-    return !event.isCancelled();
-  }
-
-  public static boolean isReal(BlockBreakEvent event) {
-    return !checking.contains(event);
-  }
-
   public ItemStack enchantedBook(Enchantment enchantment, int level) {
     ItemStack enchantedBook = new ItemStack(Material.ENCHANTED_BOOK);
     addEnchant(enchantedBook, enchantment, level, true, false);
     return enchantedBook;
   }
 
-  public static boolean isEnchantable(Material material) {
-    return isTool(material) || isWeapon(material)  || isArmor(material);
-  }
-
-  public static boolean isTool(Material material) {
-    return isPickaxe(material) || isShovel(material) || isAxe(material) || isHoe(material);
-  }
-
-  public static boolean isPickaxe(Material material) {
-    return material.name().endsWith("_PICKAXE"); 
-  }
-
-  public static boolean isShovel(Material material) {
-    return material.name().endsWith("_SHOVEL"); 
-  }
-
-  public static boolean isHoe(Material material) {
-    return material.name().endsWith("_HOE"); 
-  }
-
-  public static boolean isWeapon(Material material) {
-    return isMeleeWeapon(material) || isRangedWeapon(material);
-  }
-
-  public static boolean isMeleeWeapon(Material material) {
-     return isSword(material) || isAxe(material) || material == Material.TRIDENT;
-  }
-
-  public static boolean isSword(Material material) {
-    return material.name().endsWith("_SWORD");
-  }
-
-  public static boolean isAxe(Material material) {
-    return material.name().endsWith("_AXE");
-  }
-
-  public static boolean isRangedWeapon(Material material) {
-    return material == Material.BOW || material == Material.CROSSBOW || material == Material.TRIDENT;
-  }
-
-  public static boolean isArmor(Material material) {
-    return isHelmet(material) || isChestplate(material) || isLeggings(material) || isBoots(material);
-  }
-
-  public static boolean isHelmet(Material material) {
-    return material.name().endsWith("_HELMET");
-  }
-
-  public static boolean isChestplate(Material material) {
-    return material.name().endsWith("_CHESTPLATE");
-  }
-
-  public static boolean isLeggings(Material material) {
-    return material.name().endsWith("_LEGGINGS");
-  }
-
-  public static boolean isBoots(Material material) {
-    return material.name().endsWith("_BOOTS");
+  @SuppressWarnings("deprecation")
+  private static String getLore(Enchantment enchantment, Integer level) {
+    if (level < 0) return null;
+    String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
+    if (level == 1) return lore;
+    else return lore + " " + (NUMERALS ? Utl.Ench.numberToNumeral(level) : level.toString());
   }
 
   private void register(Enchantment enchant) {
@@ -433,29 +301,5 @@ public class Plugin extends JavaPlugin {
         }
       }
     }, 142L, 100L);
-  }
-
-  @SuppressWarnings("deprecation")
-  private static String getLore(Enchantment enchantment, Integer level) {
-    if (level < 0) return null;
-    String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
-    if (level == 1) return lore;
-    else return lore + " " + (NUMERALS ? numberToNumeral(level) : level.toString());
-  }
-
-  private static String numberToNumeral(int number) {
-    switch (number) {
-        case 10: return "X";
-        case 9: return "IX";
-        case 8: return "VIII";
-        case 7: return "VII";
-        case 6: return "VI";
-        case 5: return "V";
-        case 4: return "IV";
-        case 3: return "III";
-        case 2: return "II";
-        case 1: return "I";
-        default: return "";
-    }
   }
 }

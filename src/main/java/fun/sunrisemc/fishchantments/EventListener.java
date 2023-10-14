@@ -1,10 +1,12 @@
 package fun.sunrisemc.fishchantments;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -66,7 +68,7 @@ public class EventListener implements Listener {
         ProjectileSource shooter = event.getEntity().getShooter();
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
-        ItemStack item = Plugin.getItemInHand(player);
+        ItemStack item = Utl.getItemInHand(player);
         Destructive.onArrowHitBlock(plugin, player, projectile, item, event.getHitBlock());
         Tilling.onArrowHitBlock(plugin, player, projectile, item, event.getHitBlock());
     }
@@ -85,9 +87,9 @@ public class EventListener implements Listener {
         if (!(damager instanceof Player && event.getEntity() instanceof LivingEntity)) return;
         Player player = (Player) damager;
         LivingEntity entity = (LivingEntity) event.getEntity();
-        ItemStack weapon = Plugin.getItemInHand(player);
+        ItemStack weapon = Utl.getItemInHand(player);
         Material weaponType = weapon.getType();
-        if (!RANGED_ATTACK && Plugin.isRangedWeapon(weaponType) && !Plugin.isMeleeWeapon(weaponType)) return;
+        if (!RANGED_ATTACK && Utl.Mat.isRangedWeapon(weaponType) && !Utl.Mat.isMeleeWeapon(weaponType)) return;
         final double damage = event.getDamage();
         if (plugin == null || player == null || entity == null || weapon == null || damage == 0) return;
         LifeSteal.onPlayerAttackEntity(plugin, player, entity, weapon, damage, RANGED_ATTACK);
@@ -118,7 +120,7 @@ public class EventListener implements Listener {
         ProjectileSource shooter = projectile.getShooter();
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
-        ItemStack item = Plugin.getItemInHand(player);
+        ItemStack item = Utl.getItemInHand(player);
         Range.onPlayerShootProjectile(plugin, player, projectile, item);
         Accurate.onPlayerShootProjectile(plugin, player, projectile, item);
     }
@@ -128,7 +130,7 @@ public class EventListener implements Listener {
         Block clickedBlock = event.getClickedBlock();
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (clickedBlock == null || event.getItem() == null) return;
-        Tilling.onTill(plugin, event.getPlayer(), Plugin.getItemInHand(event.getPlayer()), clickedBlock);
+        Tilling.onTill(plugin, event.getPlayer(), Utl.getItemInHand(event.getPlayer()), clickedBlock);
     }
 
     @EventHandler
@@ -164,7 +166,7 @@ public class EventListener implements Listener {
         if (action != Action.RIGHT_CLICK_BLOCK) return;
         Block clickedBlock = event.getClickedBlock();
         if (clickedBlock == null) return;
-        ItemStack item = Plugin.getItemInHand(player);
+        ItemStack item = Utl.getItemInHand(player);
         if (item == null) return;
         Replanting.onRightClick(plugin, player, item, clickedBlock);
     }
@@ -172,11 +174,11 @@ public class EventListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         if (event.isCancelled()) return;
-        if (!Plugin.isReal(event)) return;
+        if (!Utl.PrmChkr.isReal(event)) return;
         Player player = event.getPlayer();
         Block block = event.getBlock();
         if (player == null || block == null) return;
-        ItemStack item = Plugin.getItemInHand(player);
+        ItemStack item = Utl.getItemInHand(player);
         if (item == null) return;
         Replanting.onBlockBreak(plugin, player, item, block, event);
         Excavating.onBlockBreak(plugin, player, item, block, event);
@@ -197,19 +199,23 @@ public class EventListener implements Listener {
         ItemStack result = event.getResult();
         ItemStack zero = event.getInventory().getItem(0);
         ItemStack one = event.getInventory().getItem(1);
-        if (!(plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return;
-        if (result == null && zero != null && one != null) result = zero.clone();
+        if (!(plugin.hasFishchantment(zero) || plugin.hasFishchantment(one))) return; // Don't worry about vanilla stuff
+        if (result == null && zero != null && one != null) result = zero.clone(); // Make item always show up in result slot
+        if (!Utl.Ench.canMerge(zero, one)) {
+            event.setResult(null);
+            return;
+        }
         if (!ALLOW_EDIT) return;
         ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
         for (int i = 0; i < fishchantments.size(); i++) {
             Enchantment enchantment = fishchantments.get(i);
-            int level = Plugin.getEnchantLevel(zero, enchantment);
+            int level = Utl.Ench.getEnchantLevel(zero, enchantment);
             plugin.addEnchant(result, enchantment, level, true, false);
         }
         fishchantments = plugin.getFishchantments(one);
         for (int i = 0; i < fishchantments.size(); i++) {
             Enchantment enchantment = fishchantments.get(i);
-            int level = Plugin.getEnchantLevel(one, enchantment);
+            int level = Utl.Ench.getEnchantLevel(one, enchantment);
             plugin.addEnchant(result, enchantment, level, false, true);
         }
         event.setResult(result);
@@ -235,8 +241,32 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void onWitherDeath(EntityDeathEvent event) {
-        if (event.getEntity().getType() != EntityType.WITHER) return;
-        if (DROP_BOOKS) event.getDrops().add(plugin.enchantedBook(plugin.WITHER, 1));
+    public void addMobLoot(EntityDeathEvent event) {
+        if (!DROP_BOOKS) return;
+        LivingEntity entity = event.getEntity();
+        if (entity.getKiller() == null) return;
+        EntityType type = entity.getType();
+        List<ItemStack> drops = event.getDrops();
+        if (type == EntityType.WITHER && Utl.chance(33.3)) drops.add(plugin.enchantedBook(plugin.WITHER, 1));
+        if (type == EntityType.RAVAGER && Utl.chance(8.0)) drops.add(plugin.enchantedBook(plugin.CRUSH, 1));
+        if (type == EntityType.SILVERFISH && Utl.chance(4.0)) drops.add(plugin.enchantedBook(plugin.WORM, 1));
+        if (type == EntityType.DROWNED && Utl.chance(1.0)) drops.add(plugin.enchantedBook(plugin.WATER_BREATHING, 1));
+        if (type == EntityType.ENDER_DRAGON && Utl.chance(10.0)) drops.add(plugin.enchantedBook(plugin.UNBREAKABLE, 1));
+        if (type == EntityType.CREEPER) {
+            Creeper creeper = (Creeper) entity;
+            if (creeper.isPowered() && Utl.chance(40.0)) drops.add(plugin.enchantedBook(plugin.DESTRUCTIVE, 1));
+        }
+        if (type == EntityType.ELDER_GUARDIAN ) {
+            if (Utl.chance(40.0)) drops.add(plugin.enchantedBook(plugin.CONDUIT_POWER, 1));
+            if (Utl.chance(23.0)) drops.add(plugin.enchantedBook(plugin.DOLPHINS_GRACE, 1));
+        }
+        if (type == EntityType.SKELETON) {
+            for (int i = 0; i < drops.size(); i++) {
+                ItemStack drop = drops.get(i);
+                if (drop.getType() != Material.BOW) continue;
+                if (Utl.chance(5)) plugin.addEnchant(drop, plugin.RANGE, 1, false, false);
+                if (Utl.chance(2)) plugin.addEnchant(drop, plugin.ACCURATE, 1, false, false);
+            }
+        }
     }
 }

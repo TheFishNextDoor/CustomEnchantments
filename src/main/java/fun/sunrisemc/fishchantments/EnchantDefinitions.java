@@ -30,13 +30,15 @@ public class EnchantDefinitions {
 
     public static class Destructive extends Enchantment {
 
+        public static final String NAME = "Destructive";
+
         public Destructive(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Destructive";
+            return NAME;
         }
 
         @Override
@@ -63,21 +65,24 @@ public class EnchantDefinitions {
         public boolean isCursed() {
             return false;
         }
-
+        
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(Enchantment.ARROW_INFINITE.getName())) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isRangedWeapon(item.getType());
+            return Utl.Mat.isRangedWeapon(item.getType());
         }
 
         static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
             if (plugin == null || player == null || projectile == null || bow == null || block == null) return;
-            final int level = Plugin.getEnchantLevel(bow, plugin.DESTRUCTIVE);
+            final int level = Utl.Ench.getEnchantLevel(bow, plugin.DESTRUCTIVE);
             if (level < 1) return;
             ItemStack usedTool = bow;
             boolean hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
@@ -95,7 +100,7 @@ public class EnchantDefinitions {
                 hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
             }
             if (!hasDrops) return;
-            if (!Plugin.playerCanModify(player, block)) return;
+            if (!Utl.PrmChkr.canModify(player, block)) return;
             projectile.remove();
             block.breakNaturally(usedTool);
         }
@@ -103,13 +108,15 @@ public class EnchantDefinitions {
 
     public static class Tilling extends Enchantment {
 
+        public static final String NAME = "Tilling";
+
         public Tilling(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Tilling";
+            return NAME;
         }
 
         @Override
@@ -145,19 +152,19 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isHoe(item.getType());
+            return Utl.Mat.isHoe(item.getType());
         }
 
         static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
             if (plugin == null || player == null || projectile == null || bow == null || block == null) return;
-            if (!Plugin.hasEnchant(bow, plugin.TILLING)) return;
+            if (!Utl.Ench.hasEnchant(bow, plugin.TILLING)) return;
             projectile.remove();
             till(player, block);
         }
 
         static void onTill(Plugin plugin, Player player, ItemStack hoe, Block block) {
             if (plugin == null || player == null || hoe == null || block == null) return;
-            if (!Plugin.hasEnchant(hoe, plugin.TILLING)) return;
+            if (!Utl.Ench.hasEnchant(hoe, plugin.TILLING)) return;
             till(player, block);
         }
 
@@ -166,7 +173,7 @@ public class EnchantDefinitions {
             int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
             for (int[] coords : allCoords) {
                 Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                if (isTillable(modifiedBlock.getType()) && Plugin.playerCanModify(player, modifiedBlock)) modifiedBlock.setType(Material.FARMLAND);
+                if (isTillable(modifiedBlock.getType()) && Utl.PrmChkr.canModify(player, modifiedBlock)) modifiedBlock.setType(Material.FARMLAND);
             }
         }
 
@@ -178,13 +185,15 @@ public class EnchantDefinitions {
 
     public static class Replanting extends Enchantment {
 
+        public static final String NAME = "Replanting";
+
         public Replanting(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Replanting";
+            return NAME;
         }
 
         @Override
@@ -220,26 +229,26 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isHoe(item.getType());
+            return Utl.Mat.isHoe(item.getType());
         }
 
         static void onRightClick(Plugin plugin, Player player, ItemStack item, Block block) {
-            final int level = Plugin.getEnchantLevel(item, plugin.REPLANTING);
+            final int level = Utl.Ench.getEnchantLevel(item, plugin.REPLANTING);
             if (level == 1) {
-                if (Plugin.playerCanModify(player, block)) harvest(player, block, item);
+                if (Utl.PrmChkr.canModify(player, block)) harvest(player, block, item);
             }
             else if (level >= 2) {
                 int x = block.getX(); int y = block.getY(); int z = block.getZ();
                 int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
                 for (int[] coords : allCoords) {
                     Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                    if (Plugin.playerCanModify(player, modifiedBlock)) harvest(player, modifiedBlock, item);
+                    if (Utl.PrmChkr.canModify(player, modifiedBlock)) harvest(player, modifiedBlock, item);
                 }
             }
         }
 
         static void onBlockBreak(Plugin plugin, Player player, ItemStack item, Block block, BlockBreakEvent event) {
-            final int level = Plugin.getEnchantLevel(item, plugin.REPLANTING);
+            final int level = Utl.Ench.getEnchantLevel(item, plugin.REPLANTING);
             if (level < 1) return;
             event.setCancelled(harvest(player, block, item));
         }
@@ -261,13 +270,15 @@ public class EnchantDefinitions {
 
     public static class Excavating extends Enchantment {
 
+        public static final String NAME = "Excavating";
+
         public Excavating(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Excavating";
+            return NAME;
         }
 
         @Override
@@ -303,11 +314,11 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isTool(item.getType());
+            return Utl.Mat.isTool(item.getType());
         }
 
         static void onBlockBreak(Plugin plugin, Player player, ItemStack item, Block block, BlockBreakEvent event) {
-            if (!Plugin.hasEnchant(item, plugin.EXCAVATING)) return;
+            if (!Utl.Ench.hasEnchant(item, plugin.EXCAVATING)) return;
             Vector direction = player.getLocation().getDirection();
             double x = Math.abs(direction.getX());
             double y = Math.abs(direction.getY());
@@ -346,12 +357,14 @@ public class EnchantDefinitions {
             Iterator<Block> iter = blocks.iterator();
             while (iter.hasNext()) {
                 Block iblock = iter.next();
-                if (Plugin.playerCanModify(player, iblock) && (!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) iblock.breakNaturally(item);
+                if (Utl.PrmChkr.canModify(player, iblock) && (!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) iblock.breakNaturally(item);
             }
         }
     }
 
     public static class Unbreakable extends Enchantment {
+
+        public static final String NAME = "Unbreakable";
 
         public Unbreakable(NamespacedKey key) {
             super(key);
@@ -359,7 +372,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Unbreakable";
+            return NAME;
         }
 
         @Override
@@ -395,17 +408,19 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isEnchantable(item.getType());
+            return Utl.Mat.isEnchantable(item.getType());
         }
 
         static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, PlayerItemDamageEvent event) {
             if (plugin == null || player == null || item == null) return;
-            if (!Plugin.hasEnchant(item, plugin.UNBREAKABLE)) return;
+            if (!Utl.Ench.hasEnchant(item, plugin.UNBREAKABLE)) return;
             event.setCancelled(true);
         }
     }
 
     public static class Food extends Enchantment {
+
+        public static final String NAME = "Sustenance";
 
         public Food(NamespacedKey key) {
             super(key);
@@ -413,7 +428,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Sustenance";
+            return NAME;
         }
 
         @Override
@@ -449,16 +464,18 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isHelmet(item.getType());
+            return Utl.Mat.isHelmet(item.getType());
         }
 
         static void onHungerLoss(Plugin plugin, Player player, ItemStack item, FoodLevelChangeEvent event) {
-            if (!Plugin.hasEnchant(item, plugin.FOOD)) return;
+            if (!Utl.Ench.hasEnchant(item, plugin.FOOD)) return;
             event.setFoodLevel(20);
         }
     }
 
     public static class Worm extends Enchantment {
+
+        public static final String NAME = "Worm";
 
         public Worm(NamespacedKey key) {
             super(key);
@@ -466,7 +483,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Worm";
+            return NAME;
         }
 
         @Override
@@ -502,16 +519,18 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isHelmet(item.getType());
+            return Utl.Mat.isHelmet(item.getType());
         }
 
         static void onSuffocate(Plugin plugin, Player player, ItemStack item, EntityDamageEvent event) {
-            if (!Plugin.hasEnchant(item, plugin.WORM)) return;
+            if (!Utl.Ench.hasEnchant(item, plugin.WORM)) return;
             event.setCancelled(true);
         }
     }
 
     public static class Crush extends Enchantment {
+
+        public static final String NAME = "Crush";
 
         public Crush(NamespacedKey key) {
             super(key);
@@ -519,12 +538,12 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Crush";
+            return NAME;
         }
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 8;
         }
 
         @Override
@@ -548,19 +567,21 @@ public class EnchantDefinitions {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
-            if (other == Enchantment.PROTECTION_FALL) return true;
+            String name = other.getName();
+            if (name.equals(Enchantment.PROTECTION_FALL.getName())) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isBoots(item.getType());
+            return Utl.Mat.isBoots(item.getType());
         }
 
         static void onFall(Plugin plugin, Player player, ItemStack item, double fallDamage, ArrayList<LivingEntity> fellOn) {
-            final int level = Plugin.getEnchantLevel(item, plugin.CRUSH);
+            final int level = Utl.Ench.getEnchantLevel(item, plugin.CRUSH);
             if (level < 1) return;
             final double damage = calcDamage(fallDamage, level);
             for (LivingEntity entity : fellOn) {
@@ -585,18 +606,20 @@ public class EnchantDefinitions {
 
     public static class LifeSteal extends Enchantment {
 
+        public static final String NAME = "Life Steal";
+
         public LifeSteal(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Life Steal";
+            return NAME;
         }
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 3;
         }
 
         @Override
@@ -620,18 +643,28 @@ public class EnchantDefinitions {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(Poison.NAME)) return true;
+            if (name.equals(Wither.NAME)) return true;
+            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Blindness.NAME)) return true;
+            if (name.equals(Confusion.NAME)) return true;
+            if (name.equals(Weakness.NAME)) return true;
+            if (name.equals(Hunger.NAME)) return true;
+            if (name.equals(Slowness.NAME)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType());
+            return Utl.Mat.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Plugin.getEnchantLevel(weapon, plugin.LIFE_STEAL);
+            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.LIFE_STEAL);
             if (level < 1) return;
             if (!ranged) damage /= 2;
             heal(player, calcAddedHealth(damage, level));
@@ -661,13 +694,15 @@ public class EnchantDefinitions {
 
     public static class Fling extends Enchantment {
 
+        public static final String NAME = "Fling";
+
         public Fling(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Fling";
+            return NAME;
         }
 
         @Override
@@ -703,11 +738,11 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType());
+            return Utl.Mat.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Plugin.getEnchantLevel(weapon, plugin.FLING);
+            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.FLING);
             if (level < 1) return;
             final double velocity = ((ranged ? level * 1.75 : level * 1.0) * 0.05) + 0.1;
             final Entity finalEntity = entity;
@@ -724,13 +759,15 @@ public class EnchantDefinitions {
         
     public static class Range extends Enchantment {
 
+        public static final String NAME = "Range";
+
         public Range(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Range";
+            return NAME;
         }
 
         @Override
@@ -766,12 +803,12 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isRangedWeapon(item.getType());
+            return Utl.Mat.isRangedWeapon(item.getType());
         }
 
         static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
             if (plugin == null || player == null || projectile == null) return;
-            final int level = Plugin.getEnchantLevel(item, plugin.RANGE);
+            final int level = Utl.Ench.getEnchantLevel(item, plugin.RANGE);
             if (level < 1) return;
             projectile.setVelocity(projectile.getVelocity().multiply(1 + (level/5)));
         }
@@ -779,13 +816,15 @@ public class EnchantDefinitions {
 
     public static class Accurate extends Enchantment {
 
+        public static final String NAME = "Precision";
+
         public Accurate(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Precision";
+            return NAME;
         }
 
         @Override
@@ -821,12 +860,12 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isRangedWeapon(item.getType());
+            return Utl.Mat.isRangedWeapon(item.getType());
         }
 
         static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
             if (plugin == null || player == null || projectile == null) return;
-            if (!Plugin.hasEnchant(item, plugin.ACCURATE)) return;
+            if (!Utl.Ench.hasEnchant(item, plugin.ACCURATE)) return;
             Vector direction = player.getEyeLocation().getDirection();
             Vector velocity = projectile.getVelocity();
             velocity.setX(direction.getX() * velocity.length());
@@ -838,18 +877,20 @@ public class EnchantDefinitions {
 
     public static class Poison extends Enchantment {
 
+        public static final String NAME = "Venom";
+
         public Poison(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Venom";
+            return NAME;
         }
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 3;
         }
 
         @Override
@@ -873,24 +914,37 @@ public class EnchantDefinitions {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(Wither.NAME)) return true;
+            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Blindness.NAME)) return true;
+            if (name.equals(Confusion.NAME)) return true;
+            if (name.equals(Weakness.NAME)) return true;
+            if (name.equals(Hunger.NAME)) return true;
+            if (name.equals(Slowness.NAME)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType());
+            return Utl.Mat.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Plugin.getEnchantLevel(weapon, plugin.POISON);
+            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.POISON);
             if (level < 1) return;
-            reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20 + (level * 10), level/3), false);
+            int strength = level/2;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 40 + (level * 20)/(strength + 1), strength), false);
         }
     }
 
     public static class Wither extends Enchantment {
+
+        public static final String NAME = "Withering";
 
         public Wither(NamespacedKey key) {
             super(key);
@@ -898,12 +952,12 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Withering";
+            return NAME;
         }
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 4;
         }
 
         @Override
@@ -927,24 +981,37 @@ public class EnchantDefinitions {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(Poison.NAME)) return true;
+            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Blindness.NAME)) return true;
+            if (name.equals(Confusion.NAME)) return true;
+            if (name.equals(Weakness.NAME)) return true;
+            if (name.equals(Hunger.NAME)) return true;
+            if (name.equals(Slowness.NAME)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType());
+            return Utl.Mat.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Plugin.getEnchantLevel(weapon, plugin.WITHER);
+            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.WITHER);
             if (level < 1) return;
-            reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 + (level * 20), level/5), false);
+            int strength = level/3;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 40 + (level * 20)/(strength + 1), strength), false);
         }
     }
 
     public static class Helium extends Enchantment {
+
+        public static final String NAME = "Levitating";
 
         public Helium(NamespacedKey key) {
             super(key);
@@ -952,7 +1019,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Levitating";
+            return NAME;
         }
 
         @Override
@@ -981,24 +1048,34 @@ public class EnchantDefinitions {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(Poison.NAME)) return true;
+            if (name.equals(Wither.NAME)) return true;
+            if (name.equals(Blindness.NAME)) return true;
+            if (name.equals(Confusion.NAME)) return true;
+            if (name.equals(Weakness.NAME)) return true;
+            if (name.equals(Hunger.NAME)) return true;
+            if (name.equals(Slowness.NAME)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType()) || Plugin.isBoots(item.getType());
+            return Utl.Mat.isWeapon(item.getType()) || Utl.Mat.isBoots(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Plugin.getEnchantLevel(weapon, plugin.HELIUM);
+            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.HELIUM);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 20, 0), false);
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Plugin.getEnchantLevel(boots, plugin.HELIUM);
+            int level = Utl.Ench.getEnchantLevel(boots, plugin.HELIUM);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 120, level-1), false);
         }
@@ -1006,13 +1083,15 @@ public class EnchantDefinitions {
 
     public static class Glowing extends Enchantment {
 
+        public static final String NAME = "Radiance";
+
         public Glowing(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Radiance";
+            return NAME;
         }
 
         @Override
@@ -1048,22 +1127,24 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType()) || Plugin.isArmor(item.getType());
+            return Utl.Mat.isWeapon(item.getType()) || Utl.Mat.isArmor(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Plugin.getEnchantLevel(weapon, plugin.GLOWING);
+            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.GLOWING);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0), false);
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            if (!(Plugin.hasEnchant(helmet, plugin.GLOWING) || Plugin.hasEnchant(chestplate, plugin.GLOWING) || Plugin.hasEnchant(leggings, plugin.GLOWING) || Plugin.hasEnchant(boots, plugin.GLOWING))) return;
+            if (!(Utl.Ench.hasEnchant(helmet, plugin.GLOWING) || Utl.Ench.hasEnchant(chestplate, plugin.GLOWING) || Utl.Ench.hasEnchant(leggings, plugin.GLOWING) || Utl.Ench.hasEnchant(boots, plugin.GLOWING))) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 120, 0), false);
         }
     }
 
     public static class Blindness extends Enchantment {
+
+        public static final String NAME = "Obscure";
 
         public Blindness(NamespacedKey key) {
             super(key);
@@ -1071,7 +1152,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Obscure";
+            return NAME;
         }
 
         @Override
@@ -1100,18 +1181,28 @@ public class EnchantDefinitions {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(Poison.NAME)) return true;
+            if (name.equals(Wither.NAME)) return true;
+            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Confusion.NAME)) return true;
+            if (name.equals(Weakness.NAME)) return true;
+            if (name.equals(Hunger.NAME)) return true;
+            if (name.equals(Slowness.NAME)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType());
+            return Utl.Mat.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Plugin.getEnchantLevel(weapon, plugin.BLINDNESS);
+            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.BLINDNESS);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, level * 20, 0), false);
         }
@@ -1119,13 +1210,15 @@ public class EnchantDefinitions {
 
     public static class Confusion extends Enchantment {
 
+        public static final String NAME = "Disorienting";
+
         public Confusion(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Disorienting";
+            return NAME;
         }
 
         @Override
@@ -1154,18 +1247,28 @@ public class EnchantDefinitions {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(Poison.NAME)) return true;
+            if (name.equals(Wither.NAME)) return true;
+            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Blindness.NAME)) return true;
+            if (name.equals(Weakness.NAME)) return true;
+            if (name.equals(Hunger.NAME)) return true;
+            if (name.equals(Slowness.NAME)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType());
+            return Utl.Mat.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Plugin.getEnchantLevel(weapon, plugin.CONFUSION);
+            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.CONFUSION);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, level * 20, 0), false);
         }
@@ -1173,13 +1276,15 @@ public class EnchantDefinitions {
 
     public static class Weakness extends Enchantment {
 
+        public static final String NAME = "Debilitating";
+
         public Weakness(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Debilitating";
+            return NAME;
         }
 
         @Override
@@ -1208,18 +1313,28 @@ public class EnchantDefinitions {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(Poison.NAME)) return true;
+            if (name.equals(Wither.NAME)) return true;
+            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Blindness.NAME)) return true;
+            if (name.equals(Confusion.NAME)) return true;
+            if (name.equals(Hunger.NAME)) return true;
+            if (name.equals(Slowness.NAME)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType());
+            return Utl.Mat.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Plugin.getEnchantLevel(weapon, plugin.WEAKNESS);
+            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.WEAKNESS);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20 + (level * 10), level/4), false);
         }
@@ -1227,13 +1342,15 @@ public class EnchantDefinitions {
 
     public static class Hunger extends Enchantment {
 
+        public static final String NAME = "Starving";
+
         public Hunger(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Starving";
+            return NAME;
         }
 
         @Override
@@ -1262,18 +1379,28 @@ public class EnchantDefinitions {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(Poison.NAME)) return true;
+            if (name.equals(Wither.NAME)) return true;
+            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Blindness.NAME)) return true;
+            if (name.equals(Confusion.NAME)) return true;
+            if (name.equals(Weakness.NAME)) return true;
+            if (name.equals(Slowness.NAME)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType());
+            return Utl.Mat.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Plugin.getEnchantLevel(weapon, plugin.HUNGER);
+            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.HUNGER);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, level * 20, level/2), false);
         }
@@ -1281,13 +1408,15 @@ public class EnchantDefinitions {
 
     public static class Slowness extends Enchantment {
 
+        public static final String NAME = "Crippling";
+
         public Slowness(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Crippling";
+            return NAME;
         }
 
         @Override
@@ -1316,18 +1445,28 @@ public class EnchantDefinitions {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(Poison.NAME)) return true;
+            if (name.equals(Wither.NAME)) return true;
+            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Blindness.NAME)) return true;
+            if (name.equals(Confusion.NAME)) return true;
+            if (name.equals(Weakness.NAME)) return true;
+            if (name.equals(Hunger.NAME)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isWeapon(item.getType());
+            return Utl.Mat.isWeapon(item.getType());
         }
 
         static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Plugin.getEnchantLevel(weapon, plugin.SLOWNESS);
+            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.SLOWNESS);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, level * 20, level/2), false);
         }
@@ -1335,13 +1474,15 @@ public class EnchantDefinitions {
 
     public static class Speed extends Enchantment {
 
+        public static final String NAME = "Swiftness";
+
         public Speed(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Swiftness";
+            return NAME;
         }
 
         @Override
@@ -1377,11 +1518,11 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isLeggings(item.getType());
+            return Utl.Mat.isLeggings(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Plugin.getEnchantLevel(boots, plugin.SPEED);
+            int level = Utl.Ench.getEnchantLevel(boots, plugin.SPEED);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 120, level-1), false);
         }
@@ -1389,13 +1530,15 @@ public class EnchantDefinitions {
 
     public static class Jump extends Enchantment {
 
+        public static final String NAME = "Leaping";
+
         public Jump(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Leaping";
+            return NAME;
         }
 
         @Override
@@ -1431,11 +1574,11 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isBoots(item.getType());
+            return Utl.Mat.isBoots(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Plugin.getEnchantLevel(boots, plugin.JUMP);
+            int level = Utl.Ench.getEnchantLevel(boots, plugin.JUMP);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 120, level-1), false);
         }
@@ -1443,13 +1586,15 @@ public class EnchantDefinitions {
 
     public static class SlowFall extends Enchantment {
 
+        public static final String NAME = "Slow Falling";
+
         public SlowFall(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Slow Falling";
+            return NAME;
         }
 
         @Override
@@ -1485,11 +1630,11 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isBoots(item.getType());
+            return Utl.Mat.isBoots(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Plugin.getEnchantLevel(boots, plugin.SLOW_FALL);
+            int level = Utl.Ench.getEnchantLevel(boots, plugin.SLOW_FALL);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 120, level-1), false);
         }
@@ -1497,13 +1642,15 @@ public class EnchantDefinitions {
 
     public static class Resistance extends Enchantment {
 
+        public static final String NAME = "Resistance";
+
         public Resistance(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Resistance";
+            return NAME;
         }
 
         @Override
@@ -1539,14 +1686,14 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isArmor(item.getType());
+            return Utl.Mat.isArmor(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.RESISTANCE);
-            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.RESISTANCE);
-            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.RESISTANCE);
-            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.RESISTANCE);
+            int helmetLevel = Utl.Ench.getEnchantLevel(helmet, plugin.RESISTANCE);
+            int chestplateLevel = Utl.Ench.getEnchantLevel(chestplate, plugin.RESISTANCE);
+            int leggingsLevel = Utl.Ench.getEnchantLevel(leggings, plugin.RESISTANCE);
+            int bootsLevel = Utl.Ench.getEnchantLevel(boots, plugin.RESISTANCE);
             int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 120, level-1), false);
@@ -1555,13 +1702,15 @@ public class EnchantDefinitions {
 
     public static class Regeneration extends Enchantment {
 
+        public static final String NAME = "Healing";
+
         public Regeneration(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Healing";
+            return NAME;
         }
 
         @Override
@@ -1597,14 +1746,14 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isArmor(item.getType());
+            return Utl.Mat.isArmor(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.REGENERATION);
-            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.REGENERATION);
-            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.REGENERATION);
-            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.REGENERATION);
+            int helmetLevel = Utl.Ench.getEnchantLevel(helmet, plugin.REGENERATION);
+            int chestplateLevel = Utl.Ench.getEnchantLevel(chestplate, plugin.REGENERATION);
+            int leggingsLevel = Utl.Ench.getEnchantLevel(leggings, plugin.REGENERATION);
+            int bootsLevel = Utl.Ench.getEnchantLevel(boots, plugin.REGENERATION);
             int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 120, level-1), false);
@@ -1613,13 +1762,15 @@ public class EnchantDefinitions {
 
     public static class Invisibility extends Enchantment {
 
+        public static final String NAME = "Invisivility";
+
         public Invisibility(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Invisibility";
+            return NAME;
         }
 
         @Override
@@ -1655,16 +1806,18 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isArmor(item.getType());
+            return Utl.Mat.isArmor(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            if (!(Plugin.hasEnchant(helmet, plugin.INVISIBILITY) || Plugin.hasEnchant(chestplate, plugin.INVISIBILITY) || Plugin.hasEnchant(leggings, plugin.INVISIBILITY) || Plugin.hasEnchant(boots, plugin.INVISIBILITY))) return;
+            if (!(Utl.Ench.hasEnchant(helmet, plugin.INVISIBILITY) || Utl.Ench.hasEnchant(chestplate, plugin.INVISIBILITY) || Utl.Ench.hasEnchant(leggings, plugin.INVISIBILITY) || Utl.Ench.hasEnchant(boots, plugin.INVISIBILITY))) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 120, 0), false);
         }
     }
 
     public static class FireResistance extends Enchantment {
+
+        public static final String NAME = "Fire Resistance";
 
         public FireResistance(NamespacedKey key) {
             super(key);
@@ -1672,7 +1825,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Fire Resistance";
+            return NAME;
         }
 
         @Override
@@ -1708,16 +1861,18 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isArmor(item.getType());
+            return Utl.Mat.isArmor(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            if (!(Plugin.hasEnchant(helmet, plugin.FIRE_RESISTANCE) || Plugin.hasEnchant(chestplate, plugin.FIRE_RESISTANCE) || Plugin.hasEnchant(leggings, plugin.FIRE_RESISTANCE) || Plugin.hasEnchant(boots, plugin.FIRE_RESISTANCE))) return;
+            if (!(Utl.Ench.hasEnchant(helmet, plugin.FIRE_RESISTANCE) || Utl.Ench.hasEnchant(chestplate, plugin.FIRE_RESISTANCE) || Utl.Ench.hasEnchant(leggings, plugin.FIRE_RESISTANCE) || Utl.Ench.hasEnchant(boots, plugin.FIRE_RESISTANCE))) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 120, 0), false);
         }
     }
 
     public static class WaterBreathing extends Enchantment {
+
+        public static final String NAME = "Gills";
 
         public WaterBreathing(NamespacedKey key) {
             super(key);
@@ -1725,7 +1880,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Gills";
+            return NAME;
         }
 
         @Override
@@ -1761,16 +1916,18 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isHelmet(item.getType());
+            return Utl.Mat.isHelmet(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
-            if (!Plugin.hasEnchant(helmet, plugin.WATER_BREATHING)) return;
+            if (!Utl.Ench.hasEnchant(helmet, plugin.WATER_BREATHING)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 120, 0), false);
         }
     }
 
     public static class Strength extends Enchantment {
+
+        public static final String NAME = "Strength";
 
         public Strength(NamespacedKey key) {
             super(key);
@@ -1778,7 +1935,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Strength";
+            return NAME;
         }
 
         @Override
@@ -1814,11 +1971,11 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isChestplate(item.getType());
+            return Utl.Mat.isChestplate(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            int level = Plugin.getEnchantLevel(chestplate, plugin.STRENGTH);
+            int level = Utl.Ench.getEnchantLevel(chestplate, plugin.STRENGTH);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 120, level-1), false);
         }
@@ -1826,13 +1983,15 @@ public class EnchantDefinitions {
 
     public static class Haste extends Enchantment {
 
+        public static final String NAME = "Haste";
+
         public Haste(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Haste";
+            return NAME;
         }
 
         @Override
@@ -1868,11 +2027,11 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isChestplate(item.getType());
+            return Utl.Mat.isChestplate(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            int level = Plugin.getEnchantLevel(chestplate, plugin.HASTE);
+            int level = Utl.Ench.getEnchantLevel(chestplate, plugin.HASTE);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 120, level-1), false);
         }
@@ -1880,13 +2039,15 @@ public class EnchantDefinitions {
 
     public static class HealthBoost extends Enchantment {
 
+        public static final String NAME = "Increased Health";
+
         public HealthBoost(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Increased Health";
+            return NAME;
         }
 
         @Override
@@ -1922,14 +2083,14 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isArmor(item.getType());
+            return Utl.Mat.isArmor(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.HEALTH_BOOST);
-            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.HEALTH_BOOST);
-            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.HEALTH_BOOST);
-            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.HEALTH_BOOST);
+            int helmetLevel = Utl.Ench.getEnchantLevel(helmet, plugin.HEALTH_BOOST);
+            int chestplateLevel = Utl.Ench.getEnchantLevel(chestplate, plugin.HEALTH_BOOST);
+            int leggingsLevel = Utl.Ench.getEnchantLevel(leggings, plugin.HEALTH_BOOST);
+            int bootsLevel = Utl.Ench.getEnchantLevel(boots, plugin.HEALTH_BOOST);
             int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 120, level-1), false);
@@ -1938,13 +2099,15 @@ public class EnchantDefinitions {
 
     public static class NightVision extends Enchantment {
 
+        public static final String NAME = "Night Vision";
+
         public NightVision(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Night Vision";
+            return NAME;
         }
 
         @Override
@@ -1980,16 +2143,18 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isHelmet(item.getType());
+            return Utl.Mat.isHelmet(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
-            if (!Plugin.hasEnchant(helmet, plugin.NIGHT_VISION)) return;
+            if (!Utl.Ench.hasEnchant(helmet, plugin.NIGHT_VISION)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900, 0), false);
         }
     }
 
     public static class DolphinsGrace extends Enchantment {
+
+        public static final String NAME = "Dolphins Grace";
 
         public DolphinsGrace(NamespacedKey key) {
             super(key);
@@ -1997,7 +2162,7 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Dolphins Grace";
+            return NAME;
         }
 
         @Override
@@ -2033,16 +2198,18 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isLeggings(item.getType());
+            return Utl.Mat.isLeggings(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack leggings) {
-            if (!Plugin.hasEnchant(leggings, plugin.DOLPHINS_GRACE)) return;
+            if (!Utl.Ench.hasEnchant(leggings, plugin.DOLPHINS_GRACE)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 120, 0), false);
         }
     }
 
     public static class ConduitPower extends Enchantment {
+
+        public static final String NAME = "Conduit Power";
 
         public ConduitPower(NamespacedKey key) {
             super(key);
@@ -2050,12 +2217,12 @@ public class EnchantDefinitions {
 
         @Override
         public String getName() {
-            return "Conduit Power";
+            return NAME;
         }
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 2;
         }
 
         @Override
@@ -2086,11 +2253,11 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isHelmet(item.getType());
+            return Utl.Mat.isHelmet(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
-            int level = Plugin.getEnchantLevel(helmet, plugin.CONDUIT_POWER);
+            int level = Utl.Ench.getEnchantLevel(helmet, plugin.CONDUIT_POWER);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, 120, level-1), false);
         }
@@ -2098,13 +2265,15 @@ public class EnchantDefinitions {
 
     public static class HeroOfTheVillage extends Enchantment {
 
+        public static final String NAME = "Hero of the Village";
+
         public HeroOfTheVillage(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Hero of the Village";
+            return NAME;
         }
 
         @Override
@@ -2140,14 +2309,14 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isArmor(item.getType());
+            return Utl.Mat.isArmor(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.HERO_OF_THE_VILLAGE);
-            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.HERO_OF_THE_VILLAGE);
-            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.HERO_OF_THE_VILLAGE);
-            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.HERO_OF_THE_VILLAGE);
+            int helmetLevel = Utl.Ench.getEnchantLevel(helmet, plugin.HERO_OF_THE_VILLAGE);
+            int chestplateLevel = Utl.Ench.getEnchantLevel(chestplate, plugin.HERO_OF_THE_VILLAGE);
+            int leggingsLevel = Utl.Ench.getEnchantLevel(leggings, plugin.HERO_OF_THE_VILLAGE);
+            int bootsLevel = Utl.Ench.getEnchantLevel(boots, plugin.HERO_OF_THE_VILLAGE);
             int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE, 120, level-1), false);
@@ -2156,13 +2325,15 @@ public class EnchantDefinitions {
 
     public static class MiningFatigueCurse extends Enchantment {
 
+        public static final String NAME = "Curse of Mining Fatigue";
+
         public MiningFatigueCurse(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Curse of Mining Fatigue";
+            return NAME;
         }
 
         @Override
@@ -2198,14 +2369,14 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isArmor(item.getType());
+            return Utl.Mat.isArmor(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.MINING_FATIGUE_CURSE);
-            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.MINING_FATIGUE_CURSE);
-            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.MINING_FATIGUE_CURSE);
-            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.MINING_FATIGUE_CURSE);
+            int helmetLevel = Utl.Ench.getEnchantLevel(helmet, plugin.MINING_FATIGUE_CURSE);
+            int chestplateLevel = Utl.Ench.getEnchantLevel(chestplate, plugin.MINING_FATIGUE_CURSE);
+            int leggingsLevel = Utl.Ench.getEnchantLevel(leggings, plugin.MINING_FATIGUE_CURSE);
+            int bootsLevel = Utl.Ench.getEnchantLevel(boots, plugin.MINING_FATIGUE_CURSE);
             int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 120, level-1), false);
@@ -2214,13 +2385,15 @@ public class EnchantDefinitions {
 
     public static class SlownessCurse extends Enchantment {
 
+        public static final String NAME = "Curse of Slowness";
+
         public SlownessCurse(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Curse of Slowness";
+            return NAME;
         }
 
         @Override
@@ -2256,14 +2429,14 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isArmor(item.getType());
+            return Utl.Mat.isArmor(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.SLOWNESS_CURSE);
-            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.SLOWNESS_CURSE);
-            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.SLOWNESS_CURSE);
-            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.SLOWNESS_CURSE);
+            int helmetLevel = Utl.Ench.getEnchantLevel(helmet, plugin.SLOWNESS_CURSE);
+            int chestplateLevel = Utl.Ench.getEnchantLevel(chestplate, plugin.SLOWNESS_CURSE);
+            int leggingsLevel = Utl.Ench.getEnchantLevel(leggings, plugin.SLOWNESS_CURSE);
+            int bootsLevel = Utl.Ench.getEnchantLevel(boots, plugin.SLOWNESS_CURSE);
             int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, level-1), false);
@@ -2272,13 +2445,15 @@ public class EnchantDefinitions {
 
     public static class WeaknessCurse extends Enchantment {
 
+        public static final String NAME = "Curse of Weakness";
+
         public WeaknessCurse(NamespacedKey key) {
             super(key);
         }
 
         @Override
         public String getName() {
-            return "Curse of Weakness";
+            return NAME;
         }
 
         @Override
@@ -2314,14 +2489,14 @@ public class EnchantDefinitions {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Plugin.isArmor(item.getType());
+            return Utl.Mat.isArmor(item.getType());
         }
 
         static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Plugin.getEnchantLevel(helmet, plugin.WEAKNESS_CURSE);
-            int chestplateLevel = Plugin.getEnchantLevel(chestplate, plugin.WEAKNESS_CURSE);
-            int leggingsLevel = Plugin.getEnchantLevel(leggings, plugin.WEAKNESS_CURSE);
-            int bootsLevel = Plugin.getEnchantLevel(boots, plugin.WEAKNESS_CURSE);
+            int helmetLevel = Utl.Ench.getEnchantLevel(helmet, plugin.WEAKNESS_CURSE);
+            int chestplateLevel = Utl.Ench.getEnchantLevel(chestplate, plugin.WEAKNESS_CURSE);
+            int leggingsLevel = Utl.Ench.getEnchantLevel(leggings, plugin.WEAKNESS_CURSE);
+            int bootsLevel = Utl.Ench.getEnchantLevel(boots, plugin.WEAKNESS_CURSE);
             int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 120, level-1), false);

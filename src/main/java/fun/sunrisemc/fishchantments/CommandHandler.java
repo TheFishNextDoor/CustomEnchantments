@@ -28,7 +28,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player)) return null;
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("fenchant")) {
-            if (args.length == 1) return getEnchantCommandNames(Plugin.getItemInHand(player));
+            if (args.length == 1) return getEnchantCommandNames(Utl.getItemInHand(player));
             else if (args.length == 2) {
                 ArrayList<String> levels = new ArrayList<>();
                 Enchantment enchantment = getEnchantment(args[0]);
@@ -57,7 +57,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         int level = 1;
         if (args.length >= 2) {
             try { level = Integer.parseInt(args[1]); }
-            catch (Exception e) { level = numeralToNumber(args[1]); }
+            catch (Exception e) { level = Utl.Ench.numeralToNumber(args[1]); }
         }
         if (level > 0) {
             if (plugin.addEnchant(player.getInventory().getItemInMainHand(), enchantment, level, true, false)) player.sendMessage("Enchantment added to item in hand.");
@@ -91,7 +91,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             Enchantment enchantment = enchantIter.next();
             String name = getEnchantCommandName(enchantment);
             allNames.add(name);
-            if (plugin.isCompatible(item, enchantment) || Plugin.hasEnchant(item, enchantment)) names.add(name);
+            if (Utl.Ench.canEnchant(item, enchantment) || Utl.Ench.hasEnchant(item, enchantment)) names.add(name);
         }
         return names.size() == 0 ? allNames : names;
     }
@@ -99,21 +99,5 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
     @SuppressWarnings("deprecation")
     private String getEnchantCommandName(Enchantment enchantment) {
         return enchantment.getName().toLowerCase().replaceAll(" ", "_");
-    }
-
-    private static int numeralToNumber(String numeral) {
-        switch (numeral.toUpperCase()) {
-            case "X": return 10;
-            case "IX": return 9;
-            case "VIII": return 8;
-            case "VII": return 7;
-            case "VI": return 6;
-            case "V": return 5;
-            case "IV": return 4;
-            case "III": return 3;
-            case "II": return 2;
-            case "I": return 1;
-            default: return 0;
-        }
     }
 }
