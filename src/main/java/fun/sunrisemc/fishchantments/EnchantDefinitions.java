@@ -707,7 +707,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 2;
         }
 
         @Override
@@ -772,7 +772,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 3;
         }
 
         @Override
@@ -1024,7 +1024,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 3;
         }
 
         @Override
@@ -1157,7 +1157,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 3;
         }
 
         @Override
@@ -1223,7 +1223,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 3;
         }
 
         @Override
@@ -1289,7 +1289,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 2;
         }
 
         @Override
@@ -1355,7 +1355,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 2;
         }
 
         @Override
@@ -1421,7 +1421,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 4;
         }
 
         @Override
@@ -1487,7 +1487,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 2;
         }
 
         @Override
@@ -1543,7 +1543,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 2;
         }
 
         @Override
@@ -1655,7 +1655,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 2;
         }
 
         @Override
@@ -1715,7 +1715,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 2;
         }
 
         @Override
@@ -1940,7 +1940,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 2;
         }
 
         @Override
@@ -1996,7 +1996,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 2;
         }
 
         @Override
@@ -2338,7 +2338,7 @@ public class EnchantDefinitions {
 
         @Override
         public int getMaxLevel() {
-            return 2;
+            return 1;
         }
 
         @Override

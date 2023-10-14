@@ -249,9 +249,7 @@ public class EventListener implements Listener {
         List<ItemStack> drops = event.getDrops();
         if (type == EntityType.WITHER && Utl.chance(33.3)) drops.add(plugin.enchantedBook(plugin.WITHER, 1));
         if (type == EntityType.RAVAGER && Utl.chance(8.0)) drops.add(plugin.enchantedBook(plugin.CRUSH, 1));
-        if (type == EntityType.SILVERFISH && Utl.chance(4.0)) drops.add(plugin.enchantedBook(plugin.WORM, 1));
         if (type == EntityType.DROWNED && Utl.chance(1.0)) drops.add(plugin.enchantedBook(plugin.WATER_BREATHING, 1));
-        if (type == EntityType.ENDER_DRAGON && Utl.chance(10.0)) drops.add(plugin.enchantedBook(plugin.UNBREAKABLE, 1));
         if (type == EntityType.CREEPER) {
             Creeper creeper = (Creeper) entity;
             if (creeper.isPowered() && Utl.chance(40.0)) drops.add(plugin.enchantedBook(plugin.DESTRUCTIVE, 1));
