@@ -139,29 +139,6 @@ public class Utl {
             return enchantments;
         }
 
-        public static boolean canEnchant(ItemStack item, Enchantment enchantment) {
-            if (item == null || enchantment == null) return false;
-            if (!enchantment.canEnchantItem(item)) return false;
-            return !hasConflictingEnchantments(item, enchantment);
-        }
-
-        public static boolean hasConflictingEnchantments(ItemStack item, Enchantment enchantment) {
-            Iterator<Enchantment> iter = getEnchantments(item).iterator();
-            while (iter.hasNext()) {
-            Enchantment ienchantment = iter.next();
-            if (enchantment.conflictsWith(ienchantment) || ienchantment.conflictsWith(enchantment)) return true;
-            }
-            return false;
-        }
-
-        public static boolean canMerge(ItemStack itemA, ItemStack itemB) {
-            Iterator<Enchantment> enchantments = getEnchantments(itemB).iterator();
-            while (enchantments.hasNext()) {
-            if (hasConflictingEnchantments(itemA, enchantments.next())) return false;
-            }
-            return true;
-        }
-
         public static String numberToNumeral(int number) {
             switch (number) {
                 case 10: return "X";

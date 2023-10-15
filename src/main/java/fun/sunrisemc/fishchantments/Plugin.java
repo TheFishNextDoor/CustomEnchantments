@@ -16,46 +16,46 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Accurate;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Blindness;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.ConduitPower;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Confusion;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Glowing;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Haste;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.HealthBoost;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Destructive;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.DolphinsGrace;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.FireResistance;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Tilling;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Replanting;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.SlowFall;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Helium;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.HeroOfTheVillage;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Hunger;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Invisibility;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.LifeSteal;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.MiningFatigueCurse;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.NightVision;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Fling;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Poison;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Range;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Slowness;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.SlownessCurse;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Speed;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Strength;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Unbreakable;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.WaterBreathing;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Food;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Worm;
+import fun.sunrisemc.fishchantments.Enchantments.Curses.MiningFatigueCurse;
+import fun.sunrisemc.fishchantments.Enchantments.Curses.SlownessCurse;
+import fun.sunrisemc.fishchantments.Enchantments.Curses.WeaknessCurse;
+import fun.sunrisemc.fishchantments.Enchantments.Generic.Invisibility;
+import fun.sunrisemc.fishchantments.Enchantments.Generic.Tilling;
+import fun.sunrisemc.fishchantments.Enchantments.Generic.Replanting;
+import fun.sunrisemc.fishchantments.Enchantments.Generic.Excavating;
+import fun.sunrisemc.fishchantments.Enchantments.Generic.Fling;
+import fun.sunrisemc.fishchantments.Enchantments.Generic.Unbreakable;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Boot.Crush;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Boot.Jump;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Boot.SlowFall;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Chestplate.FireResistance;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Chestplate.Haste;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Chestplate.HealthBoost;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Chestplate.HeroOfTheVillage;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Chestplate.Regeneration;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Chestplate.Resistance;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Chestplate.Strength;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Helmet.ConduitPower;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Helmet.Food;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Helmet.NightVision;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Helmet.WaterBreathing;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Helmet.Worm;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Legging.DolphinsGrace;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Legging.Speed;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Blindness;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Confusion;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Helium;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Hunger;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.LifeSteal;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Poison;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Range;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Slowness;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Weakness;
+import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Wither;
+import fun.sunrisemc.fishchantments.Enchantments.Generic.Accurate;
+import fun.sunrisemc.fishchantments.Enchantments.Generic.Glowing;
+import fun.sunrisemc.fishchantments.Enchantments.Generic.Destructive;
 import net.md_5.bungee.api.ChatColor;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Crush;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Weakness;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.WeaknessCurse;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Wither;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Jump;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Resistance;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Regeneration;
-import fun.sunrisemc.fishchantments.EnchantDefinitions.Excavating;;
 
 public class Plugin extends JavaPlugin {
   private static final Logger LOGGER = Logger.getLogger("Fishchantments");
@@ -183,10 +183,28 @@ public class Plugin extends JavaPlugin {
     return false;
   }
 
+  public boolean hasConflictingFishchantments(ItemStack item, Enchantment enchantment) {
+    Iterator<Enchantment> iter = Utl.Ench.getEnchantments(item).iterator();
+    while (iter.hasNext()) {
+      Enchantment ienchantment = iter.next();
+      if (!isFishchantment(enchantment) && !isFishchantment(ienchantment)) continue;
+      if (enchantment.conflictsWith(ienchantment) || ienchantment.conflictsWith(enchantment)) return true;
+    }
+    return false;
+  }
+
+  public boolean canMerge(ItemStack itemA, ItemStack itemB) {
+    Iterator<Enchantment> enchantments = Utl.Ench.getEnchantments(itemB).iterator();
+    while (enchantments.hasNext()) {
+    if (hasConflictingFishchantments(itemA, enchantments.next())) return false;
+    }
+    return true;
+}
+
   public boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
     if (item == null) return false;
     if (level < 1) return false;
-    if (!force && Utl.Ench.hasConflictingEnchantments(item, enchantment)) return false;
+    if (!force && hasConflictingFishchantments(item, enchantment)) return false;
     int currentLevel = Utl.Ench.getEnchantLevel(item, enchantment);
     if (!force && level < currentLevel) return false;
     if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++;

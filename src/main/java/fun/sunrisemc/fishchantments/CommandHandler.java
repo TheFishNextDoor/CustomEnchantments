@@ -91,7 +91,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             Enchantment enchantment = enchantIter.next();
             String name = getEnchantCommandName(enchantment);
             allNames.add(name);
-            if (Utl.Ench.canEnchant(item, enchantment) || Utl.Ench.hasEnchant(item, enchantment)) names.add(name);
+            if (Utl.Ench.hasEnchant(item, enchantment) || enchantment.canEnchantItem(item)) names.add(name);
         }
         return names.size() == 0 ? allNames : names;
     }
