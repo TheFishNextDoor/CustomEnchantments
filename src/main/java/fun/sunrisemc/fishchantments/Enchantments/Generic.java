@@ -1,4 +1,4 @@
-package fun.sunrisemc.fishchantments.Enchantments;
+package fun.sunrisemc.fishchantments.enchantments;
 
 import java.util.ArrayList;
 import java.util.Collection;

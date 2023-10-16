@@ -1,4 +1,4 @@
-package fun.sunrisemc.fishchantments.Enchantments.Specialties;
+package fun.sunrisemc.fishchantments.enchantments.specialties;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;

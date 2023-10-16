@@ -1,4 +1,4 @@
-package fun.sunrisemc.fishchantments.Enchantments.Specialties;
+package fun.sunrisemc.fishchantments.enchantments.specialties;
 
 import java.util.ArrayList;
 
