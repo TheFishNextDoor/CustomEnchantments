@@ -106,6 +106,64 @@ public class Generic {
         }
     }
 
+    public static class Range extends Enchantment {
+
+        public static final String NAME = "Range";
+
+        public Range(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 3;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.BREAKABLE;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mat.isRangedWeapon(item.getType());
+        }
+
+        public static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
+            if (plugin == null || player == null || projectile == null) return;
+            final int level = Utl.Ench.getEnchantLevel(item, plugin.RANGE);
+            if (level < 1) return;
+            double levelValue = level; 
+            projectile.setVelocity(projectile.getVelocity().multiply(1.0 + (levelValue/5.0)));
+        }
+    }
+
     public static class Tilling extends Enchantment {
 
         public static final String NAME = "Tilling";

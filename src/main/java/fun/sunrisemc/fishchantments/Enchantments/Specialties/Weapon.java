@@ -7,7 +7,6 @@ import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -16,74 +15,6 @@ import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Utl;
 
 public class Weapon {
-
-    public static class Range extends Enchantment {
-
-        public static final String NAME = "Range";
-
-        public Range(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public String getName() {
-            return NAME;
-        }
-
-        @Override
-        public int getMaxLevel() {
-            return 3;
-        }
-
-        @Override
-        public int getStartLevel() {
-            return 1;
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.BREAKABLE;
-        }
-
-        @Override
-        public boolean isTreasure() {
-            return false;
-        }
-
-        @Override
-        public boolean isCursed() {
-            return false;
-        }
-
-        @Override
-        @SuppressWarnings("deprecation")
-        public boolean conflictsWith(Enchantment other) {
-            String name = other.getName();
-            if (name.equals(LifeSteal.NAME)) return true;
-            if (name.equals(Poison.NAME)) return true;
-            if (name.equals(Wither.NAME)) return true;
-            if (name.equals(Helium.NAME)) return true;
-            if (name.equals(Blindness.NAME)) return true;
-            if (name.equals(Confusion.NAME)) return true;
-            if (name.equals(Weakness.NAME)) return true;
-            if (name.equals(Hunger.NAME)) return true;
-            if (name.equals(Slowness.NAME)) return true;
-            return false;
-        }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
-            return Utl.Mat.isRangedWeapon(item.getType());
-        }
-
-        public static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
-            if (plugin == null || player == null || projectile == null) return;
-            final int level = Utl.Ench.getEnchantLevel(item, plugin.RANGE);
-            if (level < 1) return;
-            projectile.setVelocity(projectile.getVelocity().multiply(1 + (level/5)));
-        }
-    }
 
     public static class LifeSteal extends Enchantment {
 
@@ -127,7 +58,6 @@ public class Weapon {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Range.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
             if (name.equals(Helium.NAME)) return true;
@@ -216,7 +146,6 @@ public class Weapon {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Range.NAME)) return true;
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
             if (name.equals(Helium.NAME)) return true;
@@ -284,7 +213,6 @@ public class Weapon {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Range.NAME)) return true;
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Helium.NAME)) return true;
@@ -352,7 +280,6 @@ public class Weapon {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Range.NAME)) return true;
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
@@ -425,7 +352,6 @@ public class Weapon {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Range.NAME)) return true;
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
@@ -492,7 +418,6 @@ public class Weapon {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Range.NAME)) return true;
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
@@ -559,7 +484,6 @@ public class Weapon {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Range.NAME)) return true;
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
@@ -626,7 +550,6 @@ public class Weapon {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Range.NAME)) return true;
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
@@ -693,7 +616,6 @@ public class Weapon {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Range.NAME)) return true;
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;

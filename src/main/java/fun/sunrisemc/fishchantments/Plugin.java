@@ -48,7 +48,7 @@ import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Helium;
 import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Hunger;
 import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.LifeSteal;
 import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Poison;
-import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Range;
+import fun.sunrisemc.fishchantments.Enchantments.Generic.Range;
 import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Slowness;
 import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Weakness;
 import fun.sunrisemc.fishchantments.Enchantments.Specialties.Weapon.Wither;
