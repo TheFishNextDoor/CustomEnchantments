@@ -99,6 +99,10 @@ public class Utl {
 
     public static class Nchnt {
 
+        public static boolean holding(Player player, Enchantment enchant) {
+            return holdingLevel(player, enchant) > 0;
+        }
+
         public static boolean has(ItemStack item, Enchantment enchant) {
             return level(item, enchant) > 0;
         }
@@ -110,6 +114,14 @@ public class Utl {
             if (name1 == null || name2 == null) return false;
             if (name1.equalsIgnoreCase(name2)) return true;
             return false;
+        }
+
+        public static int holdingLevel(Player player, Enchantment enchant) {
+            PlayerInventory inv = player.getInventory();
+            int mainHand = level(inv.getItemInMainHand(), enchant);
+            int offHand = level(inv.getItemInOffHand(), enchant);
+            if (mainHand < offHand) return offHand;
+            return mainHand;
         }
 
         public static int level(ItemStack item, Enchantment enchant) {

@@ -69,8 +69,8 @@ public class Boot {
             return Utl.Mat.isBoots(item.getType());
         }
 
-        public static void onFall(Plugin plugin, Player player, ItemStack item, double fallDamage, ArrayList<LivingEntity> fellOn) {
-            final int level = Utl.Nchnt.level(item, plugin.CRUSH);
+        public static void onFall(Plugin plugin, Player player, ItemStack boots, double fallDamage, ArrayList<LivingEntity> fellOn) {
+            final int level = Utl.Nchnt.level(boots, plugin.CRUSH);
             if (level < 1) return;
             final double damage = calcDamage(fallDamage, level);
             for (LivingEntity entity : fellOn) {

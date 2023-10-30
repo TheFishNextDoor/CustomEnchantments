@@ -7,7 +7,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.Utl;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Tilling;
 
 public class TillLand implements Listener {
@@ -22,6 +21,6 @@ public class TillLand implements Listener {
         Block clickedBlock = event.getClickedBlock();
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (clickedBlock == null || event.getItem() == null) return;
-        Tilling.onTill(plugin, event.getPlayer(), Utl.getItemInHand(event.getPlayer()), clickedBlock);
+        Tilling.onTill(plugin, event.getPlayer(), clickedBlock);
     }
 }

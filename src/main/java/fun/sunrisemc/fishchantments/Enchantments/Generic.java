@@ -80,13 +80,12 @@ public class Generic {
             return Utl.Mat.isRangedWeapon(item.getType());
         }
 
-        public static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
-            if (plugin == null || player == null || projectile == null || bow == null || block == null) return;
-            final int level = Utl.Nchnt.level(bow, plugin.DESTRUCTIVE);
+        public static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
+            if (plugin == null || player == null || projectile == null || block == null) return;
+            final int level = Utl.Nchnt.holdingLevel(player, plugin.DESTRUCTIVE);
             if (level < 1) return;
-            ItemStack usedTool = bow;
+            ItemStack usedTool = new ItemStack(new ItemStack(Material.SHEARS));
             boolean hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
-            if (!hasDrops) hasDrops = !block.getDrops(new ItemStack(new ItemStack(Material.SHEARS))).isEmpty();
             if (!hasDrops && level >= 2) {
                 usedTool = new ItemStack(Material.WOODEN_PICKAXE);
                 hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
@@ -155,9 +154,9 @@ public class Generic {
             return Utl.Mat.isRangedWeapon(item.getType());
         }
 
-        public static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
+        public static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile) {
             if (plugin == null || player == null || projectile == null) return;
-            final int level = Utl.Nchnt.level(item, plugin.RANGE);
+            final int level = Utl.Nchnt.holdingLevel(player, plugin.RANGE);
             if (level < 1) return;
             double levelValue = level; 
             projectile.setVelocity(projectile.getVelocity().multiply(1.0 + (levelValue/5.0)));
@@ -213,16 +212,16 @@ public class Generic {
             return Utl.Mat.isHoe(item.getType());
         }
 
-        public static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
-            if (plugin == null || player == null || projectile == null || bow == null || block == null) return;
-            if (!Utl.Nchnt.has(bow, plugin.TILLING)) return;
+        public static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
+            if (plugin == null || player == null || projectile == null || block == null) return;
+            if (!Utl.Nchnt.holding(player, plugin.TILLING)) return;
             projectile.remove();
             till(player, block);
         }
 
-        public static void onTill(Plugin plugin, Player player, ItemStack hoe, Block block) {
-            if (plugin == null || player == null || hoe == null || block == null) return;
-            if (!Utl.Nchnt.has(hoe, plugin.TILLING)) return;
+        public static void onTill(Plugin plugin, Player player, Block block) {
+            if (plugin == null || player == null || block == null) return;
+            if (!Utl.Nchnt.holding(player, plugin.TILLING)) return;
             till(player, block);
         }
 
@@ -289,8 +288,8 @@ public class Generic {
             return Utl.Mat.isWeapon(item.getType()) || Utl.Mat.isArmor(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Nchnt.level(weapon, plugin.GLOWING);
+        public static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, double damage, boolean ranged) {
+            final int level = Utl.Nchnt.holdingLevel(attacker, plugin.GLOWING);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0));
         }
@@ -585,8 +584,8 @@ public class Generic {
             return Utl.Mat.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Nchnt.level(weapon, plugin.FLING);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, double damage, boolean ranged) {
+            final int level = Utl.Nchnt.holdingLevel(player, plugin.FLING);
             if (level < 1) return;
             final double velocity = ((ranged ? level * 1.75 : level * 1.0) * 0.05) + 0.1;
             final Entity finalEntity = entity;
@@ -650,9 +649,9 @@ public class Generic {
             return Utl.Mat.isRangedWeapon(item.getType());
         }
 
-        public static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
+        public static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile) {
             if (plugin == null || player == null || projectile == null) return;
-            if (!Utl.Nchnt.has(item, plugin.ACCURATE)) return;
+            if (!Utl.Nchnt.holding(player, plugin.ACCURATE)) return;
             Vector direction = player.getEyeLocation().getDirection();
             Vector velocity = projectile.getVelocity();
             velocity.setX(direction.getX() * velocity.length());
