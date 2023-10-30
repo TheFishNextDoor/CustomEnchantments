@@ -70,7 +70,7 @@ public class Boot {
         }
 
         public static void onFall(Plugin plugin, Player player, ItemStack item, double fallDamage, ArrayList<LivingEntity> fellOn) {
-            final int level = Utl.Ench.getEnchantLevel(item, plugin.CRUSH);
+            final int level = Utl.Nchnt.level(item, plugin.CRUSH);
             if (level < 1) return;
             final double damage = calcDamage(fallDamage, level);
             for (LivingEntity entity : fellOn) {
@@ -147,7 +147,7 @@ public class Boot {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Ench.getEnchantLevel(boots, plugin.JUMP);
+            int level = Utl.Nchnt.level(boots, plugin.JUMP);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 120, level-1));
         }
@@ -207,7 +207,7 @@ public class Boot {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Ench.getEnchantLevel(boots, plugin.SLOW_FALL);
+            int level = Utl.Nchnt.level(boots, plugin.SLOW_FALL);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 120, level-1));
         }

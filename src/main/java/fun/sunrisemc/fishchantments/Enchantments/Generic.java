@@ -82,7 +82,7 @@ public class Generic {
 
         public static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
             if (plugin == null || player == null || projectile == null || bow == null || block == null) return;
-            final int level = Utl.Ench.getEnchantLevel(bow, plugin.DESTRUCTIVE);
+            final int level = Utl.Nchnt.level(bow, plugin.DESTRUCTIVE);
             if (level < 1) return;
             ItemStack usedTool = bow;
             boolean hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
@@ -157,7 +157,7 @@ public class Generic {
 
         public static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
             if (plugin == null || player == null || projectile == null) return;
-            final int level = Utl.Ench.getEnchantLevel(item, plugin.RANGE);
+            final int level = Utl.Nchnt.level(item, plugin.RANGE);
             if (level < 1) return;
             double levelValue = level; 
             projectile.setVelocity(projectile.getVelocity().multiply(1.0 + (levelValue/5.0)));
@@ -215,14 +215,14 @@ public class Generic {
 
         public static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, ItemStack bow, Block block) {
             if (plugin == null || player == null || projectile == null || bow == null || block == null) return;
-            if (!Utl.Ench.hasEnchant(bow, plugin.TILLING)) return;
+            if (!Utl.Nchnt.has(bow, plugin.TILLING)) return;
             projectile.remove();
             till(player, block);
         }
 
         public static void onTill(Plugin plugin, Player player, ItemStack hoe, Block block) {
             if (plugin == null || player == null || hoe == null || block == null) return;
-            if (!Utl.Ench.hasEnchant(hoe, plugin.TILLING)) return;
+            if (!Utl.Nchnt.has(hoe, plugin.TILLING)) return;
             till(player, block);
         }
 
@@ -290,13 +290,13 @@ public class Generic {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.GLOWING);
+            final int level = Utl.Nchnt.level(weapon, plugin.GLOWING);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0));
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            if (!(Utl.Ench.hasEnchant(helmet, plugin.GLOWING) || Utl.Ench.hasEnchant(chestplate, plugin.GLOWING) || Utl.Ench.hasEnchant(leggings, plugin.GLOWING) || Utl.Ench.hasEnchant(boots, plugin.GLOWING))) return;
+            if (!(Utl.Nchnt.has(helmet, plugin.GLOWING) || Utl.Nchnt.has(chestplate, plugin.GLOWING) || Utl.Nchnt.has(leggings, plugin.GLOWING) || Utl.Nchnt.has(boots, plugin.GLOWING))) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 120, 0));
         }
     }
@@ -352,7 +352,7 @@ public class Generic {
 
         public static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, PlayerItemDamageEvent event) {
             if (plugin == null || player == null || item == null) return;
-            if (!Utl.Ench.hasEnchant(item, plugin.UNBREAKABLE)) return;
+            if (!Utl.Nchnt.has(item, plugin.UNBREAKABLE)) return;
             event.setCancelled(true);
         }
     }
@@ -407,7 +407,7 @@ public class Generic {
         }
 
         public static void onRightClick(Plugin plugin, Player player, ItemStack item, Block block) {
-            final int level = Utl.Ench.getEnchantLevel(item, plugin.REPLANTING);
+            final int level = Utl.Nchnt.level(item, plugin.REPLANTING);
             if (level == 1) {
                 if (Utl.PrmChkr.canModify(player, block)) harvest(player, block, item);
             }
@@ -422,7 +422,7 @@ public class Generic {
         }
 
         public static void onBlockBreak(Plugin plugin, Player player, ItemStack item, Block block, BlockBreakEvent event) {
-            final int level = Utl.Ench.getEnchantLevel(item, plugin.REPLANTING);
+            final int level = Utl.Nchnt.level(item, plugin.REPLANTING);
             if (level < 1) return;
             event.setCancelled(harvest(player, block, item));
         }
@@ -492,7 +492,7 @@ public class Generic {
         }
 
         public static void onBlockBreak(Plugin plugin, Player player, ItemStack item, Block block, BlockBreakEvent event) {
-            if (!Utl.Ench.hasEnchant(item, plugin.EXCAVATING)) return;
+            if (!Utl.Nchnt.has(item, plugin.EXCAVATING)) return;
             Vector direction = player.getLocation().getDirection();
             double x = Math.abs(direction.getX());
             double y = Math.abs(direction.getY());
@@ -586,7 +586,7 @@ public class Generic {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.FLING);
+            final int level = Utl.Nchnt.level(weapon, plugin.FLING);
             if (level < 1) return;
             final double velocity = ((ranged ? level * 1.75 : level * 1.0) * 0.05) + 0.1;
             final Entity finalEntity = entity;
@@ -652,7 +652,7 @@ public class Generic {
 
         public static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile, ItemStack item) {
             if (plugin == null || player == null || projectile == null) return;
-            if (!Utl.Ench.hasEnchant(item, plugin.ACCURATE)) return;
+            if (!Utl.Nchnt.has(item, plugin.ACCURATE)) return;
             Vector direction = player.getEyeLocation().getDirection();
             Vector velocity = projectile.getVelocity();
             velocity.setX(direction.getX() * velocity.length());
@@ -712,7 +712,7 @@ public class Generic {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            if (!(Utl.Ench.hasEnchant(helmet, plugin.INVISIBILITY) || Utl.Ench.hasEnchant(chestplate, plugin.INVISIBILITY) || Utl.Ench.hasEnchant(leggings, plugin.INVISIBILITY) || Utl.Ench.hasEnchant(boots, plugin.INVISIBILITY))) return;
+            if (!(Utl.Nchnt.has(helmet, plugin.INVISIBILITY) || Utl.Nchnt.has(chestplate, plugin.INVISIBILITY) || Utl.Nchnt.has(leggings, plugin.INVISIBILITY) || Utl.Nchnt.has(boots, plugin.INVISIBILITY))) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 120, 0));
         }
     }

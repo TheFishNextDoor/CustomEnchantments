@@ -72,7 +72,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Plugin extends JavaPlugin {
   private static final Logger LOGGER = Logger.getLogger("Fishchantments");
-  private static final boolean NUMERALS = false;
+  private static Config config = new Config();
   private ArrayList<Enchantment> fishchantments = new ArrayList<>();
 
   public final Enchantment DESTRUCTIVE = new Destructive(new NamespacedKey(this, "destructive_fishchantment"));
@@ -189,7 +189,7 @@ public class Plugin extends JavaPlugin {
     ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
     if (item == null) return foundFishchantments;
     if (!item.hasItemMeta()) return foundFishchantments;
-    Iterator<Enchantment> enchantments = Utl.Ench.getEnchantments(item).iterator();
+    Iterator<Enchantment> enchantments = Utl.Nchnt.enchantments(item).iterator();
     while (enchantments.hasNext()) {
       Enchantment enchantment = enchantments.next();
       if (isFishchantment(enchantment)) foundFishchantments.add(enchantment);
@@ -197,19 +197,18 @@ public class Plugin extends JavaPlugin {
     return foundFishchantments;
   }
 
-  @SuppressWarnings("deprecation")
   public boolean isFishchantment(Enchantment enchantment) {
     if (enchantment == null) return false;
     Iterator<Enchantment> fishchantments = getFishchantments().iterator();
     while (fishchantments.hasNext()) {
-      String name = fishchantments.next().getName();
-      if (name.equals(enchantment.getName())) return true;
+      Enchantment fishchantment = fishchantments.next();
+      if (Utl.Nchnt.equals(fishchantment, enchantment)) return true;
     }
     return false;
   }
 
   public boolean hasConflictingFishchantments(ItemStack item, Enchantment enchantment) {
-    Iterator<Enchantment> iter = Utl.Ench.getEnchantments(item).iterator();
+    Iterator<Enchantment> iter = Utl.Nchnt.enchantments(item).iterator();
     while (iter.hasNext()) {
       Enchantment ienchantment = iter.next();
       if (!isFishchantment(enchantment) && !isFishchantment(ienchantment)) continue;
@@ -220,7 +219,7 @@ public class Plugin extends JavaPlugin {
 
   public boolean canMerge(ItemStack itemA, ItemStack itemB) {
     if (itemA.getAmount() > 0 || itemB.getAmount() > 0) return false;
-    Iterator<Enchantment> enchantments = Utl.Ench.getEnchantments(itemB).iterator();
+    Iterator<Enchantment> enchantments = Utl.Nchnt.enchantments(itemB).iterator();
     while (enchantments.hasNext()) {
       if (hasConflictingFishchantments(itemA, enchantments.next())) return false;
     }
@@ -231,7 +230,7 @@ public class Plugin extends JavaPlugin {
     if (item == null) return false;
     if (level < 1) return false;
     if (!force && hasConflictingFishchantments(item, enchantment)) return false;
-    int currentLevel = Utl.Ench.getEnchantLevel(item, enchantment);
+    int currentLevel = Utl.Nchnt.level(item, enchantment);
     if (!force && level < currentLevel) return false;
     if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++;
     removeEnchant(item, enchantment);
@@ -250,7 +249,7 @@ public class Plugin extends JavaPlugin {
     ItemMeta meta = item.getItemMeta();
     List<String> lore = meta.getLore();
     if (lore == null) lore = new ArrayList<String>();
-    lore.add(0, getLore(enchantment, level));
+    lore.add(0, lore(enchantment, level));
     meta.setLore(lore);
     item.setItemMeta(meta);
     return true;
@@ -258,7 +257,7 @@ public class Plugin extends JavaPlugin {
 
   public boolean removeEnchant(ItemStack item, Enchantment enchantment) {
     if (item == null) return false;
-    final boolean HASENCHANT = Utl.Ench.hasEnchant(item, enchantment);
+    final boolean HASENCHANT = Utl.Nchnt.has(item, enchantment);
     if (HASENCHANT) {
       if (item.getType() == Material.ENCHANTED_BOOK) {
         EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
@@ -274,7 +273,7 @@ public class Plugin extends JavaPlugin {
     List<String> lore = meta.getLore();
     if (lore == null) return HASENCHANT;
     List<String> newLore = new ArrayList<>();
-    String enchantLore = getLore(enchantment, 1);
+    String enchantLore = lore(enchantment, 1);
     for (String line : lore) {
       if (!line.contains(enchantLore)) newLore.add(line);
     }
@@ -289,14 +288,6 @@ public class Plugin extends JavaPlugin {
     return enchantedBook;
   }
 
-  @SuppressWarnings("deprecation")
-  private static String getLore(Enchantment enchantment, Integer level) {
-    if (level < 0) return null;
-    String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
-    if (level == 1) return lore;
-    else return lore + " " + (NUMERALS ? Utl.Ench.numberToNumeral(level) : level.toString());
-  }
-
   private void register(Enchantment enchant) {
     fishchantments.add(enchant);
     try {
@@ -308,6 +299,14 @@ public class Plugin extends JavaPlugin {
     catch (Exception e) {
       LOGGER.warning("Failed to load enchant " + enchant.toString() + ": " + e.getMessage());
     }
+  }
+
+  @SuppressWarnings("deprecation")
+  private static String lore(Enchantment enchantment, Integer level) {
+      if (level < 0) return null;
+      String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
+      if (level == 1) return lore;
+      else return lore + " " + (config.NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
   }
 
   private void startTimer(final Plugin plugin) {

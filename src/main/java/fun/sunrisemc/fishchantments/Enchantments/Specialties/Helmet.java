@@ -71,7 +71,7 @@ public class Helmet {
         }
 
         public static void onHungerLoss(Plugin plugin, Player player, ItemStack item, FoodLevelChangeEvent event) {
-            if (!Utl.Ench.hasEnchant(item, plugin.FOOD)) return;
+            if (!Utl.Nchnt.has(item, plugin.FOOD)) return;
             event.setFoodLevel(20);
         }
     }
@@ -132,7 +132,7 @@ public class Helmet {
         }
 
         public static void onSuffocate(Plugin plugin, Player player, ItemStack item, EntityDamageEvent event) {
-            if (!Utl.Ench.hasEnchant(item, plugin.WORM)) return;
+            if (!Utl.Nchnt.has(item, plugin.WORM)) return;
             event.setCancelled(true);
         }
     }
@@ -193,7 +193,7 @@ public class Helmet {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
-            if (!Utl.Ench.hasEnchant(helmet, plugin.WATER_BREATHING)) return;
+            if (!Utl.Nchnt.has(helmet, plugin.WATER_BREATHING)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 120, 0));
         }
     }
@@ -254,7 +254,7 @@ public class Helmet {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
-            if (!Utl.Ench.hasEnchant(helmet, plugin.NIGHT_VISION)) return;
+            if (!Utl.Nchnt.has(helmet, plugin.NIGHT_VISION)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900, 0));
         }
     }
@@ -315,7 +315,7 @@ public class Helmet {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
-            int level = Utl.Ench.getEnchantLevel(helmet, plugin.CONDUIT_POWER);
+            int level = Utl.Nchnt.level(helmet, plugin.CONDUIT_POWER);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, 120, level-1));
         }

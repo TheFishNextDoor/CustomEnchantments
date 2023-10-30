@@ -57,7 +57,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         int level = 1;
         if (args.length >= 2) {
             try { level = Integer.parseInt(args[1]); }
-            catch (Exception e) { level = Utl.Ench.numeralToNumber(args[1]); }
+            catch (Exception e) { level = Utl.Nchnt.number(args[1]); }
         }
         if (level > 0) {
             if (plugin.addEnchant(player.getInventory().getItemInMainHand(), enchantment, level, true, false)) player.sendMessage("Enchantment added to item in hand.");
@@ -91,7 +91,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             Enchantment enchantment = enchantIter.next();
             String name = getEnchantCommandName(enchantment);
             allNames.add(name);
-            if (Utl.Ench.hasEnchant(item, enchantment) || enchantment.canEnchantItem(item)) names.add(name);
+            if (Utl.Nchnt.has(item, enchantment) || enchantment.canEnchantItem(item)) names.add(name);
         }
         return names.size() == 0 ? allNames : names;
     }

@@ -66,7 +66,7 @@ public class Legging {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Ench.getEnchantLevel(boots, plugin.SPEED);
+            int level = Utl.Nchnt.level(boots, plugin.SPEED);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 120, level-1));
         }
@@ -125,7 +125,7 @@ public class Legging {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack leggings) {
-            if (!Utl.Ench.hasEnchant(leggings, plugin.DOLPHINS_GRACE)) return;
+            if (!Utl.Nchnt.has(leggings, plugin.DOLPHINS_GRACE)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 120, 0));
         }
     }

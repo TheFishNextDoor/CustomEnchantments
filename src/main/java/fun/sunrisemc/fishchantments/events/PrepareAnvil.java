@@ -32,13 +32,13 @@ public class PrepareAnvil implements Listener {
         ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
         for (int i = 0; i < fishchantments.size(); i++) {
             Enchantment enchantment = fishchantments.get(i);
-            int level = Utl.Ench.getEnchantLevel(zero, enchantment);
+            int level = Utl.Nchnt.level(zero, enchantment);
             plugin.addEnchant(result, enchantment, level, true, false);
         }
         fishchantments = plugin.getFishchantments(one);
         for (int i = 0; i < fishchantments.size(); i++) {
             Enchantment enchantment = fishchantments.get(i);
-            int level = Utl.Ench.getEnchantLevel(one, enchantment);
+            int level = Utl.Nchnt.level(one, enchantment);
             plugin.addEnchant(result, enchantment, level, false, true);
         }
         event.setResult(result);

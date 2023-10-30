@@ -76,7 +76,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.LIFE_STEAL);
+            final int level = Utl.Nchnt.level(weapon, plugin.LIFE_STEAL);
             if (level < 1) return;
             if (!ranged) damage /= 2;
             heal(player, calcAddedHealth(damage, level));
@@ -164,7 +164,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.POISON);
+            final int level = Utl.Nchnt.level(weapon, plugin.POISON);
             if (level < 1) return;
             int strength = level/2;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 40 + (level * 20)/(strength + 1), strength));
@@ -231,7 +231,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.WITHER);
+            final int level = Utl.Nchnt.level(weapon, plugin.WITHER);
             if (level < 1) return;
             int strength = level/3;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 40 + (level * 20)/(strength + 1), strength));
@@ -298,13 +298,13 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.HELIUM);
+            final int level = Utl.Nchnt.level(weapon, plugin.HELIUM);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 20, 0));
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Ench.getEnchantLevel(boots, plugin.HELIUM);
+            int level = Utl.Nchnt.level(boots, plugin.HELIUM);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 120, level-1));
         }
@@ -370,7 +370,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.BLINDNESS);
+            final int level = Utl.Nchnt.level(weapon, plugin.BLINDNESS);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, level * 20, 0));
         }
@@ -436,7 +436,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.CONFUSION);
+            final int level = Utl.Nchnt.level(weapon, plugin.CONFUSION);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, level * 20, 0));
         }
@@ -502,7 +502,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.WEAKNESS);
+            final int level = Utl.Nchnt.level(weapon, plugin.WEAKNESS);
             if (level < 1) return;
             int strength = level/4;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 40 + (level * 20)/(strength + 1), strength));
@@ -569,7 +569,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.HUNGER);
+            final int level = Utl.Nchnt.level(weapon, plugin.HUNGER);
             if (level < 1) return;
             int strength = level/2;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 40 + (level * 20)/(strength + 1), strength));
@@ -636,7 +636,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player attacker, LivingEntity reciever, ItemStack weapon, double damage, boolean ranged) {
-            final int level = Utl.Ench.getEnchantLevel(weapon, plugin.SLOWNESS);
+            final int level = Utl.Nchnt.level(weapon, plugin.SLOWNESS);
             if (level < 1) return;
             int strength = level/3;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40 + (level * 20)/(strength + 1), strength));

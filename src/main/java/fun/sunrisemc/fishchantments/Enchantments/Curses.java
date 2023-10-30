@@ -63,10 +63,10 @@ public class Curses {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Utl.Ench.getEnchantLevel(helmet, plugin.MINING_FATIGUE_CURSE);
-            int chestplateLevel = Utl.Ench.getEnchantLevel(chestplate, plugin.MINING_FATIGUE_CURSE);
-            int leggingsLevel = Utl.Ench.getEnchantLevel(leggings, plugin.MINING_FATIGUE_CURSE);
-            int bootsLevel = Utl.Ench.getEnchantLevel(boots, plugin.MINING_FATIGUE_CURSE);
+            int helmetLevel = Utl.Nchnt.level(helmet, plugin.MINING_FATIGUE_CURSE);
+            int chestplateLevel = Utl.Nchnt.level(chestplate, plugin.MINING_FATIGUE_CURSE);
+            int leggingsLevel = Utl.Nchnt.level(leggings, plugin.MINING_FATIGUE_CURSE);
+            int bootsLevel = Utl.Nchnt.level(boots, plugin.MINING_FATIGUE_CURSE);
             int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 120, level-1));
@@ -123,10 +123,10 @@ public class Curses {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Utl.Ench.getEnchantLevel(helmet, plugin.SLOWNESS_CURSE);
-            int chestplateLevel = Utl.Ench.getEnchantLevel(chestplate, plugin.SLOWNESS_CURSE);
-            int leggingsLevel = Utl.Ench.getEnchantLevel(leggings, plugin.SLOWNESS_CURSE);
-            int bootsLevel = Utl.Ench.getEnchantLevel(boots, plugin.SLOWNESS_CURSE);
+            int helmetLevel = Utl.Nchnt.level(helmet, plugin.SLOWNESS_CURSE);
+            int chestplateLevel = Utl.Nchnt.level(chestplate, plugin.SLOWNESS_CURSE);
+            int leggingsLevel = Utl.Nchnt.level(leggings, plugin.SLOWNESS_CURSE);
+            int bootsLevel = Utl.Nchnt.level(boots, plugin.SLOWNESS_CURSE);
             int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, level-1));
@@ -183,10 +183,10 @@ public class Curses {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Utl.Ench.getEnchantLevel(helmet, plugin.WEAKNESS_CURSE);
-            int chestplateLevel = Utl.Ench.getEnchantLevel(chestplate, plugin.WEAKNESS_CURSE);
-            int leggingsLevel = Utl.Ench.getEnchantLevel(leggings, plugin.WEAKNESS_CURSE);
-            int bootsLevel = Utl.Ench.getEnchantLevel(boots, plugin.WEAKNESS_CURSE);
+            int helmetLevel = Utl.Nchnt.level(helmet, plugin.WEAKNESS_CURSE);
+            int chestplateLevel = Utl.Nchnt.level(chestplate, plugin.WEAKNESS_CURSE);
+            int leggingsLevel = Utl.Nchnt.level(leggings, plugin.WEAKNESS_CURSE);
+            int bootsLevel = Utl.Nchnt.level(boots, plugin.WEAKNESS_CURSE);
             int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 120, level-1));

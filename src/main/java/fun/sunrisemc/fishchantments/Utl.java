@@ -97,13 +97,22 @@ public class Utl {
 
     }
 
-    public static class Ench {
+    public static class Nchnt {
 
-        public static boolean hasEnchant(ItemStack item, Enchantment enchant) {
-            return getEnchantLevel(item, enchant) > 0;
+        public static boolean has(ItemStack item, Enchantment enchant) {
+            return level(item, enchant) > 0;
         }
 
-        public static int getEnchantLevel(ItemStack item, Enchantment enchant) {
+        @SuppressWarnings("deprecation")
+        public static boolean equals(Enchantment enchant1, Enchantment enchant2) {
+            if (enchant1.getKey().getKey().equals(enchant2.getKey().getKey())) return true;
+            String name1 = enchant1.getName(); String name2 = enchant2.getName();
+            if (name1 == null || name2 == null) return false;
+            if (name1.equalsIgnoreCase(name2)) return true;
+            return false;
+        }
+
+        public static int level(ItemStack item, Enchantment enchant) {
             if (item == null) return 0;
             if (item.getType() == Material.ENCHANTED_BOOK) {
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
@@ -118,28 +127,28 @@ public class Utl {
             }
         }
 
-        public static ArrayList<Enchantment> getEnchantments(ItemStack item) {
+        public static ArrayList<Enchantment> enchantments(ItemStack item) {
             ArrayList<Enchantment> enchantments = new ArrayList<Enchantment>();
             if (item == null) return enchantments;
             if (!item.hasItemMeta()) return enchantments;
             Iterator<Enchantment> iter;
             if (item.getType() == Material.ENCHANTED_BOOK) {
-            EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-            if (!meta.hasStoredEnchants()) return enchantments;
-            iter = meta.getStoredEnchants().keySet().iterator();
+                EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+                if (!meta.hasStoredEnchants()) return enchantments;
+                iter = meta.getStoredEnchants().keySet().iterator();
             }
             else {
-            ItemMeta meta = item.getItemMeta();
-            if (!meta.hasEnchants()) return enchantments;
-            iter = meta.getEnchants().keySet().iterator();
+                ItemMeta meta = item.getItemMeta();
+                if (!meta.hasEnchants()) return enchantments;
+                iter = meta.getEnchants().keySet().iterator();
             }
             while (iter.hasNext()) {
-            enchantments.add(iter.next());
+                enchantments.add(iter.next());
             }
             return enchantments;
         }
 
-        public static String numberToNumeral(int number) {
+        public static String numeral(int number) {
             switch (number) {
                 case 10: return "X";
                 case 9: return "IX";
@@ -155,7 +164,7 @@ public class Utl {
             }
         }
 
-        public static int numeralToNumber(String numeral) {
+        public static int number(String numeral) {
             switch (numeral.toUpperCase()) {
                 case "X": return 10;
                 case "IX": return 9;
@@ -172,9 +181,9 @@ public class Utl {
         }
     }
 
-    public static boolean chance(double probability) {
+    public static boolean chance(double percent) {
         double randomValue = new Random().nextDouble() * 100.0;
-        return randomValue <= probability;
+        return randomValue <= percent;
     }
 
     public static ItemStack getItemInHand(Player player) {
