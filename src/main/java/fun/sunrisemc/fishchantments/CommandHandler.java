@@ -97,7 +97,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
     }
 
     @SuppressWarnings("deprecation")
-    private String getEnchantCommandName(Enchantment enchantment) {
+    private static String getEnchantCommandName(Enchantment enchantment) {
         return enchantment.getName().toLowerCase().replaceAll(" ", "_");
     }
 }

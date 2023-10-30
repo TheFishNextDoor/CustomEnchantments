@@ -219,9 +219,10 @@ public class Plugin extends JavaPlugin {
   }
 
   public boolean canMerge(ItemStack itemA, ItemStack itemB) {
+    if (itemA.getAmount() > 0 || itemB.getAmount() > 0) return false;
     Iterator<Enchantment> enchantments = Utl.Ench.getEnchantments(itemB).iterator();
     while (enchantments.hasNext()) {
-    if (hasConflictingFishchantments(itemA, enchantments.next())) return false;
+      if (hasConflictingFishchantments(itemA, enchantments.next())) return false;
     }
     return true;
 }
