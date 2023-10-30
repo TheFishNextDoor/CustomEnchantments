@@ -55,6 +55,19 @@ import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Poison;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Slowness;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Weakness;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Wither;
+import fun.sunrisemc.fishchantments.events.ArrowHitBlock;
+import fun.sunrisemc.fishchantments.events.DamageItem;
+import fun.sunrisemc.fishchantments.events.Fall;
+import fun.sunrisemc.fishchantments.events.AttackEntity;
+import fun.sunrisemc.fishchantments.events.BreakBlock;
+import fun.sunrisemc.fishchantments.events.ClickBlock;
+import fun.sunrisemc.fishchantments.events.FireProjectile;
+import fun.sunrisemc.fishchantments.events.Grindstone;
+import fun.sunrisemc.fishchantments.events.HungerChange;
+import fun.sunrisemc.fishchantments.events.MobLoot;
+import fun.sunrisemc.fishchantments.events.PrepareAnvil;
+import fun.sunrisemc.fishchantments.events.Suffocation;
+import fun.sunrisemc.fishchantments.events.TillLand;
 import net.md_5.bungee.api.ChatColor;
 
 public class Plugin extends JavaPlugin {
@@ -143,7 +156,19 @@ public class Plugin extends JavaPlugin {
     register(SLOWNESS_CURSE);
     register(WEAKNESS_CURSE);
     getCommand("fenchant").setExecutor(new CommandHandler(this));
-    getServer().getPluginManager().registerEvents(new EventListener(this), this);
+    getServer().getPluginManager().registerEvents(new ArrowHitBlock(this), this);
+    getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
+    getServer().getPluginManager().registerEvents(new DamageItem(this), this);
+    getServer().getPluginManager().registerEvents(new FireProjectile(this), this);
+    getServer().getPluginManager().registerEvents(new TillLand(this), this);
+    getServer().getPluginManager().registerEvents(new HungerChange(this), this);
+    getServer().getPluginManager().registerEvents(new Fall(this), this);
+    getServer().getPluginManager().registerEvents(new ClickBlock(this), this);
+    getServer().getPluginManager().registerEvents(new BreakBlock(this), this);
+    getServer().getPluginManager().registerEvents(new Suffocation(this), this);
+    getServer().getPluginManager().registerEvents(new PrepareAnvil(this), this);
+    getServer().getPluginManager().registerEvents(new Grindstone(this), this);
+    getServer().getPluginManager().registerEvents(new MobLoot(this), this);
     startTimer(this);
     LOGGER.info("Fishchantments enabled");
   }
