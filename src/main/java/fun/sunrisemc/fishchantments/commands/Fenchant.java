@@ -1,7 +1,6 @@
-package fun.sunrisemc.fishchantments;
+package fun.sunrisemc.fishchantments.commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,12 +12,14 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import fun.sunrisemc.fishchantments.Plugin;
+import fun.sunrisemc.fishchantments.Utl;
 import net.md_5.bungee.api.ChatColor;
 
-public class CommandHandler implements CommandExecutor, TabCompleter {
+public class Fenchant implements CommandExecutor, TabCompleter {
     private final Plugin plugin;
 
-    CommandHandler(Plugin plugin) {
+    public Fenchant(Plugin plugin) {
         this.plugin = plugin;
     }
 
@@ -55,10 +56,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         Enchantment enchantment = getEnchantment(commandName);
         if (enchantment == null) return false;
         int level = 1;
-        if (args.length >= 2) {
-            try { level = Integer.parseInt(args[1]); }
-            catch (Exception e) { level = Utl.Nchnt.number(args[1]); }
-        }
+        if (args.length >= 2) level = Utl.Nchnt.number(args[1]);
         if (level > 0) {
             if (plugin.addEnchant(player.getInventory().getItemInMainHand(), enchantment, level, true, false)) player.sendMessage("Enchantment added to item in hand.");
             else player.sendMessage(ChatColor.RED + "Enchantment could not be added to item in hand.");
@@ -72,7 +70,6 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 
     private Enchantment getEnchantment(String name) {
         ArrayList<Enchantment> enchants = plugin.getFishchantments();
-        enchants.addAll(Arrays.asList(Enchantment.values()));
         Iterator<Enchantment> enchantIter = enchants.iterator();
         while (enchantIter.hasNext()) {
             Enchantment enchantment = enchantIter.next();
@@ -83,7 +80,6 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 
     private ArrayList<String> getEnchantCommandNames(ItemStack item) {
         ArrayList<Enchantment> enchants = plugin.getFishchantments();
-        enchants.addAll(Arrays.asList(Enchantment.values()));
         Iterator<Enchantment> enchantIter = enchants.iterator();
         ArrayList<String> names = new ArrayList<>();
         ArrayList<String> allNames = new ArrayList<>();

@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fun.sunrisemc.fishchantments.commands.Fenchant;
 import fun.sunrisemc.fishchantments.enchantments.Curses.MiningFatigueCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.SlownessCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.WeaknessCurse;
@@ -155,7 +156,7 @@ public class Plugin extends JavaPlugin {
     register(MINING_FATIGUE_CURSE);
     register(SLOWNESS_CURSE);
     register(WEAKNESS_CURSE);
-    getCommand("fenchant").setExecutor(new CommandHandler(this));
+    getCommand("fenchant").setExecutor(new Fenchant(this));
     getServer().getPluginManager().registerEvents(new ArrowHitBlock(this), this);
     getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
     getServer().getPluginManager().registerEvents(new DamageItem(this), this);
@@ -177,7 +178,7 @@ public class Plugin extends JavaPlugin {
     LOGGER.info("Fishchants disabled");
   }
 
-  public boolean hasFishchantment(ItemStack item) {
+  public boolean hasFishchantments(ItemStack item) {
     return getFishchantments(item).size() > 0;
   }
 
@@ -202,7 +203,7 @@ public class Plugin extends JavaPlugin {
     Iterator<Enchantment> fishchantments = getFishchantments().iterator();
     while (fishchantments.hasNext()) {
       Enchantment fishchantment = fishchantments.next();
-      if (Utl.Nchnt.equals(fishchantment, enchantment)) return true;
+      if (Utl.Nchnt.same(fishchantment, enchantment)) return true;
     }
     return false;
   }
@@ -218,7 +219,9 @@ public class Plugin extends JavaPlugin {
   }
 
   public boolean canMerge(ItemStack itemA, ItemStack itemB) {
-    if (itemA.getAmount() > 0 || itemB.getAmount() > 0) return false;
+    if (itemA == null || itemB == null) return false;
+    if (itemA.getAmount() != 1 || itemB.getAmount() != 1) return false;
+    if (!(itemA.getType() == itemB.getType() || itemB.getType() == Material.ENCHANTED_BOOK)) return false;
     Iterator<Enchantment> enchantments = Utl.Nchnt.enchantments(itemB).iterator();
     while (enchantments.hasNext()) {
       if (hasConflictingFishchantments(itemA, enchantments.next())) return false;
@@ -229,20 +232,17 @@ public class Plugin extends JavaPlugin {
   public boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
     if (item == null) return false;
     if (level < 1) return false;
-    if (!force && hasConflictingFishchantments(item, enchantment)) return false;
+    if (!force && hasConflictingFishchantments(item, enchantment)) return false; // Must force to add conflicting enchantment
     int currentLevel = Utl.Nchnt.level(item, enchantment);
-    if (!force && level < currentLevel) return false;
-    if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++;
+    if (!force && level < currentLevel) return false; // Must force to reduce level
+    if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++; // Combine enchantments
     removeEnchant(item, enchantment);
     if (item.getType() == Material.ENCHANTED_BOOK) {
       EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
       meta.addStoredEnchant(enchantment, level, true);
       item.setItemMeta(meta);
     }
-    else {
-      try { item.addUnsafeEnchantment(enchantment, level); }
-      catch (Exception e) { return false; }
-    }
+    else item.addUnsafeEnchantment(enchantment, level);
 
     // Lore
     if (!isFishchantment(enchantment)) return true;
@@ -288,6 +288,25 @@ public class Plugin extends JavaPlugin {
     return enchantedBook;
   }
 
+  public static void fixEnchant(ItemStack item, Enchantment enchantment, Integer level) {
+      if (item == null) return;
+      if (level < 1) return;
+      if (item.getType() == Material.ENCHANTED_BOOK) {
+      EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+      meta.addStoredEnchant(enchantment, level, true);
+      item.setItemMeta(meta);
+    }
+    else item.addUnsafeEnchantment(enchantment, level);
+  }
+
+  @SuppressWarnings("deprecation")
+  public static String lore(Enchantment enchantment, Integer level) {
+      if (level < 0) return null;
+      String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
+      if (level == 1) return lore;
+      else return lore + " " + (config.NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
+  }
+
   private void register(Enchantment enchant) {
     fishchantments.add(enchant);
     try {
@@ -299,14 +318,6 @@ public class Plugin extends JavaPlugin {
     catch (Exception e) {
       LOGGER.warning("Failed to load enchant " + enchant.toString() + ": " + e.getMessage());
     }
-  }
-
-  @SuppressWarnings("deprecation")
-  private static String lore(Enchantment enchantment, Integer level) {
-      if (level < 0) return null;
-      String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
-      if (level == 1) return lore;
-      else return lore + " " + (config.NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
   }
 
   private void startTimer(final Plugin plugin) {

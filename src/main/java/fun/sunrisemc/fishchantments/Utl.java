@@ -99,21 +99,46 @@ public class Utl {
 
     public static class Nchnt {
 
-        public static boolean holding(Player player, Enchantment enchant) {
-            return holdingLevel(player, enchant) > 0;
-        }
-
         public static boolean has(ItemStack item, Enchantment enchant) {
             return level(item, enchant) > 0;
         }
 
+        public static int level(ItemStack item, Enchantment enchant) {
+            int level = 0;
+            if (item == null) return level;
+            ItemMeta meta = item.getItemMeta();
+            if (meta == null) return level;
+            if (item.getType() == Material.ENCHANTED_BOOK) {
+                EnchantmentStorageMeta bookMeta = (EnchantmentStorageMeta) meta;
+                if (bookMeta.hasStoredEnchant(enchant)) level = bookMeta.getStoredEnchantLevel(enchant);
+            }
+            else if (meta.hasEnchant(enchant)) level = meta.getEnchantLevel(enchant);
+            else if (meta.hasLore()) {
+                String enchantLore = Plugin.lore(enchant, 1);
+                ArrayList<String> itemLore = (ArrayList<String>) meta.getLore();
+                Iterator<String> iter = itemLore.iterator();
+                while (iter.hasNext()) {
+                    String line = iter.next();
+                    if (line.equals(enchantLore)) level = 1;
+                    else if (line.startsWith(enchantLore)) level = number(line.replaceFirst(enchantLore, "").trim());
+                    break;
+                }
+                if (level != 0) Plugin.fixEnchant(item, enchant, level);
+            }
+            return level;
+        }
+
         @SuppressWarnings("deprecation")
-        public static boolean equals(Enchantment enchant1, Enchantment enchant2) {
+        public static boolean same(Enchantment enchant1, Enchantment enchant2) {
             if (enchant1.getKey().getKey().equals(enchant2.getKey().getKey())) return true;
             String name1 = enchant1.getName(); String name2 = enchant2.getName();
             if (name1 == null || name2 == null) return false;
             if (name1.equalsIgnoreCase(name2)) return true;
             return false;
+        }
+
+        public static boolean holding(Player player, Enchantment enchant) {
+            return holdingLevel(player, enchant) > 0;
         }
 
         public static int holdingLevel(Player player, Enchantment enchant) {
@@ -122,21 +147,6 @@ public class Utl {
             int offHand = level(inv.getItemInOffHand(), enchant);
             if (mainHand < offHand) return offHand;
             return mainHand;
-        }
-
-        public static int level(ItemStack item, Enchantment enchant) {
-            if (item == null) return 0;
-            if (item.getType() == Material.ENCHANTED_BOOK) {
-            EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-            if (!meta.hasStoredEnchant(enchant)) return 0;
-            return meta.getStoredEnchantLevel(enchant);
-            }
-            else {
-            ItemMeta meta = item.getItemMeta();
-            if (meta == null) return 0;
-            if (!meta.hasEnchant(enchant)) return 0;
-            return meta.getEnchantLevel(enchant);
-            }
         }
 
         public static ArrayList<Enchantment> enchantments(ItemStack item) {
@@ -188,7 +198,14 @@ public class Utl {
                 case "III": return 3;
                 case "II": return 2;
                 case "I": return 1;
-                default: return 0;
+                default: {
+                    try {
+                        return Integer.parseInt(numeral);
+                    }
+                    catch (NumberFormatException e) {
+                        return 0;
+                    }
+                }
             }
         }
     }
