@@ -121,9 +121,11 @@ public class Utl {
                     String line = iter.next();
                     if (line.equals(enchantLore)) level = 1;
                     else if (line.startsWith(enchantLore)) level = number(line.replaceFirst(enchantLore, "").trim());
-                    break;
+                    if (level != 0) {
+                        Plugin.fixEnchant(item, enchant, level);
+                        break;
+                    }
                 }
-                if (level != 0) Plugin.fixEnchant(item, enchant, level);
             }
             return level;
         }

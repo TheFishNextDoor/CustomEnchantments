@@ -23,6 +23,7 @@ public class PrepareAnvil implements Listener {
         ItemStack result = event.getResult();
         ItemStack zero = event.getInventory().getItem(0);
         ItemStack one = event.getInventory().getItem(1);
+        plugin.verify(zero); plugin.verify(one); // Fix broken fishchantments
         if (!(plugin.hasFishchantments(zero) || plugin.hasFishchantments(one))) return; // Don't worry about vanilla stuff
         if (result == null && zero != null && one != null) result = zero.clone(); // Make item always show up in result slot
         if (!plugin.canMerge(zero, one)) {

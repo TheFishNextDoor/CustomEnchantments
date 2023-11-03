@@ -30,6 +30,7 @@ public class Grindstone implements Listener {
         ItemStack result = grindstone.getItem(event.getRawSlot());
         ItemStack zero = grindstone.getItem(0);
         ItemStack one = grindstone.getItem(1);
+        plugin.verify(zero); plugin.verify(one); // Fix broken fishchantments
         if (!(plugin.hasFishchantments(zero) || plugin.hasFishchantments(one))) return;
         ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
         fishchantments.addAll(plugin.getFishchantments(one));

@@ -288,6 +288,14 @@ public class Plugin extends JavaPlugin {
     return enchantedBook;
   }
 
+  public void verify(ItemStack item) {
+    if (item == null) return;
+    Iterator<Enchantment> iter = getFishchantments().iterator();
+    while (iter.hasNext()) {
+      Utl.Nchnt.level(item, iter.next());
+    }
+  }
+
   public static void fixEnchant(ItemStack item, Enchantment enchantment, Integer level) {
       if (item == null) return;
       if (level < 1) return;
