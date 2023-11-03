@@ -222,6 +222,7 @@ public class Plugin extends JavaPlugin {
     if (itemA == null || itemB == null) return false;
     if (itemA.getAmount() != 1 || itemB.getAmount() != 1) return false;
     if (!(itemA.getType() == itemB.getType() || itemB.getType() == Material.ENCHANTED_BOOK)) return false;
+    if (itemA.getMaxStackSize() != 1) return false;  
     Iterator<Enchantment> enchantments = Utl.Nchnt.enchantments(itemB).iterator();
     while (enchantments.hasNext()) {
       if (hasConflictingFishchantments(itemA, enchantments.next())) return false;
