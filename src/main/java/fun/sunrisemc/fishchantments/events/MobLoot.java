@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -13,6 +14,8 @@ import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.enchantments.Generic.Enlightenment;
+import fun.sunrisemc.fishchantments.enchantments.Generic.Telekinesis;
 
 public class MobLoot implements Listener {
     private static final boolean DROP_BOOKS = true;
@@ -23,14 +26,15 @@ public class MobLoot implements Listener {
     }
     
     @EventHandler
-    public void addMobLoot(EntityDeathEvent event) {
+    public void onMobLoot(EntityDeathEvent event) {
         if (!DROP_BOOKS) return;
         LivingEntity entity = event.getEntity();
-        if (entity.getKiller() == null) return;
+        Player player = entity.getKiller();
+        if (player == null) return;
         EntityType type = entity.getType();
         List<ItemStack> drops = event.getDrops();
         if (drops.size() == 0) return;
-        if (type == EntityType.ENDERMAN && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.BLINDNESS, 1));
+        if (type == EntityType.ENDERMAN && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.TELEKINESIS, 1));
         if (type == EntityType.CAVE_SPIDER && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.POISON, 1));
         if (type == EntityType.SPIDER && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.NIGHT_VISION, 1));
         if (type == EntityType.MAGMA_CUBE && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.GLOWING, 1));
@@ -44,15 +48,17 @@ public class MobLoot implements Listener {
         if (type == EntityType.GHAST && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.SLOW_FALL, 1));
         if (type == EntityType.PIGLIN && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.HASTE, 1));
         if (type == EntityType.PIGLIN_BRUTE && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.STRENGTH, 1));
-        if (type == EntityType.ILLUSIONER && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.CONFUSION, 1));
+        if (type == EntityType.ILLUSIONER && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.BLINDNESS, 1));
+        if (type == EntityType.EVOKER && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.SPEED, 1));
         if (type == EntityType.RAVAGER && Utl.chance(8.0)) drops.add(plugin.enchantedBook(plugin.CRUSH, 1));
         if (type == EntityType.CREEPER) {
             Creeper creeper = (Creeper) entity;
-            if (creeper.isPowered() && Utl.chance(15.0)) drops.add(plugin.enchantedBook(plugin.DESTRUCTIVE, 1));
+            if (Utl.chance(0.05)) drops.add(plugin.enchantedBook(plugin.EXCAVATING, 1));
+            if (Utl.chance(0.05)) drops.add(plugin.enchantedBook(plugin.DESTRUCTIVE, 1));
+            if (creeper.isPowered() && Utl.chance(15.0)) drops.add(plugin.enchantedBook(plugin.FLING, 1));
         }
         if (type == EntityType.WITCH) {
             if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.WEAKNESS, 1));
-            if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.SPEED, 1));
             if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.INVISIBILITY, 1));
         }
         if (type == EntityType.WITHER) {
@@ -87,6 +93,8 @@ public class MobLoot implements Listener {
                 if (Utl.chance(1.0)) plugin.addEnchant(drop, plugin.ACCURATE, 1, false, false);
             }
         }
+        Enlightenment.onMobXp(plugin, player, event);
+        Telekinesis.onMobXp(plugin, player, event);
+        Telekinesis.onMobLoot(plugin, player, drops);
     }
-
 }

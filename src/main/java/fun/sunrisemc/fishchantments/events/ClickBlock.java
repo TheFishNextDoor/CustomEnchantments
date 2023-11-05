@@ -6,10 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.Utl;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Replanting;
 
 public class ClickBlock implements Listener {
@@ -26,8 +24,6 @@ public class ClickBlock implements Listener {
         if (action != Action.RIGHT_CLICK_BLOCK) return;
         Block clickedBlock = event.getClickedBlock();
         if (clickedBlock == null) return;
-        ItemStack item = Utl.getItemInHand(player);
-        if (item == null) return;
-        Replanting.onRightClick(plugin, player, item, clickedBlock);
+        Replanting.onRightClick(plugin, player, clickedBlock);
     }   
 }

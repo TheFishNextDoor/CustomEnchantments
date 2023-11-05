@@ -56,7 +56,7 @@ public class Utl {
         }
 
         public static boolean isWeapon(Material material) {
-            return isMeleeWeapon(material) || isRangedWeapon(material);
+            return isMeleeWeapon(material) || isRanged(material);
         }
 
         public static boolean isMeleeWeapon(Material material) {
@@ -71,8 +71,8 @@ public class Utl {
             return material.name().endsWith("_AXE");
         }
 
-        public static boolean isRangedWeapon(Material material) {
-            return material == Material.BOW || material == Material.CROSSBOW || material == Material.TRIDENT;
+        public static boolean isRanged(Material material) {
+            return material == Material.BOW || material == Material.CROSSBOW || material == Material.TRIDENT || material == Material.FISHING_ROD || material == Material.EGG || material == Material.SNOWBALL || material == Material.ENDER_PEARL || material == Material.SPLASH_POTION || material == Material.LINGERING_POTION;
         }
 
         public static boolean isArmor(Material material) {
@@ -140,15 +140,27 @@ public class Utl {
         }
 
         public static boolean holding(Player player, Enchantment enchant) {
-            return holdingLevel(player, enchant) > 0;
+            return handLevel(player, enchant) > 0;
         }
 
-        public static int holdingLevel(Player player, Enchantment enchant) {
-            PlayerInventory inv = player.getInventory();
-            int mainHand = level(inv.getItemInMainHand(), enchant);
-            int offHand = level(inv.getItemInOffHand(), enchant);
-            if (mainHand < offHand) return offHand;
-            return mainHand;
+        public static int handLevel(Player player, Enchantment enchant) {
+            return level(getItemInUse(player), enchant);
+        }
+
+        public static boolean holdingRanged(Player player, Enchantment enchant) {
+            return rangedLevel(player, enchant) > 0;
+        }
+
+        public static int rangedLevel(Player player, Enchantment enchant) {
+            return level(Utl.getRangedItemInUse1(player), enchant);
+        }
+
+        public static boolean holdingHoe(Player player, Enchantment enchant) {
+            return hoeLevel(player, enchant) > 0;
+        }
+
+        public static int hoeLevel(Player player, Enchantment enchant) {
+            return level(Utl.getHoeInUse(player), enchant);
         }
 
         public static ArrayList<Enchantment> enchantments(ItemStack item) {
@@ -217,12 +229,32 @@ public class Utl {
         return randomValue <= percent;
     }
 
-    public static ItemStack getItemInHand(Player player) {
+    public static ItemStack getItemInUse(Player player) {
         PlayerInventory inv = player.getInventory();
         ItemStack mainHand = inv.getItemInMainHand();
         ItemStack offHand = inv.getItemInOffHand();
         if (mainHand.getType() != Material.AIR) return mainHand;
         if (offHand.getType() != Material.AIR) return offHand;
         return mainHand;
+    }
+
+    public static ItemStack getRangedItemInUse1(Player player) {
+        PlayerInventory inv = player.getInventory();
+        ItemStack mainHand = inv.getItemInMainHand();
+        ItemStack offHand = inv.getItemInOffHand();
+        if (Mat.isRanged(mainHand.getType())) return mainHand;
+        if (Mat.isHoe(mainHand.getType())) return null;
+        if (Mat.isRanged(offHand.getType())) return offHand;
+        return null;
+    }
+
+    public static ItemStack getHoeInUse(Player player) {
+        PlayerInventory inv = player.getInventory();
+        ItemStack mainHand = inv.getItemInMainHand();
+        ItemStack offHand = inv.getItemInOffHand();
+        if (Mat.isHoe(mainHand.getType())) return mainHand;
+        if (Mat.isRanged(mainHand.getType())) return null;
+        if (Mat.isHoe(offHand.getType())) return offHand;
+        return null;
     }
 }
