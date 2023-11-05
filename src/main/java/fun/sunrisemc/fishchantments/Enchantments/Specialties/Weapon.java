@@ -60,7 +60,7 @@ public class Weapon {
             String name = other.getName();
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
-            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Levitation.NAME)) return true;
             if (name.equals(Blindness.NAME)) return true;
             if (name.equals(Confusion.NAME)) return true;
             if (name.equals(Weakness.NAME)) return true;
@@ -150,7 +150,7 @@ public class Weapon {
             String name = other.getName();
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
-            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Levitation.NAME)) return true;
             if (name.equals(Blindness.NAME)) return true;
             if (name.equals(Confusion.NAME)) return true;
             if (name.equals(Weakness.NAME)) return true;
@@ -219,7 +219,7 @@ public class Weapon {
             String name = other.getName();
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
-            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Levitation.NAME)) return true;
             if (name.equals(Blindness.NAME)) return true;
             if (name.equals(Confusion.NAME)) return true;
             if (name.equals(Weakness.NAME)) return true;
@@ -244,11 +244,11 @@ public class Weapon {
         }
     }
 
-    public static class Helium extends Enchantment {
+    public static class Levitation extends Enchantment {
 
         public static final String NAME = "Levitating";
 
-        public Helium(NamespacedKey key) {
+        public Levitation(NamespacedKey key) {
             super(key);
         }
 
@@ -314,7 +314,7 @@ public class Weapon {
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
             int level = Utl.Nchnt.level(boots, plugin.HELIUM);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 120, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -363,7 +363,7 @@ public class Weapon {
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
-            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Levitation.NAME)) return true;
             if (name.equals(Confusion.NAME)) return true;
             if (name.equals(Weakness.NAME)) return true;
             if (name.equals(Hunger.NAME)) return true;
@@ -431,7 +431,7 @@ public class Weapon {
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
-            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Levitation.NAME)) return true;
             if (name.equals(Blindness.NAME)) return true;
             if (name.equals(Weakness.NAME)) return true;
             if (name.equals(Hunger.NAME)) return true;
@@ -499,7 +499,7 @@ public class Weapon {
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
-            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Levitation.NAME)) return true;
             if (name.equals(Blindness.NAME)) return true;
             if (name.equals(Confusion.NAME)) return true;
             if (name.equals(Hunger.NAME)) return true;
@@ -568,7 +568,7 @@ public class Weapon {
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
-            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Levitation.NAME)) return true;
             if (name.equals(Blindness.NAME)) return true;
             if (name.equals(Confusion.NAME)) return true;
             if (name.equals(Weakness.NAME)) return true;
@@ -637,7 +637,7 @@ public class Weapon {
             if (name.equals(LifeSteal.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
-            if (name.equals(Helium.NAME)) return true;
+            if (name.equals(Levitation.NAME)) return true;
             if (name.equals(Blindness.NAME)) return true;
             if (name.equals(Confusion.NAME)) return true;
             if (name.equals(Weakness.NAME)) return true;

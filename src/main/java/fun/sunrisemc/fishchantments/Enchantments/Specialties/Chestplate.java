@@ -70,14 +70,10 @@ public class Chestplate {
             return Utl.Mat.isChestplate(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Utl.Nchnt.level(helmet, plugin.RESISTANCE);
-            int chestplateLevel = Utl.Nchnt.level(chestplate, plugin.RESISTANCE);
-            int leggingsLevel = Utl.Nchnt.level(leggings, plugin.RESISTANCE);
-            int bootsLevel = Utl.Nchnt.level(boots, plugin.RESISTANCE);
-            int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+        public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
+            int level = Utl.Nchnt.level(chestplate, plugin.RESISTANCE);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 120, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -138,14 +134,10 @@ public class Chestplate {
             return Utl.Mat.isChestplate(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Utl.Nchnt.level(helmet, plugin.REGENERATION);
-            int chestplateLevel = Utl.Nchnt.level(chestplate, plugin.REGENERATION);
-            int leggingsLevel = Utl.Nchnt.level(leggings, plugin.REGENERATION);
-            int bootsLevel = Utl.Nchnt.level(boots, plugin.REGENERATION);
-            int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+        public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
+            int level = Utl.Nchnt.level(chestplate, plugin.REGENERATION);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 120, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -206,9 +198,9 @@ public class Chestplate {
             return Utl.Mat.isChestplate(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            if (!(Utl.Nchnt.has(helmet, plugin.FIRE_RESISTANCE) || Utl.Nchnt.has(chestplate, plugin.FIRE_RESISTANCE) || Utl.Nchnt.has(leggings, plugin.FIRE_RESISTANCE) || Utl.Nchnt.has(boots, plugin.FIRE_RESISTANCE))) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 120, 0));
+        public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
+            if (!(Utl.Nchnt.has(chestplate, plugin.FIRE_RESISTANCE))) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 
@@ -272,7 +264,7 @@ public class Chestplate {
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
             int level = Utl.Nchnt.level(chestplate, plugin.STRENGTH);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 120, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -336,7 +328,7 @@ public class Chestplate {
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
             int level = Utl.Nchnt.level(chestplate, plugin.HASTE);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 120, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -397,14 +389,10 @@ public class Chestplate {
             return Utl.Mat.isChestplate(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Utl.Nchnt.level(helmet, plugin.HEALTH_BOOST);
-            int chestplateLevel = Utl.Nchnt.level(chestplate, plugin.HEALTH_BOOST);
-            int leggingsLevel = Utl.Nchnt.level(leggings, plugin.HEALTH_BOOST);
-            int bootsLevel = Utl.Nchnt.level(boots, plugin.HEALTH_BOOST);
-            int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+        public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
+            int level = Utl.Nchnt.level(chestplate, plugin.HEALTH_BOOST);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 120, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -465,14 +453,10 @@ public class Chestplate {
             return Utl.Mat.isChestplate(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            int helmetLevel = Utl.Nchnt.level(helmet, plugin.HERO_OF_THE_VILLAGE);
-            int chestplateLevel = Utl.Nchnt.level(chestplate, plugin.HERO_OF_THE_VILLAGE);
-            int leggingsLevel = Utl.Nchnt.level(leggings, plugin.HERO_OF_THE_VILLAGE);
-            int bootsLevel = Utl.Nchnt.level(boots, plugin.HERO_OF_THE_VILLAGE);
-            int level = Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+        public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
+            int level = Utl.Nchnt.level(chestplate, plugin.HERO_OF_THE_VILLAGE);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE, 120, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 }

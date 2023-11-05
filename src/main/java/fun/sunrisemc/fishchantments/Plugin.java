@@ -2,6 +2,7 @@ package fun.sunrisemc.fishchantments;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
@@ -9,6 +10,8 @@ import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -51,7 +54,7 @@ import fun.sunrisemc.fishchantments.enchantments.specialties.Legging.DolphinsGra
 import fun.sunrisemc.fishchantments.enchantments.specialties.Legging.Speed;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Blindness;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Confusion;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Helium;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Levitation;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Hunger;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.LifeSteal;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Poison;
@@ -76,7 +79,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Plugin extends JavaPlugin {
   private static final Logger LOGGER = Logger.getLogger("Fishchantments");
-  private static Config config = new Config();
+  private static Settings settings = new Settings();
   private ArrayList<Enchantment> fishchantments = new ArrayList<>();
 
   public final Enchantment DESTRUCTIVE = new Destructive(new NamespacedKey(this, "destructive_fishchantment"));
@@ -95,7 +98,7 @@ public class Plugin extends JavaPlugin {
   public final Enchantment ACCURATE = new Accurate(new NamespacedKey(this, "accurate_fishchantment"));
   public final Enchantment POISON = new Poison(new NamespacedKey(this, "poison_fishchantment"));
   public final Enchantment WITHER = new Wither(new NamespacedKey(this, "wither_fishchantment"));
-  public final Enchantment HELIUM = new Helium(new NamespacedKey(this, "helium_fishchantment"));
+  public final Enchantment HELIUM = new Levitation(new NamespacedKey(this, "helium_fishchantment"));
   public final Enchantment GLOWING = new Glowing(new NamespacedKey(this, "glowing_fishchantment"));
   public final Enchantment BLINDNESS = new Blindness(new NamespacedKey(this, "blindness_fishchantment"));
   public final Enchantment CONFUSION = new Confusion(new NamespacedKey(this, "confusion_fishchantment"));
@@ -183,7 +186,15 @@ public class Plugin extends JavaPlugin {
   }
 
   public void onDisable() {
-    LOGGER.info("Fishchants disabled");
+    LOGGER.info("Fishchantments disabled");
+  }
+
+  public Settings getSettings() {
+    return settings;
+  }
+
+  public void reload() {
+    settings = new Settings();
   }
 
   public boolean hasFishchantments(ItemStack item) {
@@ -305,6 +316,23 @@ public class Plugin extends JavaPlugin {
     }
   }
 
+  public void breakBlock(Player player, Block block, ItemStack item) {
+    if (!Utl.PrmChkr.canModify(player, block)) return;
+    blockDrops(player, block);
+    block.setType(Material.AIR);
+  }
+
+  public void blockDrops(Player player, Block block) {
+    Collection<ItemStack> drops = block.getDrops();
+    if (drops.isEmpty()) return;
+    Telekinesis.onBlockDropItems(this, player, drops);
+    if (drops.isEmpty()) return;
+    World world = block.getWorld();
+    for (ItemStack drop : drops) {
+      world.dropItemNaturally(block.getLocation(), drop);
+    }
+  }
+
   public static void fixEnchant(ItemStack item, Enchantment enchantment, Integer level) {
       if (item == null) return;
       if (level < 1) return;
@@ -321,7 +349,7 @@ public class Plugin extends JavaPlugin {
       if (level < 0) return null;
       String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
       if (level == 1) return lore;
-      else return lore + " " + (config.NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
+      else return lore + " " + (settings.NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
   }
 
   private void register(Enchantment enchant) {
@@ -349,28 +377,28 @@ public class Plugin extends JavaPlugin {
           ItemStack chestplate = player.getInventory().getChestplate();
           ItemStack leggings = player.getInventory().getLeggings();
           ItemStack boots = player.getInventory().getBoots();
-          Speed.onTimer(plugin, player, leggings); 
-          Jump.onTimer(plugin, player, boots); 
-          SlowFall.onTimer(plugin, player, boots); 
-          Resistance.onTimer(plugin, player, helmet, chestplate, leggings, boots);
-          Regeneration.onTimer(plugin, player, helmet, chestplate, leggings, boots);
-          Invisibility.onTimer(plugin, player, helmet, chestplate, leggings, boots);
           Glowing.onTimer(plugin, player, helmet, chestplate, leggings, boots);
-          FireResistance.onTimer(plugin, player, helmet, chestplate, leggings, boots);
-          WaterBreathing.onTimer(plugin, player, helmet);
-          Strength.onTimer(plugin, player, chestplate);
-          Haste.onTimer(plugin, player, chestplate);
-          HealthBoost.onTimer(plugin, player, helmet, chestplate, leggings, boots);
-          NightVision.onTimer(plugin, player, helmet);
-          Helium.onTimer(plugin, player, boots);
-          DolphinsGrace.onTimer(plugin, player, leggings);
-          ConduitPower.onTimer(plugin, player, helmet);
-          HeroOfTheVillage.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+          Invisibility.onTimer(plugin, player, helmet, chestplate, leggings, boots);
           MiningFatigueCurse.onTimer(plugin, player, helmet, chestplate, leggings, boots);
           SlownessCurse.onTimer(plugin, player, helmet, chestplate, leggings, boots);
           WeaknessCurse.onTimer(plugin, player, helmet, chestplate, leggings, boots);
+          WaterBreathing.onTimer(plugin, player, helmet);
+          NightVision.onTimer(plugin, player, helmet);
+          ConduitPower.onTimer(plugin, player, helmet);
+          Resistance.onTimer(plugin, player, chestplate);
+          FireResistance.onTimer(plugin, player, chestplate);
+          Regeneration.onTimer(plugin, player, chestplate);
+          HealthBoost.onTimer(plugin, player, chestplate);
+          Strength.onTimer(plugin, player, chestplate);
+          Haste.onTimer(plugin, player, chestplate);
+          HeroOfTheVillage.onTimer(plugin, player, chestplate);
+          DolphinsGrace.onTimer(plugin, player, leggings);
+          Speed.onTimer(plugin, player, leggings); 
+          Jump.onTimer(plugin, player, boots); 
+          SlowFall.onTimer(plugin, player, boots);
+          Levitation.onTimer(plugin, player, boots);
         }
       }
-    }, 142L, 100L);
+    }, settings.ARMOR_EFFECTS_PERIOD, settings.ARMOR_EFFECTS_PERIOD);
   }
 }

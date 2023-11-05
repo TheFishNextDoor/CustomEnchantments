@@ -14,7 +14,7 @@ import fun.sunrisemc.fishchantments.enchantments.Generic.Fling;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Glowing;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Blindness;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Confusion;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Helium;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Levitation;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Hunger;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.LifeSteal;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Poison;
@@ -49,7 +49,7 @@ public class AttackEntity implements Listener {
         Fling.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
         Poison.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
         Wither.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
-        Helium.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
+        Levitation.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
         Glowing.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
         Blindness.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
         Confusion.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);

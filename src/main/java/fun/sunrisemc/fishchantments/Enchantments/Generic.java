@@ -31,6 +31,206 @@ import fun.sunrisemc.fishchantments.Utl;
 
 public class Generic {
 
+    public static class Unbreakable extends Enchantment {
+
+        public static final String NAME = "Unbreakable";
+
+        public Unbreakable(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.BREAKABLE;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mat.isEnchantable(item.getType());
+        }
+
+        public static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, PlayerItemDamageEvent event) {
+            if (plugin == null || player == null || item == null) return;
+            if (!Utl.Nchnt.has(item, plugin.UNBREAKABLE)) return;
+            event.setCancelled(true);
+        }
+    }
+
+    public static class Telekinesis extends Enchantment {
+
+        public static final String NAME = "Telekinesis";
+
+        public Telekinesis(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.BREAKABLE;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mat.isTool(item.getType());
+        }
+
+        public static void onBlockDropItems(Plugin plugin, Player player, List<Item> drops) {
+            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
+            for (Item drop : drops) {
+                player.getInventory().addItem(drop.getItemStack());
+            }
+            drops.clear();
+        }
+
+        public static void onBlockDropItems(Plugin plugin, Player player, Collection<ItemStack> drops) {
+            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
+            for (ItemStack drop : drops) {
+                player.getInventory().addItem(drop);
+            }
+            drops.clear();
+        }
+
+        public static void onMobLoot(Plugin plugin, Player player, List<ItemStack> drops) {
+            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
+            for (ItemStack drop : drops) {
+                player.getInventory().addItem(drop);
+            }
+            drops.clear();
+        }
+
+        public static void onMobXp(Plugin plugin, Player player, EntityDeathEvent event) {
+            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
+            int xp = event.getDroppedExp();
+            event.setDroppedExp(0);
+            player.giveExp(xp);
+        }
+    }
+
+    public static class Glowing extends Enchantment {
+
+        public static final String NAME = "Radiance";
+
+        public Glowing(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 5;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.BREAKABLE;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mat.isWeapon(item.getType()) || Utl.Mat.isArmor(item.getType());
+        }
+
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, double damage, boolean ranged) {
+            final int level;
+            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.GLOWING);
+            else level = Utl.Nchnt.handLevel(player, plugin.GLOWING);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0));
+        }
+
+        public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
+            if (!(Utl.Nchnt.has(helmet, plugin.GLOWING) || Utl.Nchnt.has(chestplate, plugin.GLOWING) || Utl.Nchnt.has(leggings, plugin.GLOWING) || Utl.Nchnt.has(boots, plugin.GLOWING))) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 120, 0));
+        }
+    }
+
     public static class Fling extends Enchantment {
 
         public static final String NAME = "Fling";
@@ -259,7 +459,6 @@ public class Generic {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(Enchantment.ARROW_INFINITE.getName())) return true;
-            if (name.equals(Telekinesis.NAME)) return true;
             return false;
         }
 
@@ -288,9 +487,8 @@ public class Generic {
                 hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
             }
             if (!hasDrops) return;
-            if (!Utl.PrmChkr.canModify(player, block)) return;
             projectile.remove();
-            block.breakNaturally(usedTool);
+            plugin.breakBlock(player, block, usedTool);
         }
     }
 
@@ -349,62 +547,6 @@ public class Generic {
             if (level < 1) return;
             double levelValue = level; 
             projectile.setVelocity(projectile.getVelocity().multiply(1.0 + (levelValue/5.0)));
-        }
-    }
-
-    public static class Unbreakable extends Enchantment {
-
-        public static final String NAME = "Unbreakable";
-
-        public Unbreakable(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public String getName() {
-            return NAME;
-        }
-
-        @Override
-        public int getMaxLevel() {
-            return 1;
-        }
-
-        @Override
-        public int getStartLevel() {
-            return 1;
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.BREAKABLE;
-        }
-
-        @Override
-        public boolean isTreasure() {
-            return false;
-        }
-
-        @Override
-        public boolean isCursed() {
-            return false;
-        }
-
-        @Override
-        public boolean conflictsWith(Enchantment other) {
-            return false;
-        }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
-            return Utl.Mat.isEnchantable(item.getType());
-        }
-
-        public static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, PlayerItemDamageEvent event) {
-            if (plugin == null || player == null || item == null) return;
-            if (!Utl.Nchnt.has(item, plugin.UNBREAKABLE)) return;
-            event.setCancelled(true);
         }
     }
 
@@ -498,85 +640,8 @@ public class Generic {
             ItemStack item = Utl.getItemInUse(player);
             while (iter.hasNext()) {
                 Block iblock = iter.next();
-                if (Utl.PrmChkr.canModify(player, iblock) && (!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) iblock.breakNaturally(item);
+                if ((!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) plugin.breakBlock(player, iblock, item);
             }
-        }
-    }
-
-    public static class Telekinesis extends Enchantment {
-
-        public static final String NAME = "Telekinesis";
-
-        public Telekinesis(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public String getName() {
-            return NAME;
-        }
-
-        @Override
-        public int getMaxLevel() {
-            return 1;
-        }
-
-        @Override
-        public int getStartLevel() {
-            return 1;
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.BREAKABLE;
-        }
-
-        @Override
-        public boolean isTreasure() {
-            return false;
-        }
-
-        @Override
-        public boolean isCursed() {
-            return false;
-        }
-
-        @Override
-        @SuppressWarnings("deprecation")
-        public boolean conflictsWith(Enchantment other) {
-            String name = other.getName();
-            if (name.equals(Destructive.NAME)) return true;
-            if (name.equals(Replanting.NAME)) return true;
-            return false;
-        }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
-            return Utl.Mat.isTool(item.getType());
-        }
-
-        public static void onBlockDropItems(Plugin plugin, Player player, List<Item> drops) {
-            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
-            for (Item drop : drops) {
-                player.getInventory().addItem(drop.getItemStack());
-            }
-            drops.clear();
-        }
-
-        public static void onMobLoot(Plugin plugin, Player player, List<ItemStack> drops) {
-            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
-            for (ItemStack drop : drops) {
-                player.getInventory().addItem(drop);
-            }
-            drops.clear();
-        }
-
-        public static void onMobXp(Plugin plugin, Player player, EntityDeathEvent event) {
-            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
-            int xp = event.getDroppedExp();
-            event.setDroppedExp(0);
-            player.giveExp(xp);
         }
     }
 
@@ -695,10 +760,7 @@ public class Generic {
         }
 
         @Override
-        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
-            String name = other.getName();
-            if (name.equals(Telekinesis.NAME)) return true;
             return false;
         }
 
@@ -714,14 +776,14 @@ public class Generic {
             ItemStack item = Utl.getHoeInUse(player);
             if (item == null) return;
             if (level == 1) {
-                if (Utl.PrmChkr.canModify(player, block)) harvest(player, block, item);
+                if (Utl.PrmChkr.canModify(player, block)) harvest(plugin, player, block, item);
             }
             else {
                 int x = block.getX(); int y = block.getY(); int z = block.getZ();
                 int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
                 for (int[] coords : allCoords) {
                     Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                    if (Utl.PrmChkr.canModify(player, modifiedBlock)) harvest(player, modifiedBlock, item);
+                    if (Utl.PrmChkr.canModify(player, modifiedBlock)) harvest(plugin, player, modifiedBlock, item);
                 }
             }
         }
@@ -730,84 +792,18 @@ public class Generic {
             final int level = Utl.Nchnt.handLevel(player, plugin.REPLANTING);
             if (level < 1) return;
             ItemStack item = Utl.getItemInUse(player);
-            event.setCancelled(harvest(player, block, item));
+            event.setCancelled(harvest(plugin, player, block, item));
         }
 
-        private static boolean harvest(Player player, Block block, ItemStack item) {
+        private static boolean harvest(Plugin plugin, Player player, Block block, ItemStack item) {
             BlockState state = block.getState();
             if (!(state.getBlockData() instanceof Ageable)) return false;
             Ageable ageable = (Ageable) state.getBlockData();
             if (ageable.getAge() != ageable.getMaximumAge()) return false;
-            Collection<ItemStack> drops = block.getDrops(item);
+            plugin.blockDrops(player, block);
             ageable.setAge(0);
             block.setBlockData(ageable);
-            for (ItemStack drop : drops) {
-                block.getWorld().dropItemNaturally(block.getLocation(), drop);
-            }
             return true;
-        }
-    }
-
-    public static class Glowing extends Enchantment {
-
-        public static final String NAME = "Radiance";
-
-        public Glowing(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public String getName() {
-            return NAME;
-        }
-
-        @Override
-        public int getMaxLevel() {
-            return 5;
-        }
-
-        @Override
-        public int getStartLevel() {
-            return 1;
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.BREAKABLE;
-        }
-
-        @Override
-        public boolean isTreasure() {
-            return false;
-        }
-
-        @Override
-        public boolean isCursed() {
-            return false;
-        }
-
-        @Override
-        public boolean conflictsWith(Enchantment other) {
-            return false;
-        }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType()) || Utl.Mat.isArmor(item.getType());
-        }
-
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.GLOWING);
-            else level = Utl.Nchnt.handLevel(player, plugin.GLOWING);
-            if (level < 1) return;
-            reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0));
-        }
-
-        public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            if (!(Utl.Nchnt.has(helmet, plugin.GLOWING) || Utl.Nchnt.has(chestplate, plugin.GLOWING) || Utl.Nchnt.has(leggings, plugin.GLOWING) || Utl.Nchnt.has(boots, plugin.GLOWING))) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 120, 0));
         }
     }
 

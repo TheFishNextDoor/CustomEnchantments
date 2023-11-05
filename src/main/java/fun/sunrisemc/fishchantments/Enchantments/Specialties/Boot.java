@@ -149,7 +149,7 @@ public class Boot {
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
             int level = Utl.Nchnt.level(boots, plugin.JUMP);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 120, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -209,7 +209,7 @@ public class Boot {
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
             int level = Utl.Nchnt.level(boots, plugin.SLOW_FALL);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 120, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 }
