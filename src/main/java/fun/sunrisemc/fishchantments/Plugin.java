@@ -252,11 +252,15 @@ public class Plugin extends JavaPlugin {
   public boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
     if (item == null) return false;
     if (level < 1) return false;
-    if (!force && hasConflictingFishchantments(item, enchantment)) return false; // Must force to add conflicting enchantment
+    if (!force && hasConflictingFishchantments(item, enchantment)) return false; // Check enchantment conflicts
     int currentLevel = Utl.Nchnt.level(item, enchantment);
-    if (!force && level < currentLevel) return false; // Must force to reduce level
+    if (!force && level < currentLevel) return false; // Check enchantment levels
     if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++; // Combine enchantments
-    removeEnchant(item, enchantment);
+    removeEnchant(item, enchantment); // Remove old lore
+    if (settings.UNBREAKABLE_REMOVES_ENCHANTMENTS && Utl.Nchnt.same(enchantment, UNBREAKABLE)) { // Remove overriden enchantments
+      removeEnchant(item, Enchantment.DURABILITY);
+      removeEnchant(item, Enchantment.MENDING);
+    }
     if (item.getType() == Material.ENCHANTED_BOOK) {
       EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
       meta.addStoredEnchant(enchantment, level, true);
@@ -264,7 +268,7 @@ public class Plugin extends JavaPlugin {
     }
     else item.addUnsafeEnchantment(enchantment, level);
 
-    // Lore
+    // Add Lore
     if (!isFishchantment(enchantment)) return true;
     ItemMeta meta = item.getItemMeta();
     List<String> lore = meta.getLore();
@@ -287,7 +291,7 @@ public class Plugin extends JavaPlugin {
       else item.removeEnchantment(enchantment);
     }
 
-    // Lore
+    // Remove Lore
     if (!isFishchantment(enchantment)) return HASENCHANT;
     ItemMeta meta = item.getItemMeta();
     List<String> lore = meta.getLore();
