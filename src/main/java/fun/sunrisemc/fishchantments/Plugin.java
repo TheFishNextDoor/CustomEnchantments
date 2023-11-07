@@ -247,19 +247,47 @@ public class Plugin extends JavaPlugin {
     if (itemA.getAmount() != 1 || itemB.getAmount() != 1) return false;
     if (!(itemA.getType() == itemB.getType() || itemB.getType() == Material.ENCHANTED_BOOK)) return false;
     if (itemA.getMaxStackSize() != 1) return false;  
-    Iterator<Enchantment> enchantments = Utl.Nchnt.enchantments(itemB).iterator();
-    while (enchantments.hasNext()) {
-      if (hasConflictingFishchantments(itemA, enchantments.next())) return false;
+    return true;
+  }
+
+  public boolean sameEnchants(ItemStack itemA, ItemStack itemB) {
+    if (itemA == null || itemB == null) return false;
+    if (itemA.getType() != itemB.getType()) return false;
+    if (itemA.getType() == Material.ENCHANTED_BOOK) {
+      EnchantmentStorageMeta metaA = (EnchantmentStorageMeta) itemA.getItemMeta();
+      EnchantmentStorageMeta metaB = (EnchantmentStorageMeta) itemB.getItemMeta();
+      if (metaA.getStoredEnchants().size() != metaB.getStoredEnchants().size()) return false;
+      Iterator<Enchantment> iter = metaA.getStoredEnchants().keySet().iterator();
+      while (iter.hasNext()) {
+        Enchantment enchantment = iter.next();
+        if (!metaB.hasStoredEnchant(enchantment)) return false;
+        if (metaA.getStoredEnchantLevel(enchantment) != metaB.getStoredEnchantLevel(enchantment)) return false;
+      }
+    }
+    else {
+      if (itemA.getEnchantments().size() != itemB.getEnchantments().size()) return false;
+      Iterator<Enchantment> iter = itemA.getEnchantments().keySet().iterator();
+      while (iter.hasNext()) {
+        Enchantment enchantment = iter.next();
+        if (!itemB.containsEnchantment(enchantment)) return false;
+        if (itemA.getEnchantmentLevel(enchantment) != itemB.getEnchantmentLevel(enchantment)) return false;
+      }
     }
     return true;
-}
+  }
 
   public boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
+    // Verify
     if (item == null) return false;
     if (level < 1) return false;
-    if (!force && hasConflictingFishchantments(item, enchantment)) return false; // Check enchantment conflicts
     int currentLevel = Utl.Nchnt.level(item, enchantment);
-    if (!force && level < currentLevel) return false; // Check enchantment levels
+    if (!force) {
+      if (level < currentLevel) return false;
+      if (!enchantment.canEnchantItem(item)) return false;
+      if (hasConflictingFishchantments(item, enchantment)) return false;
+    }
+
+    // Add Enchantment
     if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++; // Combine enchantments
     removeEnchant(item, enchantment); // Remove old lore
     if (settings.UNBREAKABLE_REMOVES_ENCHANTMENTS && Utl.Nchnt.same(enchantment, UNBREAKABLE)) { // Remove overriden enchantments

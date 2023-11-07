@@ -24,12 +24,9 @@ public class PrepareAnvil implements Listener {
         ItemStack zero = event.getInventory().getItem(0);
         ItemStack one = event.getInventory().getItem(1);
         plugin.verify(zero); plugin.verify(one); // Fix broken fishchantments
-        if (!(plugin.hasFishchantments(zero) || plugin.hasFishchantments(one))) return; // Don't worry about vanilla stuff
-        if (result == null && zero != null && one != null) result = zero.clone(); // Make item always show up in result slot
-        if (!plugin.canMerge(zero, one)) {
-            event.setResult(null);
-            return;
-        }
+        if (!(plugin.hasFishchantments(zero) || plugin.hasFishchantments(one))) return;
+        if (!plugin.canMerge(zero, one)) return;
+        if (result == null) result = zero.clone();
         ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
         for (int i = 0; i < fishchantments.size(); i++) {
             Enchantment enchantment = fishchantments.get(i);
@@ -41,6 +38,10 @@ public class PrepareAnvil implements Listener {
             Enchantment enchantment = fishchantments.get(i);
             int level = Utl.Nchnt.level(one, enchantment);
             plugin.addEnchant(result, enchantment, level, false, true);
+        }
+        if (plugin.sameEnchants(zero, result)) {
+            event.setResult(null);
+            return;
         }
         event.setResult(result);
     }
