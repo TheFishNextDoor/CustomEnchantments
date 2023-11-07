@@ -245,7 +245,6 @@ public class Plugin extends JavaPlugin {
         Iterator<Enchantment> iter = Utl.Nchnt.enchantments(item).iterator();
         while (iter.hasNext()) {
             Enchantment ienchantment = iter.next();
-            if (!isFishchantment(enchantment) && !isFishchantment(ienchantment)) continue;
             if (enchantment.conflictsWith(ienchantment) || ienchantment.conflictsWith(enchantment)) return true;
         }
         return false;

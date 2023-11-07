@@ -173,7 +173,6 @@ public class Utl {
 
         @SuppressWarnings("deprecation")
         public static boolean same(Enchantment enchant1, Enchantment enchant2) {
-            System.out.println(enchant1.getKey().getKey() + " " + enchant2.getKey().getKey());
             if (enchant1.getKey().getKey().equals(enchant2.getKey().getKey())) return true;
             String name1 = enchant1.getName(); String name2 = enchant2.getName();
             if (name1 == null || name2 == null) return false;
