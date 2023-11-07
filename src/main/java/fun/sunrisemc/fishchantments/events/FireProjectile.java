@@ -10,6 +10,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Accurate;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Range;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.BloodTipped;
 
 public class FireProjectile implements Listener {
     private final Plugin plugin;
@@ -25,7 +26,8 @@ public class FireProjectile implements Listener {
         ProjectileSource shooter = projectile.getShooter();
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
-        Range.onPlayerShootProjectile(plugin, player, projectile);
-        Accurate.onPlayerShootProjectile(plugin, player, projectile);
+        Range.onPlayerFireProjectile(plugin, player, projectile);
+        Accurate.onPlayerFireProjectile(plugin, player, projectile);
+        BloodTipped.onPlayerFireProjectile(plugin, player);
     }
 }

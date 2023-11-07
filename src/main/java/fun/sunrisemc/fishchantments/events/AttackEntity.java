@@ -14,7 +14,9 @@ import fun.sunrisemc.fishchantments.enchantments.Curses.DeathWish;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Fling;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Glowing;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Blindness;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.BloodTipped;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Confusion;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Glass;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Levitation;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Hunger;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.LifeSteal;
@@ -50,6 +52,7 @@ public class AttackEntity implements Listener {
         Fling.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
         Poison.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
         Wither.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        BloodTipped.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
         Levitation.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
         Glowing.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
         Blindness.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
@@ -58,5 +61,6 @@ public class AttackEntity implements Listener {
         Hunger.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
         Slowness.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
         DeathWish.onPlayerAttackEntity(plugin, player, event);
+        Glass.onPlayerAttackEntity(plugin, player, event, RANGED_ATTACK);
     }   
 }

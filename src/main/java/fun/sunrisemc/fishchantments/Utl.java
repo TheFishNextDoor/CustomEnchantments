@@ -20,7 +20,7 @@ public class Utl {
     public static class PrmChkr {
         private static ArrayList<BlockBreakEvent> checking = new ArrayList<>();
 
-        public static boolean canModify(Player player, Block block) {
+        public static boolean canBreak(Player player, Block block) {
             BlockBreakEvent event = new BlockBreakEvent(block, player);
             checking.add(event); 
             Bukkit.getServer().getPluginManager().callEvent(event);
@@ -130,15 +130,6 @@ public class Utl {
             return level;
         }
 
-        @SuppressWarnings("deprecation")
-        public static boolean same(Enchantment enchant1, Enchantment enchant2) {
-            if (enchant1.getKey().getKey().equals(enchant2.getKey().getKey())) return true;
-            String name1 = enchant1.getName(); String name2 = enchant2.getName();
-            if (name1 == null || name2 == null) return false;
-            if (name1.equalsIgnoreCase(name2)) return true;
-            return false;
-        }
-
         public static boolean holding(Player player, Enchantment enchant) {
             return handLevel(player, enchant) > 0;
         }
@@ -152,7 +143,7 @@ public class Utl {
         }
 
         public static int rangedLevel(Player player, Enchantment enchant) {
-            return level(Utl.getRangedItemInUse1(player), enchant);
+            return level(Utl.getRangedItemInUse(player), enchant);
         }
 
         public static int weaponLevel(Player player, Enchantment enchant, boolean ranged) {
@@ -178,6 +169,16 @@ public class Utl {
             int leggingsLevel = level(player.getInventory().getLeggings(), enchant);
             int bootsLevel = level(player.getInventory().getBoots(), enchant);
             return Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+        }
+
+        @SuppressWarnings("deprecation")
+        public static boolean same(Enchantment enchant1, Enchantment enchant2) {
+            System.out.println(enchant1.getKey().getKey() + " " + enchant2.getKey().getKey());
+            if (enchant1.getKey().getKey().equals(enchant2.getKey().getKey())) return true;
+            String name1 = enchant1.getName(); String name2 = enchant2.getName();
+            if (name1 == null || name2 == null) return false;
+            if (name1.equalsIgnoreCase(name2)) return true;
+            return false;
         }
 
         public static ArrayList<Enchantment> enchantments(ItemStack item) {
@@ -281,7 +282,7 @@ public class Utl {
         return mainHand;
     }
 
-    public static ItemStack getRangedItemInUse1(Player player) {
+    public static ItemStack getRangedItemInUse(Player player) {
         PlayerInventory inv = player.getInventory();
         ItemStack mainHand = inv.getItemInMainHand();
         ItemStack offHand = inv.getItemInOffHand();

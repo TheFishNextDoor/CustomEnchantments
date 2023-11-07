@@ -6,12 +6,15 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.enchantments.Generic.Unbreakable;
 
 public class Weapon {
 
@@ -57,6 +60,7 @@ public class Weapon {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
+            if (name.equals(BloodTipped.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
             if (name.equals(Levitation.NAME)) return true;
@@ -65,6 +69,7 @@ public class Weapon {
             if (name.equals(Weakness.NAME)) return true;
             if (name.equals(Hunger.NAME)) return true;
             if (name.equals(Slowness.NAME)) return true;
+            if (name.equals(Glass.NAME)) return true;
             return false;
         }
 
@@ -146,6 +151,7 @@ public class Weapon {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(BloodTipped.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
             if (name.equals(Levitation.NAME)) return true;
             if (name.equals(Blindness.NAME)) return true;
@@ -153,6 +159,7 @@ public class Weapon {
             if (name.equals(Weakness.NAME)) return true;
             if (name.equals(Hunger.NAME)) return true;
             if (name.equals(Slowness.NAME)) return true;
+            if (name.equals(Glass.NAME)) return true;
             return false;
         }
 
@@ -213,6 +220,7 @@ public class Weapon {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(BloodTipped.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Levitation.NAME)) return true;
             if (name.equals(Blindness.NAME)) return true;
@@ -220,6 +228,7 @@ public class Weapon {
             if (name.equals(Weakness.NAME)) return true;
             if (name.equals(Hunger.NAME)) return true;
             if (name.equals(Slowness.NAME)) return true;
+            if (name.equals(Glass.NAME)) return true;
             return false;
         }
 
@@ -280,6 +289,7 @@ public class Weapon {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(BloodTipped.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
             if (name.equals(Levitation.NAME)) return true;
@@ -287,6 +297,7 @@ public class Weapon {
             if (name.equals(Weakness.NAME)) return true;
             if (name.equals(Hunger.NAME)) return true;
             if (name.equals(Slowness.NAME)) return true;
+            if (name.equals(Glass.NAME)) return true;
             return false;
         }
 
@@ -346,6 +357,7 @@ public class Weapon {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(BloodTipped.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
             if (name.equals(Levitation.NAME)) return true;
@@ -353,6 +365,7 @@ public class Weapon {
             if (name.equals(Weakness.NAME)) return true;
             if (name.equals(Hunger.NAME)) return true;
             if (name.equals(Slowness.NAME)) return true;
+            if (name.equals(Glass.NAME)) return true;
             return false;
         }
 
@@ -412,6 +425,7 @@ public class Weapon {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(BloodTipped.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
             if (name.equals(Levitation.NAME)) return true;
@@ -419,6 +433,7 @@ public class Weapon {
             if (name.equals(Confusion.NAME)) return true;
             if (name.equals(Hunger.NAME)) return true;
             if (name.equals(Slowness.NAME)) return true;
+            if (name.equals(Glass.NAME)) return true;
             return false;
         }
 
@@ -479,6 +494,7 @@ public class Weapon {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(BloodTipped.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
             if (name.equals(Levitation.NAME)) return true;
@@ -486,6 +502,7 @@ public class Weapon {
             if (name.equals(Confusion.NAME)) return true;
             if (name.equals(Weakness.NAME)) return true;
             if (name.equals(Slowness.NAME)) return true;
+            if (name.equals(Glass.NAME)) return true;
             return false;
         }
 
@@ -546,6 +563,7 @@ public class Weapon {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(BloodTipped.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
             if (name.equals(Levitation.NAME)) return true;
@@ -553,6 +571,7 @@ public class Weapon {
             if (name.equals(Confusion.NAME)) return true;
             if (name.equals(Weakness.NAME)) return true;
             if (name.equals(Hunger.NAME)) return true;
+            if (name.equals(Glass.NAME)) return true;
             return false;
         }
 
@@ -567,6 +586,80 @@ public class Weapon {
             if (level < 1) return;
             int strength = level/3;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40 + (level * 20)/(strength + 1), strength));
+        }
+    }
+
+    public static class Glass extends Enchantment {
+
+        public static final String NAME = "Glass";
+
+        public Glass(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.BREAKABLE;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(BloodTipped.NAME)) return true;
+            if (name.equals(Poison.NAME)) return true;
+            if (name.equals(Wither.NAME)) return true;
+            if (name.equals(Levitation.NAME)) return true;
+            if (name.equals(Blindness.NAME)) return true;
+            if (name.equals(Confusion.NAME)) return true;
+            if (name.equals(Weakness.NAME)) return true;
+            if (name.equals(Hunger.NAME)) return true;
+            if (name.equals(Slowness.NAME)) return true;
+            if (name.equals(Unbreakable.NAME)) return true;
+            if (Utl.Nchnt.same(other, Enchantment.DURABILITY)) return true;
+            if (Utl.Nchnt.same(other, Enchantment.MENDING)) return true;
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mat.isWeapon(item.getType());
+        }
+
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, EntityDamageByEntityEvent event, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.GLASS, ranged);
+            if (level < 1) return;
+            event.setDamage(event.getDamage() * 1.5);
+        }
+
+        public static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, PlayerItemDamageEvent event) {
+            if (Utl.Nchnt.has(item, plugin.GLASS)) event.setDamage(event.getDamage() * 16);
         }
     }
 
@@ -613,6 +706,7 @@ public class Weapon {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(BloodTipped.NAME)) return true;
             if (name.equals(Poison.NAME)) return true;
             if (name.equals(Wither.NAME)) return true;
             if (name.equals(Blindness.NAME)) return true;
@@ -620,6 +714,7 @@ public class Weapon {
             if (name.equals(Weakness.NAME)) return true;
             if (name.equals(Hunger.NAME)) return true;
             if (name.equals(Slowness.NAME)) return true;
+            if (name.equals(Glass.NAME)) return true;
             return false;
         }
 
@@ -633,6 +728,78 @@ public class Weapon {
             final int level = Utl.Nchnt.weaponLevel(player, plugin.LEVITATION, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 40, 0));
+        }
+    }
+    
+    public static class BloodTipped extends Enchantment {
+
+        public static final String NAME = "Blood Tipped";
+
+        public BloodTipped(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.BREAKABLE;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(Poison.NAME)) return true;
+            if (name.equals(Wither.NAME)) return true;
+            if (name.equals(Levitation.NAME)) return true;
+            if (name.equals(Blindness.NAME)) return true;
+            if (name.equals(Confusion.NAME)) return true;
+            if (name.equals(Weakness.NAME)) return true;
+            if (name.equals(Hunger.NAME)) return true;
+            if (name.equals(Slowness.NAME)) return true;
+            if (name.equals(Glass.NAME)) return true;
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mat.isRanged(item.getType());
+        }
+
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity livingEntity, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.BLOODTIPPED, ranged);
+            if (level < 1) return;
+            livingEntity.addPotionEffects(player.getActivePotionEffects());
+        }
+
+        public static void onPlayerFireProjectile(Plugin plugin, Player player) {
+            if (Utl.Nchnt.holdingRanged(player, plugin.BLOODTIPPED)) player.damage(1);
         }
     }
 }

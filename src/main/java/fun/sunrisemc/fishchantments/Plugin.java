@@ -63,6 +63,8 @@ import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Poison;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Slowness;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Weakness;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Wither;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.BloodTipped;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Glass;
 import fun.sunrisemc.fishchantments.events.ProjectileHitBlock;
 import fun.sunrisemc.fishchantments.events.ItemDamage;
 import fun.sunrisemc.fishchantments.events.Fall;
@@ -101,6 +103,8 @@ public class Plugin extends JavaPlugin {
     public final Enchantment ACCURATE = new Accurate(new NamespacedKey(this, "accurate_fishchantment"));
     public final Enchantment POISON = new Poison(new NamespacedKey(this, "poison_fishchantment"));
     public final Enchantment WITHER = new Wither(new NamespacedKey(this, "wither_fishchantment"));
+    public final Enchantment BLOODTIPPED = new BloodTipped(new NamespacedKey(this, "blood_tipped_fishchantment"));
+    public final Enchantment GLASS = new Glass(new NamespacedKey(this, "glass_fishchantment"));
     public final Enchantment LEVITATION = new Levitation(new NamespacedKey(this, "helium_fishchantment"));
     public final Enchantment GLOWING = new Glowing(new NamespacedKey(this, "glowing_fishchantment"));
     public final Enchantment BLINDNESS = new Blindness(new NamespacedKey(this, "blindness_fishchantment"));
@@ -146,6 +150,8 @@ public class Plugin extends JavaPlugin {
         register(ACCURATE);
         register(POISON);
         register(WITHER);
+        register(BLOODTIPPED);
+        register(GLASS);
         register(LEVITATION);
         register(GLOWING);
         register(BLINDNESS);
@@ -321,29 +327,39 @@ public class Plugin extends JavaPlugin {
         addEnchant(enchantedBook, enchantment, level, true, false);
         return enchantedBook;
     }
-    
-    public void verify(ItemStack item) {
-        if (item == null) return;
-        Iterator<Enchantment> iter = getFishchantments().iterator();
-        while (iter.hasNext()) {
-            Utl.Nchnt.level(item, iter.next());
-        }
+
+    public void breakBlock(Player player, Block block) {
+        breakBlock(player, block, null);
     }
     
     public void breakBlock(Player player, Block block, ItemStack item) {
-        if (!Utl.PrmChkr.canModify(player, block)) return;
-        blockDrops(player, block);
+        if (!Utl.PrmChkr.canBreak(player, block)) return;
+        blockDrops(player, block, item);
         block.setType(Material.AIR);
     }
-    
+
     public void blockDrops(Player player, Block block) {
-        Collection<ItemStack> drops = block.getDrops();
+        blockDrops(player, block, null);
+    }
+    
+    public void blockDrops(Player player, Block block, ItemStack item) {
+        Collection<ItemStack> drops; 
+        if (item == null) drops = block.getDrops();
+        else drops = block.getDrops(item);
         if (drops.isEmpty()) return;
         Telekinesis.onBlockDropItems(this, player, drops);
         if (drops.isEmpty()) return;
         World world = block.getWorld();
         for (ItemStack drop : drops) {
             world.dropItemNaturally(block.getLocation(), drop);
+        }
+    }
+
+    public void verify(ItemStack item) {
+        if (item == null) return;
+        Iterator<Enchantment> iter = getFishchantments().iterator();
+        while (iter.hasNext()) {
+            Utl.Nchnt.level(item, iter.next());
         }
     }
     

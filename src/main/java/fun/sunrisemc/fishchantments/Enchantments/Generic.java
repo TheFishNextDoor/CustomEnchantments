@@ -28,6 +28,7 @@ import org.bukkit.util.Vector;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Glass;
 
 public class Generic {
 
@@ -70,7 +71,10 @@ public class Generic {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(Glass.NAME)) return true;
             return false;
         }
 
@@ -400,7 +404,7 @@ public class Generic {
             return Utl.Mat.isRanged(item.getType());
         }
 
-        public static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile) {
+        public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
             if (plugin == null || player == null || projectile == null) return;
             if (!Utl.Nchnt.holding(player, plugin.ACCURATE)) return;
             Vector direction = player.getEyeLocation().getDirection();
@@ -451,10 +455,8 @@ public class Generic {
         }
         
         @Override
-        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
-            String name = other.getName();
-            if (name.equals(Enchantment.ARROW_INFINITE.getName())) return true;
+            if (Utl.Nchnt.same(other, Enchantment.ARROW_INFINITE)) return true;
             return false;
         }
 
@@ -484,7 +486,7 @@ public class Generic {
             }
             if (!hasDrops) return;
             projectile.remove();
-            plugin.breakBlock(player, block, usedTool);
+            plugin.breakBlock(player, block);
         }
     }
 
@@ -537,7 +539,7 @@ public class Generic {
             return Utl.Mat.isRanged(item.getType());
         }
 
-        public static void onPlayerShootProjectile(Plugin plugin, Player player, Projectile projectile) {
+        public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
             if (plugin == null || player == null || projectile == null) return;
             final int level = Utl.Nchnt.rangedLevel(player, plugin.RANGE);
             if (level < 1) return;
@@ -708,7 +710,7 @@ public class Generic {
             int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
             for (int[] coords : allCoords) {
                 Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                if (isTillable(modifiedBlock.getType()) && Utl.PrmChkr.canModify(player, modifiedBlock)) modifiedBlock.setType(Material.FARMLAND);
+                if (isTillable(modifiedBlock.getType()) && Utl.PrmChkr.canBreak(player, modifiedBlock)) modifiedBlock.setType(Material.FARMLAND);
             }
         }
 
@@ -772,14 +774,14 @@ public class Generic {
             ItemStack item = Utl.getHoeInUse(player);
             if (item == null) return;
             if (level == 1) {
-                if (Utl.PrmChkr.canModify(player, block)) harvest(plugin, player, block, item);
+                if (Utl.PrmChkr.canBreak(player, block)) harvest(plugin, player, block, item);
             }
             else {
                 int x = block.getX(); int y = block.getY(); int z = block.getZ();
                 int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
                 for (int[] coords : allCoords) {
                     Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                    if (Utl.PrmChkr.canModify(player, modifiedBlock)) harvest(plugin, player, modifiedBlock, item);
+                    if (Utl.PrmChkr.canBreak(player, modifiedBlock)) harvest(plugin, player, modifiedBlock, item);
                 }
             }
         }
@@ -796,7 +798,7 @@ public class Generic {
             if (!(state.getBlockData() instanceof Ageable)) return false;
             Ageable ageable = (Ageable) state.getBlockData();
             if (ageable.getAge() != ageable.getMaximumAge()) return false;
-            plugin.blockDrops(player, block);
+            plugin.blockDrops(player, block, item);
             ageable.setAge(0);
             block.setBlockData(ageable);
             return true;

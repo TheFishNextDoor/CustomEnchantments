@@ -47,11 +47,14 @@ public class EntityDeath implements Listener {
         if (type == EntityType.BLAZE && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.FIRE_RESISTANCE, 1));
         if (type == EntityType.PILLAGER && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.HERO_OF_THE_VILLAGE, 1));
         if (type == EntityType.GHAST && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.SLOW_FALL, 1));
-        if (type == EntityType.PIGLIN && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.HASTE, 1));
         if (type == EntityType.PIGLIN_BRUTE && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.STRENGTH, 1));
         if (type == EntityType.ILLUSIONER && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.BLINDNESS, 1));
         if (type == EntityType.EVOKER && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.SPEED, 1));
         if (type == EntityType.RAVAGER && Utl.chance(6.0)) drops.add(plugin.enchantedBook(plugin.CRUSH, 1));
+        if (type == EntityType.PIGLIN) {
+            if (Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.HASTE, 1));
+            if (Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.BLOODTIPPED, 1));
+        }
         if (type == EntityType.SHULKER) {
             if (Utl.chance(0.5)) drops.add(plugin.enchantedBook(plugin.LEVITATION, 1));
             if (Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.LEVITATIONCURSE, 1));
