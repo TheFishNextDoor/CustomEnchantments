@@ -26,14 +26,26 @@ public class PrepareAnvil implements Listener {
         plugin.verify(zero); plugin.verify(one); // Fix broken fishchantments
         if (!(plugin.hasFishchantments(zero) || plugin.hasFishchantments(one))) return;
         if (!plugin.canMerge(zero, one)) return;
-        result = zero.clone();
+        boolean cloned = false;
+        if (result == null) {
+            result = zero.clone();
+            cloned = true;
+        }
+        else {
+            ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
+            for (int i = 0; i < fishchantments.size(); i++) {
+                Enchantment enchantment = fishchantments.get(i);
+                int level = Utl.Nchnt.level(zero, enchantment);
+                plugin.addEnchant(result, enchantment, level, true, false);
+            }
+        }
         ArrayList<Enchantment> enchantments = Utl.Nchnt.enchantments(one);
         for (int i = 0; i < enchantments.size(); i++) {
             Enchantment enchantment = enchantments.get(i);
             int level = Utl.Nchnt.level(one, enchantment);
             plugin.addEnchant(result, enchantment, level, false, true);
         }
-        if (Utl.Nchnt.sameEnchants(zero, result)) {
+        if (Utl.Nchnt.sameEnchants(zero, result) && cloned) {
             event.setResult(null);
             return;
         }
