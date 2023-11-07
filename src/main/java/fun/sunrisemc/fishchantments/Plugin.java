@@ -271,7 +271,6 @@ public class Plugin extends JavaPlugin {
         }
         
         // Add Enchantment
-        System.out.println(enchantment.getName() + " " + level + " " + currentLevel + " " + combine + " " + enchantment.getMaxLevel());
         if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++; // Combine enchantments
         removeEnchant(item, enchantment); // Remove old lore
         if (getSettings().UNBREAKABLE_REMOVES_ENCHANTMENTS && Utl.Nchnt.same(enchantment, UNBREAKABLE)) { // Remove overriden enchantments
