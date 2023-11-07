@@ -41,7 +41,7 @@ public class MobLoot implements Listener {
         if (type == EntityType.ZOMBIE && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.FOOD, 1));
         if (type == EntityType.DROWNED && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.WATER_BREATHING, 1));
         if (type == EntityType.HUSK && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.HUNGER, 1));
-        if (type == EntityType.SHULKER && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.HELIUM, 1));
+        if (type == EntityType.SHULKER && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.LEVITATION, 1));
         if (type == EntityType.SILVERFISH && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.WORM, 1));
         if (type == EntityType.BLAZE && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.FIRE_RESISTANCE, 1));
         if (type == EntityType.PILLAGER && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.HERO_OF_THE_VILLAGE, 1));

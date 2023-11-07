@@ -155,12 +155,29 @@ public class Utl {
             return level(Utl.getRangedItemInUse1(player), enchant);
         }
 
+        public static int weaponLevel(Player player, Enchantment enchant, boolean ranged) {
+            if (ranged) return rangedLevel(player, enchant);
+            else return handLevel(player, enchant);
+        }
+
         public static boolean holdingHoe(Player player, Enchantment enchant) {
             return hoeLevel(player, enchant) > 0;
         }
 
         public static int hoeLevel(Player player, Enchantment enchant) {
             return level(Utl.getHoeInUse(player), enchant);
+        }
+
+        public static boolean wearing(Player player, Enchantment enchant) {
+            return armorLevel(player, enchant) > 0;
+        }
+
+        public static int armorLevel(Player player, Enchantment enchant) {
+            int helmetLevel = level(player.getInventory().getHelmet(), enchant);
+            int chestplateLevel = level(player.getInventory().getChestplate(), enchant);
+            int leggingsLevel = level(player.getInventory().getLeggings(), enchant);
+            int bootsLevel = level(player.getInventory().getBoots(), enchant);
+            return Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
         }
 
         public static ArrayList<Enchantment> enchantments(ItemStack item) {

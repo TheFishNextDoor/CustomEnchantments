@@ -217,17 +217,15 @@ public class Generic {
             return Utl.Mat.isWeapon(item.getType()) || Utl.Mat.isArmor(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.GLOWING);
-            else level = Utl.Nchnt.handLevel(player, plugin.GLOWING);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.GLOWING, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0));
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            if (!(Utl.Nchnt.has(helmet, plugin.GLOWING) || Utl.Nchnt.has(chestplate, plugin.GLOWING) || Utl.Nchnt.has(leggings, plugin.GLOWING) || Utl.Nchnt.has(boots, plugin.GLOWING))) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 120, 0));
+        public static void onTimer(Plugin plugin, Player player) {
+            if (!Utl.Nchnt.wearing(player, plugin.GLOWING)) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 
@@ -280,10 +278,8 @@ public class Generic {
             return Utl.Mat.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.FLING);
-            else level = Utl.Nchnt.handLevel(player, plugin.FLING);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.FLING, ranged);
             if (level < 1) return;
             final double velocity = ((ranged ? level * 1.75 : level * 1.0) * 0.05) + 0.1;
             final Entity finalEntity = entity;
@@ -468,7 +464,7 @@ public class Generic {
             return Utl.Mat.isRanged(item.getType());
         }
 
-        public static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
+        public static void onProjectileHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
             if (plugin == null || player == null || projectile == null || block == null) return;
             final int level = Utl.Nchnt.rangedLevel(player, plugin.DESTRUCTIVE);
             if (level < 1) return;
@@ -694,7 +690,7 @@ public class Generic {
             return Utl.Mat.isHoe(item.getType());
         }
 
-        public static void onArrowHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
+        public static void onProjectileHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
             if (plugin == null || player == null || projectile == null || block == null) return;
             if (!Utl.Nchnt.holdingRanged(player, plugin.TILLING)) return;
             projectile.remove();
@@ -856,9 +852,8 @@ public class Generic {
             return Utl.Mat.isArmor(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots) {
-            if (!(Utl.Nchnt.has(helmet, plugin.INVISIBILITY) || Utl.Nchnt.has(chestplate, plugin.INVISIBILITY) || Utl.Nchnt.has(leggings, plugin.INVISIBILITY) || Utl.Nchnt.has(boots, plugin.INVISIBILITY))) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 120, 0));
+        public static void onTimer(Plugin plugin, Player player) {
+            if (Utl.Nchnt.wearing(player, plugin.INVISIBILITY)) player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 }

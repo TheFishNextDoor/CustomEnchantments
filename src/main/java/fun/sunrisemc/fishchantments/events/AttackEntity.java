@@ -10,6 +10,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.Plugin;
+import fun.sunrisemc.fishchantments.enchantments.Curses.DeathWish;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Fling;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Glowing;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Blindness;
@@ -45,16 +46,17 @@ public class AttackEntity implements Listener {
         LivingEntity entity = (LivingEntity) event.getEntity();
         final double damage = event.getDamage();
         if (plugin == null || player == null || entity == null|| damage == 0) return;
-        LifeSteal.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
-        Fling.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
-        Poison.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
-        Wither.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
-        Levitation.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
-        Glowing.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
-        Blindness.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
-        Confusion.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
-        Weakness.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
-        Hunger.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
-        Slowness.onPlayerAttackEntity(plugin, player, entity, damage, RANGED_ATTACK);
+        LifeSteal.onPlayerAttackEntity(plugin, player, damage, RANGED_ATTACK);
+        Fling.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        Poison.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        Wither.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        Levitation.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        Glowing.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        Blindness.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        Confusion.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        Weakness.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        Hunger.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        Slowness.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        DeathWish.onPlayerAttackEntity(plugin, player, event);
     }   
 }

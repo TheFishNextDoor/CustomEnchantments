@@ -4,7 +4,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -75,10 +74,8 @@ public class Weapon {
             return Utl.Mat.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.LIFE_STEAL);
-            else level = Utl.Nchnt.handLevel(player, plugin.LIFE_STEAL);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, double damage, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.LIFE_STEAL, ranged);
             if (level < 1) return;
             if (!ranged) damage /= 2;
             heal(player, calcAddedHealth(damage, level));
@@ -165,10 +162,8 @@ public class Weapon {
             return Utl.Mat.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.POISON);
-            else level = Utl.Nchnt.handLevel(player, plugin.POISON);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.POISON, ranged);
             if (level < 1) return;
             int strength = level/2;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 40 + (level * 20)/(strength + 1), strength));
@@ -234,10 +229,8 @@ public class Weapon {
             return Utl.Mat.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.WITHER);
-            else level = Utl.Nchnt.handLevel(player, plugin.WITHER);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.WITHER, ranged);
             if (level < 1) return;
             int strength = level/3;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 40 + (level * 20)/(strength + 1), strength));
@@ -303,16 +296,14 @@ public class Weapon {
             return Utl.Mat.isWeapon(item.getType()) || Utl.Mat.isBoots(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.HELIUM);
-            else level = Utl.Nchnt.handLevel(player, plugin.HELIUM);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.LEVITATION, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 20, 0));
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Nchnt.level(boots, plugin.HELIUM);
+            int level = Utl.Nchnt.level(boots, plugin.LEVITATION);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -377,10 +368,8 @@ public class Weapon {
             return Utl.Mat.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.BLINDNESS);
-            else level = Utl.Nchnt.handLevel(player, plugin.BLINDNESS);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.BLINDNESS, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, level * 20, 0));
         }
@@ -445,10 +434,8 @@ public class Weapon {
             return Utl.Mat.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.CONFUSION);
-            else level = Utl.Nchnt.handLevel(player, plugin.CONFUSION);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.CONFUSION, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, level * 20, 0));
         }
@@ -513,10 +500,8 @@ public class Weapon {
             return Utl.Mat.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.WEAKNESS);
-            else level = Utl.Nchnt.handLevel(player, plugin.WEAKNESS);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.WEAKNESS, ranged);
             if (level < 1) return;
             int strength = level/4;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 40 + (level * 20)/(strength + 1), strength));
@@ -582,10 +567,8 @@ public class Weapon {
             return Utl.Mat.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.HUNGER);
-            else level = Utl.Nchnt.handLevel(player, plugin.HUNGER);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.HUNGER, ranged);
             if (level < 1) return;
             int strength = level/2;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 40 + (level * 20)/(strength + 1), strength));
@@ -651,10 +634,8 @@ public class Weapon {
             return Utl.Mat.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, double damage, boolean ranged) {
-            final int level;
-            if (ranged) level = Utl.Nchnt.rangedLevel(player, plugin.SLOWNESS);
-            else level = Utl.Nchnt.handLevel(player, plugin.SLOWNESS);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.SLOWNESS, ranged);
             if (level < 1) return;
             int strength = level/3;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40 + (level * 20)/(strength + 1), strength));

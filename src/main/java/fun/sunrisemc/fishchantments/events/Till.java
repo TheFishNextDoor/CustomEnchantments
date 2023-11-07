@@ -9,10 +9,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Tilling;
 
-public class TillLand implements Listener {
+public class Till implements Listener {
     private final Plugin plugin;
 
-    public TillLand(Plugin plugin) {
+    public Till(Plugin plugin) {
         this.plugin = plugin;
     }
 

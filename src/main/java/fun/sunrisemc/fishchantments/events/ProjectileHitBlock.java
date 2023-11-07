@@ -11,20 +11,20 @@ import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Destructive;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Tilling;
 
-public class ArrowHitBlock implements Listener {
+public class ProjectileHitBlock implements Listener {
     Plugin plugin;
 
-    public ArrowHitBlock(Plugin plugin) {
+    public ProjectileHitBlock(Plugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onArrowHitBlock(ProjectileHitEvent event) {
+    public void onProjectileHitBlock(ProjectileHitEvent event) {
         Projectile projectile = event.getEntity();
         ProjectileSource shooter = event.getEntity().getShooter();
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
-        Destructive.onArrowHitBlock(plugin, player, projectile, event.getHitBlock());
-        Tilling.onArrowHitBlock(plugin, player, projectile, event.getHitBlock());
+        Destructive.onProjectileHitBlock(plugin, player, projectile, event.getHitBlock());
+        Tilling.onProjectileHitBlock(plugin, player, projectile, event.getHitBlock());
     }
 }

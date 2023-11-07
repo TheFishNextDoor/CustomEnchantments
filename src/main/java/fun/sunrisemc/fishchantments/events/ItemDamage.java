@@ -9,10 +9,10 @@ import org.bukkit.inventory.ItemStack;
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Unbreakable;
 
-public class DamageItem implements Listener {
+public class ItemDamage implements Listener {
     private final Plugin plugin;
 
-    public DamageItem(Plugin plugin) {
+    public ItemDamage(Plugin plugin) {
         this.plugin = plugin;
     }
 
