@@ -237,78 +237,6 @@ public class Weapon {
         }
     }
 
-    public static class Levitation extends Enchantment {
-
-        public static final String NAME = "Levitating";
-
-        public Levitation(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public String getName() {
-            return NAME;
-        }
-
-        @Override
-        public int getMaxLevel() {
-            return 3;
-        }
-
-        @Override
-        public int getStartLevel() {
-            return 1;
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.BREAKABLE;
-        }
-
-        @Override
-        public boolean isTreasure() {
-            return false;
-        }
-
-        @Override
-        public boolean isCursed() {
-            return false;
-        }
-
-        @Override
-        @SuppressWarnings("deprecation")
-        public boolean conflictsWith(Enchantment other) {
-            String name = other.getName();
-            if (name.equals(LifeSteal.NAME)) return true;
-            if (name.equals(Poison.NAME)) return true;
-            if (name.equals(Wither.NAME)) return true;
-            if (name.equals(Blindness.NAME)) return true;
-            if (name.equals(Confusion.NAME)) return true;
-            if (name.equals(Weakness.NAME)) return true;
-            if (name.equals(Hunger.NAME)) return true;
-            if (name.equals(Slowness.NAME)) return true;
-            return false;
-        }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType()) || Utl.Mat.isBoots(item.getType());
-        }
-
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.LEVITATION, ranged);
-            if (level < 1) return;
-            reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 20, 0));
-        }
-
-        public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Nchnt.level(boots, plugin.LEVITATION);
-            if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
-        }
-    }
-
     public static class Blindness extends Enchantment {
 
         public static final String NAME = "Obscure";
@@ -639,6 +567,72 @@ public class Weapon {
             if (level < 1) return;
             int strength = level/3;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40 + (level * 20)/(strength + 1), strength));
+        }
+    }
+
+    public static class Levitation extends Enchantment {
+
+        public static final String NAME = "Levitating";
+
+        public Levitation(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 3;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.BREAKABLE;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(LifeSteal.NAME)) return true;
+            if (name.equals(Poison.NAME)) return true;
+            if (name.equals(Wither.NAME)) return true;
+            if (name.equals(Blindness.NAME)) return true;
+            if (name.equals(Confusion.NAME)) return true;
+            if (name.equals(Weakness.NAME)) return true;
+            if (name.equals(Hunger.NAME)) return true;
+            if (name.equals(Slowness.NAME)) return true;
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mat.isRanged(item.getType());
+        }
+
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.LEVITATION, ranged);
+            if (level < 1) return;
+            reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 40, 0));
         }
     }
 }

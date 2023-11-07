@@ -23,6 +23,7 @@ import fun.sunrisemc.fishchantments.commands.Fenchant;
 import fun.sunrisemc.fishchantments.enchantments.Curses.MiningFatigueCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.SlownessCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.WeaknessCurse;
+import fun.sunrisemc.fishchantments.enchantments.Curses.LevitationCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.DeathWish;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Accurate;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Destructive;
@@ -126,6 +127,7 @@ public class Plugin extends JavaPlugin {
     public final Enchantment MINING_FATIGUE_CURSE = new MiningFatigueCurse(new NamespacedKey(this, "mining_fatigue_curse_fishchantment"));
     public final Enchantment SLOWNESS_CURSE = new SlownessCurse(new NamespacedKey(this, "slowness_curse_fishchantment"));
     public final Enchantment WEAKNESS_CURSE = new WeaknessCurse(new NamespacedKey(this, "weakness_curse_fishchantment"));
+    public final Enchantment LEVITATIONCURSE = new LevitationCurse(new NamespacedKey(this, "levitation_curse_fishchantment"));
     
     public void onEnable() {
         register(DESTRUCTIVE);
@@ -170,6 +172,7 @@ public class Plugin extends JavaPlugin {
         register(MINING_FATIGUE_CURSE);
         register(SLOWNESS_CURSE);
         register(WEAKNESS_CURSE);
+        register(LEVITATIONCURSE);
         getCommand("fenchant").setExecutor(new Fenchant(this));
         getServer().getPluginManager().registerEvents(new ProjectileHitBlock(this), this);
         getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
@@ -264,7 +267,7 @@ public class Plugin extends JavaPlugin {
         // Add Enchantment
         if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++; // Combine enchantments
         removeEnchant(item, enchantment); // Remove old lore
-        if (settings.UNBREAKABLE_REMOVES_ENCHANTMENTS && Utl.Nchnt.same(enchantment, UNBREAKABLE)) { // Remove overriden enchantments
+        if (getSettings().UNBREAKABLE_REMOVES_ENCHANTMENTS && Utl.Nchnt.same(enchantment, UNBREAKABLE)) { // Remove overriden enchantments
             removeEnchant(item, Enchantment.DURABILITY);
             removeEnchant(item, Enchantment.MENDING);
         }
@@ -360,7 +363,7 @@ public class Plugin extends JavaPlugin {
         if (level < 0) return null;
         String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
         if (level == 1) return lore;
-        else return lore + " " + (settings.NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
+        else return lore + " " + (getSettings().NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
     }
     
     private void register(Enchantment enchant) {
@@ -393,6 +396,7 @@ public class Plugin extends JavaPlugin {
                     MiningFatigueCurse.onTimer(plugin, player);
                     SlownessCurse.onTimer(plugin, player);
                     WeaknessCurse.onTimer(plugin, player);
+                    LevitationCurse.onTimer(plugin, player);
                     WaterBreathing.onTimer(plugin, player, helmet);
                     NightVision.onTimer(plugin, player, helmet);
                     ConduitPower.onTimer(plugin, player, helmet);
@@ -407,9 +411,8 @@ public class Plugin extends JavaPlugin {
                     Speed.onTimer(plugin, player, leggings); 
                     Jump.onTimer(plugin, player, boots); 
                     SlowFall.onTimer(plugin, player, boots);
-                    Levitation.onTimer(plugin, player, boots);
                 }
             }
-        }, settings.ARMOR_EFFECTS_PERIOD, settings.ARMOR_EFFECTS_PERIOD);
+        }, getSettings().ARMOR_EFFECTS_PERIOD, getSettings().ARMOR_EFFECTS_PERIOD);
     }
 }

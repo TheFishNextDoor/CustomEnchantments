@@ -43,7 +43,6 @@ public class EntityDeath implements Listener {
         if (type == EntityType.WITHER_SKELETON && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.DEATHWISH, 1));
         if (type == EntityType.DROWNED && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.WATER_BREATHING, 1));
         if (type == EntityType.HUSK && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.HUNGER, 1));
-        if (type == EntityType.SHULKER && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.LEVITATION, 1));
         if (type == EntityType.SILVERFISH && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.WORM, 1));
         if (type == EntityType.BLAZE && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.FIRE_RESISTANCE, 1));
         if (type == EntityType.PILLAGER && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.HERO_OF_THE_VILLAGE, 1));
@@ -53,6 +52,10 @@ public class EntityDeath implements Listener {
         if (type == EntityType.ILLUSIONER && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.BLINDNESS, 1));
         if (type == EntityType.EVOKER && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.SPEED, 1));
         if (type == EntityType.RAVAGER && Utl.chance(6.0)) drops.add(plugin.enchantedBook(plugin.CRUSH, 1));
+        if (type == EntityType.SHULKER) {
+            if (Utl.chance(0.5)) drops.add(plugin.enchantedBook(plugin.LEVITATION, 1));
+            if (Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.LEVITATIONCURSE, 1));
+        }
         if (type == EntityType.CREEPER) {
             Creeper creeper = (Creeper) entity;
             if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.EXCAVATING, 1));
@@ -72,11 +75,10 @@ public class EntityDeath implements Listener {
             if (Utl.chance(2.5)) drops.add(plugin.enchantedBook(plugin.HEALTH_BOOST, 1));
         }
         if (type == EntityType.ELDER_GUARDIAN ) {
-            if (Utl.chance(60.0)) drops.add(plugin.enchantedBook(plugin.CONDUIT_POWER, 1));
-            if (Utl.chance(40.0)) drops.add(plugin.enchantedBook(plugin.DOLPHINS_GRACE, 1));
+            if (Utl.chance(70.0)) drops.add(plugin.enchantedBook(plugin.CONDUIT_POWER, 1));
+            if (Utl.chance(30.0)) drops.add(plugin.enchantedBook(plugin.MINING_FATIGUE_CURSE, 1));
         }
         if (type == EntityType.GUARDIAN ) {
-            if (Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.CONDUIT_POWER, 1));
             if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.DOLPHINS_GRACE, 1));
         }
         if (type == EntityType.SKELETON) {
