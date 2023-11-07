@@ -2,6 +2,7 @@ package fun.sunrisemc.fishchantments.events;
 
 import java.util.List;
 
+import org.bukkit.GameRule;
 import org.bukkit.Material;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EntityType;
@@ -17,11 +18,11 @@ import fun.sunrisemc.fishchantments.Utl;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Enlightenment;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Telekinesis;
 
-public class MobLoot implements Listener {
+public class EntityDeath implements Listener {
     private static final boolean DROP_BOOKS = true;
     private final Plugin plugin;
 
-    public MobLoot(Plugin plugin) {
+    public EntityDeath(Plugin plugin) {
         this.plugin = plugin;
     }
     
@@ -33,12 +34,13 @@ public class MobLoot implements Listener {
         if (player == null) return;
         EntityType type = entity.getType();
         List<ItemStack> drops = event.getDrops();
-        if (drops.size() == 0) return;
+        if (!entity.getWorld().getGameRuleValue(GameRule.DO_MOB_LOOT)) return;
         if (type == EntityType.ENDERMAN && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.TELEKINESIS, 1));
         if (type == EntityType.CAVE_SPIDER && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.POISON, 1));
         if (type == EntityType.SPIDER && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.NIGHT_VISION, 1));
         if (type == EntityType.MAGMA_CUBE && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.GLOWING, 1));
         if (type == EntityType.ZOMBIE && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.FOOD, 1));
+        if (type == EntityType.WITHER_SKELETON && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.DEATHWISH, 1));
         if (type == EntityType.DROWNED && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.WATER_BREATHING, 1));
         if (type == EntityType.HUSK && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.HUNGER, 1));
         if (type == EntityType.SHULKER && Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.LEVITATION, 1));
@@ -50,15 +52,15 @@ public class MobLoot implements Listener {
         if (type == EntityType.PIGLIN_BRUTE && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.STRENGTH, 1));
         if (type == EntityType.ILLUSIONER && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.BLINDNESS, 1));
         if (type == EntityType.EVOKER && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.SPEED, 1));
-        if (type == EntityType.RAVAGER && Utl.chance(8.0)) drops.add(plugin.enchantedBook(plugin.CRUSH, 1));
+        if (type == EntityType.RAVAGER && Utl.chance(6.0)) drops.add(plugin.enchantedBook(plugin.CRUSH, 1));
         if (type == EntityType.CREEPER) {
             Creeper creeper = (Creeper) entity;
-            if (Utl.chance(0.05)) drops.add(plugin.enchantedBook(plugin.EXCAVATING, 1));
-            if (Utl.chance(0.05)) drops.add(plugin.enchantedBook(plugin.DESTRUCTIVE, 1));
+            if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.EXCAVATING, 1));
+            if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.DESTRUCTIVE, 1));
             if (creeper.isPowered() && Utl.chance(15.0)) drops.add(plugin.enchantedBook(plugin.FLING, 1));
         }
         if (type == EntityType.WITCH) {
-            if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.WEAKNESS, 1));
+            if (Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.WEAKNESS, 1));
             if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.INVISIBILITY, 1));
         }
         if (type == EntityType.WITHER) {
@@ -74,8 +76,8 @@ public class MobLoot implements Listener {
             if (Utl.chance(40.0)) drops.add(plugin.enchantedBook(plugin.DOLPHINS_GRACE, 1));
         }
         if (type == EntityType.GUARDIAN ) {
-            if (Utl.chance(0.12)) drops.add(plugin.enchantedBook(plugin.CONDUIT_POWER, 1));
-            if (Utl.chance(0.08)) drops.add(plugin.enchantedBook(plugin.DOLPHINS_GRACE, 1));
+            if (Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.CONDUIT_POWER, 1));
+            if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.DOLPHINS_GRACE, 1));
         }
         if (type == EntityType.SKELETON) {
             for (int i = 0; i < drops.size(); i++) {

@@ -73,7 +73,7 @@ import fun.sunrisemc.fishchantments.events.EntityDamage;
 import fun.sunrisemc.fishchantments.events.FireProjectile;
 import fun.sunrisemc.fishchantments.events.Grindstone;
 import fun.sunrisemc.fishchantments.events.HungerChange;
-import fun.sunrisemc.fishchantments.events.MobLoot;
+import fun.sunrisemc.fishchantments.events.EntityDeath;
 import fun.sunrisemc.fishchantments.events.PrepareAnvil;
 import fun.sunrisemc.fishchantments.events.Suffocation;
 import fun.sunrisemc.fishchantments.events.Till;
@@ -185,7 +185,7 @@ public class Plugin extends JavaPlugin {
     getServer().getPluginManager().registerEvents(new Suffocation(this), this);
     getServer().getPluginManager().registerEvents(new PrepareAnvil(this), this);
     getServer().getPluginManager().registerEvents(new Grindstone(this), this);
-    getServer().getPluginManager().registerEvents(new MobLoot(this), this);
+    getServer().getPluginManager().registerEvents(new EntityDeath(this), this);
     startTimer(this);
     LOGGER.info("Fishchantments enabled");
   }
