@@ -194,7 +194,7 @@ public class Helmet {
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
             if (!Utl.Nchnt.has(helmet, plugin.WATER_BREATHING)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 
@@ -317,7 +317,7 @@ public class Helmet {
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
             int level = Utl.Nchnt.level(helmet, plugin.CONDUIT_POWER);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 }

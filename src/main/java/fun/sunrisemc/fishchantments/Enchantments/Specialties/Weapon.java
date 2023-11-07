@@ -305,7 +305,7 @@ public class Weapon {
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
             int level = Utl.Nchnt.level(boots, plugin.LEVITATION);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 

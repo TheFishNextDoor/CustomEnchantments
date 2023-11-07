@@ -68,7 +68,7 @@ public class Legging {
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
             int level = Utl.Nchnt.level(boots, plugin.SPEED);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -126,7 +126,7 @@ public class Legging {
 
         public static void onTimer(Plugin plugin, Player player, ItemStack leggings) {
             if (!Utl.Nchnt.has(leggings, plugin.DOLPHINS_GRACE)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 }

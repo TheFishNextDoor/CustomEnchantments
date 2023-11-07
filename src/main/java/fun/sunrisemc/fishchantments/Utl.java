@@ -201,6 +201,32 @@ public class Utl {
             return enchantments;
         }
 
+        public static boolean sameEnchants(ItemStack itemA, ItemStack itemB) {
+            if (itemA == null || itemB == null) return false;
+            if (itemA.getType() != itemB.getType()) return false;
+            if (itemA.getType() == Material.ENCHANTED_BOOK) {
+                EnchantmentStorageMeta metaA = (EnchantmentStorageMeta) itemA.getItemMeta();
+                EnchantmentStorageMeta metaB = (EnchantmentStorageMeta) itemB.getItemMeta();
+                if (metaA.getStoredEnchants().size() != metaB.getStoredEnchants().size()) return false;
+                Iterator<Enchantment> iter = metaA.getStoredEnchants().keySet().iterator();
+                while (iter.hasNext()) {
+                    Enchantment enchantment = iter.next();
+                    if (!metaB.hasStoredEnchant(enchantment)) return false;
+                    if (metaA.getStoredEnchantLevel(enchantment) != metaB.getStoredEnchantLevel(enchantment)) return false;
+                }
+            }
+            else {
+                if (itemA.getEnchantments().size() != itemB.getEnchantments().size()) return false;
+                Iterator<Enchantment> iter = itemA.getEnchantments().keySet().iterator();
+                while (iter.hasNext()) {
+                    Enchantment enchantment = iter.next();
+                    if (!itemB.containsEnchantment(enchantment)) return false;
+                    if (itemA.getEnchantmentLevel(enchantment) != itemB.getEnchantmentLevel(enchantment)) return false;
+                }
+            }
+            return true;
+        }
+
         public static String numeral(int number) {
             switch (number) {
                 case 10: return "X";

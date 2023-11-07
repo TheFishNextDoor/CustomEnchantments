@@ -39,7 +39,7 @@ public class PrepareAnvil implements Listener {
             int level = Utl.Nchnt.level(one, enchantment);
             plugin.addEnchant(result, enchantment, level, false, true);
         }
-        if (plugin.sameEnchants(zero, result)) {
+        if (Utl.Nchnt.sameEnchants(zero, result)) {
             event.setResult(null);
             return;
         }

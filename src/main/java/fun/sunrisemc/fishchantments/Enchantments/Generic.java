@@ -225,7 +225,7 @@ public class Generic {
 
         public static void onTimer(Plugin plugin, Player player) {
             if (!Utl.Nchnt.wearing(player, plugin.GLOWING)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 
@@ -853,7 +853,7 @@ public class Generic {
         }
 
         public static void onTimer(Plugin plugin, Player player) {
-            if (Utl.Nchnt.wearing(player, plugin.INVISIBILITY)) player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
+            if (Utl.Nchnt.wearing(player, plugin.INVISIBILITY)) player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 }
