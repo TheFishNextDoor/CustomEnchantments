@@ -76,7 +76,7 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, double damage, boolean ranged) {
@@ -166,7 +166,7 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
@@ -235,7 +235,7 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
@@ -304,7 +304,7 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
@@ -372,7 +372,7 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
@@ -440,7 +440,7 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
@@ -509,7 +509,7 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
@@ -578,7 +578,7 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
@@ -649,7 +649,7 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, EntityDamageByEntityEvent event, boolean ranged) {
@@ -721,7 +721,7 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isRanged(item.getType());
+            return Utl.Mtrl.isRanged(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
@@ -789,7 +789,7 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isRanged(item.getType());
+            return Utl.Mtrl.isRanged(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity livingEntity, boolean ranged) {

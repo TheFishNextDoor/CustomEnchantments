@@ -33,7 +33,32 @@ public class Utl {
         }
     }
 
-    public static class Mat {
+    public static class Wrld {
+
+        public static boolean raining(Block block) {
+            return block.getWorld().hasStorm() && rains(block);
+        }
+
+        public static boolean rains(Block block) {
+            double temp = block.getTemperature();
+            return temp < 0.95 && temp > 0.15;
+        }
+
+        public static boolean snowing(Block block) {
+            return block.getWorld().hasStorm() && snows(block);
+        }
+
+        public static boolean snows(Block block) {
+            double temp = block.getTemperature();
+            return temp < 0.15;
+        }
+
+        public static boolean underBlock(Player player) {
+            return player.getWorld().getHighestBlockYAt(player.getLocation()) > player.getLocation().getY();
+        }
+    }
+
+    public static class Mtrl {
 
         public static boolean isEnchantable(Material material) {
             return isTool(material) || isWeapon(material)  || isArmor(material);
@@ -285,9 +310,9 @@ public class Utl {
         PlayerInventory inv = player.getInventory();
         ItemStack mainHand = inv.getItemInMainHand();
         ItemStack offHand = inv.getItemInOffHand();
-        if (Mat.isRanged(mainHand.getType())) return mainHand;
-        if (Mat.isHoe(mainHand.getType())) return null;
-        if (Mat.isRanged(offHand.getType())) return offHand;
+        if (Mtrl.isRanged(mainHand.getType())) return mainHand;
+        if (Mtrl.isHoe(mainHand.getType())) return null;
+        if (Mtrl.isRanged(offHand.getType())) return offHand;
         return null;
     }
 
@@ -295,9 +320,9 @@ public class Utl {
         PlayerInventory inv = player.getInventory();
         ItemStack mainHand = inv.getItemInMainHand();
         ItemStack offHand = inv.getItemInOffHand();
-        if (Mat.isHoe(mainHand.getType())) return mainHand;
-        if (Mat.isRanged(mainHand.getType())) return null;
-        if (Mat.isHoe(offHand.getType())) return offHand;
+        if (Mtrl.isHoe(mainHand.getType())) return mainHand;
+        if (Mtrl.isRanged(mainHand.getType())) return null;
+        if (Mtrl.isHoe(offHand.getType())) return offHand;
         return null;
     }
 }

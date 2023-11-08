@@ -61,7 +61,7 @@ public class Curses {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isArmor(item.getType());
+            return Utl.Mtrl.isArmor(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player) {
@@ -117,7 +117,7 @@ public class Curses {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isArmor(item.getType());
+            return Utl.Mtrl.isArmor(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player) {
@@ -173,7 +173,7 @@ public class Curses {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isArmor(item.getType());
+            return Utl.Mtrl.isArmor(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player) {
@@ -229,7 +229,7 @@ public class Curses {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isArmor(item.getType());
+            return Utl.Mtrl.isArmor(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, EntityDamageByEntityEvent event) {
@@ -287,13 +287,71 @@ public class Curses {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isArmor(item.getType());
+            return Utl.Mtrl.isArmor(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player) {
             int level = Utl.Nchnt.armorLevel(player, plugin.LEVITATIONCURSE);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
+        }
+    }
+
+    public static class AquaphobiaCurse extends Enchantment {
+
+        public static final String NAME = "Curse of Aquaphobia";
+
+        public AquaphobiaCurse(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.WEARABLE;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return true;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mtrl.isArmor(item.getType());
+        }
+
+        public static void onTimer(Plugin plugin, Player player) {
+            int level = Utl.Nchnt.armorLevel(player, plugin.AQUAPHOBIACURSE);
+            if (level < 1) return;
+            boolean inWater = player.isInWater();
+            boolean inRain = Utl.Wrld.raining(player.getLocation().getBlock()) && !Utl.Wrld.underBlock(player);
+            if (inWater || inRain) player.damage(1);
         }
     }
 }

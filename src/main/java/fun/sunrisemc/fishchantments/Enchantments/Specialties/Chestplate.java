@@ -67,7 +67,7 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isChestplate(item.getType());
+            return Utl.Mtrl.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
@@ -131,7 +131,7 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isChestplate(item.getType());
+            return Utl.Mtrl.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
@@ -195,7 +195,7 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isChestplate(item.getType());
+            return Utl.Mtrl.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
@@ -258,7 +258,7 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isChestplate(item.getType());
+            return Utl.Mtrl.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
@@ -322,7 +322,7 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isChestplate(item.getType());
+            return Utl.Mtrl.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
@@ -386,7 +386,7 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isChestplate(item.getType());
+            return Utl.Mtrl.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
@@ -450,7 +450,7 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isChestplate(item.getType());
+            return Utl.Mtrl.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {

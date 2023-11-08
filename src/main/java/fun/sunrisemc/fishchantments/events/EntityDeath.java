@@ -35,7 +35,6 @@ public class EntityDeath implements Listener {
         EntityType type = entity.getType();
         List<ItemStack> drops = event.getDrops();
         if (!entity.getWorld().getGameRuleValue(GameRule.DO_MOB_LOOT)) return;
-        if (type == EntityType.ENDERMAN && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.TELEKINESIS, 1));
         if (type == EntityType.CAVE_SPIDER && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.POISON, 1));
         if (type == EntityType.SPIDER && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.NIGHT_VISION, 1));
         if (type == EntityType.MAGMA_CUBE && Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.GLOWING, 1));
@@ -51,6 +50,10 @@ public class EntityDeath implements Listener {
         if (type == EntityType.ILLUSIONER && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.BLINDNESS, 1));
         if (type == EntityType.EVOKER && Utl.chance(3.0)) drops.add(plugin.enchantedBook(plugin.SPEED, 1));
         if (type == EntityType.RAVAGER && Utl.chance(6.0)) drops.add(plugin.enchantedBook(plugin.CRUSH, 1));
+        if (type == EntityType.ENDERMAN) {
+            if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.TELEKINESIS, 1));
+            if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.AQUAPHOBIACURSE, 1));
+        }
         if (type == EntityType.PIGLIN) {
             if (Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.HASTE, 1));
             if (Utl.chance(0.2)) drops.add(plugin.enchantedBook(plugin.BLOODTIPPED, 1));

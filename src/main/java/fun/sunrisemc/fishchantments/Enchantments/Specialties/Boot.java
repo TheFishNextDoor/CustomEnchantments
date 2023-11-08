@@ -66,7 +66,7 @@ public class Boot {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isBoots(item.getType());
+            return Utl.Mtrl.isBoots(item.getType());
         }
 
         public static void onFall(Plugin plugin, Player player, ItemStack boots, double fallDamage, ArrayList<LivingEntity> fellOn) {
@@ -143,7 +143,7 @@ public class Boot {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isBoots(item.getType());
+            return Utl.Mtrl.isBoots(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
@@ -203,7 +203,7 @@ public class Boot {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isBoots(item.getType());
+            return Utl.Mtrl.isBoots(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {

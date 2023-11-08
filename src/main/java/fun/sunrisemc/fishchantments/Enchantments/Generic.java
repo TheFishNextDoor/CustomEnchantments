@@ -81,7 +81,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isEnchantable(item.getType());
+            return Utl.Mtrl.isEnchantable(item.getType());
         }
 
         public static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, PlayerItemDamageEvent event) {
@@ -137,7 +137,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isTool(item.getType());
+            return Utl.Mtrl.isTool(item.getType());
         }
 
         public static void onBlockDropItems(Plugin plugin, Player player, List<Item> drops) {
@@ -218,7 +218,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType()) || Utl.Mat.isArmor(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType()) || Utl.Mtrl.isArmor(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
@@ -279,7 +279,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, boolean ranged) {
@@ -344,7 +344,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onMobXp(Plugin plugin, Player player, EntityDeathEvent event) {
@@ -401,7 +401,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isRanged(item.getType());
+            return Utl.Mtrl.isRanged(item.getType());
         }
 
         public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
@@ -463,7 +463,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isRanged(item.getType());
+            return Utl.Mtrl.isRanged(item.getType());
         }
 
         public static void onProjectileHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
@@ -536,7 +536,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isRanged(item.getType());
+            return Utl.Mtrl.isRanged(item.getType());
         }
 
         public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
@@ -594,7 +594,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isTool(item.getType());
+            return Utl.Mtrl.isTool(item.getType());
         }
 
         public static void onBlockBreak(Plugin plugin, Player player, Block block, BlockBreakEvent event) {
@@ -689,7 +689,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isHoe(item.getType());
+            return Utl.Mtrl.isHoe(item.getType());
         }
 
         public static void onProjectileHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
@@ -765,7 +765,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isHoe(item.getType());
+            return Utl.Mtrl.isHoe(item.getType());
         }
 
         public static void onRightClick(Plugin plugin, Player player, Block block) {
@@ -851,7 +851,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isArmor(item.getType());
+            return Utl.Mtrl.isArmor(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player) {
@@ -917,7 +917,6 @@ public class Generic {
             if (level < 1) return;
             Vector increase = velocity.clone().normalize().multiply(level * pitch * 0.0002);
             player.setVelocity(velocity.add(increase));
-            System.out.println(velocity.length() + " " + increase.length() + " " + pitch);
         }
     }
 }

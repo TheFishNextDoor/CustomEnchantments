@@ -24,6 +24,7 @@ import fun.sunrisemc.fishchantments.enchantments.Curses.MiningFatigueCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.SlownessCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.WeaknessCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.LevitationCurse;
+import fun.sunrisemc.fishchantments.enchantments.Curses.AquaphobiaCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.DeathWish;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Accurate;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Destructive;
@@ -135,6 +136,7 @@ public class Plugin extends JavaPlugin {
     public final Enchantment SLOWNESS_CURSE = new SlownessCurse(new NamespacedKey(this, "slowness_curse_fishchantment"));
     public final Enchantment WEAKNESS_CURSE = new WeaknessCurse(new NamespacedKey(this, "weakness_curse_fishchantment"));
     public final Enchantment LEVITATIONCURSE = new LevitationCurse(new NamespacedKey(this, "levitation_curse_fishchantment"));
+    public final Enchantment AQUAPHOBIACURSE = new AquaphobiaCurse(new NamespacedKey(this, "aquaphobia_curse_fishchantment"));
     
     public void onEnable() {
         register(DESTRUCTIVE);
@@ -183,6 +185,7 @@ public class Plugin extends JavaPlugin {
         register(SLOWNESS_CURSE);
         register(WEAKNESS_CURSE);
         register(LEVITATIONCURSE);
+        register(AQUAPHOBIACURSE);
         getCommand("fenchant").setExecutor(new Fenchant(this));
         getServer().getPluginManager().registerEvents(new ProjectileHitBlock(this), this);
         getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
@@ -435,5 +438,16 @@ public class Plugin extends JavaPlugin {
                 }
             }
         }, getSettings().ARMOR_EFFECTS_PERIOD, getSettings().ARMOR_EFFECTS_PERIOD);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
+                Player player;
+                while (players.hasNext()) {
+                    player = players.next();
+                    AquaphobiaCurse.onTimer(plugin, player);
+                }
+            }
+        }, 40, 40);
     }
 }

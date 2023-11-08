@@ -67,7 +67,7 @@ public class Helmet {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isHelmet(item.getType());
+            return Utl.Mtrl.isHelmet(item.getType());
         }
 
         public static void onHungerLoss(Plugin plugin, Player player, ItemStack helmet, FoodLevelChangeEvent event) {
@@ -128,7 +128,7 @@ public class Helmet {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isHelmet(item.getType());
+            return Utl.Mtrl.isHelmet(item.getType());
         }
 
         public static void onSuffocate(Plugin plugin, Player player, ItemStack helmet, EntityDamageEvent event) {
@@ -189,7 +189,7 @@ public class Helmet {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isHelmet(item.getType());
+            return Utl.Mtrl.isHelmet(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
@@ -250,7 +250,7 @@ public class Helmet {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isHelmet(item.getType());
+            return Utl.Mtrl.isHelmet(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
@@ -311,7 +311,7 @@ public class Helmet {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mat.isHelmet(item.getType());
+            return Utl.Mtrl.isHelmet(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
