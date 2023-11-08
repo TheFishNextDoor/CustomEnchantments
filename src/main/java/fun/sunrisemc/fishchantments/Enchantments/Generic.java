@@ -858,4 +858,66 @@ public class Generic {
             if (Utl.Nchnt.wearing(player, plugin.INVISIBILITY)) player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
+
+    public static class Momentum extends Enchantment {
+
+        public static final String NAME = "Momentum";
+
+        public Momentum(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 3;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_TORSO;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return item.getType() == Material.ELYTRA;
+        }
+
+        public static void onGlide(Plugin plugin, Player player) {
+            Vector velocity = player.getVelocity();
+            if (velocity.length() > 2.5) return;
+            float pitch = -((float) Math.toDegrees(Math.asin(velocity.getY() / velocity.length())));
+            if (pitch <= 0) return;
+            int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.MOMENTUM);
+            if (level < 1) return;
+            Vector increase = velocity.clone().normalize().multiply(level * pitch * 0.0002);
+            player.setVelocity(velocity.add(increase));
+            System.out.println(velocity.length() + " " + increase.length() + " " + pitch);
+        }
+    }
 }

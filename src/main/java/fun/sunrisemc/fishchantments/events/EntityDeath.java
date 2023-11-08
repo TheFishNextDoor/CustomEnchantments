@@ -75,6 +75,7 @@ public class EntityDeath implements Listener {
         }
         if (type == EntityType.ENDER_DRAGON) {
             if (Utl.chance(10.0)) drops.add(plugin.enchantedBook(plugin.RESISTANCE, 1));
+            if (Utl.chance(8.0)) drops.add(plugin.enchantedBook(plugin.MOMENTUM, 1));
             if (Utl.chance(2.5)) drops.add(plugin.enchantedBook(plugin.HEALTH_BOOST, 1));
         }
         if (type == EntityType.ELDER_GUARDIAN ) {
@@ -91,6 +92,7 @@ public class EntityDeath implements Listener {
                 if (Utl.chance(3.0)) plugin.addEnchant(drop, plugin.RANGE, 1, false, false);
                 if (Utl.chance(1.0)) plugin.addEnchant(drop, plugin.ACCURATE, 1, false, false);
             }
+            if (Utl.chance(0.1)) drops.add(plugin.enchantedBook(plugin.GLASS, 1));
         }
         if (type == EntityType.STRAY) {
             for (int i = 0; i < drops.size(); i++) {
