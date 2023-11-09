@@ -28,6 +28,7 @@ import org.bukkit.util.Vector;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.Utl.Nvntry;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Glass;
 
 public class Generic {
@@ -137,13 +138,13 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isTool(item.getType());
+            return Utl.Mtrl.isTool(item.getType()) || Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onBlockDropItems(Plugin plugin, Player player, List<Item> drops) {
             if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
             for (Item drop : drops) {
-                player.getInventory().addItem(drop.getItemStack());
+                Nvntry.give(player, drop.getItemStack());
             }
             drops.clear();
         }
@@ -151,7 +152,7 @@ public class Generic {
         public static void onBlockDropItems(Plugin plugin, Player player, Collection<ItemStack> drops) {
             if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
             for (ItemStack drop : drops) {
-                player.getInventory().addItem(drop);
+                Nvntry.give(player, drop);
             }
             drops.clear();
         }
@@ -159,7 +160,7 @@ public class Generic {
         public static void onMobLoot(Plugin plugin, Player player, List<ItemStack> drops) {
             if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
             for (ItemStack drop : drops) {
-                player.getInventory().addItem(drop);
+                Nvntry.give(player, drop);
             }
             drops.clear();
         }
@@ -467,7 +468,6 @@ public class Generic {
         }
 
         public static void onProjectileHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
-            if (plugin == null || player == null || projectile == null || block == null) return;
             final int level = Utl.Nchnt.rangedLevel(player, plugin.DESTRUCTIVE);
             if (level < 1) return;
             ItemStack usedTool = new ItemStack(new ItemStack(Material.SHEARS));
@@ -693,7 +693,6 @@ public class Generic {
         }
 
         public static void onProjectileHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
-            if (plugin == null || player == null || projectile == null || block == null) return;
             if (!Utl.Nchnt.holdingRanged(player, plugin.TILLING)) return;
             projectile.remove();
             till(player, block);
@@ -915,8 +914,127 @@ public class Generic {
             if (pitch <= 0) return;
             int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.MOMENTUM);
             if (level < 1) return;
+            if (level > 10) level = 10;
             Vector increase = velocity.clone().normalize().multiply(level * pitch * 0.0002);
             player.setVelocity(velocity.add(increase));
+        }
+    }
+
+    public static class Boosters extends Enchantment {
+
+        public static final String NAME = "Boosters";
+
+        public Boosters(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 2;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_TORSO;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return item.getType() == Material.ELYTRA;
+        }
+
+        public static void onGlide(Plugin plugin, Player player) {
+            Vector velocity = player.getVelocity();
+            if (velocity.length() > 1.0) return;
+            int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.BOOSTERS);
+            if (level < 1) return;
+            if (level > 10) level = 10;
+            Vector increase = velocity.clone().normalize().multiply(level * 0.01);
+            player.setVelocity(velocity.add(increase));
+        }
+    }
+
+    public static class Reflection extends Enchantment {
+
+        public static final String NAME = "Reflection";
+
+        public Reflection(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 3;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.BREAKABLE;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return item.getType() == Material.SHIELD;
+        }
+
+        public static void onDeflectProjectile(Plugin plugin, Player player, Projectile projectile) {
+            if (projectile.isOnGround()) return;
+            int level = Utl.Nchnt.shieldLevel(player, plugin.REFLECTION);
+            if (level < 1) return;
+            if (level > 5) level = 5;
+            projectile.setVelocity(projectile.getVelocity().multiply(3.5 + (level * 1.5)));
         }
     }
 }

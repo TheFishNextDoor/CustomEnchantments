@@ -1,6 +1,7 @@
 package fun.sunrisemc.fishchantments;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -55,6 +56,18 @@ public class Utl {
 
         public static boolean underBlock(Player player) {
             return player.getWorld().getHighestBlockYAt(player.getLocation()) > player.getLocation().getY();
+        }
+    }
+
+    public static class Nvntry {
+
+        public static void give(Player player, ItemStack item) {
+            HashMap<Integer, ItemStack> excessItems = player.getInventory().addItem(item);
+            if (excessItems.isEmpty()) return;
+            Iterator<ItemStack> iter = excessItems.values().iterator();
+            while (iter.hasNext()) {
+                player.getWorld().dropItem(player.getLocation(), iter.next());
+            }
         }
     }
 
@@ -182,6 +195,14 @@ public class Utl {
 
         public static int hoeLevel(Player player, Enchantment enchant) {
             return level(Utl.getHoeInUse(player), enchant);
+        }
+
+        public static boolean holdingShield(Player player, Enchantment enchant) {
+            return shieldLevel(player, enchant) > 0;
+        }
+
+        public static int shieldLevel(Player player, Enchantment enchant) {
+            return level(Utl.getShieldInUse(player), enchant);
         }
 
         public static boolean wearing(Player player, Enchantment enchant) {
@@ -323,6 +344,15 @@ public class Utl {
         if (Mtrl.isHoe(mainHand.getType())) return mainHand;
         if (Mtrl.isRanged(mainHand.getType())) return null;
         if (Mtrl.isHoe(offHand.getType())) return offHand;
+        return null;
+    }
+
+    public static ItemStack getShieldInUse(Player player) {
+        PlayerInventory inv = player.getInventory();
+        ItemStack mainHand = inv.getItemInMainHand();
+        ItemStack offHand = inv.getItemInOffHand();
+        if (mainHand.getType() == Material.SHIELD) return mainHand;
+        if (offHand.getType() == Material.SHIELD) return offHand;
         return null;
     }
 }

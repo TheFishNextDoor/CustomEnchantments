@@ -11,6 +11,7 @@ import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Accurate;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Range;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.BloodTipped;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Volley;
 
 public class FireProjectile implements Listener {
     private final Plugin plugin;
@@ -28,6 +29,7 @@ public class FireProjectile implements Listener {
         Player player = (Player) shooter;
         Range.onPlayerFireProjectile(plugin, player, projectile);
         Accurate.onPlayerFireProjectile(plugin, player, projectile);
+        Volley.onPlayerFireProjectile(plugin, player, projectile);
         BloodTipped.onPlayerFireProjectile(plugin, player);
     }
 }

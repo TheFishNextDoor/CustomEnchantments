@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import fun.sunrisemc.fishchantments.Plugin;
+import fun.sunrisemc.fishchantments.enchantments.Generic.Boosters;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Momentum;
 
 public class Glide implements Listener {
@@ -21,6 +22,7 @@ public class Glide implements Listener {
         if (player == null) return;
         if (!player.isGliding()) return;
         Momentum.onGlide(plugin, player);
+        Boosters.onGlide(plugin, player);
     }
     
 }

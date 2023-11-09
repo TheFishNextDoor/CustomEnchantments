@@ -21,6 +21,7 @@ public class EntityDamage implements Listener {
         Entity entity = event.getEntity();
         if (!(entity instanceof Player)) return;
         Player player = (Player) entity;
-        DeathWish.onPlayerTakeDamage(plugin, player, event);
+        double damage = event.getFinalDamage();
+        DeathWish.onPlayerTakeDamage(plugin, player, damage, event);
     }
 }

@@ -232,12 +232,12 @@ public class Curses {
             return Utl.Mtrl.isArmor(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, EntityDamageByEntityEvent event) {
-            if (Utl.Nchnt.wearing(player, plugin.DEATHWISH)) event.setDamage(event.getDamage() * 1.75);
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, double damage, EntityDamageByEntityEvent event) {
+            if (Utl.Nchnt.wearing(player, plugin.DEATHWISH)) event.setDamage(damage * 1.75);
         }
 
-        public static void onPlayerTakeDamage(Plugin plugin, Player player, EntityDamageEvent event) {
-            if (Utl.Nchnt.wearing(player, plugin.DEATHWISH)) event.setDamage(event.getDamage() * 1.5);
+        public static void onPlayerTakeDamage(Plugin plugin, Player player, double damage, EntityDamageEvent event) {
+            if (Utl.Nchnt.wearing(player, plugin.DEATHWISH)) event.setDamage(damage * 1.5);
         }
     }
 
