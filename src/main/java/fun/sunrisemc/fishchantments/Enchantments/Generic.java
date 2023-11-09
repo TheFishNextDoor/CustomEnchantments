@@ -30,6 +30,7 @@ import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Utl;
 import fun.sunrisemc.fishchantments.Utl.Nvntry;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Glass;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.LifeSteal;
 
 public class Generic {
 
@@ -897,7 +898,10 @@ public class Generic {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(Boosters.NAME)) return true;
             return false;
         }
 
@@ -909,13 +913,14 @@ public class Generic {
 
         public static void onGlide(Plugin plugin, Player player) {
             Vector velocity = player.getVelocity();
-            if (velocity.length() > 2.5) return;
+            double speed = velocity.length();
+            if (speed < 0.6 || speed > 2.5) return;
             float pitch = -((float) Math.toDegrees(Math.asin(velocity.getY() / velocity.length())));
             if (pitch <= 0) return;
             int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.MOMENTUM);
             if (level < 1) return;
             if (level > 10) level = 10;
-            Vector increase = velocity.clone().normalize().multiply(level * pitch * 0.0002);
+            Vector increase = velocity.clone().normalize().multiply(level * (pitch/10) * 0.002);
             player.setVelocity(velocity.add(increase));
         }
     }
@@ -959,7 +964,10 @@ public class Generic {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(Momentum.NAME)) return true;
             return false;
         }
 
@@ -975,7 +983,7 @@ public class Generic {
             int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.BOOSTERS);
             if (level < 1) return;
             if (level > 10) level = 10;
-            Vector increase = velocity.clone().normalize().multiply(level * 0.01);
+            Vector increase = player.getLocation().getDirection().clone().normalize().multiply(level * 0.01);
             player.setVelocity(velocity.add(increase));
         }
     }
