@@ -228,6 +228,25 @@ public class Plugin extends JavaPlugin {
         settings = new Settings();
     }
     
+    public static void fixEnchant(ItemStack item, Enchantment enchantment, Integer level) {
+        if (item == null) return;
+        if (level < 1) return;
+        if (item.getType() == Material.ENCHANTED_BOOK) {
+            EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+            meta.addStoredEnchant(enchantment, level, true);
+            item.setItemMeta(meta);
+        }
+        else item.addUnsafeEnchantment(enchantment, level);
+    }
+    
+    @SuppressWarnings("deprecation")
+    public static String lore(Enchantment enchantment, Integer level) {
+        if (level < 0) return null;
+        String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
+        if (level == 1) return lore;
+        else return lore + " " + (getSettings().NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
+    }
+
     public boolean hasFishchantments(ItemStack item) {
         return getFishchantments(item).size() > 0;
     }
@@ -378,25 +397,6 @@ public class Plugin extends JavaPlugin {
         while (iter.hasNext()) {
             Utl.Nchnt.level(item, iter.next());
         }
-    }
-    
-    public static void fixEnchant(ItemStack item, Enchantment enchantment, Integer level) {
-        if (item == null) return;
-        if (level < 1) return;
-        if (item.getType() == Material.ENCHANTED_BOOK) {
-            EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-            meta.addStoredEnchant(enchantment, level, true);
-            item.setItemMeta(meta);
-        }
-        else item.addUnsafeEnchantment(enchantment, level);
-    }
-    
-    @SuppressWarnings("deprecation")
-    public static String lore(Enchantment enchantment, Integer level) {
-        if (level < 0) return null;
-        String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
-        if (level == 1) return lore;
-        else return lore + " " + (getSettings().NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
     }
     
     private void register(Enchantment enchant) {

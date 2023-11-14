@@ -69,6 +69,44 @@ public class Utl {
                 player.getWorld().dropItem(player.getLocation(), iter.next());
             }
         }
+
+        public static ItemStack getItemInUse(Player player) {
+            PlayerInventory inv = player.getInventory();
+            ItemStack mainHand = inv.getItemInMainHand();
+            ItemStack offHand = inv.getItemInOffHand();
+            if (mainHand.getType() != Material.AIR) return mainHand;
+            if (offHand.getType() != Material.AIR) return offHand;
+            return mainHand;
+        }
+
+        public static ItemStack getShieldInUse(Player player) {
+            PlayerInventory inv = player.getInventory();
+            ItemStack mainHand = inv.getItemInMainHand();
+            ItemStack offHand = inv.getItemInOffHand();
+            if (mainHand.getType() == Material.SHIELD) return mainHand;
+            if (offHand.getType() == Material.SHIELD) return offHand;
+            return null;
+        }
+
+        public static ItemStack getHoeInUse(Player player) {
+            PlayerInventory inv = player.getInventory();
+            ItemStack mainHand = inv.getItemInMainHand();
+            ItemStack offHand = inv.getItemInOffHand();
+            if (Utl.Mtrl.isHoe(mainHand.getType())) return mainHand;
+            if (Utl.Mtrl.isRanged(mainHand.getType())) return null;
+            if (Utl.Mtrl.isHoe(offHand.getType())) return offHand;
+            return null;
+        }
+
+        public static ItemStack getRangedItemInUse(Player player) {
+            PlayerInventory inv = player.getInventory();
+            ItemStack mainHand = inv.getItemInMainHand();
+            ItemStack offHand = inv.getItemInOffHand();
+            if (Utl.Mtrl.isRanged(mainHand.getType())) return mainHand;
+            if (Utl.Mtrl.isHoe(mainHand.getType())) return null;
+            if (Utl.Mtrl.isRanged(offHand.getType())) return offHand;
+            return null;
+        }
     }
 
     public static class Mtrl {
@@ -173,7 +211,7 @@ public class Utl {
         }
 
         public static int handLevel(Player player, Enchantment enchant) {
-            return level(getItemInUse(player), enchant);
+            return level(Nvntry.getItemInUse(player), enchant);
         }
 
         public static boolean holdingRanged(Player player, Enchantment enchant) {
@@ -181,7 +219,7 @@ public class Utl {
         }
 
         public static int rangedLevel(Player player, Enchantment enchant) {
-            return level(Utl.getRangedItemInUse(player), enchant);
+            return level(Nvntry.getRangedItemInUse(player), enchant);
         }
 
         public static int weaponLevel(Player player, Enchantment enchant, boolean ranged) {
@@ -194,7 +232,7 @@ public class Utl {
         }
 
         public static int hoeLevel(Player player, Enchantment enchant) {
-            return level(Utl.getHoeInUse(player), enchant);
+            return level(Nvntry.getHoeInUse(player), enchant);
         }
 
         public static boolean holdingShield(Player player, Enchantment enchant) {
@@ -202,7 +240,7 @@ public class Utl {
         }
 
         public static int shieldLevel(Player player, Enchantment enchant) {
-            return level(Utl.getShieldInUse(player), enchant);
+            return level(Nvntry.getShieldInUse(player), enchant);
         }
 
         public static boolean wearing(Player player, Enchantment enchant) {
@@ -215,6 +253,12 @@ public class Utl {
             int leggingsLevel = level(player.getInventory().getLeggings(), enchant);
             int bootsLevel = level(player.getInventory().getBoots(), enchant);
             return Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+        }
+
+        public static int lootingLevel(Player player) {
+            int mainHandLevel = level(Nvntry.getItemInUse(player), Enchantment.LOOT_BONUS_MOBS);
+            int offHandLevel = level(Nvntry.getShieldInUse(player), Enchantment.LOOT_BONUS_MOBS);
+            return Math.max(mainHandLevel, offHandLevel);
         }
 
         @SuppressWarnings("deprecation")
@@ -316,43 +360,5 @@ public class Utl {
     public static boolean chance(double percent) {
         double randomValue = new Random().nextDouble() * 100.0;
         return randomValue <= percent;
-    }
-
-    public static ItemStack getItemInUse(Player player) {
-        PlayerInventory inv = player.getInventory();
-        ItemStack mainHand = inv.getItemInMainHand();
-        ItemStack offHand = inv.getItemInOffHand();
-        if (mainHand.getType() != Material.AIR) return mainHand;
-        if (offHand.getType() != Material.AIR) return offHand;
-        return mainHand;
-    }
-
-    public static ItemStack getRangedItemInUse(Player player) {
-        PlayerInventory inv = player.getInventory();
-        ItemStack mainHand = inv.getItemInMainHand();
-        ItemStack offHand = inv.getItemInOffHand();
-        if (Mtrl.isRanged(mainHand.getType())) return mainHand;
-        if (Mtrl.isHoe(mainHand.getType())) return null;
-        if (Mtrl.isRanged(offHand.getType())) return offHand;
-        return null;
-    }
-
-    public static ItemStack getHoeInUse(Player player) {
-        PlayerInventory inv = player.getInventory();
-        ItemStack mainHand = inv.getItemInMainHand();
-        ItemStack offHand = inv.getItemInOffHand();
-        if (Mtrl.isHoe(mainHand.getType())) return mainHand;
-        if (Mtrl.isRanged(mainHand.getType())) return null;
-        if (Mtrl.isHoe(offHand.getType())) return offHand;
-        return null;
-    }
-
-    public static ItemStack getShieldInUse(Player player) {
-        PlayerInventory inv = player.getInventory();
-        ItemStack mainHand = inv.getItemInMainHand();
-        ItemStack offHand = inv.getItemInOffHand();
-        if (mainHand.getType() == Material.SHIELD) return mainHand;
-        if (offHand.getType() == Material.SHIELD) return offHand;
-        return null;
     }
 }

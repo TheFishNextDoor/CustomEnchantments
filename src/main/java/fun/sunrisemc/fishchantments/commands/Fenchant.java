@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.Utl.Nvntry;
 import net.md_5.bungee.api.ChatColor;
 
 public class Fenchant implements CommandExecutor, TabCompleter {
@@ -29,7 +30,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player)) return null;
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("fenchant")) {
-            if (args.length == 1) return getEnchantCommandNames(Utl.getItemInUse(player));
+            if (args.length == 1) return getEnchantCommandNames(Nvntry.getItemInUse(player));
             else if (args.length == 2) {
                 ArrayList<String> levels = new ArrayList<>();
                 Enchantment enchantment = getEnchantment(args[0]);

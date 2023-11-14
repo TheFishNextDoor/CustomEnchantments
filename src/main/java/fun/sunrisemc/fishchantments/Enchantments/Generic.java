@@ -30,7 +30,6 @@ import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Utl;
 import fun.sunrisemc.fishchantments.Utl.Nvntry;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Glass;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.LifeSteal;
 
 public class Generic {
 
@@ -636,7 +635,7 @@ public class Generic {
                 blocks.add(block.getRelative(-1, 0, -1));
             }
             Iterator<Block> iter = blocks.iterator();
-            ItemStack item = Utl.getItemInUse(player);
+            ItemStack item = Nvntry.getItemInUse(player);
             while (iter.hasNext()) {
                 Block iblock = iter.next();
                 if ((!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) plugin.breakBlock(player, iblock, item);
@@ -771,7 +770,7 @@ public class Generic {
         public static void onRightClick(Plugin plugin, Player player, Block block) {
             final int level = Utl.Nchnt.hoeLevel(player, plugin.REPLANTING);
             if (level < 1) return;
-            ItemStack item = Utl.getHoeInUse(player);
+            ItemStack item = Nvntry.getHoeInUse(player);
             if (item == null) return;
             if (level == 1) {
                 if (Utl.PrmChkr.canBreak(player, block)) harvest(plugin, player, block, item);
@@ -789,7 +788,7 @@ public class Generic {
         public static void onBlockBreak(Plugin plugin, Player player, Block block, BlockBreakEvent event) {
             final int level = Utl.Nchnt.handLevel(player, plugin.REPLANTING);
             if (level < 1) return;
-            ItemStack item = Utl.getItemInUse(player);
+            ItemStack item = Nvntry.getItemInUse(player);
             event.setCancelled(harvest(plugin, player, block, item));
         }
 
