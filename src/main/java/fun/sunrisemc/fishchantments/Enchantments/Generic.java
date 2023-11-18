@@ -939,7 +939,7 @@ public class Generic {
 
         @Override
         public int getMaxLevel() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -979,10 +979,10 @@ public class Generic {
         public static void onGliding(Plugin plugin, Player player) {
             if (player.isInWater()) return;
             Vector velocity = player.getVelocity();
-            if (velocity.length() > 1.0) return;
             int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.BOOSTERS);
             if (level < 1) return;
             if (level > 10) level = 10;
+            if (velocity.length() > 0.75 + (0.25 * level)) return;
             Vector increase = player.getLocation().getDirection().clone().normalize().multiply(level * 0.01);
             player.setVelocity(velocity.add(increase));
         }
