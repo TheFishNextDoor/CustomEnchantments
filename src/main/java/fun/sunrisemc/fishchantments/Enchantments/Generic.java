@@ -910,7 +910,7 @@ public class Generic {
             return item.getType() == Material.ELYTRA;
         }
 
-        public static void onGlide(Plugin plugin, Player player) {
+        public static void onGliding(Plugin plugin, Player player) {
             Vector velocity = player.getVelocity();
             double speed = velocity.length();
             if (speed < 0.6 || speed > 2.5) return;
@@ -976,7 +976,8 @@ public class Generic {
             return item.getType() == Material.ELYTRA;
         }
 
-        public static void onGlide(Plugin plugin, Player player) {
+        public static void onGliding(Plugin plugin, Player player) {
+            if (player.isInWater()) return;
             Vector velocity = player.getVelocity();
             if (velocity.length() > 1.0) return;
             int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.BOOSTERS);

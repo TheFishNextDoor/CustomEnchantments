@@ -17,12 +17,12 @@ public class Glide implements Listener {
     }
 
     @EventHandler
-    public void onGlide(PlayerMoveEvent event) {
+    public void onGliding(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         if (player == null) return;
         if (!player.isGliding()) return;
-        Momentum.onGlide(plugin, player);
-        Boosters.onGlide(plugin, player);
+        Momentum.onGliding(plugin, player);
+        Boosters.onGliding(plugin, player);
     }
     
 }
