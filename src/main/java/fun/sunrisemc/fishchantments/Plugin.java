@@ -303,7 +303,7 @@ public class Plugin extends JavaPlugin {
         int currentLevel = Utl.Nchnt.level(item, enchantment);
         if (!force) {
             if (level < currentLevel) return false;
-            if (!enchantment.canEnchantItem(item)) return false;
+            if (!(enchantment.canEnchantItem(item) || item.getType() == Material.ENCHANTED_BOOK)) return false;
             if (hasConflictingFishchantments(item, enchantment)) return false;
         }
         
