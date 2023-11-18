@@ -299,6 +299,7 @@ public class Plugin extends JavaPlugin {
         // Verify
         if (item == null) return false;
         if (level < 1) return false;
+        if (level > 255) level = 255;
         int currentLevel = Utl.Nchnt.level(item, enchantment);
         if (!force) {
             if (level < currentLevel) return false;

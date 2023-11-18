@@ -256,8 +256,9 @@ public class Utl {
         }
 
         public static int lootingLevel(Player player) {
-            int mainHandLevel = level(Nvntry.getItemInUse(player), Enchantment.LOOT_BONUS_MOBS);
-            int offHandLevel = level(Nvntry.getShieldInUse(player), Enchantment.LOOT_BONUS_MOBS);
+            PlayerInventory inv = player.getInventory();
+            int mainHandLevel = level(inv.getItemInMainHand(), Enchantment.LOOT_BONUS_MOBS);
+            int offHandLevel = level(inv.getItemInOffHand(), Enchantment.LOOT_BONUS_MOBS);
             return Math.max(mainHandLevel, offHandLevel);
         }
 
