@@ -227,11 +227,6 @@ public class Generic {
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0));
         }
-
-        public static void onTimer(Plugin plugin, Player player) {
-            if (!Utl.Nchnt.wearing(player, plugin.GLOWING)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
-        }
     }
 
     public static class Fling extends Enchantment {

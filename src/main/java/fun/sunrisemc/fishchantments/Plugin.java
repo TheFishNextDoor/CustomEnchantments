@@ -27,6 +27,7 @@ import fun.sunrisemc.fishchantments.enchantments.Curses.WeaknessCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.LevitationCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.AquaphobiaCurse;
 import fun.sunrisemc.fishchantments.enchantments.Curses.DeathWish;
+import fun.sunrisemc.fishchantments.enchantments.Curses.GlowingCurse;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Accurate;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Destructive;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Excavating;
@@ -144,6 +145,7 @@ public class Plugin extends JavaPlugin {
     public final Enchantment WEAKNESS_CURSE = new WeaknessCurse(new NamespacedKey(this, "weakness_curse_fishchantment"));
     public final Enchantment LEVITATIONCURSE = new LevitationCurse(new NamespacedKey(this, "levitation_curse_fishchantment"));
     public final Enchantment AQUAPHOBIACURSE = new AquaphobiaCurse(new NamespacedKey(this, "aquaphobia_curse_fishchantment"));
+    public final Enchantment GLOWINGCURSE = new AquaphobiaCurse(new NamespacedKey(this, "glowing_curse_fishchantment"));
     
     public void onEnable() {
         register(DESTRUCTIVE);
@@ -196,6 +198,7 @@ public class Plugin extends JavaPlugin {
         register(WEAKNESS_CURSE);
         register(LEVITATIONCURSE);
         register(AQUAPHOBIACURSE);
+        register(GLOWINGCURSE);
         getCommand("fenchant").setExecutor(new Fenchant(this));
         getServer().getPluginManager().registerEvents(new ProjectileHit(this), this);
         getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
@@ -432,7 +435,7 @@ public class Plugin extends JavaPlugin {
                     ItemStack chestplate = player.getInventory().getChestplate();
                     ItemStack leggings = player.getInventory().getLeggings();
                     ItemStack boots = player.getInventory().getBoots();
-                    Glowing.onTimer(plugin, player);
+                    GlowingCurse.onTimer(plugin, player);
                     Invisibility.onTimer(plugin, player);
                     MiningFatigueCurse.onTimer(plugin, player);
                     SlownessCurse.onTimer(plugin, player);

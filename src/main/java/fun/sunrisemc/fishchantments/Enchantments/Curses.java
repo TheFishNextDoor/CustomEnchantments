@@ -354,4 +354,60 @@ public class Curses {
             if (inWater || inRain) player.damage(1);
         }
     }
+
+    public static class GlowingCurse extends Enchantment {
+
+        public static final String NAME = "Curse of Radiance";
+
+        public GlowingCurse(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 5;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.BREAKABLE;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mtrl.isArmor(item.getType());
+        }
+
+        public static void onTimer(Plugin plugin, Player player) {
+            if (!Utl.Nchnt.wearing(player, plugin.GLOWING)) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
+        }
+    }
+
 }
