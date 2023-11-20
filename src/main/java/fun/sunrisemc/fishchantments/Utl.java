@@ -189,7 +189,7 @@ public class Utl {
                 if (bookMeta.hasStoredEnchant(enchant)) level = bookMeta.getStoredEnchantLevel(enchant);
             }
             else if (meta.hasEnchant(enchant)) level = meta.getEnchantLevel(enchant);
-            else if (meta.hasLore()) {
+            if (level == 0 && meta.hasLore()) {
                 String enchantLore = Plugin.lore(enchant, 1);
                 ArrayList<String> itemLore = (ArrayList<String>) meta.getLore();
                 Iterator<String> iter = itemLore.iterator();
