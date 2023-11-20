@@ -15,6 +15,7 @@ import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -308,11 +309,17 @@ public class Plugin extends JavaPlugin {
         }
         
         // Add Enchantment
-        if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++; // Combine enchantments
+        if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++;
         removeEnchant(item, enchantment); // Remove old lore
-        if (getSettings().UNBREAKABLE_REMOVES_ENCHANTMENTS && Utl.Nchnt.same(enchantment, UNBREAKABLE)) { // Remove overriden enchantments
+        if (getSettings().REMOVE_OVERRIDDEN_ENCHANTMENTS && Utl.Nchnt.same(enchantment, UNBREAKABLE)) {
             removeEnchant(item, Enchantment.DURABILITY);
             removeEnchant(item, Enchantment.MENDING);
+            ItemMeta meta = item.getItemMeta();
+            if (meta instanceof Damageable) {
+                Damageable damageable = (Damageable) meta;
+                damageable.setDamage(0);
+                item.setItemMeta(meta);
+            }
         }
         if (item.getType() == Material.ENCHANTED_BOOK) {
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
