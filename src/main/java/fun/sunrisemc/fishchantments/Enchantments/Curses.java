@@ -405,7 +405,7 @@ public class Curses {
         }
 
         public static void onTimer(Plugin plugin, Player player) {
-            if (!Utl.Nchnt.wearing(player, plugin.GLOWING)) return;
+            if (!Utl.Nchnt.wearing(player, plugin.GLOWINGCURSE)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
