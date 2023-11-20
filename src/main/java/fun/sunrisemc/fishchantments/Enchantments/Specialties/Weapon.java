@@ -677,7 +677,7 @@ public class Weapon {
         }
 
         public static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, int damage, PlayerItemDamageEvent event) {
-            if (Utl.Nchnt.has(item, plugin.GLASS)) event.setDamage(damage * 16);
+            if (Utl.Nchnt.has(item, plugin.GLASS)) event.setDamage(damage * 32);
         }
     }
 
