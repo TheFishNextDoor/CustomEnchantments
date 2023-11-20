@@ -16,7 +16,6 @@ public class Loot {
         EntityType type = livingEntity.getType();
         if (!livingEntity.getWorld().getGameRuleValue(GameRule.DO_MOB_LOOT)) return;
         double m = 1.0 + (Utl.Nchnt.lootingLevel(player) * 0.1);
-        if (type == EntityType.MAGMA_CUBE && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.GLOWING, 1));
         if (type == EntityType.SLIME && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.JUMP, 1));
         if (type == EntityType.ZOMBIE && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.FOOD, 1));
         if (type == EntityType.WITHER_SKELETON && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.DEATHWISH, 1));
@@ -26,6 +25,10 @@ public class Loot {
         if (type == EntityType.BLAZE && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.FIRE_RESISTANCE, 1));;
         if (type == EntityType.GHAST && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.SLOW_FALL, 1));
         if (type == EntityType.GUARDIAN && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.DOLPHINS_GRACE, 1));
+        if (type == EntityType.MAGMA_CUBE) {
+            if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.GLOWING, 1));
+            if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.GLOWINGCURSE, 1));
+        }
         if (type == EntityType.CAVE_SPIDER) {
             if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.WEAKNESS_CURSE, 1));
             if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.POISON, 1));

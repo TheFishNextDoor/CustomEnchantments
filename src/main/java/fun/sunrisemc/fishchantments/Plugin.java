@@ -145,7 +145,7 @@ public class Plugin extends JavaPlugin {
     public final Enchantment WEAKNESS_CURSE = new WeaknessCurse(new NamespacedKey(this, "weakness_curse_fishchantment"));
     public final Enchantment LEVITATIONCURSE = new LevitationCurse(new NamespacedKey(this, "levitation_curse_fishchantment"));
     public final Enchantment AQUAPHOBIACURSE = new AquaphobiaCurse(new NamespacedKey(this, "aquaphobia_curse_fishchantment"));
-    public final Enchantment GLOWINGCURSE = new AquaphobiaCurse(new NamespacedKey(this, "glowing_curse_fishchantment"));
+    public final Enchantment GLOWINGCURSE = new GlowingCurse(new NamespacedKey(this, "glowing_curse_fishchantment"));
     
     public void onEnable() {
         register(DESTRUCTIVE);

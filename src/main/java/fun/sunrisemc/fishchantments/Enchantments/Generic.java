@@ -219,7 +219,7 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType()) || Utl.Mtrl.isArmor(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
