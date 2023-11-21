@@ -10,7 +10,6 @@ import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Destructive;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Tilling;
 
 public class ProjectileHit implements Listener {
     Plugin plugin;
@@ -29,6 +28,5 @@ public class ProjectileHit implements Listener {
         Block block = event.getHitBlock();
         if (block == null) return;
         Destructive.onProjectileHitBlock(plugin, player, projectile, block);
-        Tilling.onProjectileHitBlock(plugin, player, projectile, block);
     }
 }

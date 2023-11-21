@@ -148,7 +148,7 @@ public class Utl {
         }
 
         public static boolean isRanged(Material material) {
-            return material == Material.BOW || material == Material.CROSSBOW || material == Material.TRIDENT || material == Material.FISHING_ROD || material == Material.EGG || material == Material.SNOWBALL || material == Material.ENDER_PEARL || material == Material.SPLASH_POTION || material == Material.LINGERING_POTION;
+            return material == Material.BOW || material == Material.CROSSBOW || material == Material.TRIDENT || material == Material.FISHING_ROD;
         }
 
         public static boolean isArmor(Material material) {

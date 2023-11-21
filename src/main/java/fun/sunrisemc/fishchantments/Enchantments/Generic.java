@@ -684,12 +684,6 @@ public class Generic {
             return Utl.Mtrl.isHoe(item.getType());
         }
 
-        public static void onProjectileHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
-            if (!Utl.Nchnt.holdingRanged(player, plugin.TILLING)) return;
-            projectile.remove();
-            till(player, block);
-        }
-
         public static void onTill(Plugin plugin, Player player, Block block) {
             if (plugin == null || player == null || block == null) return;
             if (!Utl.Nchnt.holdingHoe(player, plugin.TILLING)) return;

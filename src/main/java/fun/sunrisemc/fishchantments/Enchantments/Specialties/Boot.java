@@ -61,6 +61,7 @@ public class Boot {
             String name = other.getName();
             if (name.equals(Leaping.NAME)) return true;
             if (name.equals(SlowFalling.NAME)) return true;
+            if (name.equals(Anchor.NAME)) return true;
             return false;
         }
 
@@ -138,6 +139,7 @@ public class Boot {
             String name = other.getName();
             if (name.equals(Crush.NAME)) return true;
             if (name.equals(SlowFalling.NAME)) return true;
+            if (name.equals(Anchor.NAME)) return true;
             return false;
         }
 
@@ -198,6 +200,7 @@ public class Boot {
             String name = other.getName();
             if (name.equals(Crush.NAME)) return true;
             if (name.equals(Leaping.NAME)) return true;
+            if (name.equals(Anchor.NAME)) return true;
             return false;
         }
 
@@ -258,6 +261,7 @@ public class Boot {
             String name = other.getName();
             if (name.equals(Crush.NAME)) return true;
             if (name.equals(Leaping.NAME)) return true;
+            if (name.equals(SlowFalling.NAME)) return true;
             return false;
         }
 
