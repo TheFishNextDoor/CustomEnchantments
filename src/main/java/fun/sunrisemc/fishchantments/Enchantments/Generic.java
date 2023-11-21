@@ -165,11 +165,16 @@ public class Generic {
             drops.clear();
         }
 
+        public static void onBlockXp(Plugin plugin, Player player, BlockBreakEvent event) {
+            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
+            player.giveExp(event.getExpToDrop());
+            event.setExpToDrop(0);
+        }
+
         public static void onMobXp(Plugin plugin, Player player, EntityDeathEvent event) {
             if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
-            int xp = event.getDroppedExp();
+            player.giveExp(event.getDroppedExp());
             event.setDroppedExp(0);
-            player.giveExp(xp);
         }
     }
 
@@ -337,14 +342,23 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Utl.Mtrl.isWeapon(item.getType()) || Utl.Mtrl.isTool(item.getType());
         }
 
         public static void onMobXp(Plugin plugin, Player player, EntityDeathEvent event) {
             int level = Utl.Nchnt.handLevel(player, plugin.ENLIGHTENMENT);
             if (level < 1) return;
-            int xp = event.getDroppedExp();
-            event.setDroppedExp(xp + (int) Math.round(xp * (level * 0.1)));
+            event.setDroppedExp(xp(level, event.getDroppedExp()));
+        }
+
+        public static void onBlockXp(Plugin plugin, Player player, BlockBreakEvent event) {
+            int level = Utl.Nchnt.handLevel(player, plugin.ENLIGHTENMENT);
+            if (level < 1) return;
+            event.setExpToDrop(xp(level, event.getExpToDrop()));
+        }
+
+        private static int xp(int level, int xp) {
+            return xp + (int) Math.round(xp * (level * 0.1));
         }
     }
 
