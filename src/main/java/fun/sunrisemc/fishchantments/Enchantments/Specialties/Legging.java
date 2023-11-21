@@ -13,11 +13,11 @@ import fun.sunrisemc.fishchantments.Utl;
 
 public class Legging {
 
-    public static class Speed extends Enchantment {
+    public static class Swiftness extends Enchantment {
 
         public static final String NAME = "Swiftness";
 
-        public Speed(NamespacedKey key) {
+        public Swiftness(NamespacedKey key) {
             super(key);
         }
 
@@ -66,7 +66,7 @@ public class Legging {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Nchnt.level(boots, plugin.SPEED);
+            int level = Utl.Nchnt.level(boots, plugin.SWIFTNESS);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -114,7 +114,7 @@ public class Legging {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Speed.NAME)) return true;
+            if (name.equals(Swiftness.NAME)) return true;
             return false;
         }
 

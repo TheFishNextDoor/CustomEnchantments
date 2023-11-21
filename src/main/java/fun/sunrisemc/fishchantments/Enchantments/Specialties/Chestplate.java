@@ -13,11 +13,11 @@ import fun.sunrisemc.fishchantments.Utl;
 
 public class Chestplate {
 
-    public static class Resistance extends Enchantment {
+    public static class DragonScales extends Enchantment {
 
         public static final String NAME = "Dragon Scales";
 
-        public Resistance(NamespacedKey key) {
+        public DragonScales(NamespacedKey key) {
             super(key);
         }
 
@@ -55,11 +55,11 @@ public class Chestplate {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Regeneration.NAME)) return true;
+            if (name.equals(Healing.NAME)) return true;
             if (name.equals(FireResistance.NAME)) return true;
             if (name.equals(Strength.NAME)) return true;
             if (name.equals(Haste.NAME)) return true;
-            if (name.equals(HealthBoost.NAME)) return true;
+            if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             return false;
         }
@@ -71,17 +71,17 @@ public class Chestplate {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            int level = Utl.Nchnt.level(chestplate, plugin.RESISTANCE);
+            int level = Utl.Nchnt.level(chestplate, plugin.DRAGON_SCALES);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
-    public static class Regeneration extends Enchantment {
+    public static class Healing extends Enchantment {
 
         public static final String NAME = "Healing";
 
-        public Regeneration(NamespacedKey key) {
+        public Healing(NamespacedKey key) {
             super(key);
         }
 
@@ -119,11 +119,11 @@ public class Chestplate {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Resistance.NAME)) return true;
+            if (name.equals(DragonScales.NAME)) return true;
             if (name.equals(FireResistance.NAME)) return true;
             if (name.equals(Strength.NAME)) return true;
             if (name.equals(Haste.NAME)) return true;
-            if (name.equals(HealthBoost.NAME)) return true;
+            if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             return false;
         }
@@ -135,7 +135,7 @@ public class Chestplate {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            int level = Utl.Nchnt.level(chestplate, plugin.REGENERATION);
+            int level = Utl.Nchnt.level(chestplate, plugin.HEALING);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -183,11 +183,11 @@ public class Chestplate {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Resistance.NAME)) return true;
-            if (name.equals(Regeneration.NAME)) return true;
+            if (name.equals(DragonScales.NAME)) return true;
+            if (name.equals(Healing.NAME)) return true;
             if (name.equals(Strength.NAME)) return true;
             if (name.equals(Haste.NAME)) return true;
-            if (name.equals(HealthBoost.NAME)) return true;
+            if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             return false;
         }
@@ -246,11 +246,11 @@ public class Chestplate {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Resistance.NAME)) return true;
-            if (name.equals(Regeneration.NAME)) return true;
+            if (name.equals(DragonScales.NAME)) return true;
+            if (name.equals(Healing.NAME)) return true;
             if (name.equals(FireResistance.NAME)) return true;
             if (name.equals(Haste.NAME)) return true;
-            if (name.equals(HealthBoost.NAME)) return true;
+            if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             return false;
         }
@@ -310,11 +310,11 @@ public class Chestplate {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Resistance.NAME)) return true;
-            if (name.equals(Regeneration.NAME)) return true;
+            if (name.equals(DragonScales.NAME)) return true;
+            if (name.equals(Healing.NAME)) return true;
             if (name.equals(FireResistance.NAME)) return true;
             if (name.equals(Strength.NAME)) return true;
-            if (name.equals(HealthBoost.NAME)) return true;
+            if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             return false;
         }
@@ -332,11 +332,11 @@ public class Chestplate {
         }
     }
 
-    public static class HealthBoost extends Enchantment {
+    public static class IncreasedHealth extends Enchantment {
 
         public static final String NAME = "Increased Health";
 
-        public HealthBoost(NamespacedKey key) {
+        public IncreasedHealth(NamespacedKey key) {
             super(key);
         }
 
@@ -374,8 +374,8 @@ public class Chestplate {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Resistance.NAME)) return true;
-            if (name.equals(Regeneration.NAME)) return true;
+            if (name.equals(DragonScales.NAME)) return true;
+            if (name.equals(Healing.NAME)) return true;
             if (name.equals(FireResistance.NAME)) return true;
             if (name.equals(Strength.NAME)) return true;
             if (name.equals(Haste.NAME)) return true;
@@ -390,7 +390,7 @@ public class Chestplate {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            int level = Utl.Nchnt.level(chestplate, plugin.HEALTH_BOOST);
+            int level = Utl.Nchnt.level(chestplate, plugin.INCREASED_HEALTH);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -438,12 +438,12 @@ public class Chestplate {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Resistance.NAME)) return true;
-            if (name.equals(Regeneration.NAME)) return true;
+            if (name.equals(DragonScales.NAME)) return true;
+            if (name.equals(Healing.NAME)) return true;
             if (name.equals(FireResistance.NAME)) return true;
             if (name.equals(Strength.NAME)) return true;
             if (name.equals(Haste.NAME)) return true;
-            if (name.equals(HealthBoost.NAME)) return true;
+            if (name.equals(IncreasedHealth.NAME)) return true;
             return false;
         }
 

@@ -8,7 +8,7 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Accurate;
+import fun.sunrisemc.fishchantments.enchantments.Generic.Precision;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Range;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.BloodTipped;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Volley;
@@ -28,7 +28,7 @@ public class FireProjectile implements Listener {
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
         Range.onPlayerFireProjectile(plugin, player, projectile);
-        Accurate.onPlayerFireProjectile(plugin, player, projectile);
+        Precision.onPlayerFireProjectile(plugin, player, projectile);
         Volley.onPlayerFireProjectile(plugin, player, projectile);
         BloodTipped.onPlayerFireProjectile(plugin, player);
     }

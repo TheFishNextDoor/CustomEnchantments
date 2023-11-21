@@ -173,11 +173,11 @@ public class Generic {
         }
     }
 
-    public static class Glowing extends Enchantment {
+    public static class Radiance extends Enchantment {
 
         public static final String NAME = "Radiance";
 
-        public Glowing(NamespacedKey key) {
+        public Radiance(NamespacedKey key) {
             super(key);
         }
 
@@ -223,7 +223,7 @@ public class Generic {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.GLOWING, ranged);
+            final int level = Utl.Nchnt.weaponLevel(player, plugin.RADIANCE, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0));
         }
@@ -351,11 +351,11 @@ public class Generic {
         }
     }
 
-    public static class Accurate extends Enchantment {
+    public static class Precision extends Enchantment {
 
         public static final String NAME = "Precision";
 
-        public Accurate(NamespacedKey key) {
+        public Precision(NamespacedKey key) {
             super(key);
         }
 
@@ -402,7 +402,7 @@ public class Generic {
 
         public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
             if (plugin == null || player == null || projectile == null) return;
-            if (!Utl.Nchnt.holding(player, plugin.ACCURATE)) return;
+            if (!Utl.Nchnt.holding(player, plugin.PRECISION)) return;
             Vector direction = player.getEyeLocation().getDirection();
             Vector velocity = projectile.getVelocity();
             velocity.setX(direction.getX() * velocity.length());

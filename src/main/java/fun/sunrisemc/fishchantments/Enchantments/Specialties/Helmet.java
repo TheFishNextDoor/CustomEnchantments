@@ -15,11 +15,11 @@ import fun.sunrisemc.fishchantments.Utl;
 
 public class Helmet {
 
-    public static class Food extends Enchantment {
+    public static class Sustenance extends Enchantment {
 
         public static final String NAME = "Sustenance";
 
-        public Food(NamespacedKey key) {
+        public Sustenance(NamespacedKey key) {
             super(key);
         }
 
@@ -58,7 +58,7 @@ public class Helmet {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(Worm.NAME)) return true;
-            if (name.equals(WaterBreathing.NAME)) return true;
+            if (name.equals(Gills.NAME)) return true;
             if (name.equals(NightVision.NAME)) return true;
             if (name.equals(ConduitPower.NAME)) return true;
             return false;
@@ -71,7 +71,7 @@ public class Helmet {
         }
 
         public static void onHungerLoss(Plugin plugin, Player player, ItemStack helmet, FoodLevelChangeEvent event) {
-            if (!Utl.Nchnt.has(helmet, plugin.FOOD)) return;
+            if (!Utl.Nchnt.has(helmet, plugin.SUSTENANCE)) return;
             event.setFoodLevel(20);
         }
     }
@@ -118,8 +118,8 @@ public class Helmet {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Food.NAME)) return true;
-            if (name.equals(WaterBreathing.NAME)) return true;
+            if (name.equals(Sustenance.NAME)) return true;
+            if (name.equals(Gills.NAME)) return true;
             if (name.equals(NightVision.NAME)) return true;
             if (name.equals(ConduitPower.NAME)) return true;
             return false;
@@ -137,11 +137,11 @@ public class Helmet {
         }
     }
 
-    public static class WaterBreathing extends Enchantment {
+    public static class Gills extends Enchantment {
 
         public static final String NAME = "Gills";
 
-        public WaterBreathing(NamespacedKey key) {
+        public Gills(NamespacedKey key) {
             super(key);
         }
 
@@ -179,7 +179,7 @@ public class Helmet {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Food.NAME)) return true;
+            if (name.equals(Sustenance.NAME)) return true;
             if (name.equals(Worm.NAME)) return true;
             if (name.equals(NightVision.NAME)) return true;
             if (name.equals(ConduitPower.NAME)) return true;
@@ -240,9 +240,9 @@ public class Helmet {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Food.NAME)) return true;
+            if (name.equals(Sustenance.NAME)) return true;
             if (name.equals(Worm.NAME)) return true;
-            if (name.equals(WaterBreathing.NAME)) return true;
+            if (name.equals(Gills.NAME)) return true;
             if (name.equals(ConduitPower.NAME)) return true;
             return false;
         }
@@ -301,9 +301,9 @@ public class Helmet {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Food.NAME)) return true;
+            if (name.equals(Sustenance.NAME)) return true;
             if (name.equals(Worm.NAME)) return true;
-            if (name.equals(WaterBreathing.NAME)) return true;
+            if (name.equals(Gills.NAME)) return true;
             if (name.equals(NightVision.NAME)) return true;
             return false;
         }

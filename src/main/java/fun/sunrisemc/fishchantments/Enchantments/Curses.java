@@ -15,11 +15,11 @@ import fun.sunrisemc.fishchantments.Utl;
 
 public class Curses {
 
-    public static class MiningFatigueCurse extends Enchantment {
+    public static class CurseOfMiningFatigue extends Enchantment {
 
         public static final String NAME = "Curse of Mining Fatigue";
 
-        public MiningFatigueCurse(NamespacedKey key) {
+        public CurseOfMiningFatigue(NamespacedKey key) {
             super(key);
         }
 
@@ -65,17 +65,17 @@ public class Curses {
         }
 
         public static void onTimer(Plugin plugin, Player player) {
-            int level = Utl.Nchnt.armorLevel(player, plugin.MINING_FATIGUE_CURSE);
+            int level = Utl.Nchnt.armorLevel(player, plugin.CURSE_OF_MINING_FATIGUE);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 120, level-1));
         }
     }
 
-    public static class SlownessCurse extends Enchantment {
+    public static class CurseOfSlowness extends Enchantment {
 
         public static final String NAME = "Curse of Slowness";
 
-        public SlownessCurse(NamespacedKey key) {
+        public CurseOfSlowness(NamespacedKey key) {
             super(key);
         }
 
@@ -121,17 +121,17 @@ public class Curses {
         }
 
         public static void onTimer(Plugin plugin, Player player) {
-            int level = Utl.Nchnt.armorLevel(player, plugin.SLOWNESS_CURSE);
+            int level = Utl.Nchnt.armorLevel(player, plugin.CURSE_OF_SLOWNESS);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, level-1));
         }
     }
 
-    public static class WeaknessCurse extends Enchantment {
+    public static class CurseOfWeakness extends Enchantment {
 
         public static final String NAME = "Curse of Weakness";
 
-        public WeaknessCurse(NamespacedKey key) {
+        public CurseOfWeakness(NamespacedKey key) {
             super(key);
         }
 
@@ -177,7 +177,7 @@ public class Curses {
         }
 
         public static void onTimer(Plugin plugin, Player player) {
-            int level = Utl.Nchnt.armorLevel(player, plugin.WEAKNESS_CURSE);
+            int level = Utl.Nchnt.armorLevel(player, plugin.CURSE_OF_WEAKNESS);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 120, level-1));
         }
@@ -241,11 +241,11 @@ public class Curses {
         }
     }
 
-    public static class LevitationCurse extends Enchantment {
+    public static class CurseOfLevitating extends Enchantment {
 
         public static final String NAME = "Curse of Levitating";
 
-        public LevitationCurse(NamespacedKey key) {
+        public CurseOfLevitating(NamespacedKey key) {
             super(key);
         }
 
@@ -291,17 +291,17 @@ public class Curses {
         }
 
         public static void onTimer(Plugin plugin, Player player) {
-            int level = Utl.Nchnt.armorLevel(player, plugin.LEVITATIONCURSE);
+            int level = Utl.Nchnt.armorLevel(player, plugin.CURSE_OF_LEVITATING);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
-    public static class AquaphobiaCurse extends Enchantment {
+    public static class CurseOfAquaphobia extends Enchantment {
 
         public static final String NAME = "Curse of Aquaphobia";
 
-        public AquaphobiaCurse(NamespacedKey key) {
+        public CurseOfAquaphobia(NamespacedKey key) {
             super(key);
         }
 
@@ -347,7 +347,7 @@ public class Curses {
         }
 
         public static void onTimer(Plugin plugin, Player player) {
-            int level = Utl.Nchnt.armorLevel(player, plugin.AQUAPHOBIACURSE);
+            int level = Utl.Nchnt.armorLevel(player, plugin.CURSE_OF_AQUAPHOBIA);
             if (level < 1) return;
             boolean inWater = player.isInWater();
             boolean inRain = Utl.Wrld.raining(player.getLocation().getBlock()) && !Utl.Wrld.underBlock(player);
@@ -355,11 +355,11 @@ public class Curses {
         }
     }
 
-    public static class GlowingCurse extends Enchantment {
+    public static class CurseOfRadiance extends Enchantment {
 
         public static final String NAME = "Curse of Radiance";
 
-        public GlowingCurse(NamespacedKey key) {
+        public CurseOfRadiance(NamespacedKey key) {
             super(key);
         }
 
@@ -370,7 +370,7 @@ public class Curses {
 
         @Override
         public int getMaxLevel() {
-            return 5;
+            return 1;
         }
 
         @Override
@@ -405,7 +405,7 @@ public class Curses {
         }
 
         public static void onTimer(Plugin plugin, Player player) {
-            if (!Utl.Nchnt.wearing(player, plugin.GLOWINGCURSE)) return;
+            if (!Utl.Nchnt.wearing(player, plugin.CURSE_OF_RADIANCE)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }

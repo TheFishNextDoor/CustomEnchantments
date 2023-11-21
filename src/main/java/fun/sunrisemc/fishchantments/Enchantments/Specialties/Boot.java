@@ -58,8 +58,8 @@ public class Boot {
         @SuppressWarnings("deprecation")
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
-            if (name.equals(Jump.NAME)) return true;
-            if (name.equals(SlowFall.NAME)) return true;
+            if (name.equals(Leaping.NAME)) return true;
+            if (name.equals(SlowFalling.NAME)) return true;
             return false;
         }
 
@@ -93,11 +93,11 @@ public class Boot {
         }
     }
 
-    public static class Jump extends Enchantment {
+    public static class Leaping extends Enchantment {
 
         public static final String NAME = "Leaping";
 
-        public Jump(NamespacedKey key) {
+        public Leaping(NamespacedKey key) {
             super(key);
         }
 
@@ -136,7 +136,7 @@ public class Boot {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(Crush.NAME)) return true;
-            if (name.equals(SlowFall.NAME)) return true;
+            if (name.equals(SlowFalling.NAME)) return true;
             return false;
         }
 
@@ -147,17 +147,17 @@ public class Boot {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Nchnt.level(boots, plugin.JUMP);
+            int level = Utl.Nchnt.level(boots, plugin.LEAPING);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
-    public static class SlowFall extends Enchantment {
+    public static class SlowFalling extends Enchantment {
 
         public static final String NAME = "Slow Falling";
 
-        public SlowFall(NamespacedKey key) {
+        public SlowFalling(NamespacedKey key) {
             super(key);
         }
 
@@ -196,7 +196,7 @@ public class Boot {
         public boolean conflictsWith(Enchantment other) {
             String name = other.getName();
             if (name.equals(Crush.NAME)) return true;
-            if (name.equals(Jump.NAME)) return true;
+            if (name.equals(Leaping.NAME)) return true;
             return false;
         }
 
@@ -207,7 +207,7 @@ public class Boot {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Nchnt.level(boots, plugin.SLOW_FALL);
+            int level = Utl.Nchnt.level(boots, plugin.SLOW_FALLING);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
