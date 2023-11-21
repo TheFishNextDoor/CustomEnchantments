@@ -640,7 +640,7 @@ public class Weapon {
 
         @Override
         public boolean isCursed() {
-            return false;
+            return true;
         }
 
         @Override

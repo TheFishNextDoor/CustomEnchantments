@@ -390,7 +390,7 @@ public class Curses {
 
         @Override
         public boolean isCursed() {
-            return false;
+            return true;
         }
 
         @Override
