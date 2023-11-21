@@ -267,16 +267,19 @@ public class Boot {
             return Utl.Mtrl.isBoots(item.getType());
         }
 
-        @SuppressWarnings("deprecation")
-        public static void whenInWater(Plugin plugin, Player player) {
+        public static void whenSwimming(Plugin plugin, Player player) {
             if (!Utl.Nchnt.has(player.getInventory().getBoots(), plugin.ANCHOR)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5, 2));
-            if (player.isOnGround()) return;
             Vector velocity = player.getVelocity();
             double y = velocity.getY();
             if (y <= 0) velocity.setY(y - (0.06));
             else velocity.setY(y - (0.03));
             player.setVelocity(velocity);
+        }
+
+        public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
+            if (!player.isInWater()) return;
+            if (!Utl.Nchnt.has(player.getInventory().getBoots(), plugin.ANCHOR)) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 2));
         }
     }
 }

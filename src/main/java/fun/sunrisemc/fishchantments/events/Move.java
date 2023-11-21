@@ -18,6 +18,7 @@ public class Move implements Listener {
     }
 
     @EventHandler
+    @SuppressWarnings("deprecation")
     public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         if (player == null) return;
@@ -25,8 +26,8 @@ public class Move implements Listener {
             Momentum.whenGliding(plugin, player);
             Boosters.whenGliding(plugin, player);
         }
-        if (player.isInWater()) {
-            Anchor.whenInWater(plugin, player);
+        if (player.isInWater() && !player.isOnGround()) {
+            Anchor.whenSwimming(plugin, player);
         }
     }
 }

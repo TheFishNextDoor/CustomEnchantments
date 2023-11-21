@@ -458,6 +458,7 @@ public class Plugin extends JavaPlugin {
                     Swiftness.onTimer(plugin, player, leggings); 
                     Leaping.onTimer(plugin, player, boots); 
                     SlowFalling.onTimer(plugin, player, boots);
+                    Anchor.onTimer(plugin, player, boots);
                 }
             }
         }, getSettings().ARMOR_EFFECTS_PERIOD, getSettings().ARMOR_EFFECTS_PERIOD);
