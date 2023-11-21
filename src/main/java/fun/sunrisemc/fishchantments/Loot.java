@@ -110,5 +110,4 @@ public class Loot {
             if (Utl.chance(30.0 * m)) drops.add(plugin.enchantedBook(plugin.CURSE_OF_MINING_FATIGUE, 1));
         }
     }
-    
 }

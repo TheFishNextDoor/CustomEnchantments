@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Utl;
@@ -210,6 +211,72 @@ public class Boot {
             int level = Utl.Nchnt.level(boots, plugin.SLOW_FALLING);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
+        }
+    }
+
+    public static class Anchor extends Enchantment {
+
+        public static final String NAME = "Anchor";
+
+        public Anchor(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_FEET;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(Crush.NAME)) return true;
+            if (name.equals(Leaping.NAME)) return true;
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mtrl.isBoots(item.getType());
+        }
+
+        @SuppressWarnings("deprecation")
+        public static void whenInWater(Plugin plugin, Player player) {
+            if (!Utl.Nchnt.has(player.getInventory().getBoots(), plugin.ANCHOR)) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5, 2));
+            if (player.isOnGround()) return;
+            Vector velocity = player.getVelocity();
+            double y = velocity.getY();
+            if (y <= 0) velocity.setY(y - (0.06));
+            else velocity.setY(y - (0.03));
+            player.setVelocity(velocity);
         }
     }
 }

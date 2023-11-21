@@ -45,6 +45,7 @@ import fun.sunrisemc.fishchantments.enchantments.Generic.Tilling;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Unbreakable;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Crush;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Leaping;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Anchor;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.SlowFalling;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.FireResistance;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.Haste;
@@ -81,7 +82,7 @@ import fun.sunrisemc.fishchantments.events.BreakBlock;
 import fun.sunrisemc.fishchantments.events.ClickBlock;
 import fun.sunrisemc.fishchantments.events.EntityDamage;
 import fun.sunrisemc.fishchantments.events.FireProjectile;
-import fun.sunrisemc.fishchantments.events.Glide;
+import fun.sunrisemc.fishchantments.events.Move;
 import fun.sunrisemc.fishchantments.events.Grindstone;
 import fun.sunrisemc.fishchantments.events.HungerChange;
 import fun.sunrisemc.fishchantments.events.EntityDeath;
@@ -146,6 +147,7 @@ public class Plugin extends JavaPlugin {
     public final Enchantment CURSE_OF_LEVITATING = new CurseOfLevitating(new NamespacedKey(this, "curse_of_levitating"));
     public final Enchantment CURSE_OF_AQUAPHOBIA = new CurseOfAquaphobia(new NamespacedKey(this, "curse_of_aquaphobia"));
     public final Enchantment CURSE_OF_RADIANCE = new CurseOfRadiance(new NamespacedKey(this, "curse_of_radiance"));
+    public final Enchantment ANCHOR = new Anchor(new NamespacedKey(this, "anchor"));
     
     public void onEnable() {
         register(DESTRUCTIVE);
@@ -199,6 +201,7 @@ public class Plugin extends JavaPlugin {
         register(CURSE_OF_LEVITATING);
         register(CURSE_OF_AQUAPHOBIA);
         register(CURSE_OF_RADIANCE);
+        register(ANCHOR);
         getCommand("fenchant").setExecutor(new Fenchant(this));
         getServer().getPluginManager().registerEvents(new ProjectileHit(this), this);
         getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
@@ -206,7 +209,7 @@ public class Plugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityDamage(this), this);
         getServer().getPluginManager().registerEvents(new ItemDamage(this), this);
         getServer().getPluginManager().registerEvents(new FireProjectile(this), this);
-        getServer().getPluginManager().registerEvents(new Glide(this), this);
+        getServer().getPluginManager().registerEvents(new Move(this), this);
         getServer().getPluginManager().registerEvents(new Till(this), this);
         getServer().getPluginManager().registerEvents(new HungerChange(this), this);
         getServer().getPluginManager().registerEvents(new Fall(this), this);

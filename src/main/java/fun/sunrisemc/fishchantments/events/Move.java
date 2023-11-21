@@ -8,21 +8,25 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Boosters;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Momentum;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Anchor;
 
-public class Glide implements Listener {
+public class Move implements Listener {
     Plugin plugin;
 
-    public Glide(Plugin plugin) {
+    public Move(Plugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onGliding(PlayerMoveEvent event) {
+    public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         if (player == null) return;
-        if (!player.isGliding()) return;
-        Momentum.onGliding(plugin, player);
-        Boosters.onGliding(plugin, player);
+        if (player.isGliding()) {
+            Momentum.whenGliding(plugin, player);
+            Boosters.whenGliding(plugin, player);
+        }
+        if (player.isInWater()) {
+            Anchor.whenInWater(plugin, player);
+        }
     }
-    
 }

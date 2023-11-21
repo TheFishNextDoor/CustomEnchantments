@@ -278,17 +278,14 @@ public class Generic {
             return Utl.Mtrl.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, Entity entity, boolean ranged) {
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, final Entity entity, boolean ranged) {
             final int level = Utl.Nchnt.weaponLevel(player, plugin.FLING, ranged);
             if (level < 1) return;
-            final double velocity = ((ranged ? level * 1.75 : level * 1.0) * 0.05) + 0.1;
-            final Entity finalEntity = entity;
+            entity.teleport(entity.getLocation().add(0, 0.25, 0));
+            final double y = (ranged ? 0.1 : 0.05) + (level * 0.1);
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                 public void run() {
-                    final Vector currentVelocity = finalEntity.getVelocity();
-                    final Vector additionalVelocity = new Vector(0, velocity, 0);
-                    final Vector newVelocity = currentVelocity.add(additionalVelocity);
-                    finalEntity.setVelocity(newVelocity);
+                    entity.setVelocity(entity.getVelocity().add(new Vector(0, y, 0)));
                 }
             }, 0);
         }
@@ -905,7 +902,7 @@ public class Generic {
             return item.getType() == Material.ELYTRA;
         }
 
-        public static void onGliding(Plugin plugin, Player player) {
+        public static void whenGliding(Plugin plugin, Player player) {
             Vector velocity = player.getVelocity();
             double speed = velocity.length();
             if (speed < 0.6 || speed > 2.5) return;
@@ -971,7 +968,7 @@ public class Generic {
             return item.getType() == Material.ELYTRA;
         }
 
-        public static void onGliding(Plugin plugin, Player player) {
+        public static void whenGliding(Plugin plugin, Player player) {
             if (player.isInWater()) return;
             Vector velocity = player.getVelocity();
             int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.BOOSTERS);
