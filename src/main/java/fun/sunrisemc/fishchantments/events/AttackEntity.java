@@ -11,11 +11,11 @@ import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Utl;
-import fun.sunrisemc.fishchantments.enchantments.Curses.DeathWish;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Fling;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Radiance;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Reflection;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Obscure;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.DeathWish;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.BloodTipped;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Disorienting;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Glass;

@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Curses.DeathWish;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.DeathWish;
 
 public class EntityDamage implements Listener {
     private final Plugin plugin;

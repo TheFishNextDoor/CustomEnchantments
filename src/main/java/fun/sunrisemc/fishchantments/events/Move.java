@@ -6,9 +6,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Boosters;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Momentum;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Anchor;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Elytra.Boosters;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Elytra.Momentum;
 
 public class Move implements Listener {
     Plugin plugin;

@@ -4,6 +4,8 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -61,6 +63,7 @@ public class Chestplate {
             if (name.equals(Haste.NAME)) return true;
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
+            if (name.equals(DeathWish.NAME)) return true;
             return false;
         }
 
@@ -125,6 +128,7 @@ public class Chestplate {
             if (name.equals(Haste.NAME)) return true;
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
+            if (name.equals(DeathWish.NAME)) return true;
             return false;
         }
 
@@ -189,6 +193,7 @@ public class Chestplate {
             if (name.equals(Haste.NAME)) return true;
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
+            if (name.equals(DeathWish.NAME)) return true;
             return false;
         }
 
@@ -252,6 +257,7 @@ public class Chestplate {
             if (name.equals(Haste.NAME)) return true;
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
+            if (name.equals(DeathWish.NAME)) return true;
             return false;
         }
 
@@ -316,6 +322,7 @@ public class Chestplate {
             if (name.equals(Strength.NAME)) return true;
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
+            if (name.equals(DeathWish.NAME)) return true;
             return false;
         }
 
@@ -380,6 +387,7 @@ public class Chestplate {
             if (name.equals(Strength.NAME)) return true;
             if (name.equals(Haste.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
+            if (name.equals(DeathWish.NAME)) return true;
             return false;
         }
 
@@ -444,6 +452,7 @@ public class Chestplate {
             if (name.equals(Strength.NAME)) return true;
             if (name.equals(Haste.NAME)) return true;
             if (name.equals(IncreasedHealth.NAME)) return true;
+            if (name.equals(DeathWish.NAME)) return true;
             return false;
         }
 
@@ -457,6 +466,73 @@ public class Chestplate {
             int level = Utl.Nchnt.level(chestplate, plugin.HERO_OF_THE_VILLAGE);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
+        }
+    }
+
+    public static class DeathWish extends Enchantment {
+    
+        public static final String NAME = "Death Wish";
+    
+        public DeathWish(NamespacedKey key) {
+            super(key);
+        }
+    
+        @Override
+        public String getName() {
+            return NAME;
+        }
+    
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+    
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+    
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_TORSO;
+        }
+    
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+    
+        @Override
+        public boolean isCursed() {
+            return true;
+        }
+    
+        @Override
+        @SuppressWarnings("deprecation")
+        public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(DragonScales.NAME)) return true;
+            if (name.equals(Healing.NAME)) return true;
+            if (name.equals(FireResistance.NAME)) return true;
+            if (name.equals(Strength.NAME)) return true;
+            if (name.equals(Haste.NAME)) return true;
+            if (name.equals(IncreasedHealth.NAME)) return true;
+            if (name.equals(HeroOfTheVillage.NAME)) return true;
+            return false;
+        }
+    
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mtrl.isArmor(item.getType());
+        }
+    
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, double damage, EntityDamageByEntityEvent event) {
+            if (Utl.Nchnt.wearing(player, plugin.DEATHWISH)) event.setDamage(damage * 1.75);
+        }
+    
+        public static void onPlayerTakeDamage(Plugin plugin, Player player, double damage, EntityDamageEvent event) {
+            if (Utl.Nchnt.wearing(player, plugin.DEATHWISH)) event.setDamage(damage * 1.5);
         }
     }
 }

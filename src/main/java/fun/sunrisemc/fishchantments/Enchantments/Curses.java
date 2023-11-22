@@ -4,8 +4,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -180,64 +178,6 @@ public class Curses {
             int level = Utl.Nchnt.armorLevel(player, plugin.CURSE_OF_WEAKNESS);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 120, level-1));
-        }
-    }
-
-    public static class DeathWish extends Enchantment {
-
-        public static final String NAME = "Death Wish";
-
-        public DeathWish(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public String getName() {
-            return NAME;
-        }
-
-        @Override
-        public int getMaxLevel() {
-            return 1;
-        }
-
-        @Override
-        public int getStartLevel() {
-            return 1;
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.WEARABLE;
-        }
-
-        @Override
-        public boolean isTreasure() {
-            return false;
-        }
-
-        @Override
-        public boolean isCursed() {
-            return true;
-        }
-
-        @Override
-        public boolean conflictsWith(Enchantment other) {
-            return false;
-        }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
-            return Utl.Mtrl.isArmor(item.getType());
-        }
-
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, double damage, EntityDamageByEntityEvent event) {
-            if (Utl.Nchnt.wearing(player, plugin.DEATHWISH)) event.setDamage(damage * 1.75);
-        }
-
-        public static void onPlayerTakeDamage(Plugin plugin, Player player, double damage, EntityDamageEvent event) {
-            if (Utl.Nchnt.wearing(player, plugin.DEATHWISH)) event.setDamage(damage * 1.5);
         }
     }
 
