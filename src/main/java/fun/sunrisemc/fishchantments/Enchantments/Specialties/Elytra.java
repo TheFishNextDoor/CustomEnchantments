@@ -71,7 +71,7 @@ public class Elytra {
             int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.BOOSTERS);
             if (level < 1) return;
             if (level > 10) level = 10;
-            if (velocity.length() > 0.75 + (0.25 * level)) return;
+            if (velocity.length() > 1.1) return;
             Vector increase = player.getLocation().getDirection().clone().normalize().multiply(level * 0.01);
             player.setVelocity(velocity.add(increase));
         }
