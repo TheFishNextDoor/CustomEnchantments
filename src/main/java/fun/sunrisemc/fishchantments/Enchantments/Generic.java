@@ -915,4 +915,62 @@ public class Generic {
             projectile.setVelocity(projectile.getVelocity().multiply(3.5 + (level * 1.5)));
         }
     }
+
+    public static class Spurs extends Enchantment {
+
+        public static final String NAME = "Spurs";
+
+        public Spurs(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 2;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_FEET;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mtrl.isBoots(item.getType());
+        }
+
+        public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
+            if (player.getVehicle() == null || !(player.getVehicle() instanceof LivingEntity)) return;
+            LivingEntity mount = (LivingEntity) player.getVehicle();
+            int level = Utl.Nchnt.level(boots, plugin.SPURS);
+            if (level < 1) return;
+            mount.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level - 1));
+        }
+    }
 }

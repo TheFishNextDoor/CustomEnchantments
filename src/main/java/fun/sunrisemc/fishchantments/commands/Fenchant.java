@@ -1,6 +1,7 @@
 package fun.sunrisemc.fishchantments.commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -70,8 +71,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
     }
 
     private Enchantment getEnchantment(String name) {
-        ArrayList<Enchantment> enchants = plugin.getFishchantments();
-        Iterator<Enchantment> enchantIter = enchants.iterator();
+        Iterator<Enchantment> enchantIter = allEnchantments().iterator();
         while (enchantIter.hasNext()) {
             Enchantment enchantment = enchantIter.next();
             if (getEnchantCommandName(enchantment).equalsIgnoreCase(name)) return enchantment; 
@@ -80,8 +80,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
     }
 
     private ArrayList<String> getEnchantCommandNames(ItemStack item) {
-        ArrayList<Enchantment> enchants = plugin.getFishchantments();
-        Iterator<Enchantment> enchantIter = enchants.iterator();
+        Iterator<Enchantment> enchantIter = allEnchantments().iterator();
         ArrayList<String> names = new ArrayList<>();
         ArrayList<String> allNames = new ArrayList<>();
         while (enchantIter.hasNext()) {
@@ -93,8 +92,13 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         return names.size() == 0 ? allNames : names;
     }
 
-    @SuppressWarnings("deprecation")
+    private ArrayList<Enchantment> allEnchantments() {
+        ArrayList<Enchantment> enchants = plugin.getFishchantments();
+        enchants.addAll(Arrays.asList(Enchantment.values()));
+        return enchants;
+    }
+
     private static String getEnchantCommandName(Enchantment enchantment) {
-        return enchantment.getName().toLowerCase().replaceAll(" ", "_");
+        return enchantment.getKey().getKey();
     }
 }

@@ -40,6 +40,7 @@ import fun.sunrisemc.fishchantments.enchantments.Generic.Invisibility;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Reflection;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Range;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Replanting;
+import fun.sunrisemc.fishchantments.enchantments.Generic.Spurs;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Tilling;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Unbreakable;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Crush;
@@ -148,6 +149,7 @@ public class Plugin extends JavaPlugin {
     public final Enchantment CURSE_OF_AQUAPHOBIA = new CurseOfAquaphobia(new NamespacedKey(this, "curse_of_aquaphobia"));
     public final Enchantment CURSE_OF_RADIANCE = new CurseOfRadiance(new NamespacedKey(this, "curse_of_radiance"));
     public final Enchantment ANCHOR = new Anchor(new NamespacedKey(this, "anchor"));
+    public final Enchantment SPURS = new Spurs(new NamespacedKey(this, "spurs"));
     
     public void onEnable() {
         register(DESTRUCTIVE);
