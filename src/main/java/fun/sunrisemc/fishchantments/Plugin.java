@@ -204,6 +204,7 @@ public class Plugin extends JavaPlugin {
         register(CURSE_OF_AQUAPHOBIA);
         register(CURSE_OF_RADIANCE);
         register(ANCHOR);
+        register(SPURS);
         getCommand("fenchant").setExecutor(new Fenchant(this));
         getServer().getPluginManager().registerEvents(new ProjectileHit(this), this);
         getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
@@ -461,6 +462,7 @@ public class Plugin extends JavaPlugin {
                     Leaping.onTimer(plugin, player, boots); 
                     SlowFalling.onTimer(plugin, player, boots);
                     Anchor.onTimer(plugin, player, boots);
+                    Spurs.onTimer(plugin, player, boots);
                 }
             }
         }, getSettings().ARMOR_EFFECTS_PERIOD, getSettings().ARMOR_EFFECTS_PERIOD);
