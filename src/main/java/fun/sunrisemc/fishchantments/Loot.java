@@ -49,6 +49,7 @@ public class Loot {
             if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.REPLANTING, 1));
             if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.TILLING, 1));
             if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.REFLECTION, 1));
+            if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.SPURS, 1));
         }
         if (type == EntityType.PIGLIN) {
             if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.BLOODTIPPED, 1));

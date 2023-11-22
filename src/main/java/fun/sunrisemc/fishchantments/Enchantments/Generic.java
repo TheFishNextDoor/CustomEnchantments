@@ -971,6 +971,7 @@ public class Generic {
             int level = Utl.Nchnt.level(boots, plugin.SPURS);
             if (level < 1) return;
             mount.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level - 1));
+            mount.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level - 1));
         }
     }
 }
