@@ -319,13 +319,20 @@ public class Plugin extends JavaPlugin {
             if (!(enchantment.canEnchantItem(item) || item.getType() == Material.ENCHANTED_BOOK)) return false;
             if (hasConflictingFishchantments(item, enchantment)) return false;
         }
-        
-        // Add Enchantment
-        if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++;
-        removeEnchant(item, enchantment); // Remove old lore
-        if (getSettings().REMOVE_OVERRIDDEN_ENCHANTMENTS && Utl.Nchnt.same(enchantment, UNBREAKABLE)) {
-            removeEnchant(item, Enchantment.DURABILITY);
-            removeEnchant(item, Enchantment.MENDING);
+
+        // Remove Overridden Enchantments
+        if (getSettings().REMOVE_OVERRIDDEN_ENCHANTMENTS) {
+            if (Utl.Nchnt.same(enchantment, UNBREAKABLE)) {
+                removeEnchant(item, Enchantment.DURABILITY);
+                removeEnchant(item, Enchantment.MENDING);
+            }
+            else if (Utl.Nchnt.same(enchantment, FIRE_RESISTANCE)) {
+                removeEnchant(item, Enchantment.PROTECTION_FIRE);
+            }
+        }
+
+        // Fix item
+        if (Utl.Nchnt.same(enchantment, UNBREAKABLE)) {
             ItemMeta meta = item.getItemMeta();
             if (meta instanceof Damageable) {
                 Damageable damageable = (Damageable) meta;
@@ -333,6 +340,10 @@ public class Plugin extends JavaPlugin {
                 item.setItemMeta(meta);
             }
         }
+        
+        // Add Enchantment
+        if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) level++;
+        removeEnchant(item, enchantment); // Remove old lore
         if (item.getType() == Material.ENCHANTED_BOOK) {
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
             meta.addStoredEnchant(enchantment, level, true);
@@ -352,6 +363,7 @@ public class Plugin extends JavaPlugin {
     }
     
     public boolean removeEnchant(ItemStack item, Enchantment enchantment) {
+        // Remove Enchantment
         if (item == null) return false;
         final boolean HASENCHANT = Utl.Nchnt.has(item, enchantment);
         if (HASENCHANT) {
