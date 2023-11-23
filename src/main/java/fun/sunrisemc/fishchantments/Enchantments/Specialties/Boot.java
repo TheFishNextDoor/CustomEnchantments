@@ -1,12 +1,12 @@
 package fun.sunrisemc.fishchantments.enchantments.specialties;
 
-import java.util.ArrayList;
-
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -62,6 +62,8 @@ public class Boot {
             if (name.equals(Leaping.NAME)) return true;
             if (name.equals(SlowFalling.NAME)) return true;
             if (name.equals(Anchor.NAME)) return true;
+            if (name.equals(Bounce.NAME)) return true;
+            if (Utl.Nchnt.same(other, Enchantment.PROTECTION_FALL)) return true;
             return false;
         }
 
@@ -71,12 +73,12 @@ public class Boot {
             return Utl.Mtrl.isBoots(item.getType());
         }
 
-        public static void onFall(Plugin plugin, Player player, ItemStack boots, double fallDamage, ArrayList<LivingEntity> fellOn) {
-            final int level = Utl.Nchnt.level(boots, plugin.CRUSH);
+        public static void onFall(Plugin plugin, Player player, ItemStack boots, EntityDamageEvent event) {
+            int level = Utl.Nchnt.level(boots, plugin.CRUSH);
             if (level < 1) return;
-            final double damage = calcDamage(fallDamage, level);
-            for (LivingEntity entity : fellOn) {
-                entity.damage(damage, player);
+            double damage = calcDamage(event.getDamage(), level);
+            for (Entity entity : player.getNearbyEntities(1, 1, 1)) {
+                if (entity instanceof LivingEntity) ((LivingEntity) entity).damage(damage, player);
             }
         }
 
@@ -140,6 +142,7 @@ public class Boot {
             if (name.equals(Crush.NAME)) return true;
             if (name.equals(SlowFalling.NAME)) return true;
             if (name.equals(Anchor.NAME)) return true;
+            if (name.equals(Bounce.NAME)) return true;
             return false;
         }
 
@@ -201,6 +204,7 @@ public class Boot {
             if (name.equals(Crush.NAME)) return true;
             if (name.equals(Leaping.NAME)) return true;
             if (name.equals(Anchor.NAME)) return true;
+            if (name.equals(Bounce.NAME)) return true;
             return false;
         }
 
@@ -262,6 +266,7 @@ public class Boot {
             if (name.equals(Crush.NAME)) return true;
             if (name.equals(Leaping.NAME)) return true;
             if (name.equals(SlowFalling.NAME)) return true;
+            if (name.equals(Bounce.NAME)) return true;
             return false;
         }
 
@@ -284,6 +289,73 @@ public class Boot {
             if (!player.isInWater()) return;
             if (!Utl.Nchnt.has(player.getInventory().getBoots(), plugin.ANCHOR)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 2));
+        }
+    }
+
+    public static class Bounce extends Enchantment {
+
+        public static final String NAME = "Bounce";
+
+        public Bounce(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 3;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_FEET;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(Crush.NAME)) return true;
+            if (name.equals(Leaping.NAME)) return true;
+            if (name.equals(SlowFalling.NAME)) return true;
+            if (name.equals(Anchor.NAME)) return true;
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mtrl.isBoots(item.getType());
+        }
+
+        public static void onFall(Plugin plugin, Player player, ItemStack boots, EntityDamageEvent event) {
+            int level = Utl.Nchnt.level(boots, plugin.BOUNCE);
+            if (level < 1) return;
+            double v = Math.log(event.getFinalDamage()) * (level + 2) / 10;
+            System.out.println(v);
+            if (v > 10) v = 10;
+            player.setVelocity(player.getVelocity().setY(v));
+            event.setDamage(0);
+            event.setCancelled(true);
         }
     }
 }

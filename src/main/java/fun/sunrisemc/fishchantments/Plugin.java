@@ -47,6 +47,7 @@ import fun.sunrisemc.fishchantments.enchantments.Generic.Unbreakable;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Crush;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Leaping;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Anchor;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Bounce;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.SlowFalling;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.FireResistance;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.Haste;
@@ -152,6 +153,7 @@ public class Plugin extends JavaPlugin {
     public final Enchantment ANCHOR = new Anchor(new NamespacedKey(this, "anchor"));
     public final Enchantment SPURS = new Spurs(new NamespacedKey(this, "spurs"));
     public final Enchantment AQUA_ASPECT = new AquaAspect(new NamespacedKey(this, "aqua_aspect"));
+    public final Enchantment BOUNCE = new Bounce(new NamespacedKey(this, "bounce"));
     
     public void onEnable() {
         register(DESTRUCTIVE);
@@ -208,6 +210,7 @@ public class Plugin extends JavaPlugin {
         register(ANCHOR);
         register(SPURS);
         register(AQUA_ASPECT);
+        register(BOUNCE);
         getCommand("fenchant").setExecutor(new Fenchant(this));
         getServer().getPluginManager().registerEvents(new ProjectileHit(this), this);
         getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
