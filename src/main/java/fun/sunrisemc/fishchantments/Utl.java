@@ -9,12 +9,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.Vector;
 
 public class Utl {
 
@@ -355,6 +357,17 @@ public class Utl {
                     }
                 }
             }
+        }
+    }
+
+    public static class Ntty {
+
+        public static void cancelKnockback(Plugin plugin, final Entity entity) {
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                public void run() {
+                    entity.setVelocity(new Vector(0, 0, 0));
+                }
+            }, 0);
         }
     }
 

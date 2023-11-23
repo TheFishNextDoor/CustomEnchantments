@@ -14,11 +14,14 @@ import org.bukkit.block.data.Ageable;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Snowball;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
@@ -972,6 +975,79 @@ public class Generic {
             if (level < 1) return;
             mount.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level - 1));
             mount.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level - 1));
+        }
+    }
+
+    public static class AquaAspect extends Enchantment {
+
+        public static final String NAME = "Aqua Aspect";
+
+        public AquaAspect(NamespacedKey key) {
+            super(key);
+        }
+
+        @Override
+        public String getName() {
+            return NAME;
+        }
+
+        @Override
+        public int getMaxLevel() {
+            return 2;
+        }
+
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.BREAKABLE;
+        }
+
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            if (Utl.Nchnt.same(other, Enchantment.FIRE_ASPECT)) return true;
+            return false;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mtrl.isWeapon(item.getType());
+        }
+
+        public static void onPlayerAttackEntity(Plugin plugin, Player player, final LivingEntity entity, EntityDamageByEntityEvent event, boolean ranged) {
+            int level = Utl.Nchnt.weaponLevel(player, plugin.AQUA_ASPECT, ranged);
+            if (level < 1) return;
+            if (entity.getFireTicks() > 0) entity.setFireTicks(0);
+            if (isAquaphobic(entity.getType())) event.setDamage(event.getDamage() + (level * 2.5));
+            if (entity.getType() == EntityType.ENDERMAN) {
+                Utl.Ntty.cancelKnockback(plugin, entity);
+                Snowball snowball = (Snowball) entity.getWorld().spawnEntity(entity.getLocation().add(0, 4, 0), EntityType.SNOWBALL);
+                snowball.setVelocity(new Vector(0, -2.0, 0));
+                snowball.setShooter(player);
+            }
+        }
+
+        private static boolean isAquaphobic(EntityType type) {
+            // All mobs that take damage from water
+            if (type == EntityType.ENDERMAN) return true;
+            if (type == EntityType.BLAZE) return true;
+            if (type == EntityType.MAGMA_CUBE) return true;
+            if (type == EntityType.STRIDER) return true;
+            return false;
         }
     }
 }

@@ -27,6 +27,7 @@ public class Loot {
         if (type == EntityType.DROWNED) {
             if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.WATER_BREATHING, 1));
             if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.ANCHOR, 1));
+            if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.AQUA_ASPECT, 1));
         }
         if (type == EntityType.MAGMA_CUBE) {
             if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.RADIANCE, 1));

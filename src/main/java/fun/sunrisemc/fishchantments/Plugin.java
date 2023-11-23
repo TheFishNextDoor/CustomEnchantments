@@ -30,6 +30,7 @@ import fun.sunrisemc.fishchantments.enchantments.Curses.CurseOfLevitating;
 import fun.sunrisemc.fishchantments.enchantments.Curses.CurseOfAquaphobia;
 import fun.sunrisemc.fishchantments.enchantments.Curses.CurseOfRadiance;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Precision;
+import fun.sunrisemc.fishchantments.enchantments.Generic.AquaAspect;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Destructive;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Excavating;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Telekinesis;
@@ -150,6 +151,7 @@ public class Plugin extends JavaPlugin {
     public final Enchantment CURSE_OF_RADIANCE = new CurseOfRadiance(new NamespacedKey(this, "curse_of_radiance"));
     public final Enchantment ANCHOR = new Anchor(new NamespacedKey(this, "anchor"));
     public final Enchantment SPURS = new Spurs(new NamespacedKey(this, "spurs"));
+    public final Enchantment AQUA_ASPECT = new AquaAspect(new NamespacedKey(this, "aqua_aspect"));
     
     public void onEnable() {
         register(DESTRUCTIVE);
@@ -205,6 +207,7 @@ public class Plugin extends JavaPlugin {
         register(CURSE_OF_RADIANCE);
         register(ANCHOR);
         register(SPURS);
+        register(AQUA_ASPECT);
         getCommand("fenchant").setExecutor(new Fenchant(this));
         getServer().getPluginManager().registerEvents(new ProjectileHit(this), this);
         getServer().getPluginManager().registerEvents(new AttackEntity(this), this);

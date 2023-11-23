@@ -11,6 +11,7 @@ import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.enchantments.Generic.AquaAspect;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Fling;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Radiance;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Reflection;
@@ -57,7 +58,13 @@ public class AttackEntity implements Listener {
         if (!(damager instanceof Player)) return;
         Player player = (Player) damager;
         if (!RANGED_ATTACK && Utl.Mtrl.isRanged(Utl.Nvntry.getItemInUse(player).getType())) return;
+
+        // Event modifiers
+        DeathWish.onPlayerAttackEntity(plugin, player, damage, event);
+        Glass.onPlayerAttackEntity(plugin, player, damage, event, RANGED_ATTACK);
+        AquaAspect.onPlayerAttackEntity(plugin, player, reciever, event, RANGED_ATTACK);
         LifeSteal.onPlayerAttackEntity(plugin, player, damage, RANGED_ATTACK);
+
         Fling.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
         Venom.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
         Withering.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
@@ -69,7 +76,5 @@ public class AttackEntity implements Listener {
         Debilitating.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
         Starving.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
         Crippling.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
-        DeathWish.onPlayerAttackEntity(plugin, player, damage, event);
-        Glass.onPlayerAttackEntity(plugin, player, damage, event, RANGED_ATTACK);
     }   
 }
