@@ -64,6 +64,7 @@ public class Chestplate {
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
+            if (name.equals(ProjectileResistance.NAME)) return true;
             return false;
         }
 
@@ -129,6 +130,7 @@ public class Chestplate {
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
+            if (name.equals(ProjectileResistance.NAME)) return true;
             return false;
         }
 
@@ -194,6 +196,7 @@ public class Chestplate {
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
+            if (name.equals(ProjectileResistance.NAME)) return true;
             return false;
         }
 
@@ -258,6 +261,7 @@ public class Chestplate {
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
+            if (name.equals(ProjectileResistance.NAME)) return true;
             return false;
         }
 
@@ -323,6 +327,7 @@ public class Chestplate {
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
+            if (name.equals(ProjectileResistance.NAME)) return true;
             return false;
         }
 
@@ -388,6 +393,7 @@ public class Chestplate {
             if (name.equals(Haste.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
+            if (name.equals(ProjectileResistance.NAME)) return true;
             return false;
         }
 
@@ -453,6 +459,7 @@ public class Chestplate {
             if (name.equals(Haste.NAME)) return true;
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
+            if (name.equals(ProjectileResistance.NAME)) return true;
             return false;
         }
 
@@ -518,21 +525,86 @@ public class Chestplate {
             if (name.equals(Haste.NAME)) return true;
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
+            if (name.equals(ProjectileResistance.NAME)) return true;
             return false;
         }
     
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isArmor(item.getType());
+            return Utl.Mtrl.isChestplate(item.getType());
         }
     
         public static void onPlayerAttackEntity(Plugin plugin, Player player, double damage, EntityDamageByEntityEvent event) {
-            if (Utl.Nchnt.wearing(player, plugin.DEATHWISH)) event.setDamage(damage * 1.75);
+            if (Utl.Nchnt.has(player.getInventory().getChestplate(), plugin.DEATHWISH)) event.setDamage(damage * 1.75);
         }
     
         public static void onPlayerTakeDamage(Plugin plugin, Player player, double damage, EntityDamageEvent event) {
-            if (Utl.Nchnt.wearing(player, plugin.DEATHWISH)) event.setDamage(damage * 1.5);
+            if (Utl.Nchnt.has(player.getInventory().getChestplate(), plugin.DEATHWISH)) event.setDamage(damage * 1.5);
+        }
+    }
+
+    public static class ProjectileResistance extends Enchantment {
+    
+        public static final String NAME = "Projectile Resistance";
+    
+        public ProjectileResistance(NamespacedKey key) {
+            super(key);
+        }
+    
+        @Override
+        public String getName() {
+            return NAME;
+        }
+    
+        @Override
+        public int getMaxLevel() {
+            return 1;
+        }
+    
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+    
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_TORSO;
+        }
+    
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+    
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+    
+        @Override
+        @SuppressWarnings("deprecation")
+        public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(DragonScales.NAME)) return true;
+            if (name.equals(Healing.NAME)) return true;
+            if (name.equals(FireResistance.NAME)) return true;
+            if (name.equals(Strength.NAME)) return true;
+            if (name.equals(Haste.NAME)) return true;
+            if (name.equals(IncreasedHealth.NAME)) return true;
+            if (name.equals(HeroOfTheVillage.NAME)) return true;
+            if (name.equals(DeathWish.NAME)) return true;
+            return false;
+        }
+    
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mtrl.isChestplate(item.getType());
+        }
+    
+        public static void onPlayerTakeDamage(Plugin plugin, Player player, boolean ranged, EntityDamageEvent event) {
+            if (ranged && Utl.Nchnt.has(player.getInventory().getChestplate(), plugin.PROJECTILE_RESISTANCE)) event.setCancelled(true);
         }
     }
 }

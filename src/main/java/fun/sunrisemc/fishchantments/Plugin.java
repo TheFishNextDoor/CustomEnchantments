@@ -52,6 +52,7 @@ import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.SlowFalling;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.FireResistance;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.Haste;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.IncreasedHealth;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.ProjectileResistance;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.HeroOfTheVillage;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.Healing;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.DeathWish;
@@ -63,6 +64,7 @@ import fun.sunrisemc.fishchantments.enchantments.specialties.Helmet.NightVision;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Helmet.Gills;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Helmet.Worm;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Legging.DolphinsGrace;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Legging.Heavy;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Legging.Swiftness;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Obscure;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Disorienting;
@@ -154,6 +156,8 @@ public class Plugin extends JavaPlugin {
     public final Enchantment SPURS = new Spurs(new NamespacedKey(this, "spurs"));
     public final Enchantment AQUA_ASPECT = new AquaAspect(new NamespacedKey(this, "aqua_aspect"));
     public final Enchantment BOUNCE = new Bounce(new NamespacedKey(this, "bounce"));
+    public final Enchantment PROJECTILE_RESISTANCE = new ProjectileResistance(new NamespacedKey(this, "projectile_resistance"));
+    public final Enchantment HEAVY = new Heavy(new NamespacedKey(this, "heavy"));
     
     public void onEnable() {
         register(DESTRUCTIVE);
@@ -211,6 +215,8 @@ public class Plugin extends JavaPlugin {
         register(SPURS);
         register(AQUA_ASPECT);
         register(BOUNCE);
+        register(PROJECTILE_RESISTANCE);
+        register(HEAVY);
         getCommand("fenchant").setExecutor(new Fenchant(this));
         getServer().getPluginManager().registerEvents(new ProjectileHit(this), this);
         getServer().getPluginManager().registerEvents(new AttackEntity(this), this);

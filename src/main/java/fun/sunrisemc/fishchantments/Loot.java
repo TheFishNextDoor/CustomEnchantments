@@ -101,12 +101,14 @@ public class Loot {
         if (type == EntityType.WARDEN) {
             if (Utl.chance(5.0 * m)) drops.add(plugin.enchantedBook(plugin.OBSCURE, 1));
             if (Utl.chance(4.0 * m)) drops.add(plugin.enchantedBook(plugin.ENLIGHTENMENT, 1));
+            if (Utl.chance(3.0 * m)) drops.add(plugin.enchantedBook(plugin.HEAVY, 1));
             if (Utl.chance(2.5 * m)) drops.add(plugin.enchantedBook(plugin.CURSE_OF_SLOWNESS, 1));
         }
         if (type == EntityType.WITHER) {
             if (Utl.chance(10.0 * m)) drops.add(plugin.enchantedBook(plugin.WITHER, 1));
             if (Utl.chance(8.0 * m)) drops.add(plugin.enchantedBook(plugin.UNBREAKABLE, 1));
             if (Utl.chance(2.5 * m)) drops.add(plugin.enchantedBook(plugin.LIFE_STEAL, 1));
+            if (Utl.chance(1.0 * m)) drops.add(plugin.enchantedBook(plugin.PROJECTILE_RESISTANCE, 1));
         }
         if (type == EntityType.ENDER_DRAGON) {
             if (Utl.chance(10.0 * m)) drops.add(plugin.enchantedBook(plugin.DRAGON_SCALES, 1));
