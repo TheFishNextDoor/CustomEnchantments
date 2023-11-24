@@ -20,9 +20,12 @@ public class Loot {
         if (type == EntityType.WITHER_SKELETON && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.DEATHWISH, 1));
         if (type == EntityType.HUSK && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.STARVING, 1));
         if (type == EntityType.SILVERFISH && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.WORM, 1));
-        if (type == EntityType.BLAZE && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.FIRE_RESISTANCE, 1));;
         if (type == EntityType.GHAST && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.SLOW_FALLING, 1));
         if (type == EntityType.GUARDIAN && Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.DOLPHINS_GRACE, 1));
+        if (type == EntityType.BLAZE) {
+            if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.FIRE_RESISTANCE, 1));
+            if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.FLAMING, 1));
+        }
         if (type == EntityType.DROWNED) {
             if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.WATER_BREATHING, 1));
             if (Utl.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.ANCHOR, 1));

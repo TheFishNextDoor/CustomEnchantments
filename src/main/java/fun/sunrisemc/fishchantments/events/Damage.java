@@ -12,10 +12,10 @@ import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.DeathWis
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.ProjectileResistance;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Legging.Heavy;
 
-public class EntityDamage implements Listener {
+public class Damage implements Listener {
     private final Plugin plugin;
 
-    public EntityDamage(Plugin plugin) {
+    public Damage(Plugin plugin) {
         this.plugin = plugin;
     }
 

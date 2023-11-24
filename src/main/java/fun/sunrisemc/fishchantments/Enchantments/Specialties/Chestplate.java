@@ -3,6 +3,7 @@ package fun.sunrisemc.fishchantments.enchantments.specialties;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -65,6 +66,7 @@ public class Chestplate {
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
             if (name.equals(ProjectileResistance.NAME)) return true;
+            if (name.equals(Flaming.NAME)) return true;
             return false;
         }
 
@@ -131,6 +133,7 @@ public class Chestplate {
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
             if (name.equals(ProjectileResistance.NAME)) return true;
+            if (name.equals(Flaming.NAME)) return true;
             return false;
         }
 
@@ -197,6 +200,7 @@ public class Chestplate {
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
             if (name.equals(ProjectileResistance.NAME)) return true;
+            if (name.equals(Flaming.NAME)) return true;
             return false;
         }
 
@@ -262,6 +266,7 @@ public class Chestplate {
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
             if (name.equals(ProjectileResistance.NAME)) return true;
+            if (name.equals(Flaming.NAME)) return true;
             return false;
         }
 
@@ -328,6 +333,7 @@ public class Chestplate {
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
             if (name.equals(ProjectileResistance.NAME)) return true;
+            if (name.equals(Flaming.NAME)) return true;
             return false;
         }
 
@@ -394,6 +400,7 @@ public class Chestplate {
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
             if (name.equals(ProjectileResistance.NAME)) return true;
+            if (name.equals(Flaming.NAME)) return true;
             return false;
         }
 
@@ -460,6 +467,7 @@ public class Chestplate {
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
             if (name.equals(ProjectileResistance.NAME)) return true;
+            if (name.equals(Flaming.NAME)) return true;
             return false;
         }
 
@@ -526,6 +534,7 @@ public class Chestplate {
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(ProjectileResistance.NAME)) return true;
+            if (name.equals(Flaming.NAME)) return true;
             return false;
         }
     
@@ -594,6 +603,7 @@ public class Chestplate {
             if (name.equals(IncreasedHealth.NAME)) return true;
             if (name.equals(HeroOfTheVillage.NAME)) return true;
             if (name.equals(DeathWish.NAME)) return true;
+            if (name.equals(Flaming.NAME)) return true;
             return false;
         }
     
@@ -605,6 +615,74 @@ public class Chestplate {
     
         public static void onPlayerTakeDamage(Plugin plugin, Player player, boolean ranged, EntityDamageEvent event) {
             if (ranged && Utl.Nchnt.has(player.getInventory().getChestplate(), plugin.PROJECTILE_RESISTANCE)) event.setCancelled(true);
+        }
+    }
+
+    public static class Flaming extends Enchantment {
+    
+        public static final String NAME = "Flaming";
+    
+        public Flaming(NamespacedKey key) {
+            super(key);
+        }
+    
+        @Override
+        public String getName() {
+            return NAME;
+        }
+    
+        @Override
+        public int getMaxLevel() {
+            return 3;
+        }
+    
+        @Override
+        public int getStartLevel() {
+            return 1;
+        }
+    
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_TORSO;
+        }
+    
+        @Override
+        public boolean isTreasure() {
+            return false;
+        }
+    
+        @Override
+        public boolean isCursed() {
+            return false;
+        }
+    
+        @Override
+        @SuppressWarnings("deprecation")
+        public boolean conflictsWith(Enchantment other) {
+            String name = other.getName();
+            if (name.equals(DragonScales.NAME)) return true;
+            if (name.equals(Healing.NAME)) return true;
+            if (name.equals(FireResistance.NAME)) return true;
+            if (name.equals(Strength.NAME)) return true;
+            if (name.equals(Haste.NAME)) return true;
+            if (name.equals(IncreasedHealth.NAME)) return true;
+            if (name.equals(HeroOfTheVillage.NAME)) return true;
+            if (name.equals(DeathWish.NAME)) return true;
+            if (name.equals(ProjectileResistance.NAME)) return true;
+            return false;
+        }
+    
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return Utl.Mtrl.isChestplate(item.getType());
+        }
+    
+        public static void onEntityAttackPlayer(Plugin plugin, Player player, LivingEntity entity, boolean melee) {
+            if (!melee) return;
+            int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.FLAMING);
+            if (level < 1) return;
+            entity.setFireTicks(level * 20);
         }
     }
 }

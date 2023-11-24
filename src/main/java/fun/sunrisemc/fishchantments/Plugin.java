@@ -50,6 +50,7 @@ import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Anchor;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Bounce;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.SlowFalling;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.FireResistance;
+import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.Flaming;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.Haste;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.IncreasedHealth;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.ProjectileResistance;
@@ -85,7 +86,8 @@ import fun.sunrisemc.fishchantments.events.AttackEntity;
 import fun.sunrisemc.fishchantments.events.BlockDropItems;
 import fun.sunrisemc.fishchantments.events.BreakBlock;
 import fun.sunrisemc.fishchantments.events.ClickBlock;
-import fun.sunrisemc.fishchantments.events.EntityDamage;
+import fun.sunrisemc.fishchantments.events.Damage;
+import fun.sunrisemc.fishchantments.events.EntityAttack;
 import fun.sunrisemc.fishchantments.events.FireProjectile;
 import fun.sunrisemc.fishchantments.events.Move;
 import fun.sunrisemc.fishchantments.events.Grindstone;
@@ -158,6 +160,7 @@ public class Plugin extends JavaPlugin {
     public final Enchantment BOUNCE = new Bounce(new NamespacedKey(this, "bounce"));
     public final Enchantment PROJECTILE_RESISTANCE = new ProjectileResistance(new NamespacedKey(this, "projectile_resistance"));
     public final Enchantment HEAVY = new Heavy(new NamespacedKey(this, "heavy"));
+    public final Enchantment FLAMING = new Flaming(new NamespacedKey(this, "flaming"));
     
     public void onEnable() {
         register(DESTRUCTIVE);
@@ -217,11 +220,13 @@ public class Plugin extends JavaPlugin {
         register(BOUNCE);
         register(PROJECTILE_RESISTANCE);
         register(HEAVY);
+        register(FLAMING);
         getCommand("fenchant").setExecutor(new Fenchant(this));
         getServer().getPluginManager().registerEvents(new ProjectileHit(this), this);
         getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
         getServer().getPluginManager().registerEvents(new BlockDropItems(this), this);
-        getServer().getPluginManager().registerEvents(new EntityDamage(this), this);
+        getServer().getPluginManager().registerEvents(new Damage(this), this);
+        getServer().getPluginManager().registerEvents(new EntityAttack(this), this);
         getServer().getPluginManager().registerEvents(new ItemDamage(this), this);
         getServer().getPluginManager().registerEvents(new FireProjectile(this), this);
         getServer().getPluginManager().registerEvents(new Move(this), this);
