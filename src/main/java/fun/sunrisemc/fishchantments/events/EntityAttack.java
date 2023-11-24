@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.Flaming;
@@ -29,7 +28,6 @@ public class EntityAttack implements Listener {
         Entity damager = event.getDamager();
         if (!(damager instanceof LivingEntity)) return;
         LivingEntity attacker = (LivingEntity) damager;
-        boolean melee = event.getCause() == DamageCause.ENTITY_ATTACK;
-        Flaming.onEntityAttackPlayer(plugin, player, attacker, melee);
+        Flaming.onEntityAttackPlayer(plugin, player, attacker);
     }   
 }

@@ -63,7 +63,7 @@ public class AttackEntity implements Listener {
         DeathWish.onPlayerAttackEntity(plugin, player, damage, event);
         Glass.onPlayerAttackEntity(plugin, player, damage, event, RANGED_ATTACK);
         AquaAspect.onPlayerAttackEntity(plugin, player, reciever, event, RANGED_ATTACK);
-        LifeSteal.onPlayerAttackEntity(plugin, player, damage, RANGED_ATTACK);
+        LifeSteal.onPlayerAttackEntity(plugin, player, damage, RANGED_ATTACK); // Last
 
         Fling.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
         Venom.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);

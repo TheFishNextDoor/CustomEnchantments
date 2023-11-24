@@ -678,8 +678,7 @@ public class Chestplate {
             return Utl.Mtrl.isChestplate(item.getType());
         }
     
-        public static void onEntityAttackPlayer(Plugin plugin, Player player, LivingEntity entity, boolean melee) {
-            if (!melee) return;
+        public static void onEntityAttackPlayer(Plugin plugin, Player player, LivingEntity entity) {
             int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.FLAMING);
             if (level < 1) return;
             entity.setFireTicks(level * 20);

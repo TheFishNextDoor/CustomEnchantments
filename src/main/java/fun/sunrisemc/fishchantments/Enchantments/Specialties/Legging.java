@@ -185,8 +185,8 @@ public class Legging {
             return Utl.Mtrl.isLeggings(item.getType());
         }
 
-        public static void onPlayerTakeDamage(Plugin plugin, Player player, boolean melee) {
-            if (melee && Utl.Nchnt.has(player.getInventory().getLeggings(), plugin.HEAVY)) Utl.Ntty.cancelKnockback(plugin, player);
+        public static void onPlayerTakeDamage(Plugin plugin, Player player) {
+            if (Utl.Nchnt.has(player.getInventory().getLeggings(), plugin.HEAVY)) Utl.Ntty.cancelKnockback(plugin, player);
         }
     }
 }
