@@ -351,7 +351,6 @@ public class Boot {
             int level = Utl.Nchnt.level(boots, plugin.BOUNCE);
             if (level < 1) return;
             double v = Math.log(event.getFinalDamage()) * (level + 2) / 10;
-            System.out.println(v);
             if (v > 10) v = 10;
             player.setVelocity(player.getVelocity().setY(v));
             event.setDamage(0);

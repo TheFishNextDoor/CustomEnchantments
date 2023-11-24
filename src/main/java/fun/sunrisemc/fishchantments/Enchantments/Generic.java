@@ -1042,7 +1042,6 @@ public class Generic {
         }
 
         private static boolean isAquaphobic(EntityType type) {
-            // All mobs that take damage from water
             if (type == EntityType.ENDERMAN) return true;
             if (type == EntityType.BLAZE) return true;
             if (type == EntityType.MAGMA_CUBE) return true;
