@@ -255,7 +255,7 @@ public class Helmet {
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
             if (!Utl.Nchnt.has(helmet, plugin.NIGHT_VISION)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900 + Plugin.getSettings().ARMOR_EFFECTS_PERIOD, 0));
         }
     }
 

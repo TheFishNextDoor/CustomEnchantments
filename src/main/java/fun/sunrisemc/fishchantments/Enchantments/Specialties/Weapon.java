@@ -1,13 +1,13 @@
 package fun.sunrisemc.fishchantments.enchantments.specialties;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.AbstractArrow;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -882,10 +882,12 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isRanged(item.getType());
+            Material type = item.getType();
+            return type == Material.BOW || type == Material.CROSSBOW;
         }
 
         public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
+            if (!(projectile instanceof AbstractArrow)) return;
             int level = Utl.Nchnt.rangedLevel(player, plugin.VOLLEY);
             if (level < 1) return;
             if (level > 9) level = 9;
@@ -894,13 +896,10 @@ public class Weapon {
             EntityType type = projectile.getType();
             Vector velocity = projectile.getVelocity();
             for (int i = 1; i <= level; i++) {
-                Projectile newProjectile = (Projectile) world.spawnEntity(location, type);
-                newProjectile.setShooter(player);
-                newProjectile.setVelocity(velocity.clone().multiply(1.0 - (i * 0.1)));
-                if (newProjectile instanceof AbstractArrow) {
-                    AbstractArrow arrow = (Arrow) newProjectile;
-                    arrow.setPickupStatus(PickupStatus.DISALLOWED);
-                }
+                AbstractArrow arrow = (AbstractArrow) world.spawnEntity(location, type);
+                arrow.setShooter(player);
+                arrow.setVelocity(velocity.clone().multiply(1.0 - (i * 0.1)));
+                arrow.setPickupStatus(PickupStatus.DISALLOWED);
             }
         }
     }

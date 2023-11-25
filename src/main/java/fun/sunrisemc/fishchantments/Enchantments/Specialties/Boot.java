@@ -155,7 +155,7 @@ public class Boot {
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
             int level = Utl.Nchnt.level(boots, plugin.LEAPING);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Plugin.getSettings().QUICK_ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -217,7 +217,7 @@ public class Boot {
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
             int level = Utl.Nchnt.level(boots, plugin.SLOW_FALLING);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, Plugin.getSettings().QUICK_ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -288,7 +288,7 @@ public class Boot {
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
             if (!player.isInWater()) return;
             if (!Utl.Nchnt.has(player.getInventory().getBoots(), plugin.ANCHOR)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 2));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Plugin.getSettings().QUICK_ARMOR_EFFECTS_PERIOD * 2, 2));
         }
     }
 

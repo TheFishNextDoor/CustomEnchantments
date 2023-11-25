@@ -468,33 +468,44 @@ public class Plugin extends JavaPlugin {
                     player = players.next();
                     ItemStack helmet = player.getInventory().getHelmet();
                     ItemStack chestplate = player.getInventory().getChestplate();
-                    ItemStack leggings = player.getInventory().getLeggings();
-                    ItemStack boots = player.getInventory().getBoots();
                     CurseOfRadiance.onTimer(plugin, player);
-                    Invisibility.onTimer(plugin, player);
                     CurseOfMiningFatigue.onTimer(plugin, player);
                     CurseOfSlowness.onTimer(plugin, player);
                     CurseOfWeakness.onTimer(plugin, player);
                     CurseOfLevitating.onTimer(plugin, player);
+                    Invisibility.onTimer(plugin, player);
                     Gills.onTimer(plugin, player, helmet);
                     NightVision.onTimer(plugin, player, helmet);
                     ConduitPower.onTimer(plugin, player, helmet);
                     DragonScales.onTimer(plugin, player, chestplate);
-                    FireResistance.onTimer(plugin, player, chestplate);
                     Healing.onTimer(plugin, player, chestplate);
                     IncreasedHealth.onTimer(plugin, player, chestplate);
                     Strength.onTimer(plugin, player, chestplate);
                     Haste.onTimer(plugin, player, chestplate);
                     HeroOfTheVillage.onTimer(plugin, player, chestplate);
-                    DolphinsGrace.onTimer(plugin, player, leggings);
-                    Swiftness.onTimer(plugin, player, leggings); 
-                    Leaping.onTimer(plugin, player, boots); 
-                    SlowFalling.onTimer(plugin, player, boots);
-                    Anchor.onTimer(plugin, player, boots);
-                    Spurs.onTimer(plugin, player, boots);
                 }
             }
-        }, getSettings().ARMOR_EFFECTS_PERIOD, getSettings().ARMOR_EFFECTS_PERIOD);
+        }, getSettings().ARMOR_EFFECTS_PERIOD + 3, getSettings().ARMOR_EFFECTS_PERIOD);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
+                Player player;
+                while (players.hasNext()) {
+                    player = players.next();
+                    ItemStack chestplate = player.getInventory().getChestplate();
+                    ItemStack leggings = player.getInventory().getLeggings();
+                    ItemStack boots = player.getInventory().getBoots();
+                    Anchor.onTimer(plugin, player, boots);
+                    SlowFalling.onTimer(plugin, player, boots);
+                    Spurs.onTimer(plugin, player, boots);
+                    Leaping.onTimer(plugin, player, boots);
+                    DolphinsGrace.onTimer(plugin, player, leggings);
+                    Swiftness.onTimer(plugin, player, leggings);
+                    FireResistance.onTimer(plugin, player, chestplate);
+                }
+            }
+        }, getSettings().QUICK_ARMOR_EFFECTS_PERIOD, getSettings().QUICK_ARMOR_EFFECTS_PERIOD);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {

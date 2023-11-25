@@ -212,7 +212,7 @@ public class Chestplate {
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
             if (!(Utl.Nchnt.has(chestplate, plugin.FIRE_RESISTANCE))) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Plugin.getSettings().QUICK_ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 
