@@ -11,6 +11,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import fun.sunrisemc.fishchantments.Plugin;
+import fun.sunrisemc.fishchantments.Settings;
 import fun.sunrisemc.fishchantments.Utl;
 
 public class Helmet {
@@ -194,7 +195,7 @@ public class Helmet {
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
             if (!Utl.Nchnt.has(helmet, plugin.WATER_BREATHING)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Settings.ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 
@@ -255,7 +256,7 @@ public class Helmet {
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
             if (!Utl.Nchnt.has(helmet, plugin.NIGHT_VISION)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900 + Plugin.getSettings().ARMOR_EFFECTS_PERIOD, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900 + Settings.ARMOR_EFFECTS_PERIOD, 0));
         }
     }
 
@@ -317,7 +318,7 @@ public class Helmet {
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
             int level = Utl.Nchnt.level(helmet, plugin.CONDUIT_POWER);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, Settings.ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 }

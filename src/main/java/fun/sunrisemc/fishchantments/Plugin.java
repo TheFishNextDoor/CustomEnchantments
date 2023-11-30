@@ -100,7 +100,6 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Plugin extends JavaPlugin {
     private static final Logger LOGGER = Logger.getLogger("Fishchantments");
-    private static Settings settings = new Settings();
     private ArrayList<Enchantment> fishchantments = new ArrayList<>();
     
     public final Enchantment DESTRUCTIVE = new Destructive(new NamespacedKey(this, "destructive"));
@@ -247,14 +246,6 @@ public class Plugin extends JavaPlugin {
         LOGGER.info("Fishchantments disabled");
     }
     
-    public static Settings getSettings() {
-        return settings;
-    }
-    
-    public static void reload() {
-        settings = new Settings();
-    }
-    
     public static void fixEnchant(ItemStack item, Enchantment enchantment, Integer level) {
         if (item == null) return;
         if (level < 1) return;
@@ -271,7 +262,7 @@ public class Plugin extends JavaPlugin {
         if (level < 0) return null;
         String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
         if (level == 1) return lore;
-        else return lore + " " + (getSettings().NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
+        else return lore + " " + (Settings.NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
     }
 
     public boolean hasFishchantments(ItemStack item) {
@@ -335,7 +326,7 @@ public class Plugin extends JavaPlugin {
         }
 
         // Remove Overridden Enchantments
-        if (getSettings().REMOVE_OVERRIDDEN_ENCHANTMENTS) {
+        if (Settings.REMOVE_OVERRIDDEN_ENCHANTMENTS) {
             if (Utl.Nchnt.same(enchantment, UNBREAKABLE)) {
                 removeEnchant(item, Enchantment.DURABILITY);
                 removeEnchant(item, Enchantment.MENDING);
@@ -485,7 +476,7 @@ public class Plugin extends JavaPlugin {
                     HeroOfTheVillage.onTimer(plugin, player, chestplate);
                 }
             }
-        }, getSettings().ARMOR_EFFECTS_PERIOD + 3, getSettings().ARMOR_EFFECTS_PERIOD);
+        }, Settings.ARMOR_EFFECTS_PERIOD, Settings.ARMOR_EFFECTS_PERIOD);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
@@ -505,7 +496,7 @@ public class Plugin extends JavaPlugin {
                     FireResistance.onTimer(plugin, player, chestplate);
                 }
             }
-        }, getSettings().QUICK_ARMOR_EFFECTS_PERIOD, getSettings().QUICK_ARMOR_EFFECTS_PERIOD);
+        }, Settings.QUICK_ARMOR_EFFECTS_PERIOD, Settings.QUICK_ARMOR_EFFECTS_PERIOD);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {

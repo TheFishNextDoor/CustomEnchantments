@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import fun.sunrisemc.fishchantments.Plugin;
+import fun.sunrisemc.fishchantments.Settings;
 import fun.sunrisemc.fishchantments.Utl;
 
 public class Curses {
@@ -233,7 +234,7 @@ public class Curses {
         public static void onTimer(Plugin plugin, Player player) {
             int level = Utl.Nchnt.armorLevel(player, plugin.CURSE_OF_LEVITATING);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, Settings.ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -346,7 +347,7 @@ public class Curses {
 
         public static void onTimer(Plugin plugin, Player player) {
             if (!Utl.Nchnt.wearing(player, plugin.CURSE_OF_RADIANCE)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Plugin.getSettings().ARMOR_EFFECTS_PERIOD * 2, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Settings.ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 
