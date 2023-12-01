@@ -191,10 +191,9 @@ public class Utl {
                 if (bookMeta.hasStoredEnchant(enchant)) level = bookMeta.getStoredEnchantLevel(enchant);
             }
             else if (meta.hasEnchant(enchant)) level = meta.getEnchantLevel(enchant);
-            if (level == 0 && meta.hasLore()) {
+            if (Settings.CHECK_LORE && level == 0 && meta.hasLore()) {
                 String enchantLore = Plugin.lore(enchant, 1);
-                ArrayList<String> itemLore = (ArrayList<String>) meta.getLore();
-                Iterator<String> iter = itemLore.iterator();
+                Iterator<String> iter = meta.getLore().iterator();
                 while (iter.hasNext()) {
                     String line = iter.next();
                     if (line.equals(enchantLore)) level = 1;
@@ -332,7 +331,7 @@ public class Utl {
                 case 3: return "III";
                 case 2: return "II";
                 case 1: return "I";
-                default: return "";
+                default: return String.valueOf(number);
             }
         }
 
