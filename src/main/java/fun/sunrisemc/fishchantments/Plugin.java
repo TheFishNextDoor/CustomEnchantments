@@ -262,7 +262,7 @@ public class Plugin extends JavaPlugin {
         if (level < 0) return null;
         String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
         if (level == 1) return lore;
-        else return lore + " " + (Settings.NUMERALS ? Utl.Nchnt.numeral(level) : level.toString());
+        else return lore + " " + (Settings.NUMBERS ? level.toString() : Utl.Nchnt.numeral(level));
     }
 
     public boolean hasFishchantments(ItemStack item) {
