@@ -34,8 +34,9 @@ import fun.sunrisemc.fishchantments.PlayerTracker;
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.PermChecker;
 import fun.sunrisemc.fishchantments.Settings;
-import fun.sunrisemc.fishchantments.Utl;
-import fun.sunrisemc.fishchantments.Utl.Nvntry;
+import fun.sunrisemc.fishchantments.Util;
+import fun.sunrisemc.fishchantments.Util.Inventory;
+import fun.sunrisemc.fishchantments.Util.World;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Glass;
 
 public class Generic {
@@ -89,12 +90,12 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isEnchantable(item.getType());
+            return Util.Inventory.isEnchantable(item.getType());
         }
 
         public static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, PlayerItemDamageEvent event) {
             if (plugin == null || player == null || item == null) return;
-            if (!Utl.Nchnt.has(item, plugin.UNBREAKABLE)) return;
+            if (!Util.Enchant.has(item, plugin.UNBREAKABLE)) return;
             event.setCancelled(true);
         }
     }
@@ -145,41 +146,41 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isTool(item.getType()) || Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isTool(item.getType()) || Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onBlockDropItems(Plugin plugin, Player player, List<Item> drops) {
-            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
+            if (!Util.Enchant.holding(player, plugin.TELEKINESIS)) return;
             for (Item drop : drops) {
-                Nvntry.give(player, drop.getItemStack());
+                Inventory.give(player, drop.getItemStack());
             }
             drops.clear();
         }
 
         public static void onBlockDropItems(Plugin plugin, Player player, Collection<ItemStack> drops) {
-            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
+            if (!Util.Enchant.holding(player, plugin.TELEKINESIS)) return;
             for (ItemStack drop : drops) {
-                Nvntry.give(player, drop);
+                Inventory.give(player, drop);
             }
             drops.clear();
         }
 
         public static void onMobLoot(Plugin plugin, Player player, List<ItemStack> drops) {
-            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
+            if (!Util.Enchant.holding(player, plugin.TELEKINESIS)) return;
             for (ItemStack drop : drops) {
-                Nvntry.give(player, drop);
+                Inventory.give(player, drop);
             }
             drops.clear();
         }
 
         public static void onBlockXp(Plugin plugin, Player player, BlockBreakEvent event) {
-            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
+            if (!Util.Enchant.holding(player, plugin.TELEKINESIS)) return;
             player.giveExp(event.getExpToDrop());
             event.setExpToDrop(0);
         }
 
         public static void onMobXp(Plugin plugin, Player player, EntityDeathEvent event) {
-            if (!Utl.Nchnt.holding(player, plugin.TELEKINESIS)) return;
+            if (!Util.Enchant.holding(player, plugin.TELEKINESIS)) return;
             player.giveExp(event.getDroppedExp());
             event.setDroppedExp(0);
         }
@@ -231,11 +232,11 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.RADIANCE, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.RADIANCE, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0));
         }
@@ -287,11 +288,11 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, final Entity entity, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.FLING, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.FLING, ranged);
             if (level < 1) return;
             entity.teleport(entity.getLocation().add(0, 0.25, 0));
             final double y = (ranged ? 0.1 : 0.05) + (level * 0.1);
@@ -349,17 +350,17 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType()) || Utl.Mtrl.isTool(item.getType());
+            return Util.Inventory.isWeapon(item.getType()) || Util.Inventory.isTool(item.getType());
         }
 
         public static void onMobXp(Plugin plugin, Player player, EntityDeathEvent event) {
-            int level = Utl.Nchnt.handLevel(player, plugin.ENLIGHTENMENT);
+            int level = Util.Enchant.handLevel(player, plugin.ENLIGHTENMENT);
             if (level < 1) return;
             event.setDroppedExp(xp(level, event.getDroppedExp()));
         }
 
         public static void onBlockXp(Plugin plugin, Player player, BlockBreakEvent event) {
-            int level = Utl.Nchnt.handLevel(player, plugin.ENLIGHTENMENT);
+            int level = Util.Enchant.handLevel(player, plugin.ENLIGHTENMENT);
             if (level < 1) return;
             event.setExpToDrop(xp(level, event.getExpToDrop()));
         }
@@ -415,12 +416,12 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isRanged(item.getType());
+            return Util.Inventory.isRanged(item.getType());
         }
 
         public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
             if (plugin == null || player == null || projectile == null) return;
-            if (!Utl.Nchnt.holding(player, plugin.PRECISION)) return;
+            if (!Util.Enchant.holding(player, plugin.PRECISION)) return;
             Vector direction = player.getEyeLocation().getDirection();
             Vector velocity = projectile.getVelocity();
             velocity.setX(direction.getX() * velocity.length());
@@ -470,18 +471,18 @@ public class Generic {
         
         @Override
         public boolean conflictsWith(Enchantment other) {
-            if (Utl.Nchnt.same(other, Enchantment.ARROW_INFINITE)) return true;
+            if (Util.Enchant.same(other, Enchantment.ARROW_INFINITE)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isRanged(item.getType());
+            return Util.Inventory.isRanged(item.getType());
         }
 
         public static void onProjectileHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
-            final int level = Utl.Nchnt.rangedLevel(player, plugin.DESTRUCTIVE);
+            final int level = Util.Enchant.rangedLevel(player, plugin.DESTRUCTIVE);
             if (level < 1) return;
             ItemStack usedTool = new ItemStack(new ItemStack(Material.SHEARS));
             boolean hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
@@ -549,12 +550,12 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isRanged(item.getType());
+            return Util.Inventory.isRanged(item.getType());
         }
 
         public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
             if (plugin == null || player == null || projectile == null) return;
-            final int level = Utl.Nchnt.rangedLevel(player, plugin.RANGE);
+            final int level = Util.Enchant.rangedLevel(player, plugin.RANGE);
             if (level < 1) return;
             double levelValue = level; 
             projectile.setVelocity(projectile.getVelocity().multiply(1.0 + (levelValue/5.0)));
@@ -607,11 +608,11 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isTool(item.getType());
+            return Util.Inventory.isTool(item.getType());
         }
 
         public static void onBlockBreak(Plugin plugin, Player player, Block block, BlockBreakEvent event) {
-            if (!Utl.Nchnt.holding(player, plugin.EXCAVATING)) return;
+            if (!Util.Enchant.holding(player, plugin.EXCAVATING)) return;
             BlockFace face = PlayerTracker.get(player).getMiningFace();
             ArrayList<Block> blocks = new ArrayList<>();
             if (face == BlockFace.EAST || face == BlockFace.WEST) { // Looking along x axis
@@ -645,7 +646,7 @@ public class Generic {
                 blocks.add(block.getRelative(-1, 0, -1));
             }
             Iterator<Block> iter = blocks.iterator();
-            ItemStack item = Nvntry.getItemInUse(player);
+            ItemStack item = Inventory.getItemInUse(player);
             while (iter.hasNext()) {
                 Block iblock = iter.next();
                 if ((!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) plugin.breakBlock(player, iblock, item);
@@ -699,12 +700,12 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isHoe(item.getType());
+            return Util.Inventory.isHoe(item.getType());
         }
 
         public static void onTill(Plugin plugin, Player player, Block block) {
             if (plugin == null || player == null || block == null) return;
-            if (!Utl.Nchnt.holdingHoe(player, plugin.TILLING)) return;
+            if (!Util.Enchant.holdingHoe(player, plugin.TILLING)) return;
             till(player, block);
         }
 
@@ -768,13 +769,13 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isHoe(item.getType());
+            return Util.Inventory.isHoe(item.getType());
         }
 
         public static void onRightClick(Plugin plugin, Player player, Block block) {
-            final int level = Utl.Nchnt.hoeLevel(player, plugin.REPLANTING);
+            final int level = Util.Enchant.hoeLevel(player, plugin.REPLANTING);
             if (level < 1) return;
-            ItemStack item = Nvntry.getHoeInUse(player);
+            ItemStack item = Inventory.getHoeInUse(player);
             if (item == null) return;
             if (level == 1) {
                 if (PermChecker.canBreak(player, block)) harvest(plugin, player, block, item);
@@ -790,9 +791,9 @@ public class Generic {
         }
 
         public static void onBlockBreak(Plugin plugin, Player player, Block block, BlockBreakEvent event) {
-            final int level = Utl.Nchnt.handLevel(player, plugin.REPLANTING);
+            final int level = Util.Enchant.handLevel(player, plugin.REPLANTING);
             if (level < 1) return;
-            ItemStack item = Nvntry.getItemInUse(player);
+            ItemStack item = Inventory.getItemInUse(player);
             event.setCancelled(harvest(plugin, player, block, item));
         }
 
@@ -854,11 +855,11 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isArmor(item.getType());
+            return Util.Inventory.isArmor(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player) {
-            if (Utl.Nchnt.wearing(player, plugin.INVISIBILITY)) player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Settings.ARMOR_EFFECTS_PERIOD * 2, 0));
+            if (Util.Enchant.wearing(player, plugin.INVISIBILITY)) player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Settings.ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 
@@ -913,7 +914,7 @@ public class Generic {
 
         public static void onDeflectProjectile(Plugin plugin, Player player, Projectile projectile) {
             if (projectile.isOnGround()) return;
-            int level = Utl.Nchnt.shieldLevel(player, plugin.REFLECTION);
+            int level = Util.Enchant.shieldLevel(player, plugin.REFLECTION);
             if (level < 1) return;
             if (level > 5) level = 5;
             projectile.setVelocity(projectile.getVelocity().multiply(3.5 + (level * 1.5)));
@@ -966,13 +967,13 @@ public class Generic {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isBoots(item.getType());
+            return Util.Inventory.isBoots(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
             if (player.getVehicle() == null || !(player.getVehicle() instanceof LivingEntity)) return;
             LivingEntity mount = (LivingEntity) player.getVehicle();
-            int level = Utl.Nchnt.level(boots, plugin.SPURS);
+            int level = Util.Enchant.level(boots, plugin.SPURS);
             if (level < 1) return;
             mount.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, level - 1));
             mount.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, level - 1));
@@ -1019,23 +1020,23 @@ public class Generic {
 
         @Override
         public boolean conflictsWith(Enchantment other) {
-            if (Utl.Nchnt.same(other, Enchantment.FIRE_ASPECT)) return true;
+            if (Util.Enchant.same(other, Enchantment.FIRE_ASPECT)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, final LivingEntity entity, EntityDamageByEntityEvent event, boolean ranged) {
-            int level = Utl.Nchnt.weaponLevel(player, plugin.AQUA_ASPECT, ranged);
+            int level = Util.Enchant.weaponLevel(player, plugin.AQUA_ASPECT, ranged);
             if (level < 1) return;
             if (entity.getFireTicks() > 0) entity.setFireTicks(0);
             if (isAquaphobic(entity.getType())) event.setDamage(event.getDamage() + (level * 2.5));
             if (entity.getType() == EntityType.ENDERMAN) {
-                Utl.Ntty.cancelKnockback(plugin, entity);
+                World.cancelKnockback(plugin, entity);
                 Snowball snowball = (Snowball) entity.getWorld().spawnEntity(entity.getLocation().add(0, 4, 0), EntityType.SNOWBALL);
                 snowball.setVelocity(new Vector(0, -2.0, 0));
                 snowball.setShooter(player);

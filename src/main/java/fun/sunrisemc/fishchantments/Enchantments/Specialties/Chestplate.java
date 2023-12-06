@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Settings;
-import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.Util;
 
 public class Chestplate {
 
@@ -74,11 +74,11 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isChestplate(item.getType());
+            return Util.Inventory.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            int level = Utl.Nchnt.level(chestplate, plugin.DRAGON_SCALES);
+            int level = Util.Enchant.level(chestplate, plugin.DRAGON_SCALES);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Settings.ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -141,11 +141,11 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isChestplate(item.getType());
+            return Util.Inventory.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            int level = Utl.Nchnt.level(chestplate, plugin.HEALING);
+            int level = Util.Enchant.level(chestplate, plugin.HEALING);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Settings.ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -208,11 +208,11 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isChestplate(item.getType());
+            return Util.Inventory.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            if (!(Utl.Nchnt.has(chestplate, plugin.FIRE_RESISTANCE))) return;
+            if (!(Util.Enchant.has(chestplate, plugin.FIRE_RESISTANCE))) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
@@ -274,11 +274,11 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isChestplate(item.getType());
+            return Util.Inventory.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            int level = Utl.Nchnt.level(chestplate, plugin.STRENGTH);
+            int level = Util.Enchant.level(chestplate, plugin.STRENGTH);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Settings.ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -341,11 +341,11 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isChestplate(item.getType());
+            return Util.Inventory.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            int level = Utl.Nchnt.level(chestplate, plugin.HASTE);
+            int level = Util.Enchant.level(chestplate, plugin.HASTE);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Settings.ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -408,11 +408,11 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isChestplate(item.getType());
+            return Util.Inventory.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            int level = Utl.Nchnt.level(chestplate, plugin.INCREASED_HEALTH);
+            int level = Util.Enchant.level(chestplate, plugin.INCREASED_HEALTH);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Settings.ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -475,11 +475,11 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isChestplate(item.getType());
+            return Util.Inventory.isChestplate(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
-            int level = Utl.Nchnt.level(chestplate, plugin.HERO_OF_THE_VILLAGE);
+            int level = Util.Enchant.level(chestplate, plugin.HERO_OF_THE_VILLAGE);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE, Settings.ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -542,15 +542,15 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isChestplate(item.getType());
+            return Util.Inventory.isChestplate(item.getType());
         }
     
         public static void onPlayerAttackEntity(Plugin plugin, Player player, double damage, EntityDamageByEntityEvent event) {
-            if (Utl.Nchnt.has(player.getInventory().getChestplate(), plugin.DEATHWISH)) event.setDamage(damage * 1.75);
+            if (Util.Enchant.has(player.getInventory().getChestplate(), plugin.DEATHWISH)) event.setDamage(damage * 1.75);
         }
     
         public static void onPlayerTakeDamage(Plugin plugin, Player player, double damage, EntityDamageEvent event) {
-            if (Utl.Nchnt.has(player.getInventory().getChestplate(), plugin.DEATHWISH)) event.setDamage(damage * 1.5);
+            if (Util.Enchant.has(player.getInventory().getChestplate(), plugin.DEATHWISH)) event.setDamage(damage * 1.5);
         }
     }
 
@@ -611,11 +611,11 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isChestplate(item.getType());
+            return Util.Inventory.isChestplate(item.getType());
         }
     
         public static void onPlayerTakeDamage(Plugin plugin, Player player, boolean ranged, EntityDamageEvent event) {
-            if (ranged && Utl.Nchnt.has(player.getInventory().getChestplate(), plugin.PROJECTILE_RESISTANCE)) event.setCancelled(true);
+            if (ranged && Util.Enchant.has(player.getInventory().getChestplate(), plugin.PROJECTILE_RESISTANCE)) event.setCancelled(true);
         }
     }
 
@@ -676,11 +676,11 @@ public class Chestplate {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isChestplate(item.getType());
+            return Util.Inventory.isChestplate(item.getType());
         }
     
         public static void onEntityAttackPlayer(Plugin plugin, Player player, LivingEntity entity) {
-            int level = Utl.Nchnt.level(player.getInventory().getChestplate(), plugin.FLAMING);
+            int level = Util.Enchant.level(player.getInventory().getChestplate(), plugin.FLAMING);
             if (level < 1) return;
             entity.setFireTicks(level * 20);
         }

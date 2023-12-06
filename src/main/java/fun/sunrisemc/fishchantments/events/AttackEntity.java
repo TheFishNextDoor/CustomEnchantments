@@ -10,7 +10,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.Util;
+import fun.sunrisemc.fishchantments.Util.Inventory;
 import fun.sunrisemc.fishchantments.enchantments.Generic.AquaAspect;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Fling;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Radiance;
@@ -57,7 +58,7 @@ public class AttackEntity implements Listener {
         if (!(damage > 0)) return;
         if (!(damager instanceof Player)) return;
         Player player = (Player) damager;
-        if (!RANGED_ATTACK && Utl.Mtrl.isRanged(Utl.Nvntry.getItemInUse(player).getType())) return;
+        if (!RANGED_ATTACK && Util.Inventory.isRanged(Inventory.getItemInUse(player).getType())) return;
 
         // Event modifiers
         DeathWish.onPlayerAttackEntity(plugin, player, damage, event);

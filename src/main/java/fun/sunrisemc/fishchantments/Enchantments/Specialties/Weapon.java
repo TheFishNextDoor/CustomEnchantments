@@ -21,7 +21,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.Util;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Unbreakable;
 
 public class Weapon {
@@ -85,11 +85,11 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, double damage, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.LIFE_STEAL, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.LIFE_STEAL, ranged);
             if (level < 1) return;
             if (!ranged) damage /= 2;
             heal(player, calcAddedHealth(damage, level));
@@ -176,11 +176,11 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.POISON, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.POISON, ranged);
             if (level < 1) return;
             int strength = level/2;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 40 + (level * 20)/(strength + 1), strength));
@@ -246,11 +246,11 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.WITHER, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.WITHER, ranged);
             if (level < 1) return;
             int strength = level/3;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 40 + (level * 20)/(strength + 1), strength));
@@ -316,11 +316,11 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.OBSCURE, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.OBSCURE, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, level * 20, 0));
         }
@@ -385,11 +385,11 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.DISORIENTING, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.DISORIENTING, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, level * 20, 0));
         }
@@ -454,11 +454,11 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.DEBILITATING, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.DEBILITATING, ranged);
             if (level < 1) return;
             int strength = level/4;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 40 + (level * 20)/(strength + 1), strength));
@@ -524,11 +524,11 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.STARVING, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.STARVING, ranged);
             if (level < 1) return;
             int strength = level/2;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 40 + (level * 20)/(strength + 1), strength));
@@ -594,11 +594,11 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.CRIPPLING, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.CRIPPLING, ranged);
             if (level < 1) return;
             int strength = level/3;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40 + (level * 20)/(strength + 1), strength));
@@ -658,8 +658,8 @@ public class Weapon {
             if (name.equals(Levitating.NAME)) return true;
             if (name.equals(BloodTipped.NAME)) return true;
             if (name.equals(Volley.NAME)) return true;
-            if (Utl.Nchnt.same(other, Enchantment.DURABILITY)) return true;
-            if (Utl.Nchnt.same(other, Enchantment.MENDING)) return true;
+            if (Util.Enchant.same(other, Enchantment.DURABILITY)) return true;
+            if (Util.Enchant.same(other, Enchantment.MENDING)) return true;
             if (name.equals(Unbreakable.NAME)) return true;
             return false;
         }
@@ -667,17 +667,17 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isWeapon(item.getType());
+            return Util.Inventory.isWeapon(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, double damage, EntityDamageByEntityEvent event, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.GLASS, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.GLASS, ranged);
             if (level < 1) return;
             event.setDamage(damage * 1.5);
         }
 
         public static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, int damage, PlayerItemDamageEvent event) {
-            if (Utl.Nchnt.has(item, plugin.GLASS)) event.setDamage(damage * 32);
+            if (Util.Enchant.has(item, plugin.GLASS)) event.setDamage(damage * 32);
         }
     }
 
@@ -740,11 +740,11 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isRanged(item.getType());
+            return Util.Inventory.isRanged(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.LEVITATING, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.LEVITATING, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 40, 0));
         }
@@ -809,17 +809,17 @@ public class Weapon {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isRanged(item.getType());
+            return Util.Inventory.isRanged(item.getType());
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity livingEntity, boolean ranged) {
-            final int level = Utl.Nchnt.weaponLevel(player, plugin.BLOODTIPPED, ranged);
+            final int level = Util.Enchant.weaponLevel(player, plugin.BLOODTIPPED, ranged);
             if (level < 1) return;
             livingEntity.addPotionEffects(player.getActivePotionEffects());
         }
 
         public static void onPlayerFireProjectile(Plugin plugin, Player player) {
-            if (Utl.Nchnt.holdingRanged(player, plugin.BLOODTIPPED)) player.damage(1);
+            if (Util.Enchant.holdingRanged(player, plugin.BLOODTIPPED)) player.damage(1);
         }
     }
 
@@ -888,7 +888,7 @@ public class Weapon {
 
         public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
             if (!(projectile instanceof AbstractArrow)) return;
-            int level = Utl.Nchnt.rangedLevel(player, plugin.VOLLEY);
+            int level = Util.Enchant.rangedLevel(player, plugin.VOLLEY);
             if (level < 1) return;
             if (level > 9) level = 9;
             World world = projectile.getWorld();

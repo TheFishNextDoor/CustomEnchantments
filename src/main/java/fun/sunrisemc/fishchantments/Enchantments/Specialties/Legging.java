@@ -10,7 +10,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Settings;
-import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.Util;
+import fun.sunrisemc.fishchantments.Util.World;
 
 public class Legging {
 
@@ -64,11 +65,11 @@ public class Legging {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isLeggings(item.getType());
+            return Util.Inventory.isLeggings(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Nchnt.level(boots, plugin.SWIFTNESS);
+            int level = Util.Enchant.level(boots, plugin.SWIFTNESS);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -124,11 +125,11 @@ public class Legging {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isLeggings(item.getType());
+            return Util.Inventory.isLeggings(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack leggings) {
-            if (!Utl.Nchnt.has(leggings, plugin.DOLPHINS_GRACE)) return;
+            if (!Util.Enchant.has(leggings, plugin.DOLPHINS_GRACE)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
@@ -183,11 +184,11 @@ public class Legging {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isLeggings(item.getType());
+            return Util.Inventory.isLeggings(item.getType());
         }
 
         public static void onPlayerTakeDamage(Plugin plugin, Player player) {
-            if (Utl.Nchnt.has(player.getInventory().getLeggings(), plugin.HEAVY)) Utl.Ntty.cancelKnockback(plugin, player);
+            if (Util.Enchant.has(player.getInventory().getLeggings(), plugin.HEAVY)) World.cancelKnockback(plugin, player);
         }
     }
 }

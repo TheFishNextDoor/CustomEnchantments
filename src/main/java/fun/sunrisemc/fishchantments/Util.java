@@ -17,9 +17,17 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 
-public class Utl {
+public class Util {
 
-    public static class Wrld {
+    public static class World {
+
+        public static void cancelKnockback(Plugin plugin, final Entity entity) {
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                public void run() {
+                    entity.setVelocity(new Vector(0, 0, 0));
+                }
+            }, 0);
+        }
 
         public static boolean raining(Block block) {
             return block.getWorld().hasStorm() && rains(block);
@@ -44,7 +52,7 @@ public class Utl {
         }
     }
 
-    public static class Nvntry {
+    public static class Inventory {
 
         public static void give(Player player, ItemStack item) {
             HashMap<Integer, ItemStack> excessItems = player.getInventory().addItem(item);
@@ -77,9 +85,9 @@ public class Utl {
             PlayerInventory inv = player.getInventory();
             ItemStack mainHand = inv.getItemInMainHand();
             ItemStack offHand = inv.getItemInOffHand();
-            if (Utl.Mtrl.isHoe(mainHand.getType())) return mainHand;
-            if (Utl.Mtrl.isRanged(mainHand.getType())) return null;
-            if (Utl.Mtrl.isHoe(offHand.getType())) return offHand;
+            if (isHoe(mainHand.getType())) return mainHand;
+            if (isRanged(mainHand.getType())) return null;
+            if (isHoe(offHand.getType())) return offHand;
             return null;
         }
 
@@ -87,14 +95,11 @@ public class Utl {
             PlayerInventory inv = player.getInventory();
             ItemStack mainHand = inv.getItemInMainHand();
             ItemStack offHand = inv.getItemInOffHand();
-            if (Utl.Mtrl.isRanged(mainHand.getType())) return mainHand;
-            if (Utl.Mtrl.isHoe(mainHand.getType())) return null;
-            if (Utl.Mtrl.isRanged(offHand.getType())) return offHand;
+            if (isRanged(mainHand.getType())) return mainHand;
+            if (isHoe(mainHand.getType())) return null;
+            if (isRanged(offHand.getType())) return offHand;
             return null;
         }
-    }
-
-    public static class Mtrl {
 
         public static boolean isEnchantable(Material material) {
             return isTool(material) || isWeapon(material)  || isArmor(material);
@@ -155,10 +160,9 @@ public class Utl {
         public static boolean isBoots(Material material) {
             return material.name().endsWith("_BOOTS");
         }
-
     }
 
-    public static class Nchnt {
+    public static class Enchant {
 
         public static boolean has(ItemStack item, Enchantment enchant) {
             return level(item, enchant) > 0;
@@ -195,7 +199,7 @@ public class Utl {
         }
 
         public static int handLevel(Player player, Enchantment enchant) {
-            return level(Nvntry.getItemInUse(player), enchant);
+            return level(Inventory.getItemInUse(player), enchant);
         }
 
         public static boolean holdingRanged(Player player, Enchantment enchant) {
@@ -203,7 +207,7 @@ public class Utl {
         }
 
         public static int rangedLevel(Player player, Enchantment enchant) {
-            return level(Nvntry.getRangedItemInUse(player), enchant);
+            return level(Inventory.getRangedItemInUse(player), enchant);
         }
 
         public static int weaponLevel(Player player, Enchantment enchant, boolean ranged) {
@@ -216,7 +220,7 @@ public class Utl {
         }
 
         public static int hoeLevel(Player player, Enchantment enchant) {
-            return level(Nvntry.getHoeInUse(player), enchant);
+            return level(Inventory.getHoeInUse(player), enchant);
         }
 
         public static boolean holdingShield(Player player, Enchantment enchant) {
@@ -224,7 +228,7 @@ public class Utl {
         }
 
         public static int shieldLevel(Player player, Enchantment enchant) {
-            return level(Nvntry.getShieldInUse(player), enchant);
+            return level(Inventory.getShieldInUse(player), enchant);
         }
 
         public static boolean wearing(Player player, Enchantment enchant) {
@@ -339,17 +343,6 @@ public class Utl {
                     }
                 }
             }
-        }
-    }
-
-    public static class Ntty {
-
-        public static void cancelKnockback(Plugin plugin, final Entity entity) {
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                public void run() {
-                    entity.setVelocity(new Vector(0, 0, 0));
-                }
-            }, 0);
         }
     }
 

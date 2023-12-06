@@ -14,7 +14,7 @@ import org.bukkit.util.Vector;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Settings;
-import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.Util;
 
 public class Boot {
 
@@ -64,18 +64,18 @@ public class Boot {
             if (name.equals(SlowFalling.NAME)) return true;
             if (name.equals(Anchor.NAME)) return true;
             if (name.equals(Bounce.NAME)) return true;
-            if (Utl.Nchnt.same(other, Enchantment.PROTECTION_FALL)) return true;
+            if (Util.Enchant.same(other, Enchantment.PROTECTION_FALL)) return true;
             return false;
         }
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isBoots(item.getType());
+            return Util.Inventory.isBoots(item.getType());
         }
 
         public static void onFall(Plugin plugin, Player player, ItemStack boots, EntityDamageEvent event) {
-            int level = Utl.Nchnt.level(boots, plugin.CRUSH);
+            int level = Util.Enchant.level(boots, plugin.CRUSH);
             if (level < 1) return;
             double damage = calcDamage(event.getDamage(), level);
             for (Entity entity : player.getNearbyEntities(1, 1, 1)) {
@@ -150,11 +150,11 @@ public class Boot {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isBoots(item.getType());
+            return Util.Inventory.isBoots(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Nchnt.level(boots, plugin.LEAPING);
+            int level = Util.Enchant.level(boots, plugin.LEAPING);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -212,11 +212,11 @@ public class Boot {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isBoots(item.getType());
+            return Util.Inventory.isBoots(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Utl.Nchnt.level(boots, plugin.SLOW_FALLING);
+            int level = Util.Enchant.level(boots, plugin.SLOW_FALLING);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
@@ -274,11 +274,11 @@ public class Boot {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isBoots(item.getType());
+            return Util.Inventory.isBoots(item.getType());
         }
 
         public static void whenSwimming(Plugin plugin, Player player) {
-            if (!Utl.Nchnt.has(player.getInventory().getBoots(), plugin.ANCHOR)) return;
+            if (!Util.Enchant.has(player.getInventory().getBoots(), plugin.ANCHOR)) return;
             Vector velocity = player.getVelocity();
             double y = velocity.getY();
             if (y <= 0) velocity.setY(y - (0.06));
@@ -288,7 +288,7 @@ public class Boot {
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
             if (!player.isInWater()) return;
-            if (!Utl.Nchnt.has(player.getInventory().getBoots(), plugin.ANCHOR)) return;
+            if (!Util.Enchant.has(player.getInventory().getBoots(), plugin.ANCHOR)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, 2));
         }
     }
@@ -345,11 +345,11 @@ public class Boot {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Utl.Mtrl.isBoots(item.getType());
+            return Util.Inventory.isBoots(item.getType());
         }
 
         public static void onFall(Plugin plugin, Player player, ItemStack boots, EntityDamageEvent event) {
-            int level = Utl.Nchnt.level(boots, plugin.BOUNCE);
+            int level = Util.Enchant.level(boots, plugin.BOUNCE);
             if (level < 1) return;
             double v = Math.log(event.getFinalDamage()) * (level + 2) / 10;
             if (v > 10) v = 10;

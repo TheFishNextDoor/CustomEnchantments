@@ -9,7 +9,7 @@ import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.Util;
 
 public class PrepareAnvil implements Listener {
     private final Plugin plugin;
@@ -35,17 +35,17 @@ public class PrepareAnvil implements Listener {
             ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
             for (int i = 0; i < fishchantments.size(); i++) {
                 Enchantment enchantment = fishchantments.get(i);
-                int level = Utl.Nchnt.level(zero, enchantment);
+                int level = Util.Enchant.level(zero, enchantment);
                 plugin.addEnchant(result, enchantment, level, true, false);
             }
         }
-        ArrayList<Enchantment> enchantments = Utl.Nchnt.enchantments(one);
+        ArrayList<Enchantment> enchantments = Util.Enchant.enchantments(one);
         for (int i = 0; i < enchantments.size(); i++) {
             Enchantment enchantment = enchantments.get(i);
-            int level = Utl.Nchnt.level(one, enchantment);
+            int level = Util.Enchant.level(one, enchantment);
             plugin.addEnchant(result, enchantment, level, false, true);
         }
-        if (Utl.Nchnt.sameEnchants(zero, result) && cloned) {
+        if (Util.Enchant.sameEnchants(zero, result) && cloned) {
             event.setResult(null);
             return;
         }

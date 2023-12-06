@@ -264,7 +264,7 @@ public class Plugin extends JavaPlugin {
         if (level < 0) return null;
         String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
         if (level == 1) return lore;
-        else return lore + " " + (Settings.NUMBERS ? level.toString() : Utl.Nchnt.numeral(level));
+        else return lore + " " + (Settings.NUMBERS ? level.toString() : Util.Enchant.numeral(level));
     }
 
     public boolean hasFishchantments(ItemStack item) {
@@ -279,7 +279,7 @@ public class Plugin extends JavaPlugin {
         ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
         if (item == null) return foundFishchantments;
         if (!item.hasItemMeta()) return foundFishchantments;
-        Iterator<Enchantment> enchantments = Utl.Nchnt.enchantments(item).iterator();
+        Iterator<Enchantment> enchantments = Util.Enchant.enchantments(item).iterator();
         while (enchantments.hasNext()) {
             Enchantment enchantment = enchantments.next();
             if (isFishchantment(enchantment)) foundFishchantments.add(enchantment);
@@ -292,16 +292,16 @@ public class Plugin extends JavaPlugin {
         Iterator<Enchantment> fishchantments = getFishchantments().iterator();
         while (fishchantments.hasNext()) {
             Enchantment fishchantment = fishchantments.next();
-            if (Utl.Nchnt.same(fishchantment, enchantment)) return true;
+            if (Util.Enchant.same(fishchantment, enchantment)) return true;
         }
         return false;
     }
     
     public boolean hasConflictingFishchantments(ItemStack item, Enchantment enchantment) {
-        Iterator<Enchantment> iter = Utl.Nchnt.enchantments(item).iterator();
+        Iterator<Enchantment> iter = Util.Enchant.enchantments(item).iterator();
         while (iter.hasNext()) {
             Enchantment ienchantment = iter.next();
-            if (Utl.Nchnt.same(ienchantment, enchantment)) continue;
+            if (Util.Enchant.same(ienchantment, enchantment)) continue;
             if (enchantment.conflictsWith(ienchantment) || ienchantment.conflictsWith(enchantment)) return true;
         }
         return false;
@@ -320,7 +320,7 @@ public class Plugin extends JavaPlugin {
         if (item == null) return false;
         if (level < 1) return false;
         if (level > 255) level = 255;
-        int currentLevel = Utl.Nchnt.level(item, enchantment);
+        int currentLevel = Util.Enchant.level(item, enchantment);
         if (!force) {
             if (level < currentLevel) return false;
             if (!(enchantment.canEnchantItem(item) || item.getType() == Material.ENCHANTED_BOOK)) return false;
@@ -329,17 +329,17 @@ public class Plugin extends JavaPlugin {
 
         // Remove Overridden Enchantments
         if (Settings.REMOVE_OVERRIDDEN_ENCHANTMENTS) {
-            if (Utl.Nchnt.same(enchantment, UNBREAKABLE)) {
+            if (Util.Enchant.same(enchantment, UNBREAKABLE)) {
                 removeEnchant(item, Enchantment.DURABILITY);
                 removeEnchant(item, Enchantment.MENDING);
             }
-            else if (Utl.Nchnt.same(enchantment, FIRE_RESISTANCE)) {
+            else if (Util.Enchant.same(enchantment, FIRE_RESISTANCE)) {
                 removeEnchant(item, Enchantment.PROTECTION_FIRE);
             }
         }
 
         // Fix item
-        if (Utl.Nchnt.same(enchantment, UNBREAKABLE)) {
+        if (Util.Enchant.same(enchantment, UNBREAKABLE)) {
             ItemMeta meta = item.getItemMeta();
             if (meta instanceof Damageable) {
                 Damageable damageable = (Damageable) meta;
@@ -372,7 +372,7 @@ public class Plugin extends JavaPlugin {
     public boolean removeEnchant(ItemStack item, Enchantment enchantment) {
         // Remove Enchantment
         if (item == null) return false;
-        final boolean HASENCHANT = Utl.Nchnt.has(item, enchantment);
+        final boolean HASENCHANT = Util.Enchant.has(item, enchantment);
         if (HASENCHANT) {
             if (item.getType() == Material.ENCHANTED_BOOK) {
                 EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
@@ -434,7 +434,7 @@ public class Plugin extends JavaPlugin {
         if (item == null) return;
         Iterator<Enchantment> iter = getFishchantments().iterator();
         while (iter.hasNext()) {
-            Utl.Nchnt.level(item, iter.next());
+            Util.Enchant.level(item, iter.next());
         }
     }
     
