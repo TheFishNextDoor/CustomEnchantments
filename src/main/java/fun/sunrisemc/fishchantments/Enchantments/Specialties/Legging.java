@@ -71,7 +71,7 @@ public class Legging {
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
             int level = Util.Enchant.level(boots, plugin.SWIFTNESS);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.ARMOR_EFFECTS_PERIOD * 2, level-1));
         }
     }
 
@@ -130,7 +130,7 @@ public class Legging {
 
         public static void onTimer(Plugin plugin, Player player, ItemStack leggings) {
             if (!Util.Enchant.has(leggings, plugin.DOLPHINS_GRACE)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Settings.ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 

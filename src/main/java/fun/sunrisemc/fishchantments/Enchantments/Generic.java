@@ -975,8 +975,8 @@ public class Generic {
             LivingEntity mount = (LivingEntity) player.getVehicle();
             int level = Util.Enchant.level(boots, plugin.SPURS);
             if (level < 1) return;
-            mount.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, level - 1));
-            mount.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, level - 1));
+            mount.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.ARMOR_EFFECTS_PERIOD * 2, level - 1));
+            mount.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Settings.ARMOR_EFFECTS_PERIOD * 2, level - 1));
         }
     }
 

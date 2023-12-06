@@ -264,7 +264,7 @@ public class Plugin extends JavaPlugin {
         if (level < 0) return null;
         String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
         if (level == 1) return lore;
-        else return lore + " " + (Settings.NUMBERS ? level.toString() : Util.Enchant.numeral(level));
+        else return lore + " " + (Settings.USE_NUMBERS ? level.toString() : Util.Enchant.numeral(level));
     }
 
     public boolean hasFishchantments(ItemStack item) {
@@ -460,6 +460,8 @@ public class Plugin extends JavaPlugin {
                     Player player = players.next();
                     ItemStack helmet = player.getInventory().getHelmet();
                     ItemStack chestplate = player.getInventory().getChestplate();
+                    ItemStack leggings = player.getInventory().getLeggings();
+                    ItemStack boots = player.getInventory().getBoots();
                     CurseOfRadiance.onTimer(plugin, player);
                     CurseOfMiningFatigue.onTimer(plugin, player);
                     CurseOfSlowness.onTimer(plugin, player);
@@ -475,29 +477,16 @@ public class Plugin extends JavaPlugin {
                     Strength.onTimer(plugin, player, chestplate);
                     Haste.onTimer(plugin, player, chestplate);
                     HeroOfTheVillage.onTimer(plugin, player, chestplate);
-                }
-            }
-        }, Settings.ARMOR_EFFECTS_PERIOD, Settings.ARMOR_EFFECTS_PERIOD);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            @Override
-            public void run() {
-                Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
-                Player player;
-                while (players.hasNext()) {
-                    player = players.next();
-                    ItemStack chestplate = player.getInventory().getChestplate();
-                    ItemStack leggings = player.getInventory().getLeggings();
-                    ItemStack boots = player.getInventory().getBoots();
+                    FireResistance.onTimer(plugin, player, chestplate);
+                    DolphinsGrace.onTimer(plugin, player, leggings);
+                    Swiftness.onTimer(plugin, player, leggings);
                     Anchor.onTimer(plugin, player, boots);
                     SlowFalling.onTimer(plugin, player, boots);
                     Spurs.onTimer(plugin, player, boots);
                     Leaping.onTimer(plugin, player, boots);
-                    DolphinsGrace.onTimer(plugin, player, leggings);
-                    Swiftness.onTimer(plugin, player, leggings);
-                    FireResistance.onTimer(plugin, player, chestplate);
                 }
             }
-        }, Settings.QUICK_ARMOR_EFFECTS_PERIOD, Settings.QUICK_ARMOR_EFFECTS_PERIOD);
+        }, Settings.ARMOR_EFFECTS_PERIOD, Settings.ARMOR_EFFECTS_PERIOD);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {

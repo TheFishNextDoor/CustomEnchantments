@@ -213,7 +213,7 @@ public class Chestplate {
 
         public static void onTimer(Plugin plugin, Player player, ItemStack chestplate) {
             if (!(Util.Enchant.has(chestplate, plugin.FIRE_RESISTANCE))) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Settings.QUICK_ARMOR_EFFECTS_PERIOD * 2, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Settings.ARMOR_EFFECTS_PERIOD * 2, 0));
         }
     }
 
