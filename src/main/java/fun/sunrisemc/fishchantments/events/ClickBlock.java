@@ -19,7 +19,7 @@ public class ClickBlock implements Listener {
     }
 
     @EventHandler
-    public void onRightClick(PlayerInteractEvent event) {
+    public void onClick(PlayerInteractEvent event) {
         Action action = event.getAction();
         if (action == Action.LEFT_CLICK_BLOCK) leftClick(event);
         else if (action == Action.RIGHT_CLICK_BLOCK) rightClick(event);
