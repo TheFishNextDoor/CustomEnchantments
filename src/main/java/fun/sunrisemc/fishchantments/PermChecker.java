@@ -17,6 +17,6 @@ public class PermChecker {
     }
 
     public static boolean isReal(BlockBreakEvent event) {
-        return !checking.equals(event);
+        return event != checking;
     }
 }
