@@ -14,8 +14,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.Util;
-import fun.sunrisemc.fishchantments.Util.Inventory;
+import fun.sunrisemc.fishchantments.util.EnchantUtil;
+import fun.sunrisemc.fishchantments.util.InventoryUtil;
 import net.md_5.bungee.api.ChatColor;
 
 public class Fenchant implements CommandExecutor, TabCompleter {
@@ -31,7 +31,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player)) return null;
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("fenchant")) {
-            if (args.length == 1) return getEnchantCommandNames(Inventory.getItemInUse(player));
+            if (args.length == 1) return getEnchantCommandNames(InventoryUtil.getItemInUse(player));
             else if (args.length == 2) {
                 ArrayList<String> levels = new ArrayList<>();
                 Enchantment enchantment = getEnchantment(args[0]);
@@ -58,7 +58,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         Enchantment enchantment = getEnchantment(commandName);
         if (enchantment == null) return false;
         int level = 1;
-        if (args.length >= 2) level = Util.Enchant.number(args[1]);
+        if (args.length >= 2) level = EnchantUtil.number(args[1]);
         if (level > 0) {
             if (plugin.addEnchant(player.getInventory().getItemInMainHand(), enchantment, level, true, false)) player.sendMessage("Enchantment added to item in hand.");
             else player.sendMessage(ChatColor.RED + "Enchantment could not be added to item in hand.");
@@ -87,7 +87,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
             Enchantment enchantment = enchantIter.next();
             String name = getEnchantCommandName(enchantment);
             allNames.add(name);
-            if (Util.Enchant.has(item, enchantment) || enchantment.canEnchantItem(item)) names.add(name);
+            if (EnchantUtil.has(item, enchantment) || enchantment.canEnchantItem(item)) names.add(name);
         }
         return names.size() == 0 ? allNames : names;
     }

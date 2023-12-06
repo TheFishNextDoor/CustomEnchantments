@@ -10,8 +10,9 @@ import org.bukkit.potion.PotionEffectType;
 
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Settings;
-import fun.sunrisemc.fishchantments.Util;
-import fun.sunrisemc.fishchantments.Util.World;
+import fun.sunrisemc.fishchantments.util.EnchantUtil;
+import fun.sunrisemc.fishchantments.util.InventoryUtil;
+import fun.sunrisemc.fishchantments.util.WorldUtil;
 
 public class Legging {
 
@@ -65,13 +66,13 @@ public class Legging {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Util.Inventory.isLeggings(item.getType());
+            return InventoryUtil.isLeggings(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = Util.Enchant.level(boots, plugin.SWIFTNESS);
+            int level = EnchantUtil.level(boots, plugin.SWIFTNESS);
             if (level < 1) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.ARMOR_EFFECTS_PERIOD * 2, level-1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, level-1));
         }
     }
 
@@ -125,12 +126,12 @@ public class Legging {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Util.Inventory.isLeggings(item.getType());
+            return InventoryUtil.isLeggings(item.getType());
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack leggings) {
-            if (!Util.Enchant.has(leggings, plugin.DOLPHINS_GRACE)) return;
-            player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Settings.ARMOR_EFFECTS_PERIOD * 2, 0));
+            if (!EnchantUtil.has(leggings, plugin.DOLPHINS_GRACE)) return;
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, 0));
         }
     }
 
@@ -184,11 +185,11 @@ public class Legging {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return Util.Inventory.isLeggings(item.getType());
+            return InventoryUtil.isLeggings(item.getType());
         }
 
         public static void onPlayerTakeDamage(Plugin plugin, Player player) {
-            if (Util.Enchant.has(player.getInventory().getLeggings(), plugin.HEAVY)) World.cancelKnockback(plugin, player);
+            if (EnchantUtil.has(player.getInventory().getLeggings(), plugin.HEAVY)) WorldUtil.cancelKnockback(plugin, player);
         }
     }
 }

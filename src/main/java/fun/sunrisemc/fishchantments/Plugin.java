@@ -97,6 +97,7 @@ import fun.sunrisemc.fishchantments.events.EntityDeath;
 import fun.sunrisemc.fishchantments.events.PrepareAnvil;
 import fun.sunrisemc.fishchantments.events.Suffocation;
 import fun.sunrisemc.fishchantments.events.Till;
+import fun.sunrisemc.fishchantments.util.EnchantUtil;
 import net.md_5.bungee.api.ChatColor;
 
 public class Plugin extends JavaPlugin {
@@ -264,7 +265,7 @@ public class Plugin extends JavaPlugin {
         if (level < 0) return null;
         String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
         if (level == 1) return lore;
-        else return lore + " " + (Settings.USE_NUMBERS ? level.toString() : Util.Enchant.numeral(level));
+        else return lore + " " + (Settings.USE_NUMBERS ? level.toString() : EnchantUtil.numeral(level));
     }
 
     public boolean hasFishchantments(ItemStack item) {
@@ -279,7 +280,7 @@ public class Plugin extends JavaPlugin {
         ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
         if (item == null) return foundFishchantments;
         if (!item.hasItemMeta()) return foundFishchantments;
-        Iterator<Enchantment> enchantments = Util.Enchant.enchantments(item).iterator();
+        Iterator<Enchantment> enchantments = EnchantUtil.enchantments(item).iterator();
         while (enchantments.hasNext()) {
             Enchantment enchantment = enchantments.next();
             if (isFishchantment(enchantment)) foundFishchantments.add(enchantment);
@@ -292,16 +293,16 @@ public class Plugin extends JavaPlugin {
         Iterator<Enchantment> fishchantments = getFishchantments().iterator();
         while (fishchantments.hasNext()) {
             Enchantment fishchantment = fishchantments.next();
-            if (Util.Enchant.same(fishchantment, enchantment)) return true;
+            if (EnchantUtil.same(fishchantment, enchantment)) return true;
         }
         return false;
     }
     
     public boolean hasConflictingFishchantments(ItemStack item, Enchantment enchantment) {
-        Iterator<Enchantment> iter = Util.Enchant.enchantments(item).iterator();
+        Iterator<Enchantment> iter = EnchantUtil.enchantments(item).iterator();
         while (iter.hasNext()) {
             Enchantment ienchantment = iter.next();
-            if (Util.Enchant.same(ienchantment, enchantment)) continue;
+            if (EnchantUtil.same(ienchantment, enchantment)) continue;
             if (enchantment.conflictsWith(ienchantment) || ienchantment.conflictsWith(enchantment)) return true;
         }
         return false;
@@ -320,7 +321,7 @@ public class Plugin extends JavaPlugin {
         if (item == null) return false;
         if (level < 1) return false;
         if (level > 255) level = 255;
-        int currentLevel = Util.Enchant.level(item, enchantment);
+        int currentLevel = EnchantUtil.level(item, enchantment);
         if (!force) {
             if (level < currentLevel) return false;
             if (!(enchantment.canEnchantItem(item) || item.getType() == Material.ENCHANTED_BOOK)) return false;
@@ -329,17 +330,17 @@ public class Plugin extends JavaPlugin {
 
         // Remove Overridden Enchantments
         if (Settings.REMOVE_OVERRIDDEN_ENCHANTMENTS) {
-            if (Util.Enchant.same(enchantment, UNBREAKABLE)) {
+            if (EnchantUtil.same(enchantment, UNBREAKABLE)) {
                 removeEnchant(item, Enchantment.DURABILITY);
                 removeEnchant(item, Enchantment.MENDING);
             }
-            else if (Util.Enchant.same(enchantment, FIRE_RESISTANCE)) {
+            else if (EnchantUtil.same(enchantment, FIRE_RESISTANCE)) {
                 removeEnchant(item, Enchantment.PROTECTION_FIRE);
             }
         }
 
         // Fix item
-        if (Util.Enchant.same(enchantment, UNBREAKABLE)) {
+        if (EnchantUtil.same(enchantment, UNBREAKABLE)) {
             ItemMeta meta = item.getItemMeta();
             if (meta instanceof Damageable) {
                 Damageable damageable = (Damageable) meta;
@@ -372,7 +373,7 @@ public class Plugin extends JavaPlugin {
     public boolean removeEnchant(ItemStack item, Enchantment enchantment) {
         // Remove Enchantment
         if (item == null) return false;
-        final boolean HASENCHANT = Util.Enchant.has(item, enchantment);
+        final boolean HASENCHANT = EnchantUtil.has(item, enchantment);
         if (HASENCHANT) {
             if (item.getType() == Material.ENCHANTED_BOOK) {
                 EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
@@ -434,7 +435,7 @@ public class Plugin extends JavaPlugin {
         if (item == null) return;
         Iterator<Enchantment> iter = getFishchantments().iterator();
         while (iter.hasNext()) {
-            Util.Enchant.level(item, iter.next());
+            EnchantUtil.level(item, iter.next());
         }
     }
     
@@ -486,7 +487,7 @@ public class Plugin extends JavaPlugin {
                     Leaping.onTimer(plugin, player, boots);
                 }
             }
-        }, Settings.ARMOR_EFFECTS_PERIOD, Settings.ARMOR_EFFECTS_PERIOD);
+        }, Settings.ARMOR_EFFECTS_PERIOD_TICKS, Settings.ARMOR_EFFECTS_PERIOD_TICKS);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
