@@ -32,6 +32,7 @@ import org.bukkit.util.Vector;
 
 import fun.sunrisemc.fishchantments.PlayerTracker;
 import fun.sunrisemc.fishchantments.Plugin;
+import fun.sunrisemc.fishchantments.PermChecker;
 import fun.sunrisemc.fishchantments.Settings;
 import fun.sunrisemc.fishchantments.Utl;
 import fun.sunrisemc.fishchantments.Utl.Nvntry;
@@ -712,7 +713,7 @@ public class Generic {
             int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
             for (int[] coords : allCoords) {
                 Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                if (isTillable(modifiedBlock.getType()) && Utl.PrmChkr.canBreak(player, modifiedBlock)) modifiedBlock.setType(Material.FARMLAND);
+                if (isTillable(modifiedBlock.getType()) && PermChecker.canBreak(player, modifiedBlock)) modifiedBlock.setType(Material.FARMLAND);
             }
         }
 
@@ -776,14 +777,14 @@ public class Generic {
             ItemStack item = Nvntry.getHoeInUse(player);
             if (item == null) return;
             if (level == 1) {
-                if (Utl.PrmChkr.canBreak(player, block)) harvest(plugin, player, block, item);
+                if (PermChecker.canBreak(player, block)) harvest(plugin, player, block, item);
             }
             else {
                 int x = block.getX(); int y = block.getY(); int z = block.getZ();
                 int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
                 for (int[] coords : allCoords) {
                     Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                    if (Utl.PrmChkr.canBreak(player, modifiedBlock)) harvest(plugin, player, modifiedBlock, item);
+                    if (PermChecker.canBreak(player, modifiedBlock)) harvest(plugin, player, modifiedBlock, item);
                 }
             }
         }

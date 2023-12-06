@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.Utl;
+import fun.sunrisemc.fishchantments.PermChecker;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Enlightenment;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Excavating;
 import fun.sunrisemc.fishchantments.enchantments.Generic.Replanting;
@@ -26,7 +26,7 @@ public class BreakBlock implements Listener {
         Player player = event.getPlayer();
         Block block = event.getBlock();
         if (player == null || block == null) return;
-        if (!Utl.PrmChkr.isReal(event)) return;
+        if (!PermChecker.isReal(event)) return;
         Enlightenment.onBlockXp(plugin, player, event);
         Telekinesis.onBlockXp(plugin, player, event);
         Replanting.onBlockBreak(plugin, player, block, event);

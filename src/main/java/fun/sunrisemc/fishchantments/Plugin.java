@@ -408,7 +408,7 @@ public class Plugin extends JavaPlugin {
     }
     
     public void breakBlock(Player player, Block block, ItemStack item) {
-        if (!Utl.PrmChkr.canBreak(player, block)) return;
+        if (!PermChecker.canBreak(player, block)) return;
         blockDrops(player, block, item);
         block.setType(Material.AIR);
     }

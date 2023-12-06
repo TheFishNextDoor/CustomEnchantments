@@ -11,7 +11,6 @@ import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
@@ -19,22 +18,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 
 public class Utl {
-
-    public static class PrmChkr {
-        private static ArrayList<BlockBreakEvent> checking = new ArrayList<>();
-
-        public static boolean canBreak(Player player, Block block) {
-            BlockBreakEvent event = new BlockBreakEvent(block, player);
-            checking.add(event); 
-            Bukkit.getServer().getPluginManager().callEvent(event);
-            checking.remove(event);
-            return !event.isCancelled();
-        }
-
-        public static boolean isReal(BlockBreakEvent event) {
-            return !checking.contains(event);
-        }
-    }
 
     public static class Wrld {
 
