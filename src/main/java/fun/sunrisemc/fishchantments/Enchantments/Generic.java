@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.enchantments.Enchantment;
@@ -29,6 +30,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import fun.sunrisemc.fishchantments.PlayerTracker;
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Settings;
 import fun.sunrisemc.fishchantments.Utl;
@@ -609,12 +611,9 @@ public class Generic {
 
         public static void onBlockBreak(Plugin plugin, Player player, Block block, BlockBreakEvent event) {
             if (!Utl.Nchnt.holding(player, plugin.EXCAVATING)) return;
-            Vector direction = player.getLocation().getDirection();
-            double x = Math.abs(direction.getX());
-            double y = Math.abs(direction.getY());
-            double z = Math.abs(direction.getZ());
+            BlockFace face = PlayerTracker.get(player).getMiningFace();
             ArrayList<Block> blocks = new ArrayList<>();
-            if (x > y && x > z) { // Looking along x axis
+            if (face == BlockFace.EAST || face == BlockFace.WEST) { // Looking along x axis
                 blocks.add(block.getRelative(0, 0, 1));
                 blocks.add(block.getRelative(0, 0, -1));
                 blocks.add(block.getRelative(0, 1, 0));
@@ -624,7 +623,7 @@ public class Generic {
                 blocks.add(block.getRelative(0, -1, 1));
                 blocks.add(block.getRelative(0, -1, -1));
             }
-            else if (z > x && z > y) {// Looking along z axis
+            else if (face == BlockFace.NORTH || face == BlockFace.SOUTH) {// Looking along z axis
                 blocks.add(block.getRelative(0, 1, 0));
                 blocks.add(block.getRelative(0, -1, 0));
                 blocks.add(block.getRelative(1, 0, 0));
@@ -634,7 +633,7 @@ public class Generic {
                 blocks.add(block.getRelative(-1, 1, 0));
                 blocks.add(block.getRelative(-1, -1, 0));
             }
-            else if (y > x && y > z) { // Looking along Y axis
+            else if (face == BlockFace.UP || face == BlockFace.DOWN) { // Looking along Y axis
                 blocks.add(block.getRelative(0, 0, 1));
                 blocks.add(block.getRelative(0, 0, -1));
                 blocks.add(block.getRelative(1, 0, 0));

@@ -80,6 +80,7 @@ import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.BloodTipped;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Volley;
 import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Glass;
 import fun.sunrisemc.fishchantments.events.ProjectileHit;
+import fun.sunrisemc.fishchantments.events.Quit;
 import fun.sunrisemc.fishchantments.events.ItemDamage;
 import fun.sunrisemc.fishchantments.events.Fall;
 import fun.sunrisemc.fishchantments.events.AttackEntity;
@@ -221,6 +222,7 @@ public class Plugin extends JavaPlugin {
         register(HEAVY);
         register(FLAMING);
         getCommand("fenchant").setExecutor(new Fenchant(this));
+        getServer().getPluginManager().registerEvents(new Quit(), this);
         getServer().getPluginManager().registerEvents(new ProjectileHit(this), this);
         getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
         getServer().getPluginManager().registerEvents(new BlockDropItems(this), this);
@@ -416,7 +418,7 @@ public class Plugin extends JavaPlugin {
     }
     
     public void blockDrops(Player player, Block block, ItemStack item) {
-        Collection<ItemStack> drops; 
+        Collection<ItemStack> drops;
         if (item == null) drops = block.getDrops();
         else drops = block.getDrops(item);
         if (drops.isEmpty()) return;
@@ -454,9 +456,8 @@ public class Plugin extends JavaPlugin {
             @Override
             public void run() {
                 Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
-                Player player;
                 while (players.hasNext()) {
-                    player = players.next();
+                    Player player = players.next();
                     ItemStack helmet = player.getInventory().getHelmet();
                     ItemStack chestplate = player.getInventory().getChestplate();
                     CurseOfRadiance.onTimer(plugin, player);
