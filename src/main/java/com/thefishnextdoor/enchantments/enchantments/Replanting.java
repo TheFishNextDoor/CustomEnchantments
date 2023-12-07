@@ -95,7 +95,7 @@ public class Replanting extends Enchantment {
         if (!(state.getBlockData() instanceof Ageable)) return false;
         Ageable ageable = (Ageable) state.getBlockData();
         if (ageable.getAge() != ageable.getMaximumAge()) return false;
-        WorldUtil.blockDrops(player, block, item);
+        WorldUtil.dropBlockItems(player, block, item);
         ageable.setAge(0);
         block.setBlockData(ageable);
         return true;

@@ -64,7 +64,7 @@ public class CurseOfAquaphobia extends Enchantment {
         int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_AQUAPHOBIA);
         if (level < 1) return;
         boolean inWater = player.isInWater();
-        boolean inRain = WorldUtil.raining(player.getLocation().getBlock()) && !WorldUtil.underBlock(player);
+        boolean inRain = WorldUtil.isRaining(player.getLocation().getBlock()) && !WorldUtil.underBlock(player);
         if (inWater || inRain) player.damage(1);
     }
 }

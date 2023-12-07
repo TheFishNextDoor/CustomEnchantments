@@ -23,15 +23,15 @@ public class WorldUtil {
 
     public static void breakBlock(Player player, Block block, ItemStack item) {
         if (!PermChecker.canBreak(player, block)) return;
-        WorldUtil.blockDrops(player, block, item);
+        WorldUtil.dropBlockItems(player, block, item);
         block.setType(Material.AIR);
     }
 
-    public static void blockDrops(Player player, Block block) {
-        WorldUtil.blockDrops(player, block, null);
+    public static void dropBlockItems(Player player, Block block) {
+        WorldUtil.dropBlockItems(player, block, null);
     }
 
-    public static void blockDrops(Player player, Block block, ItemStack item) {
+    public static void dropBlockItems(Player player, Block block, ItemStack item) {
         Collection<ItemStack> drops;
         if (item == null) drops = block.getDrops();
         else drops = block.getDrops(item);
@@ -52,22 +52,21 @@ public class WorldUtil {
         }, 0);
     }
 
-    public static boolean raining(Block block) {
-        return block.getWorld().hasStorm() && rains(block);
+    public static boolean isRaining(Block block) {
+        return block.getWorld().hasStorm() && canRain(block);
     }
 
-    public static boolean rains(Block block) {
+    public static boolean canRain(Block block) {
         double temp = block.getTemperature();
         return temp < 0.95 && temp > 0.15;
     }
 
-    public static boolean snowing(Block block) {
-        return block.getWorld().hasStorm() && snows(block);
+    public static boolean isSnowing(Block block) {
+        return block.getWorld().hasStorm() && canSnow(block);
     }
 
-    public static boolean snows(Block block) {
-        double temp = block.getTemperature();
-        return temp < 0.15;
+    public static boolean canSnow(Block block) {
+        return block.getTemperature() < 0.15;
     }
 
     public static boolean underBlock(Player player) {
