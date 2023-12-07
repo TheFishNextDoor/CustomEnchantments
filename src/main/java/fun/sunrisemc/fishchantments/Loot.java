@@ -16,6 +16,7 @@ import fun.sunrisemc.fishchantments.util.NumberUtil;
 public class Loot {
 
     public static void addLoot(Plugin plugin, Player player, LivingEntity livingEntity, List<ItemStack> drops) {
+        if (!Settings.MOBS_DROP_BOOKS) return;
         if (!livingEntity.getWorld().getGameRuleValue(GameRule.DO_MOB_LOOT)) return;
         EntityType type = livingEntity.getType();
         double m = 1.0 + (EnchantUtil.lootingLevel(player) * 0.1);
