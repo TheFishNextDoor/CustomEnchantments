@@ -16,8 +16,8 @@ import fun.sunrisemc.fishchantments.util.NumberUtil;
 public class Loot {
 
     public static void addLoot(Plugin plugin, Player player, LivingEntity livingEntity, List<ItemStack> drops) {
-        EntityType type = livingEntity.getType();
         if (!livingEntity.getWorld().getGameRuleValue(GameRule.DO_MOB_LOOT)) return;
+        EntityType type = livingEntity.getType();
         double m = 1.0 + (EnchantUtil.lootingLevel(player) * 0.1);
         if (type == EntityType.ZOMBIE && NumberUtil.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.SUSTENANCE, 1));
         if (type == EntityType.WITHER_SKELETON && NumberUtil.chance(0.1 * m)) drops.add(plugin.enchantedBook(plugin.DEATHWISH, 1));
