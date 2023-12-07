@@ -50,8 +50,8 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
         if (!command.getName().equalsIgnoreCase("fenchant")) return false;
         if (args.length == 0) return false;
-        String commandName = args[0];
-        Enchantment enchantment = getEnchantment(commandName);
+        String enchantName = args[0];
+        Enchantment enchantment = getEnchantment(enchantName);
         if (enchantment == null) return false;
         int level = 1;
         if (args.length >= 2) level = EnchantUtil.number(args[1]);

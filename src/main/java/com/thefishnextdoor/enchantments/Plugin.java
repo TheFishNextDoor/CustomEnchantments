@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.thefishnextdoor.enchantments.commands.Fenchant;
+import com.thefishnextdoor.enchantments.commands.Reload;
 import com.thefishnextdoor.enchantments.events.AttackEntity;
 import com.thefishnextdoor.enchantments.events.BlockDropItems;
 import com.thefishnextdoor.enchantments.events.BreakBlock;
@@ -32,8 +33,35 @@ public class Plugin extends JavaPlugin {
     }
     
     public void onEnable() {
+        loadConfig();
         CustomEnchantment.registerAll();
         Timer.start(this);
+        registerEvents();
+        registerCommands();
+        LOGGER.info("Plugin enabled");
+    }
+    
+    public void onDisable() {
+        Timer.stop();
+        LOGGER.info("Plugin disabled");
+    }
+
+    public void reload() {
+        reloadConfig();
+        loadConfig();
+        Timer.reload();
+    }
+
+    private void loadConfig() {
+        saveDefaultConfig();
+        getConfig().options().copyDefaults(true);
+        saveConfig();
+        Settings.load(getConfig());
+    }
+
+    private void registerEvents() {
+        getServer().getPluginManager().registerEvents(new Damage(this), this);
+        getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
         getServer().getPluginManager().registerEvents(new Quit(), this);
         getServer().getPluginManager().registerEvents(new ProjectileHit(), this);
         getServer().getPluginManager().registerEvents(new BlockDropItems(), this);
@@ -50,13 +78,10 @@ public class Plugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PrepareAnvil(), this);
         getServer().getPluginManager().registerEvents(new Grindstone(), this);
         getServer().getPluginManager().registerEvents(new EntityDeath(this), this);
-        getServer().getPluginManager().registerEvents(new Damage(this), this);
-        getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
-        getCommand("fenchant").setExecutor(new Fenchant());
-        LOGGER.info("Plugin enabled");
     }
-    
-    public void onDisable() {
-        LOGGER.info("Plugin disabled");
+
+    private void registerCommands() {
+        getCommand("reloadenchantments").setExecutor(new Reload(this));
+        getCommand("fenchant").setExecutor(new Fenchant());
     }
 }

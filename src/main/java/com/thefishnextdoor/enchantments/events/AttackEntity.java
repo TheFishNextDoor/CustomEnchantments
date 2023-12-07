@@ -29,7 +29,7 @@ import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.Withering
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class AttackEntity implements Listener {
-    Plugin plugin;
+    private final Plugin plugin;
 
     public AttackEntity(Plugin plugin) {
         this.plugin = plugin;

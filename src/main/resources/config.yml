@@ -1,0 +1,5 @@
+mobs-drop-books: true # Mobs will have a chance to drop books with custom enchantments
+remove-overridden-enchantments: true # Remove unbreaking and mending when unbreakable is applied
+check-lore: true # Fixes plugins with lossy item saving from losing the applied enchantments (e.g. Essentials kits)
+use-arabic-numerals: false # Use 1, 2, 3 instead of I, II, III
+armor-effects-period-ticks: 20 # How often to apply armor effects (20 ticks = 1 second)

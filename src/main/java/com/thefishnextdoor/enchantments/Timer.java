@@ -71,7 +71,7 @@ public class Timer {
                     Leaping.onTimer(player, boots);
                 }
             }
-        }, Settings.ARMOR_EFFECTS_PERIOD_TICKS, Settings.ARMOR_EFFECTS_PERIOD_TICKS);
+        }, 0, Settings.ARMOR_EFFECTS_PERIOD_TICKS);
         if (curseOfAquaphobiaTaskId == -1) curseOfAquaphobiaTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
