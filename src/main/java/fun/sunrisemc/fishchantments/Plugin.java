@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
@@ -103,7 +102,6 @@ import net.md_5.bungee.api.ChatColor;
 public class Plugin extends JavaPlugin {
     private static final Logger LOGGER = Logger.getLogger("Fishchantments");
     private ArrayList<Enchantment> fishchantments = new ArrayList<>();
-    
     public final Enchantment DESTRUCTIVE = new Destructive(new NamespacedKey(this, "destructive"));
     public final Enchantment TILLING = new Tilling(new NamespacedKey(this, "tilling"));
     public final Enchantment REPLANTING = new Replanting(new NamespacedKey(this, "replanting"));
@@ -241,7 +239,7 @@ public class Plugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PrepareAnvil(this), this);
         getServer().getPluginManager().registerEvents(new Grindstone(this), this);
         getServer().getPluginManager().registerEvents(new EntityDeath(this), this);
-        startTimer(this);
+        Timer.start(this);
         LOGGER.info("Fishchantments enabled");
     }
     
@@ -265,7 +263,7 @@ public class Plugin extends JavaPlugin {
         if (level < 0) return null;
         String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
         if (level == 1) return lore;
-        else return lore + " " + (Settings.USE_NUMBERS ? level.toString() : EnchantUtil.numeral(level));
+        else return lore + " " + (Settings.USE_ARABIC_NUMERALS ? level.toString() : EnchantUtil.numeral(level));
     }
 
     public boolean hasFishchantments(ItemStack item) {
@@ -450,54 +448,5 @@ public class Plugin extends JavaPlugin {
         catch (Exception e) {
             LOGGER.warning("Failed to load enchant " + enchant.toString() + ": " + e.getMessage());
         }
-    }
-    
-    private void startTimer(final Plugin plugin) {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            @Override
-            public void run() {
-                Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
-                while (players.hasNext()) {
-                    Player player = players.next();
-                    ItemStack helmet = player.getInventory().getHelmet();
-                    ItemStack chestplate = player.getInventory().getChestplate();
-                    ItemStack leggings = player.getInventory().getLeggings();
-                    ItemStack boots = player.getInventory().getBoots();
-                    CurseOfRadiance.onTimer(plugin, player);
-                    CurseOfMiningFatigue.onTimer(plugin, player);
-                    CurseOfSlowness.onTimer(plugin, player);
-                    CurseOfWeakness.onTimer(plugin, player);
-                    CurseOfLevitating.onTimer(plugin, player);
-                    Invisibility.onTimer(plugin, player);
-                    Gills.onTimer(plugin, player, helmet);
-                    NightVision.onTimer(plugin, player, helmet);
-                    ConduitPower.onTimer(plugin, player, helmet);
-                    DragonScales.onTimer(plugin, player, chestplate);
-                    Healing.onTimer(plugin, player, chestplate);
-                    IncreasedHealth.onTimer(plugin, player, chestplate);
-                    Strength.onTimer(plugin, player, chestplate);
-                    Haste.onTimer(plugin, player, chestplate);
-                    HeroOfTheVillage.onTimer(plugin, player, chestplate);
-                    FireResistance.onTimer(plugin, player, chestplate);
-                    DolphinsGrace.onTimer(plugin, player, leggings);
-                    Swiftness.onTimer(plugin, player, leggings);
-                    Anchor.onTimer(plugin, player, boots);
-                    SlowFalling.onTimer(plugin, player, boots);
-                    Spurs.onTimer(plugin, player, boots);
-                    Leaping.onTimer(plugin, player, boots);
-                }
-            }
-        }, Settings.ARMOR_EFFECTS_PERIOD_TICKS, Settings.ARMOR_EFFECTS_PERIOD_TICKS);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            @Override
-            public void run() {
-                Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
-                Player player;
-                while (players.hasNext()) {
-                    player = players.next();
-                    CurseOfAquaphobia.onTimer(plugin, player);
-                }
-            }
-        }, 40, 40);
     }
 }
