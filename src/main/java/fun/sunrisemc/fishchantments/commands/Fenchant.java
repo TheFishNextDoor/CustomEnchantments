@@ -13,17 +13,12 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import fun.sunrisemc.fishchantments.Plugin;
+import fun.sunrisemc.fishchantments.CustomEnchantment;
 import fun.sunrisemc.fishchantments.util.EnchantUtil;
 import fun.sunrisemc.fishchantments.util.InventoryUtil;
 import net.md_5.bungee.api.ChatColor;
 
 public class Fenchant implements CommandExecutor, TabCompleter {
-    private final Plugin plugin;
-
-    public Fenchant(Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
@@ -60,11 +55,11 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         int level = 1;
         if (args.length >= 2) level = EnchantUtil.number(args[1]);
         if (level > 0) {
-            if (plugin.addEnchant(player.getInventory().getItemInMainHand(), enchantment, level, true, false)) player.sendMessage("Enchantment added to item in hand.");
+            if (EnchantUtil.addEnchant(player.getInventory().getItemInMainHand(), enchantment, level, true, false)) player.sendMessage("Enchantment added to item in hand.");
             else player.sendMessage(ChatColor.RED + "Enchantment could not be added to item in hand.");
         }
         else {
-            if (plugin.removeEnchant(player.getInventory().getItemInMainHand(), enchantment)) player.sendMessage("Enchantment removed from item in hand.");
+            if (EnchantUtil.removeEnchant(player.getInventory().getItemInMainHand(), enchantment)) player.sendMessage("Enchantment removed from item in hand.");
             else player.sendMessage(ChatColor.RED + "Enchantment could not be removed from item in hand.");
         }
         return true;
@@ -93,7 +88,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
     }
 
     private ArrayList<Enchantment> allEnchantments() {
-        ArrayList<Enchantment> enchants = plugin.getFishchantments();
+        ArrayList<Enchantment> enchants = CustomEnchantment.all();
         enchants.addAll(Arrays.asList(Enchantment.values()));
         return enchants;
     }

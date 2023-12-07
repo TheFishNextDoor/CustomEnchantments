@@ -11,8 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.fishchantments.Loot;
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Enlightenment;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Telekinesis;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Enlightenment;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Telekinesis;
 
 public class EntityDeath implements Listener {
     private static final boolean DROP_BOOKS = true;

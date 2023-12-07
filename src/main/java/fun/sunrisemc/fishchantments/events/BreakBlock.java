@@ -7,11 +7,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import fun.sunrisemc.fishchantments.Plugin;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Enlightenment;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Excavating;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Replanting;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Telekinesis;
 import fun.sunrisemc.fishchantments.PermChecker;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Enlightenment;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Excavating;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Replanting;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Telekinesis;
 
 public class BreakBlock implements Listener {
     private final Plugin plugin;

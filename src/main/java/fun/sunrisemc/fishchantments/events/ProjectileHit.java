@@ -9,7 +9,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Destructive;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Destructive;
 
 public class ProjectileHit implements Listener {
     Plugin plugin;

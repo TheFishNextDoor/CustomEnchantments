@@ -1,4 +1,4 @@
-package fun.sunrisemc.fishchantments.enchantments.specialties;
+package fun.sunrisemc.fishchantments.enchantment_definitions.specialties;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import fun.sunrisemc.fishchantments.CustomEnchantment;
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Settings;
 import fun.sunrisemc.fishchantments.util.EnchantUtil;
@@ -73,7 +74,7 @@ public class Helmet {
         }
 
         public static void onHungerLoss(Plugin plugin, Player player, ItemStack helmet, FoodLevelChangeEvent event) {
-            if (!EnchantUtil.has(helmet, plugin.SUSTENANCE)) return;
+            if (!EnchantUtil.has(helmet, CustomEnchantment.SUSTENANCE)) return;
             event.setFoodLevel(20);
         }
     }
@@ -134,7 +135,7 @@ public class Helmet {
         }
 
         public static void onSuffocate(Plugin plugin, Player player, ItemStack helmet, EntityDamageEvent event) {
-            if (!EnchantUtil.has(helmet, plugin.WORM)) return;
+            if (!EnchantUtil.has(helmet, CustomEnchantment.WORM)) return;
             event.setCancelled(true);
         }
     }
@@ -195,7 +196,7 @@ public class Helmet {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
-            if (!EnchantUtil.has(helmet, plugin.WATER_BREATHING)) return;
+            if (!EnchantUtil.has(helmet, CustomEnchantment.WATER_BREATHING)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, 0));
         }
     }
@@ -256,7 +257,7 @@ public class Helmet {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
-            if (!EnchantUtil.has(helmet, plugin.NIGHT_VISION)) return;
+            if (!EnchantUtil.has(helmet, CustomEnchantment.NIGHT_VISION)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900 + Settings.ARMOR_EFFECTS_PERIOD_TICKS, 0));
         }
     }
@@ -317,7 +318,7 @@ public class Helmet {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack helmet) {
-            int level = EnchantUtil.level(helmet, plugin.CONDUIT_POWER);
+            int level = EnchantUtil.level(helmet, CustomEnchantment.CONDUIT_POWER);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, level-1));
         }

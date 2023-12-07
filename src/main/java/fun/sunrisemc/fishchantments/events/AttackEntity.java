@@ -10,22 +10,22 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Generic.AquaAspect;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Fling;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Radiance;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Reflection;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Obscure;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.DeathWish;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.BloodTipped;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Disorienting;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Glass;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Levitating;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Starving;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.LifeSteal;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Venom;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Crippling;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Debilitating;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Withering;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.AquaAspect;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Fling;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Radiance;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Reflection;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Chestplate.DeathWish;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.BloodTipped;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Crippling;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Debilitating;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Disorienting;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Glass;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Levitating;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.LifeSteal;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Obscure;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Starving;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Venom;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Withering;
 import fun.sunrisemc.fishchantments.util.InventoryUtil;
 
 public class AttackEntity implements Listener {

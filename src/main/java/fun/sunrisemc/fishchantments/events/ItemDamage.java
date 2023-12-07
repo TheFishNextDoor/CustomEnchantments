@@ -7,8 +7,8 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Unbreakable;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Glass;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Unbreakable;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Glass;
 
 public class ItemDamage implements Listener {
     private final Plugin plugin;

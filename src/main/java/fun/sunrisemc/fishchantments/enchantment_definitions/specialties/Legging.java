@@ -1,4 +1,4 @@
-package fun.sunrisemc.fishchantments.enchantments.specialties;
+package fun.sunrisemc.fishchantments.enchantment_definitions.specialties;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import fun.sunrisemc.fishchantments.CustomEnchantment;
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Settings;
 import fun.sunrisemc.fishchantments.util.EnchantUtil;
@@ -70,7 +71,7 @@ public class Legging {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
-            int level = EnchantUtil.level(boots, plugin.SWIFTNESS);
+            int level = EnchantUtil.level(boots, CustomEnchantment.SWIFTNESS);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, level-1));
         }
@@ -130,7 +131,7 @@ public class Legging {
         }
 
         public static void onTimer(Plugin plugin, Player player, ItemStack leggings) {
-            if (!EnchantUtil.has(leggings, plugin.DOLPHINS_GRACE)) return;
+            if (!EnchantUtil.has(leggings, CustomEnchantment.DOLPHINS_GRACE)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, 0));
         }
     }
@@ -189,7 +190,7 @@ public class Legging {
         }
 
         public static void onPlayerTakeDamage(Plugin plugin, Player player) {
-            if (EnchantUtil.has(player.getInventory().getLeggings(), plugin.HEAVY)) WorldUtil.cancelKnockback(plugin, player);
+            if (EnchantUtil.has(player.getInventory().getLeggings(), CustomEnchantment.HEAVY)) WorldUtil.cancelKnockback(plugin, player);
         }
     }
 }

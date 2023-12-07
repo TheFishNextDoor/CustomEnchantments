@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Chestplate.Flaming;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Chestplate.Flaming;
 
 public class EntityAttack implements Listener {
     Plugin plugin;

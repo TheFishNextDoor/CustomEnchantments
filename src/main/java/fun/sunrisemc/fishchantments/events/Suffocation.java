@@ -7,7 +7,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Helmet.Worm;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Helmet.Worm;
 
 public class Suffocation implements Listener {
     private final Plugin plugin;

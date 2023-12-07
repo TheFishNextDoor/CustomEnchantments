@@ -7,7 +7,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Helmet.Sustenance;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Helmet.Sustenance;
 
 public class HungerChange implements Listener {
     private final Plugin plugin;

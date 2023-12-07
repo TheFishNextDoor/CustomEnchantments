@@ -8,10 +8,10 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Precision;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Range;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.BloodTipped;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Weapon.Volley;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Precision;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Range;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.BloodTipped;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Volley;
 
 public class FireProjectile implements Listener {
     private final Plugin plugin;

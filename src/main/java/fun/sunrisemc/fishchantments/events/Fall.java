@@ -8,8 +8,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Bounce;
-import fun.sunrisemc.fishchantments.enchantments.specialties.Boot.Crush;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Boot.Bounce;
+import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Boot.Crush;
 
 public class Fall implements Listener {
     private final Plugin plugin;

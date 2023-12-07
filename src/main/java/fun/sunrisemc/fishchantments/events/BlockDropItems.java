@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Telekinesis;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Telekinesis;
 
 public class BlockDropItems implements Listener {
     private final Plugin plugin;

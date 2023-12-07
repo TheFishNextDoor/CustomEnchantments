@@ -1,4 +1,4 @@
-package fun.sunrisemc.fishchantments.enchantments.specialties;
+package fun.sunrisemc.fishchantments.enchantment_definitions.specialties;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,8 +20,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import fun.sunrisemc.fishchantments.CustomEnchantment;
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Unbreakable;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Unbreakable;
 import fun.sunrisemc.fishchantments.util.EnchantUtil;
 import fun.sunrisemc.fishchantments.util.InventoryUtil;
 
@@ -90,7 +91,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, double damage, boolean ranged) {
-            final int level = EnchantUtil.weaponLevel(player, plugin.LIFE_STEAL, ranged);
+            final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.LIFE_STEAL, ranged);
             if (level < 1) return;
             if (!ranged) damage /= 2;
             heal(player, calcAddedHealth(damage, level));
@@ -181,7 +182,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = EnchantUtil.weaponLevel(player, plugin.POISON, ranged);
+            final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.POISON, ranged);
             if (level < 1) return;
             int strength = level/2;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 40 + (level * 20)/(strength + 1), strength));
@@ -251,7 +252,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = EnchantUtil.weaponLevel(player, plugin.WITHER, ranged);
+            final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.WITHER, ranged);
             if (level < 1) return;
             int strength = level/3;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 40 + (level * 20)/(strength + 1), strength));
@@ -321,7 +322,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = EnchantUtil.weaponLevel(player, plugin.OBSCURE, ranged);
+            final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.OBSCURE, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, level * 20, 0));
         }
@@ -390,7 +391,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = EnchantUtil.weaponLevel(player, plugin.DISORIENTING, ranged);
+            final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.DISORIENTING, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, level * 20, 0));
         }
@@ -459,7 +460,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = EnchantUtil.weaponLevel(player, plugin.DEBILITATING, ranged);
+            final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.DEBILITATING, ranged);
             if (level < 1) return;
             int strength = level/4;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 40 + (level * 20)/(strength + 1), strength));
@@ -529,7 +530,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = EnchantUtil.weaponLevel(player, plugin.STARVING, ranged);
+            final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.STARVING, ranged);
             if (level < 1) return;
             int strength = level/2;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 40 + (level * 20)/(strength + 1), strength));
@@ -599,7 +600,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = EnchantUtil.weaponLevel(player, plugin.CRIPPLING, ranged);
+            final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.CRIPPLING, ranged);
             if (level < 1) return;
             int strength = level/3;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40 + (level * 20)/(strength + 1), strength));
@@ -672,13 +673,13 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, double damage, EntityDamageByEntityEvent event, boolean ranged) {
-            final int level = EnchantUtil.weaponLevel(player, plugin.GLASS, ranged);
+            final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.GLASS, ranged);
             if (level < 1) return;
             event.setDamage(damage * 1.5);
         }
 
         public static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, int damage, PlayerItemDamageEvent event) {
-            if (EnchantUtil.has(item, plugin.GLASS)) event.setDamage(damage * 32);
+            if (EnchantUtil.has(item, CustomEnchantment.GLASS)) event.setDamage(damage * 32);
         }
     }
 
@@ -745,7 +746,7 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
-            final int level = EnchantUtil.weaponLevel(player, plugin.LEVITATING, ranged);
+            final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.LEVITATING, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 40, 0));
         }
@@ -814,13 +815,13 @@ public class Weapon {
         }
 
         public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity livingEntity, boolean ranged) {
-            final int level = EnchantUtil.weaponLevel(player, plugin.BLOODTIPPED, ranged);
+            final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.BLOODTIPPED, ranged);
             if (level < 1) return;
             livingEntity.addPotionEffects(player.getActivePotionEffects());
         }
 
         public static void onPlayerFireProjectile(Plugin plugin, Player player) {
-            if (EnchantUtil.holdingRanged(player, plugin.BLOODTIPPED)) player.damage(1);
+            if (EnchantUtil.holdingRanged(player, CustomEnchantment.BLOODTIPPED)) player.damage(1);
         }
     }
 
@@ -889,7 +890,7 @@ public class Weapon {
 
         public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
             if (!(projectile instanceof AbstractArrow)) return;
-            int level = EnchantUtil.rangedLevel(player, plugin.VOLLEY);
+            int level = EnchantUtil.rangedLevel(player, CustomEnchantment.VOLLEY);
             if (level < 1) return;
             if (level > 9) level = 9;
             World world = projectile.getWorld();

@@ -1,4 +1,4 @@
-package fun.sunrisemc.fishchantments.enchantments.specialties;
+package fun.sunrisemc.fishchantments.enchantment_definitions.specialties;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import fun.sunrisemc.fishchantments.CustomEnchantment;
 import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.util.EnchantUtil;
 
@@ -68,7 +69,7 @@ public class Elytra {
         public static void whenGliding(Plugin plugin, Player player) {
             if (player.isInWater()) return;
             Vector velocity = player.getVelocity();
-            int level = EnchantUtil.level(player.getInventory().getChestplate(), plugin.BOOSTERS);
+            int level = EnchantUtil.level(player.getInventory().getChestplate(), CustomEnchantment.BOOSTERS);
             if (level < 1) return;
             if (level > 10) level = 10;
             if (velocity.length() > 1.1) return;
@@ -135,7 +136,7 @@ public class Elytra {
             if (speed < 0.6 || speed > 2.5) return;
             float pitch = -((float) Math.toDegrees(Math.asin(velocity.getY() / velocity.length())));
             if (pitch <= 0) return;
-            int level = EnchantUtil.level(player.getInventory().getChestplate(), plugin.MOMENTUM);
+            int level = EnchantUtil.level(player.getInventory().getChestplate(), CustomEnchantment.MOMENTUM);
             if (level < 1) return;
             if (level > 10) level = 10;
             Vector increase = velocity.clone().normalize().multiply(level * (pitch/10) * 0.002);

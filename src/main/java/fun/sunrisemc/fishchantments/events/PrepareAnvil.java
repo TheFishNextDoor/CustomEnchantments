@@ -8,44 +8,38 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.ItemStack;
 
-import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.util.EnchantUtil;
 
 public class PrepareAnvil implements Listener {
-    private final Plugin plugin;
-
-    public PrepareAnvil(Plugin plugin) {
-        this.plugin = plugin;
-    }
     
     @EventHandler
     public void onPrepareAnvil(PrepareAnvilEvent event) {
         ItemStack result = event.getResult();
         ItemStack zero = event.getInventory().getItem(0);
         ItemStack one = event.getInventory().getItem(1);
-        plugin.verify(zero); plugin.verify(one); // Fix broken fishchantments
-        if (!(plugin.hasFishchantments(zero) || plugin.hasFishchantments(one))) return;
-        if (!plugin.canMerge(zero, one)) return;
+        EnchantUtil.verify(zero); EnchantUtil.verify(one); // Fix broken fishchantments
+        if (!(EnchantUtil.hasCustomEnchantments(zero) || EnchantUtil.hasCustomEnchantments(one))) return;
+        if (!EnchantUtil.canMergeInAnvil(zero, one)) return;
         boolean cloned = false;
         if (result == null) {
             result = zero.clone();
             cloned = true;
         }
         else {
-            ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
+            ArrayList<Enchantment> fishchantments = EnchantUtil.customEnchantments(zero);
             for (int i = 0; i < fishchantments.size(); i++) {
                 Enchantment enchantment = fishchantments.get(i);
                 int level = EnchantUtil.level(zero, enchantment);
-                plugin.addEnchant(result, enchantment, level, true, false);
+                EnchantUtil.addEnchant(result, enchantment, level, true, false);
             }
         }
         ArrayList<Enchantment> enchantments = EnchantUtil.enchantments(one);
         for (int i = 0; i < enchantments.size(); i++) {
             Enchantment enchantment = enchantments.get(i);
             int level = EnchantUtil.level(one, enchantment);
-            plugin.addEnchant(result, enchantment, level, false, true);
+            EnchantUtil.addEnchant(result, enchantment, level, false, true);
         }
-        if (EnchantUtil.sameEnchants(zero, result) && cloned) {
+        if (EnchantUtil.sameEnchantments(zero, result) && cloned) {
             event.setResult(null);
             return;
         }

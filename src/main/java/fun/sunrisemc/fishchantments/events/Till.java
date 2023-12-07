@@ -7,7 +7,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Tilling;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Tilling;
 
 public class Till implements Listener {
     private final Plugin plugin;

@@ -11,14 +11,9 @@ import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.GrindstoneInventory;
 import org.bukkit.inventory.ItemStack;
 
-import fun.sunrisemc.fishchantments.Plugin;
+import fun.sunrisemc.fishchantments.util.EnchantUtil;
 
 public class Grindstone implements Listener {
-    private final Plugin plugin;
-
-    public Grindstone(Plugin plugin) {
-        this.plugin = plugin;
-    }
     
     @EventHandler
     public void onGrindstone(InventoryClickEvent event) {
@@ -30,13 +25,13 @@ public class Grindstone implements Listener {
         ItemStack result = grindstone.getItem(event.getRawSlot());
         ItemStack zero = grindstone.getItem(0);
         ItemStack one = grindstone.getItem(1);
-        plugin.verify(zero); plugin.verify(one); // Fix broken fishchantments
-        if (!(plugin.hasFishchantments(zero) || plugin.hasFishchantments(one))) return;
-        ArrayList<Enchantment> fishchantments = plugin.getFishchantments(zero);
-        fishchantments.addAll(plugin.getFishchantments(one));
+        EnchantUtil.verify(zero); EnchantUtil.verify(one); // Fix broken fishchantments
+        if (!(EnchantUtil.hasCustomEnchantments(zero) || EnchantUtil.hasCustomEnchantments(one))) return;
+        ArrayList<Enchantment> fishchantments = EnchantUtil.customEnchantments(zero);
+        fishchantments.addAll(EnchantUtil.customEnchantments(one));
         for (int i = 0; i < fishchantments.size(); i++) {
             Enchantment enchantment = fishchantments.get(i);
-            plugin.removeEnchant(result, enchantment);
+            EnchantUtil.removeEnchant(result, enchantment);
         }
     }
 

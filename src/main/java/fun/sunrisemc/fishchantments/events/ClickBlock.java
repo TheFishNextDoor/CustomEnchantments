@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import fun.sunrisemc.fishchantments.PlayerTracker;
 import fun.sunrisemc.fishchantments.Plugin;
-import fun.sunrisemc.fishchantments.enchantments.Generic.Replanting;
+import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Replanting;
 
 public class ClickBlock implements Listener {
     private final Plugin plugin;
