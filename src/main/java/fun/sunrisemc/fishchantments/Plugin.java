@@ -1,17 +1,10 @@
 package fun.sunrisemc.fishchantments;
 
-import java.util.Collection;
 import java.util.logging.Logger;
 
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fun.sunrisemc.fishchantments.commands.Fenchant;
-import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Telekinesis;
 import fun.sunrisemc.fishchantments.events.ProjectileHit;
 import fun.sunrisemc.fishchantments.events.Quit;
 import fun.sunrisemc.fishchantments.events.ItemDamage;
@@ -42,55 +35,28 @@ public class Plugin extends JavaPlugin {
         CustomEnchantment.registerAll();
         Timer.start(this);
         getServer().getPluginManager().registerEvents(new Quit(), this);
-        getServer().getPluginManager().registerEvents(new ProjectileHit(this), this);
-        getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
-        getServer().getPluginManager().registerEvents(new BlockDropItems(this), this);
-        getServer().getPluginManager().registerEvents(new Damage(this), this);
-        getServer().getPluginManager().registerEvents(new EntityAttack(this), this);
-        getServer().getPluginManager().registerEvents(new ItemDamage(this), this);
-        getServer().getPluginManager().registerEvents(new FireProjectile(this), this);
-        getServer().getPluginManager().registerEvents(new Move(this), this);
-        getServer().getPluginManager().registerEvents(new Till(this), this);
-        getServer().getPluginManager().registerEvents(new HungerChange(this), this);
-        getServer().getPluginManager().registerEvents(new Fall(this), this);
-        getServer().getPluginManager().registerEvents(new ClickBlock(this), this);
-        getServer().getPluginManager().registerEvents(new BreakBlock(this), this);
-        getServer().getPluginManager().registerEvents(new Suffocation(this), this);
+        getServer().getPluginManager().registerEvents(new ProjectileHit(), this);
+        getServer().getPluginManager().registerEvents(new BlockDropItems(), this);
+        getServer().getPluginManager().registerEvents(new EntityAttack(), this);
+        getServer().getPluginManager().registerEvents(new ItemDamage(), this);
+        getServer().getPluginManager().registerEvents(new FireProjectile(), this);
+        getServer().getPluginManager().registerEvents(new Move(), this);
+        getServer().getPluginManager().registerEvents(new Till(), this);
+        getServer().getPluginManager().registerEvents(new HungerChange(), this);
+        getServer().getPluginManager().registerEvents(new Fall(), this);
+        getServer().getPluginManager().registerEvents(new ClickBlock(), this);
+        getServer().getPluginManager().registerEvents(new BreakBlock(), this);
+        getServer().getPluginManager().registerEvents(new Suffocation(), this);
         getServer().getPluginManager().registerEvents(new PrepareAnvil(), this);
         getServer().getPluginManager().registerEvents(new Grindstone(), this);
         getServer().getPluginManager().registerEvents(new EntityDeath(this), this);
+        getServer().getPluginManager().registerEvents(new Damage(this), this);
+        getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
         getCommand("fenchant").setExecutor(new Fenchant());
         LOGGER.info("Plugin enabled");
     }
     
     public void onDisable() {
         LOGGER.info("Plugin disabled");
-    }
-    
-    public void breakBlock(Player player, Block block) {
-        breakBlock(player, block, null);
-    }
-    
-    public void breakBlock(Player player, Block block, ItemStack item) {
-        if (!PermChecker.canBreak(player, block)) return;
-        blockDrops(player, block, item);
-        block.setType(Material.AIR);
-    }
-
-    public void blockDrops(Player player, Block block) {
-        blockDrops(player, block, null);
-    }
-    
-    public void blockDrops(Player player, Block block, ItemStack item) {
-        Collection<ItemStack> drops;
-        if (item == null) drops = block.getDrops();
-        else drops = block.getDrops(item);
-        if (drops.isEmpty()) return;
-        Telekinesis.onBlockDropItems(this, player, drops);
-        if (drops.isEmpty()) return;
-        World world = block.getWorld();
-        for (ItemStack drop : drops) {
-            world.dropItemNaturally(block.getLocation(), drop);
-        }
     }
 }

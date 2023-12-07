@@ -70,7 +70,7 @@ public class Legging {
             return InventoryUtil.isLeggings(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
+        public static void onTimer(Player player, ItemStack boots) {
             int level = EnchantUtil.level(boots, CustomEnchantment.SWIFTNESS);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, level-1));
@@ -130,7 +130,7 @@ public class Legging {
             return InventoryUtil.isLeggings(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack leggings) {
+        public static void onTimer(Player player, ItemStack leggings) {
             if (!EnchantUtil.has(leggings, CustomEnchantment.DOLPHINS_GRACE)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, 0));
         }

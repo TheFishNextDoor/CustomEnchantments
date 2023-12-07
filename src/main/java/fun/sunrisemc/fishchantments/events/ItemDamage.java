@@ -6,16 +6,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
-import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Unbreakable;
 import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Weapon.Glass;
 
 public class ItemDamage implements Listener {
-    private final Plugin plugin;
-
-    public ItemDamage(Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     public void onItemDamage(PlayerItemDamageEvent event) {
@@ -23,7 +17,7 @@ public class ItemDamage implements Listener {
         ItemStack item = event.getItem();
         Player player = event.getPlayer();
         int damage = event.getDamage();
-        Glass.onItemTakeDamage(plugin, player, item, damage, event);
-        Unbreakable.onItemTakeDamage(plugin, player, item, event);
+        Glass.onItemTakeDamage(player, item, damage, event);
+        Unbreakable.onItemTakeDamage(player, item, event);
     }
 }

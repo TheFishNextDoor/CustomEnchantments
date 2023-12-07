@@ -27,9 +27,9 @@ public class Damage implements Listener {
         Player player = (Player) entity;
         double damage = event.getFinalDamage();
         boolean ranged = event.getCause() == DamageCause.PROJECTILE;
-        ProjectileResistance.onPlayerTakeDamage(plugin, player, ranged, event);
+        ProjectileResistance.onPlayerTakeDamage(player, ranged, event);
         if (event.isCancelled()) return;
         Heavy.onPlayerTakeDamage(plugin, player);
-        DeathWish.onPlayerTakeDamage(plugin, player, damage, event);
+        DeathWish.onPlayerTakeDamage(player, damage, event);
     }
 }

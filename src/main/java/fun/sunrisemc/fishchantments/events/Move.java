@@ -5,17 +5,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Boot.Anchor;
 import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Elytra.Boosters;
 import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Elytra.Momentum;
 
 public class Move implements Listener {
-    Plugin plugin;
-
-    public Move(Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     @SuppressWarnings("deprecation")
@@ -23,11 +17,11 @@ public class Move implements Listener {
         Player player = event.getPlayer();
         if (player == null) return;
         if (player.isGliding()) {
-            Momentum.whenGliding(plugin, player);
-            Boosters.whenGliding(plugin, player);
+            Momentum.whenGliding(player);
+            Boosters.whenGliding(player);
         }
         if (player.isInWater() && !player.isOnGround()) {
-            Anchor.whenSwimming(plugin, player);
+            Anchor.whenSwimming(player);
         }
     }
 }

@@ -94,8 +94,8 @@ public class Generic {
             return InventoryUtil.isEnchantable(item.getType());
         }
 
-        public static void onItemTakeDamage(Plugin plugin, Player player, ItemStack item, PlayerItemDamageEvent event) {
-            if (plugin == null || player == null || item == null) return;
+        public static void onItemTakeDamage(Player player, ItemStack item, PlayerItemDamageEvent event) {
+            if (player == null || item == null) return;
             if (!EnchantUtil.has(item, CustomEnchantment.UNBREAKABLE)) return;
             event.setCancelled(true);
         }
@@ -150,7 +150,7 @@ public class Generic {
             return InventoryUtil.isTool(item.getType()) || InventoryUtil.isWeapon(item.getType());
         }
 
-        public static void onBlockDropItems(Plugin plugin, Player player, List<Item> drops) {
+        public static void onBlockDropItems(Player player, List<Item> drops) {
             if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
             for (Item drop : drops) {
                 InventoryUtil.give(player, drop.getItemStack());
@@ -158,7 +158,7 @@ public class Generic {
             drops.clear();
         }
 
-        public static void onBlockDropItems(Plugin plugin, Player player, Collection<ItemStack> drops) {
+        public static void onBlockDropItems(Player player, Collection<ItemStack> drops) {
             if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
             for (ItemStack drop : drops) {
                 InventoryUtil.give(player, drop);
@@ -166,7 +166,7 @@ public class Generic {
             drops.clear();
         }
 
-        public static void onMobLoot(Plugin plugin, Player player, List<ItemStack> drops) {
+        public static void onMobLoot(Player player, List<ItemStack> drops) {
             if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
             for (ItemStack drop : drops) {
                 InventoryUtil.give(player, drop);
@@ -174,13 +174,13 @@ public class Generic {
             drops.clear();
         }
 
-        public static void onBlockXp(Plugin plugin, Player player, BlockBreakEvent event) {
+        public static void onBlockXp(Player player, BlockBreakEvent event) {
             if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
             player.giveExp(event.getExpToDrop());
             event.setExpToDrop(0);
         }
 
-        public static void onMobXp(Plugin plugin, Player player, EntityDeathEvent event) {
+        public static void onMobXp(Player player, EntityDeathEvent event) {
             if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
             player.giveExp(event.getDroppedExp());
             event.setDroppedExp(0);
@@ -236,7 +236,7 @@ public class Generic {
             return InventoryUtil.isWeapon(item.getType());
         }
 
-        public static void onPlayerAttackEntity(Plugin plugin, Player player, LivingEntity reciever, boolean ranged) {
+        public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {
             final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.RADIANCE, ranged);
             if (level < 1) return;
             reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0));
@@ -354,13 +354,13 @@ public class Generic {
             return InventoryUtil.isWeapon(item.getType()) || InventoryUtil.isTool(item.getType());
         }
 
-        public static void onMobXp(Plugin plugin, Player player, EntityDeathEvent event) {
+        public static void onMobXp(Player player, EntityDeathEvent event) {
             int level = EnchantUtil.handLevel(player, CustomEnchantment.ENLIGHTENMENT);
             if (level < 1) return;
             event.setDroppedExp(xp(level, event.getDroppedExp()));
         }
 
-        public static void onBlockXp(Plugin plugin, Player player, BlockBreakEvent event) {
+        public static void onBlockXp(Player player, BlockBreakEvent event) {
             int level = EnchantUtil.handLevel(player, CustomEnchantment.ENLIGHTENMENT);
             if (level < 1) return;
             event.setExpToDrop(xp(level, event.getExpToDrop()));
@@ -420,8 +420,8 @@ public class Generic {
             return InventoryUtil.isRanged(item.getType());
         }
 
-        public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
-            if (plugin == null || player == null || projectile == null) return;
+        public static void onPlayerFireProjectile(Player player, Projectile projectile) {
+            if (player == null || projectile == null) return;
             if (!EnchantUtil.holding(player, CustomEnchantment.PRECISION)) return;
             Vector direction = player.getEyeLocation().getDirection();
             Vector velocity = projectile.getVelocity();
@@ -482,7 +482,7 @@ public class Generic {
             return InventoryUtil.isRanged(item.getType());
         }
 
-        public static void onProjectileHitBlock(Plugin plugin, Player player, Projectile projectile, Block block) {
+        public static void onProjectileHitBlock(Player player, Projectile projectile, Block block) {
             final int level = EnchantUtil.rangedLevel(player, CustomEnchantment.DESTRUCTIVE);
             if (level < 1) return;
             ItemStack usedTool = new ItemStack(new ItemStack(Material.SHEARS));
@@ -501,7 +501,7 @@ public class Generic {
             }
             if (!hasDrops) return;
             projectile.remove();
-            plugin.breakBlock(player, block);
+            WorldUtil.breakBlock(player, block);
         }
     }
 
@@ -554,8 +554,8 @@ public class Generic {
             return InventoryUtil.isRanged(item.getType());
         }
 
-        public static void onPlayerFireProjectile(Plugin plugin, Player player, Projectile projectile) {
-            if (plugin == null || player == null || projectile == null) return;
+        public static void onPlayerFireProjectile(Player player, Projectile projectile) {
+            if (player == null || projectile == null) return;
             final int level = EnchantUtil.rangedLevel(player, CustomEnchantment.RANGE);
             if (level < 1) return;
             double levelValue = level; 
@@ -612,7 +612,7 @@ public class Generic {
             return InventoryUtil.isTool(item.getType());
         }
 
-        public static void onBlockBreak(Plugin plugin, Player player, Block block, BlockBreakEvent event) {
+        public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {
             if (!EnchantUtil.holding(player, CustomEnchantment.EXCAVATING)) return;
             BlockFace face = PlayerTracker.get(player).getMiningFace();
             ArrayList<Block> blocks = new ArrayList<>();
@@ -650,7 +650,7 @@ public class Generic {
             ItemStack item = InventoryUtil.getItemInUse(player);
             while (iter.hasNext()) {
                 Block iblock = iter.next();
-                if ((!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) plugin.breakBlock(player, iblock, item);
+                if ((!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) WorldUtil.breakBlock(player, iblock, item);
             }
         }
     }
@@ -704,8 +704,8 @@ public class Generic {
             return InventoryUtil.isHoe(item.getType());
         }
 
-        public static void onTill(Plugin plugin, Player player, Block block) {
-            if (plugin == null || player == null || block == null) return;
+        public static void onTill(Player player, Block block) {
+            if (player == null || block == null) return;
             if (!EnchantUtil.holdingHoe(player, CustomEnchantment.TILLING)) return;
             till(player, block);
         }
@@ -773,37 +773,37 @@ public class Generic {
             return InventoryUtil.isHoe(item.getType());
         }
 
-        public static void onRightClick(Plugin plugin, Player player, Block block) {
+        public static void onRightClick(Player player, Block block) {
             final int level = EnchantUtil.hoeLevel(player, CustomEnchantment.REPLANTING);
             if (level < 1) return;
             ItemStack item = InventoryUtil.getHoeInUse(player);
             if (item == null) return;
             if (level == 1) {
-                if (PermChecker.canBreak(player, block)) harvest(plugin, player, block, item);
+                if (PermChecker.canBreak(player, block)) harvest(player, block, item);
             }
             else {
                 int x = block.getX(); int y = block.getY(); int z = block.getZ();
                 int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
                 for (int[] coords : allCoords) {
                     Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                    if (PermChecker.canBreak(player, modifiedBlock)) harvest(plugin, player, modifiedBlock, item);
+                    if (PermChecker.canBreak(player, modifiedBlock)) harvest(player, modifiedBlock, item);
                 }
             }
         }
 
-        public static void onBlockBreak(Plugin plugin, Player player, Block block, BlockBreakEvent event) {
+        public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {
             final int level = EnchantUtil.handLevel(player, CustomEnchantment.REPLANTING);
             if (level < 1) return;
             ItemStack item = InventoryUtil.getItemInUse(player);
-            event.setCancelled(harvest(plugin, player, block, item));
+            event.setCancelled(harvest(player, block, item));
         }
 
-        private static boolean harvest(Plugin plugin, Player player, Block block, ItemStack item) {
+        private static boolean harvest(Player player, Block block, ItemStack item) {
             BlockState state = block.getState();
             if (!(state.getBlockData() instanceof Ageable)) return false;
             Ageable ageable = (Ageable) state.getBlockData();
             if (ageable.getAge() != ageable.getMaximumAge()) return false;
-            plugin.blockDrops(player, block, item);
+            WorldUtil.blockDrops(player, block, item);
             ageable.setAge(0);
             block.setBlockData(ageable);
             return true;
@@ -859,7 +859,7 @@ public class Generic {
             return InventoryUtil.isArmor(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player) {
+        public static void onTimer(Player player) {
             if (EnchantUtil.wearing(player, CustomEnchantment.INVISIBILITY)) player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, 0));
         }
     }
@@ -913,7 +913,7 @@ public class Generic {
             return item.getType() == Material.SHIELD;
         }
 
-        public static void onDeflectProjectile(Plugin plugin, Player player, Projectile projectile) {
+        public static void onDeflectProjectile(Player player, Projectile projectile) {
             if (projectile.isOnGround()) return;
             int level = EnchantUtil.shieldLevel(player, CustomEnchantment.REFLECTION);
             if (level < 1) return;
@@ -971,7 +971,7 @@ public class Generic {
             return InventoryUtil.isBoots(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
+        public static void onTimer(Player player, ItemStack boots) {
             if (player.getVehicle() == null || !(player.getVehicle() instanceof LivingEntity)) return;
             LivingEntity mount = (LivingEntity) player.getVehicle();
             int level = EnchantUtil.level(boots, CustomEnchantment.SPURS);

@@ -47,28 +47,28 @@ public class Timer {
                     ItemStack chestplate = player.getInventory().getChestplate();
                     ItemStack leggings = player.getInventory().getLeggings();
                     ItemStack boots = player.getInventory().getBoots();
-                    CurseOfRadiance.onTimer(plugin, player);
-                    CurseOfMiningFatigue.onTimer(plugin, player);
-                    CurseOfSlowness.onTimer(plugin, player);
-                    CurseOfWeakness.onTimer(plugin, player);
-                    CurseOfLevitating.onTimer(plugin, player);
-                    Invisibility.onTimer(plugin, player);
-                    Gills.onTimer(plugin, player, helmet);
-                    NightVision.onTimer(plugin, player, helmet);
-                    ConduitPower.onTimer(plugin, player, helmet);
-                    DragonScales.onTimer(plugin, player, chestplate);
-                    Healing.onTimer(plugin, player, chestplate);
-                    IncreasedHealth.onTimer(plugin, player, chestplate);
-                    Strength.onTimer(plugin, player, chestplate);
-                    Haste.onTimer(plugin, player, chestplate);
-                    HeroOfTheVillage.onTimer(plugin, player, chestplate);
-                    FireResistance.onTimer(plugin, player, chestplate);
-                    DolphinsGrace.onTimer(plugin, player, leggings);
-                    Swiftness.onTimer(plugin, player, leggings);
-                    Anchor.onTimer(plugin, player, boots);
-                    SlowFalling.onTimer(plugin, player, boots);
-                    Spurs.onTimer(plugin, player, boots);
-                    Leaping.onTimer(plugin, player, boots);
+                    CurseOfRadiance.onTimer(player);
+                    CurseOfMiningFatigue.onTimer(player);
+                    CurseOfSlowness.onTimer(player);
+                    CurseOfWeakness.onTimer(player);
+                    CurseOfLevitating.onTimer(player);
+                    Invisibility.onTimer(player);
+                    Gills.onTimer(player, helmet);
+                    NightVision.onTimer(player, helmet);
+                    ConduitPower.onTimer(player, helmet);
+                    DragonScales.onTimer(player, chestplate);
+                    Healing.onTimer(player, chestplate);
+                    IncreasedHealth.onTimer(player, chestplate);
+                    Strength.onTimer(player, chestplate);
+                    Haste.onTimer(player, chestplate);
+                    HeroOfTheVillage.onTimer(player, chestplate);
+                    FireResistance.onTimer(player, chestplate);
+                    DolphinsGrace.onTimer(player, leggings);
+                    Swiftness.onTimer(player, leggings);
+                    Anchor.onTimer(player, boots);
+                    SlowFalling.onTimer(player, boots);
+                    Spurs.onTimer(player, boots);
+                    Leaping.onTimer(player, boots);
                 }
             }
         }, Settings.ARMOR_EFFECTS_PERIOD_TICKS, Settings.ARMOR_EFFECTS_PERIOD_TICKS);
@@ -79,7 +79,7 @@ public class Timer {
                 Player player;
                 while (players.hasNext()) {
                     player = players.next();
-                    CurseOfAquaphobia.onTimer(plugin, player);
+                    CurseOfAquaphobia.onTimer(player);
                 }
             }
         }, 40, 40);

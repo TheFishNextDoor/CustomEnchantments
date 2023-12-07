@@ -51,7 +51,7 @@ public class AttackEntity implements Listener {
             if (shooter instanceof Entity) damager = (Entity) shooter;
             if (reciever instanceof Player) {
                 Player player = (Player) reciever;
-                if (player.isBlocking() && damage == 0) Reflection.onDeflectProjectile(plugin, player, projectile);
+                if (player.isBlocking() && damage == 0) Reflection.onDeflectProjectile(player, projectile);
             }
         }
         if (!(damage > 0)) return;
@@ -60,21 +60,21 @@ public class AttackEntity implements Listener {
         if (!RANGED_ATTACK && InventoryUtil.isRanged(InventoryUtil.getItemInUse(player).getType())) return;
 
         // Event modifiers
-        DeathWish.onPlayerAttackEntity(plugin, player, damage, event);
-        Glass.onPlayerAttackEntity(plugin, player, damage, event, RANGED_ATTACK);
+        DeathWish.onPlayerAttackEntity(player, damage, event);
+        Glass.onPlayerAttackEntity(player, damage, event, RANGED_ATTACK);
         AquaAspect.onPlayerAttackEntity(plugin, player, reciever, event, RANGED_ATTACK);
-        LifeSteal.onPlayerAttackEntity(plugin, player, damage, RANGED_ATTACK); // Last
+        LifeSteal.onPlayerAttackEntity(player, damage, RANGED_ATTACK); // Last
 
         Fling.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
-        Venom.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
-        Withering.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
-        BloodTipped.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
-        Levitating.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
-        Radiance.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
-        Obscure.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
-        Disorienting.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
-        Debilitating.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
-        Starving.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
-        Crippling.onPlayerAttackEntity(plugin, player, reciever, RANGED_ATTACK);
+        Venom.onPlayerAttackEntity(player, reciever, RANGED_ATTACK);
+        Withering.onPlayerAttackEntity(player, reciever, RANGED_ATTACK);
+        BloodTipped.onPlayerAttackEntity(player, reciever, RANGED_ATTACK);
+        Levitating.onPlayerAttackEntity(player, reciever, RANGED_ATTACK);
+        Radiance.onPlayerAttackEntity(player, reciever, RANGED_ATTACK);
+        Obscure.onPlayerAttackEntity(player, reciever, RANGED_ATTACK);
+        Disorienting.onPlayerAttackEntity(player, reciever, RANGED_ATTACK);
+        Debilitating.onPlayerAttackEntity(player, reciever, RANGED_ATTACK);
+        Starving.onPlayerAttackEntity(player, reciever, RANGED_ATTACK);
+        Crippling.onPlayerAttackEntity(player, reciever, RANGED_ATTACK);
     }   
 }

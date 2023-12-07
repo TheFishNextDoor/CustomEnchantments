@@ -9,7 +9,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import fun.sunrisemc.fishchantments.CustomEnchantment;
-import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.util.EnchantUtil;
 
 public class Elytra {
@@ -66,7 +65,7 @@ public class Elytra {
             return item.getType() == Material.ELYTRA;
         }
     
-        public static void whenGliding(Plugin plugin, Player player) {
+        public static void whenGliding(Player player) {
             if (player.isInWater()) return;
             Vector velocity = player.getVelocity();
             int level = EnchantUtil.level(player.getInventory().getChestplate(), CustomEnchantment.BOOSTERS);
@@ -130,7 +129,7 @@ public class Elytra {
             return item.getType() == Material.ELYTRA;
         }
     
-        public static void whenGliding(Plugin plugin, Player player) {
+        public static void whenGliding(Player player) {
             Vector velocity = player.getVelocity();
             double speed = velocity.length();
             if (speed < 0.6 || speed > 2.5) return;

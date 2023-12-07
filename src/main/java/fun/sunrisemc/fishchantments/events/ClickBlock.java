@@ -8,15 +8,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import fun.sunrisemc.fishchantments.PlayerTracker;
-import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Replanting;
 
 public class ClickBlock implements Listener {
-    private final Plugin plugin;
-
-    public ClickBlock(Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     public void onClick(PlayerInteractEvent event) {
@@ -36,6 +30,6 @@ public class ClickBlock implements Listener {
         Player player = event.getPlayer();
         Block clickedBlock = event.getClickedBlock();
         if (clickedBlock == null) return;
-        Replanting.onRightClick(plugin, player, clickedBlock);
+        Replanting.onRightClick(player, clickedBlock);
     }
 }

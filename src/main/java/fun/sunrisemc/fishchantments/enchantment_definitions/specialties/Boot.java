@@ -13,7 +13,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import fun.sunrisemc.fishchantments.CustomEnchantment;
-import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Settings;
 import fun.sunrisemc.fishchantments.util.EnchantUtil;
 import fun.sunrisemc.fishchantments.util.InventoryUtil;
@@ -76,7 +75,7 @@ public class Boot {
             return InventoryUtil.isBoots(item.getType());
         }
 
-        public static void onFall(Plugin plugin, Player player, ItemStack boots, EntityDamageEvent event) {
+        public static void onFall(Player player, ItemStack boots, EntityDamageEvent event) {
             int level = EnchantUtil.level(boots, CustomEnchantment.CRUSH);
             if (level < 1) return;
             double damage = calcDamage(event.getDamage(), level);
@@ -155,7 +154,7 @@ public class Boot {
             return InventoryUtil.isBoots(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
+        public static void onTimer(Player player, ItemStack boots) {
             int level = EnchantUtil.level(boots, CustomEnchantment.LEAPING);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, level-1));
@@ -217,7 +216,7 @@ public class Boot {
             return InventoryUtil.isBoots(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
+        public static void onTimer(Player player, ItemStack boots) {
             int level = EnchantUtil.level(boots, CustomEnchantment.SLOW_FALLING);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, level-1));
@@ -279,7 +278,7 @@ public class Boot {
             return InventoryUtil.isBoots(item.getType());
         }
 
-        public static void whenSwimming(Plugin plugin, Player player) {
+        public static void whenSwimming(Player player) {
             if (!EnchantUtil.has(player.getInventory().getBoots(), CustomEnchantment.ANCHOR)) return;
             Vector velocity = player.getVelocity();
             double y = velocity.getY();
@@ -288,7 +287,7 @@ public class Boot {
             player.setVelocity(velocity);
         }
 
-        public static void onTimer(Plugin plugin, Player player, ItemStack boots) {
+        public static void onTimer(Player player, ItemStack boots) {
             if (!player.isInWater()) return;
             if (!EnchantUtil.has(player.getInventory().getBoots(), CustomEnchantment.ANCHOR)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, 2));
@@ -350,7 +349,7 @@ public class Boot {
             return InventoryUtil.isBoots(item.getType());
         }
 
-        public static void onFall(Plugin plugin, Player player, ItemStack boots, EntityDamageEvent event) {
+        public static void onFall(Player player, ItemStack boots, EntityDamageEvent event) {
             int level = EnchantUtil.level(boots, CustomEnchantment.BOUNCE);
             if (level < 1) return;
             double v = Math.log(event.getFinalDamage()) * (level + 2) / 10;

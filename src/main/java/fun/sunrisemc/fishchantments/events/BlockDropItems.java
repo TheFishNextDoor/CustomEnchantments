@@ -9,15 +9,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
 
-import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Telekinesis;
 
 public class BlockDropItems implements Listener {
-    private final Plugin plugin;
-
-    public BlockDropItems(Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     public void onBlockDropItems(BlockDropItemEvent event) {
@@ -26,6 +20,6 @@ public class BlockDropItems implements Listener {
         Block block = event.getBlock();
         if (player == null || block == null) return;
         List<Item> items = event.getItems();
-        Telekinesis.onBlockDropItems(plugin, player, items);
+        Telekinesis.onBlockDropItems(player, items);
     }
 }

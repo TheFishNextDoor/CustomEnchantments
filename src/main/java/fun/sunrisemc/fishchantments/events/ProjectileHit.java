@@ -8,15 +8,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
-import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantment_definitions.Generic.Destructive;
 
 public class ProjectileHit implements Listener {
-    Plugin plugin;
-
-    public ProjectileHit(Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
@@ -27,6 +21,6 @@ public class ProjectileHit implements Listener {
         Player player = (Player) shooter;
         Block block = event.getHitBlock();
         if (block == null) return;
-        Destructive.onProjectileHitBlock(plugin, player, projectile, block);
+        Destructive.onProjectileHitBlock(player, projectile, block);
     }
 }

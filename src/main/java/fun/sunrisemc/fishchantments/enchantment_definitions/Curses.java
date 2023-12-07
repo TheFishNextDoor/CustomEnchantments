@@ -9,7 +9,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import fun.sunrisemc.fishchantments.CustomEnchantment;
-import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.Settings;
 import fun.sunrisemc.fishchantments.util.EnchantUtil;
 import fun.sunrisemc.fishchantments.util.InventoryUtil;
@@ -66,7 +65,7 @@ public class Curses {
             return InventoryUtil.isArmor(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player) {
+        public static void onTimer(Player player) {
             int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_MINING_FATIGUE);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 120, level-1));
@@ -122,7 +121,7 @@ public class Curses {
             return InventoryUtil.isArmor(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player) {
+        public static void onTimer(Player player) {
             int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_SLOWNESS);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, level-1));
@@ -178,7 +177,7 @@ public class Curses {
             return InventoryUtil.isArmor(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player) {
+        public static void onTimer(Player player) {
             int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_WEAKNESS);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 120, level-1));
@@ -234,7 +233,7 @@ public class Curses {
             return InventoryUtil.isArmor(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player) {
+        public static void onTimer(Player player) {
             int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_LEVITATING);
             if (level < 1) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, level-1));
@@ -290,7 +289,7 @@ public class Curses {
             return InventoryUtil.isArmor(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player) {
+        public static void onTimer(Player player) {
             int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_AQUAPHOBIA);
             if (level < 1) return;
             boolean inWater = player.isInWater();
@@ -348,7 +347,7 @@ public class Curses {
             return InventoryUtil.isArmor(item.getType());
         }
 
-        public static void onTimer(Plugin plugin, Player player) {
+        public static void onTimer(Player player) {
             if (!EnchantUtil.wearing(player, CustomEnchantment.CURSE_OF_RADIANCE)) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, 0));
         }

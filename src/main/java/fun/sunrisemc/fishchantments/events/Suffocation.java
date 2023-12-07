@@ -6,15 +6,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
-import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Helmet.Worm;
 
 public class Suffocation implements Listener {
-    private final Plugin plugin;
-
-    public Suffocation(Plugin plugin) {
-        this.plugin = plugin;
-    }
     
     @EventHandler
     public void onSuffocation(EntityDamageEvent event) {
@@ -23,6 +17,6 @@ public class Suffocation implements Listener {
         Player player = (Player) event.getEntity();
         ItemStack helmet = player.getInventory().getHelmet();
         if (helmet == null) return;
-        Worm.onSuffocate(plugin, player, helmet, event);
+        Worm.onSuffocate(player, helmet, event);
     }
 }

@@ -6,15 +6,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
-import fun.sunrisemc.fishchantments.Plugin;
 import fun.sunrisemc.fishchantments.enchantment_definitions.specialties.Helmet.Sustenance;
 
 public class HungerChange implements Listener {
-    private final Plugin plugin;
-
-    public HungerChange(Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     public void onHungerChange(FoodLevelChangeEvent event) {
@@ -23,6 +17,6 @@ public class HungerChange implements Listener {
         Player player = (Player) event.getEntity();
         ItemStack helmet = player.getInventory().getHelmet();
         if (helmet == null) return;
-        Sustenance.onHungerLoss(plugin, player, helmet, event);
+        Sustenance.onHungerLoss(player, helmet, event);
     }
 }
