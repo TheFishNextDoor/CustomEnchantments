@@ -12,8 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.enchantments.Loot;
 import com.thefishnextdoor.enchantments.Plugin;
 import com.thefishnextdoor.enchantments.Settings;
-import com.thefishnextdoor.enchantments.definitions.Generic.Enlightenment;
-import com.thefishnextdoor.enchantments.definitions.Generic.Telekinesis;
+import com.thefishnextdoor.enchantments.enchantments.Enlightenment;
+import com.thefishnextdoor.enchantments.enchantments.Telekinesis;
 
 public class EntityDeath implements Listener {
     private final Plugin plugin;

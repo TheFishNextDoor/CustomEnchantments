@@ -8,7 +8,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.thefishnextdoor.enchantments.PlayerTracker;
-import com.thefishnextdoor.enchantments.definitions.Generic.Replanting;
+import com.thefishnextdoor.enchantments.enchantments.Replanting;
 
 public class ClickBlock implements Listener {
 

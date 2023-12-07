@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
 
-import com.thefishnextdoor.enchantments.definitions.Generic.Telekinesis;
+import com.thefishnextdoor.enchantments.enchantments.Telekinesis;
 
 public class BlockDropItems implements Listener {
 

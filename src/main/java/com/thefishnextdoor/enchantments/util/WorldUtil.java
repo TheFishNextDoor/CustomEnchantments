@@ -13,7 +13,7 @@ import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.enchantments.PermChecker;
 import com.thefishnextdoor.enchantments.Plugin;
-import com.thefishnextdoor.enchantments.definitions.Generic.Telekinesis;
+import com.thefishnextdoor.enchantments.enchantments.Telekinesis;
 
 public class WorldUtil {
 

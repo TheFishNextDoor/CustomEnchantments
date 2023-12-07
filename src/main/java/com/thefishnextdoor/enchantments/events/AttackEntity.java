@@ -10,22 +10,22 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
 import com.thefishnextdoor.enchantments.Plugin;
-import com.thefishnextdoor.enchantments.definitions.Generic.AquaAspect;
-import com.thefishnextdoor.enchantments.definitions.Generic.Fling;
-import com.thefishnextdoor.enchantments.definitions.Generic.Radiance;
-import com.thefishnextdoor.enchantments.definitions.Generic.Reflection;
-import com.thefishnextdoor.enchantments.definitions.specialties.Chestplate.DeathWish;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.BloodTipped;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.Crippling;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.Debilitating;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.Disorienting;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.Glass;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.Levitating;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.LifeSteal;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.Obscure;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.Starving;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.Venom;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.Withering;
+import com.thefishnextdoor.enchantments.enchantments.AquaAspect;
+import com.thefishnextdoor.enchantments.enchantments.Fling;
+import com.thefishnextdoor.enchantments.enchantments.Radiance;
+import com.thefishnextdoor.enchantments.enchantments.Reflection;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.chestplate.DeathWish;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.BloodTipped;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Crippling;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Debilitating;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Disorienting;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Glass;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Levitating;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.LifeSteal;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Obscure;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Starving;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Venom;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Withering;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class AttackEntity implements Listener {

@@ -7,10 +7,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
-import com.thefishnextdoor.enchantments.definitions.Generic.Precision;
-import com.thefishnextdoor.enchantments.definitions.Generic.Range;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.BloodTipped;
-import com.thefishnextdoor.enchantments.definitions.specialties.Weapon.Volley;
+import com.thefishnextdoor.enchantments.enchantments.Precision;
+import com.thefishnextdoor.enchantments.enchantments.Range;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.BloodTipped;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Volley;
 
 public class FireProjectile implements Listener {
 

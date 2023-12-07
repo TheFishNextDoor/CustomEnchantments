@@ -8,9 +8,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import com.thefishnextdoor.enchantments.Plugin;
-import com.thefishnextdoor.enchantments.definitions.specialties.Chestplate.DeathWish;
-import com.thefishnextdoor.enchantments.definitions.specialties.Chestplate.ProjectileResistance;
-import com.thefishnextdoor.enchantments.definitions.specialties.Legging.Heavy;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.chestplate.DeathWish;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.chestplate.ProjectileResistance;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.Heavy;
 
 public class Damage implements Listener {
     private final Plugin plugin;

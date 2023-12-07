@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import com.thefishnextdoor.enchantments.definitions.Generic.Tilling;
+import com.thefishnextdoor.enchantments.enchantments.Tilling;
 
 public class Till implements Listener {
 

@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.enchantments.definitions.specialties.Helmet.Worm;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.helmet.Worm;
 
 public class Suffocation implements Listener {
     

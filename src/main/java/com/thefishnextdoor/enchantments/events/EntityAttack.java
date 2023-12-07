@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import com.thefishnextdoor.enchantments.definitions.specialties.Chestplate.Flaming;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.chestplate.Flaming;
 
 public class EntityAttack implements Listener {
 

@@ -7,8 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.enchantments.definitions.specialties.Boot.Bounce;
-import com.thefishnextdoor.enchantments.definitions.specialties.Boot.Crush;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.boots.Bounce;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.boots.Crush;
 
 public class Fall implements Listener {
 

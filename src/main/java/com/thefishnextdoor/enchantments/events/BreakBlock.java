@@ -7,10 +7,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import com.thefishnextdoor.enchantments.PermChecker;
-import com.thefishnextdoor.enchantments.definitions.Generic.Enlightenment;
-import com.thefishnextdoor.enchantments.definitions.Generic.Excavating;
-import com.thefishnextdoor.enchantments.definitions.Generic.Replanting;
-import com.thefishnextdoor.enchantments.definitions.Generic.Telekinesis;
+import com.thefishnextdoor.enchantments.enchantments.Enlightenment;
+import com.thefishnextdoor.enchantments.enchantments.Excavating;
+import com.thefishnextdoor.enchantments.enchantments.Replanting;
+import com.thefishnextdoor.enchantments.enchantments.Telekinesis;
 
 public class BreakBlock implements Listener {
 
