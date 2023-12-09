@@ -1,6 +1,7 @@
 package com.thefishnextdoor.enchantments.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class EnchantUtil {
     public static boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
         // Verify
         if (item == null) return false;
+        if (item.getType() == Material.AIR) return false;
         if (level < 1) return false;
         if (level > 255) level = 255;
         int currentLevel = level(item, enchantment);
@@ -123,16 +125,6 @@ public class EnchantUtil {
         return enchantments;
     }
 
-    public static boolean isCustom(Enchantment enchantment) {
-        if (enchantment == null) return false;
-        Iterator<Enchantment> fishchantments = CustomEnchantment.all().iterator();
-        while (fishchantments.hasNext()) {
-            Enchantment fishchantment = fishchantments.next();
-            if (same(fishchantment, enchantment)) return true;
-        }
-        return false;
-    }
-
     public static boolean hasCustomEnchantments(ItemStack item) {
         return EnchantUtil.customEnchantments(item).size() > 0;
     }
@@ -147,6 +139,22 @@ public class EnchantUtil {
             if (EnchantUtil.isCustom(enchantment)) foundFishchantments.add(enchantment);
         }
         return foundFishchantments;
+    }
+
+    public static boolean isCustom(Enchantment enchantment) {
+        if (enchantment == null) return false;
+        Iterator<Enchantment> fishchantments = CustomEnchantment.all().iterator();
+        while (fishchantments.hasNext()) {
+            Enchantment fishchantment = fishchantments.next();
+            if (same(fishchantment, enchantment)) return true;
+        }
+        return false;
+    }
+
+    public static ArrayList<Enchantment> allEnchantments() {
+        ArrayList<Enchantment> enchants = CustomEnchantment.all();
+        enchants.addAll(Arrays.asList(Enchantment.values()));
+        return enchants;
     }
 
     public static boolean sameEnchantments(ItemStack itemA, ItemStack itemB) {
@@ -199,13 +207,8 @@ public class EnchantUtil {
         return false;
     }
 
-    @SuppressWarnings("deprecation")
     public static boolean same(Enchantment enchant1, Enchantment enchant2) {
-        if (enchant1.getKey().getKey().equals(enchant2.getKey().getKey())) return true;
-        String name1 = enchant1.getName(); String name2 = enchant2.getName();
-        if (name1 == null || name2 == null) return false;
-        if (name1.equalsIgnoreCase(name2)) return true;
-        return false;
+        return enchant1.getKey().getKey().equals(enchant2.getKey().getKey());
     }
 
     public static boolean has(ItemStack item, Enchantment enchant) {

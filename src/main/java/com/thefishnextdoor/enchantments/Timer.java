@@ -29,6 +29,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.helmet.Gills;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.helmet.NightVision;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.DolphinsGrace;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.Swiftness;
+import com.thefishnextdoor.enchantments.util.Optimize;
 
 public class Timer {
     private static Plugin plugin = null;
@@ -47,28 +48,41 @@ public class Timer {
                     ItemStack chestplate = player.getInventory().getChestplate();
                     ItemStack leggings = player.getInventory().getLeggings();
                     ItemStack boots = player.getInventory().getBoots();
+                    boolean checkHelmet = Optimize.couldHaveCustomEnchantment(helmet);
+                    boolean checkChestplate = Optimize.couldHaveCustomEnchantment(chestplate);
+                    boolean checkLeggings = Optimize.couldHaveCustomEnchantment(leggings);
+                    boolean checkBoots = Optimize.couldHaveCustomEnchantment(boots);
+                    if (!checkHelmet && !checkChestplate && !checkLeggings && !checkBoots) continue;
                     CurseOfRadiance.onTimer(player);
                     CurseOfMiningFatigue.onTimer(player);
                     CurseOfSlowness.onTimer(player);
                     CurseOfWeakness.onTimer(player);
                     CurseOfLevitating.onTimer(player);
                     Invisibility.onTimer(player);
-                    Gills.onTimer(player, helmet);
-                    NightVision.onTimer(player, helmet);
-                    ConduitPower.onTimer(player, helmet);
-                    DragonScales.onTimer(player, chestplate);
-                    Healing.onTimer(player, chestplate);
-                    IncreasedHealth.onTimer(player, chestplate);
-                    Strength.onTimer(player, chestplate);
-                    Haste.onTimer(player, chestplate);
-                    HeroOfTheVillage.onTimer(player, chestplate);
-                    FireResistance.onTimer(player, chestplate);
-                    DolphinsGrace.onTimer(player, leggings);
-                    Swiftness.onTimer(player, leggings);
-                    Anchor.onTimer(player, boots);
-                    SlowFalling.onTimer(player, boots);
-                    Spurs.onTimer(player, boots);
-                    Leaping.onTimer(player, boots);
+                    if (checkHelmet) {
+                        Gills.onTimer(player, helmet);
+                        NightVision.onTimer(player, helmet);
+                        ConduitPower.onTimer(player, helmet);
+                    }
+                    if (checkChestplate) {
+                        DragonScales.onTimer(player, chestplate);
+                        Healing.onTimer(player, chestplate);
+                        IncreasedHealth.onTimer(player, chestplate);
+                        Strength.onTimer(player, chestplate);
+                        Haste.onTimer(player, chestplate);
+                        HeroOfTheVillage.onTimer(player, chestplate);
+                        FireResistance.onTimer(player, chestplate);
+                    }
+                    if (checkLeggings) {
+                        DolphinsGrace.onTimer(player, leggings);
+                        Swiftness.onTimer(player, leggings);
+                    }
+                    if (checkBoots) {
+                        Anchor.onTimer(player, boots);
+                        SlowFalling.onTimer(player, boots);
+                        Spurs.onTimer(player, boots);
+                        Leaping.onTimer(player, boots);
+                    }
                 }
             }
         }, 0, Settings.ARMOR_EFFECTS_PERIOD_TICKS);

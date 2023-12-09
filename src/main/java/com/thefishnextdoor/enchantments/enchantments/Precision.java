@@ -14,15 +14,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Precision extends Enchantment {
 
-    public static final String NAME = "Precision";
-
     public Precision(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Precision";
     }
 
     @Override

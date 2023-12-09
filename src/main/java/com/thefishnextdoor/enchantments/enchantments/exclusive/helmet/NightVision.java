@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class NightVision extends Enchantment {
 
-    public static final String NAME = "Night Vision";
-
     public NightVision(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Night Vision";
     }
 
     @Override
@@ -52,13 +50,11 @@ public class NightVision extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(Sustenance.NAME)) return true;
-        if (name.equals(Worm.NAME)) return true;
-        if (name.equals(Gills.NAME)) return true;
-        if (name.equals(ConduitPower.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.SUSTENANCE)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.WORM)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.GILLS)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.CONDUIT_POWER)) return true;
         return false;
     }
 

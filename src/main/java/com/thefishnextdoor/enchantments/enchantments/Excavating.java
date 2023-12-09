@@ -21,15 +21,13 @@ import com.thefishnextdoor.enchantments.util.WorldUtil;
 
 public class Excavating extends Enchantment {
 
-    public static final String NAME = "Excavating";
-
     public Excavating(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Excavating";
     }
 
     @Override

@@ -14,15 +14,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class CurseOfWeakness extends Enchantment {
 
-    public static final String NAME = "Curse of Weakness";
-
     public CurseOfWeakness(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Curse of Weakness";
     }
 
     @Override

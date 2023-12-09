@@ -18,15 +18,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Telekinesis extends Enchantment {
 
-    public static final String NAME = "Telekinesis";
-
     public Telekinesis(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Telekinesis";
     }
 
     @Override

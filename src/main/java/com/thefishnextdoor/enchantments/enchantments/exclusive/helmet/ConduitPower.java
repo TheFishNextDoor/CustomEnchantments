@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class ConduitPower extends Enchantment {
 
-    public static final String NAME = "Conduit Power";
-
     public ConduitPower(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Conduit Power";
     }
 
     @Override
@@ -52,13 +50,11 @@ public class ConduitPower extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(Sustenance.NAME)) return true;
-        if (name.equals(Worm.NAME)) return true;
-        if (name.equals(Gills.NAME)) return true;
-        if (name.equals(NightVision.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.SUSTENANCE)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.WORM)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.GILLS)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.NIGHT_VISION)) return true;
         return false;
     }
 

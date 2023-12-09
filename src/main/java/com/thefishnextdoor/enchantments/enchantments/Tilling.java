@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Tilling extends Enchantment {
 
-    public static final String NAME = "Tilling";
-
     public Tilling(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Tilling";
     }
 
     @Override

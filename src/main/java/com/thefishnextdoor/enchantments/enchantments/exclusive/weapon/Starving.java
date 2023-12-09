@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Starving extends Enchantment {
 
-    public static final String NAME = "Starving";
-
     public Starving(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Starving";
     }
 
     @Override
@@ -52,20 +50,18 @@ public class Starving extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(LifeSteal.NAME)) return true;
-        if (name.equals(Venom.NAME)) return true;
-        if (name.equals(Withering.NAME)) return true;
-        if (name.equals(Obscure.NAME)) return true;
-        if (name.equals(Disorienting.NAME)) return true;
-        if (name.equals(Debilitating.NAME)) return true;
-        if (name.equals(Crippling.NAME)) return true;
-        if (name.equals(Glass.NAME)) return true;
-        if (name.equals(Levitating.NAME)) return true;
-        if (name.equals(BloodTipped.NAME)) return true;
-        if (name.equals(Volley.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.LIFE_STEAL)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.VENOM)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.WITHERING)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.OBSCURE)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.DISORIENTING)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.DEBILITATING)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.CRIPPLING)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.GLASS)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.LEVITATING)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.BLOOD_TIPPED)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.VOLLEY)) return true;
         return false;
     }
 

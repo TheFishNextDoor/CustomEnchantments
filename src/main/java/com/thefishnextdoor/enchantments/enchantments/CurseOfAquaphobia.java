@@ -13,15 +13,13 @@ import com.thefishnextdoor.enchantments.util.WorldUtil;
 
 public class CurseOfAquaphobia extends Enchantment {
 
-    public static final String NAME = "Curse of Aquaphobia";
-
     public CurseOfAquaphobia(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Curse of Aquaphobia";
     }
 
     @Override

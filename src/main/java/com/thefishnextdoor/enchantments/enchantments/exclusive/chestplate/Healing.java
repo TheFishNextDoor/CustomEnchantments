@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Healing extends Enchantment {
 
-    public static final String NAME = "Healing";
-
     public Healing(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Healing";
     }
 
     @Override
@@ -52,18 +50,16 @@ public class Healing extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(DragonScales.NAME)) return true;
-        if (name.equals(FireResistance.NAME)) return true;
-        if (name.equals(Strength.NAME)) return true;
-        if (name.equals(Haste.NAME)) return true;
-        if (name.equals(IncreasedHealth.NAME)) return true;
-        if (name.equals(HeroOfTheVillage.NAME)) return true;
-        if (name.equals(DeathWish.NAME)) return true;
-        if (name.equals(ProjectileResistance.NAME)) return true;
-        if (name.equals(Flaming.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.DRAGON_SCALES)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.FIRE_RESISTANCE)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.STRENGTH)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.HASTE)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.INCREASED_HEALTH)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.HERO_OF_THE_VILLAGE)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.DEATHWISH)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.PROJECTILE_RESISTANCE)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.FLAMING)) return true;
         return false;
     }
 

@@ -13,15 +13,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Range extends Enchantment {
 
-    public static final String NAME = "Range";
-
     public Range(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Range";
     }
 
     @Override

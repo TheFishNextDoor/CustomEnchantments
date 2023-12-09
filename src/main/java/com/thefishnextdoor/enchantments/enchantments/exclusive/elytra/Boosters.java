@@ -13,15 +13,13 @@ import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
 public class Boosters extends Enchantment {
 
-    public static final String NAME = "Boosters";
-
     public Boosters(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Boosters";
     }
 
     @Override
@@ -50,10 +48,8 @@ public class Boosters extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(Momentum.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.MOMENTUM)) return true;
         return false;
     }
 

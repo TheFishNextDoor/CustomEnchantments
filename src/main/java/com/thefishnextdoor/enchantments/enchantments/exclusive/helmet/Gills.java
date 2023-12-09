@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Gills extends Enchantment {
 
-    public static final String NAME = "Gills";
-
     public Gills(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Gills";
     }
 
     @Override
@@ -52,13 +50,11 @@ public class Gills extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(Sustenance.NAME)) return true;
-        if (name.equals(Worm.NAME)) return true;
-        if (name.equals(NightVision.NAME)) return true;
-        if (name.equals(ConduitPower.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.SUSTENANCE)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.WORM)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.NIGHT_VISION)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.CONDUIT_POWER)) return true;
         return false;
     }
 
@@ -69,7 +65,7 @@ public class Gills extends Enchantment {
     }
 
     public static void onTimer(Player player, ItemStack helmet) {
-        if (!EnchantUtil.has(helmet, CustomEnchantment.WATER_BREATHING)) return;
+        if (!EnchantUtil.has(helmet, CustomEnchantment.GILLS)) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, 0));
     }
 }

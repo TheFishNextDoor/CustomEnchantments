@@ -8,13 +8,10 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Glass;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Unbreakable extends Enchantment {
-
-    public static final String NAME = "Unbreakable";
 
     public Unbreakable(NamespacedKey key) {
         super(key);
@@ -22,7 +19,7 @@ public class Unbreakable extends Enchantment {
 
     @Override
     public String getName() {
-        return NAME;
+        return "Unbreakable";
     }
 
     @Override
@@ -51,10 +48,8 @@ public class Unbreakable extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(Glass.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.GLASS));
         return false;
     }
 

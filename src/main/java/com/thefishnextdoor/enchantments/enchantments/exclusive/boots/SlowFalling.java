@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class SlowFalling extends Enchantment {
 
-    public static final String NAME = "Slow Falling";
-
     public SlowFalling(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Slow Falling";
     }
 
     @Override
@@ -52,13 +50,11 @@ public class SlowFalling extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(Crush.NAME)) return true;
-        if (name.equals(Leaping.NAME)) return true;
-        if (name.equals(Anchor.NAME)) return true;
-        if (name.equals(Bounce.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.CRUSH)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.LEAPING)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.ANCHOR)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.BOUNCE)) return true;
         return false;
     }
 

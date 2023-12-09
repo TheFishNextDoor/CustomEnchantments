@@ -14,15 +14,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Enlightenment extends Enchantment {
 
-    public static final String NAME = "Enlightenment";
-
     public Enlightenment(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Enlightenment";
     }
 
     @Override

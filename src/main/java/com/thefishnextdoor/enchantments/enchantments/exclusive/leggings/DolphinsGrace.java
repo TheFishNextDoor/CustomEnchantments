@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class DolphinsGrace extends Enchantment {
 
-    public static final String NAME = "Dolphins Grace";
-
     public DolphinsGrace(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Dolphins Grace";
     }
 
     @Override
@@ -52,11 +50,9 @@ public class DolphinsGrace extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(Swiftness.NAME)) return true;
-        if (name.equals(Heavy.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.SWIFTNESS)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.HEAVY)) return true;
         return false;
     }
 

@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class CurseOfLevitating extends Enchantment {
 
-    public static final String NAME = "Curse of Levitating";
-
     public CurseOfLevitating(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Curse of Levitating";
     }
 
     @Override

@@ -31,7 +31,7 @@ public class Loot {
             if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.FLAMING, 1));
         }
         if (type == EntityType.DROWNED) {
-            if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.WATER_BREATHING, 1));
+            if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.GILLS, 1));
             if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.ANCHOR, 1));
             if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.AQUA_ASPECT, 1));
         }
@@ -45,7 +45,7 @@ public class Loot {
         }
         if (type == EntityType.CAVE_SPIDER) {
             if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.CURSE_OF_WEAKNESS, 1));
-            if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.POISON, 1));
+            if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.VENOM, 1));
         }
         if (type == EntityType.SPIDER) {
             if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.DISORIENTING, 1));
@@ -63,7 +63,7 @@ public class Loot {
             if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.SPURS, 1));
         }
         if (type == EntityType.PIGLIN) {
-            if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.BLOODTIPPED, 1));
+            if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.BLOOD_TIPPED, 1));
             if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.HASTE, 1));
         }
         if (type == EntityType.ZOMBIFIED_PIGLIN) {
@@ -112,7 +112,7 @@ public class Loot {
             if (NumberUtil.chance(2.5 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.CURSE_OF_SLOWNESS, 1));
         }
         if (type == EntityType.WITHER) {
-            if (NumberUtil.chance(10.0 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.WITHER, 1));
+            if (NumberUtil.chance(10.0 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.WITHERING, 1));
             if (NumberUtil.chance(8.0 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.UNBREAKABLE, 1));
             if (NumberUtil.chance(2.5 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.LIFE_STEAL, 1));
             if (NumberUtil.chance(1.0 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.PROJECTILE_RESISTANCE, 1));

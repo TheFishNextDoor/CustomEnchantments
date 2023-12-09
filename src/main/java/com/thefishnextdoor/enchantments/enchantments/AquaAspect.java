@@ -19,15 +19,13 @@ import com.thefishnextdoor.enchantments.util.WorldUtil;
 
 public class AquaAspect extends Enchantment {
 
-    public static final String NAME = "Aqua Aspect";
-
     public AquaAspect(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Aqua Aspect";
     }
 
     @Override

@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class CurseOfRadiance extends Enchantment {
 
-    public static final String NAME = "Curse of Radiance";
-
     public CurseOfRadiance(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Curse of Radiance";
     }
 
     @Override

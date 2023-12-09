@@ -1,7 +1,6 @@
 package com.thefishnextdoor.enchantments.commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
@@ -23,32 +21,26 @@ public class Fenchant implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (!sender.hasPermission(command.getPermission())) return null;
         if (!(sender instanceof Player)) return null;
         Player player = (Player) sender;
-        if (command.getName().equalsIgnoreCase("fenchant")) {
-            if (args.length == 1) return getEnchantCommandNames(InventoryUtil.getItemInUse(player));
-            else if (args.length == 2) {
-                ArrayList<String> levels = new ArrayList<>();
-                Enchantment enchantment = getEnchantment(args[0]);
-                if (enchantment == null) return null;
-                int maxLevel = enchantment.getMaxLevel();
-                for (Integer i=0; i<=maxLevel; i++) {
-                    levels.add(i.toString());
-                }
-                return levels;
+        if (args.length == 1) return getEnchantCommandNames(InventoryUtil.getItemInUse(player));
+        else if (args.length == 2) {
+            ArrayList<String> levels = new ArrayList<>();
+            Enchantment enchantment = getEnchantment(args[0]);
+            if (enchantment == null) return null;
+            int maxLevel = enchantment.getMaxLevel();
+            for (Integer i=0; i<=maxLevel; i++) {
+                levels.add(i.toString());
             }
-            else return null;
+            return levels;
         }
-        return null;
+        else return null;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission(command.getPermission())) return false;
         if (!(sender instanceof Player)) return false;
         Player player = (Player) sender;
-        if (!command.getName().equalsIgnoreCase("fenchant")) return false;
         if (args.length == 0) return false;
         String enchantName = args[0];
         Enchantment enchantment = getEnchantment(enchantName);
@@ -67,7 +59,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
     }
 
     private Enchantment getEnchantment(String name) {
-        Iterator<Enchantment> enchantIter = allEnchantments().iterator();
+        Iterator<Enchantment> enchantIter = EnchantUtil.allEnchantments().iterator();
         while (enchantIter.hasNext()) {
             Enchantment enchantment = enchantIter.next();
             if (getEnchantCommandName(enchantment).equalsIgnoreCase(name)) return enchantment; 
@@ -76,7 +68,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
     }
 
     private ArrayList<String> getEnchantCommandNames(ItemStack item) {
-        Iterator<Enchantment> enchantIter = allEnchantments().iterator();
+        Iterator<Enchantment> enchantIter = EnchantUtil.allEnchantments().iterator();
         ArrayList<String> names = new ArrayList<>();
         ArrayList<String> allNames = new ArrayList<>();
         while (enchantIter.hasNext()) {
@@ -86,12 +78,6 @@ public class Fenchant implements CommandExecutor, TabCompleter {
             if (EnchantUtil.has(item, enchantment) || enchantment.canEnchantItem(item)) names.add(name);
         }
         return names.size() == 0 ? allNames : names;
-    }
-
-    private ArrayList<Enchantment> allEnchantments() {
-        ArrayList<Enchantment> enchants = CustomEnchantment.all();
-        enchants.addAll(Arrays.asList(Enchantment.values()));
-        return enchants;
     }
 
     private static String getEnchantCommandName(Enchantment enchantment) {

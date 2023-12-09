@@ -14,15 +14,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class CurseOfSlowness extends Enchantment {
 
-    public static final String NAME = "Curse of Slowness";
-
     public CurseOfSlowness(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Curse of Slowness";
     }
 
     @Override

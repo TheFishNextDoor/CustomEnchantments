@@ -18,15 +18,13 @@ import com.thefishnextdoor.enchantments.util.WorldUtil;
 
 public class Replanting extends Enchantment {
 
-    public static final String NAME = "Replanting";
-
     public Replanting(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Replanting";
     }
 
     @Override

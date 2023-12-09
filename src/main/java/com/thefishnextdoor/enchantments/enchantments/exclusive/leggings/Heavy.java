@@ -14,15 +14,13 @@ import com.thefishnextdoor.enchantments.util.WorldUtil;
 
 public class Heavy extends Enchantment {
 
-    public static final String NAME = "Heavy";
-
     public Heavy(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Heavy";
     }
 
     @Override
@@ -51,11 +49,9 @@ public class Heavy extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(Swiftness.NAME)) return true;
-        if (name.equals(DolphinsGrace.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.SWIFTNESS)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.DOLPHINS_GRACE)) return true;
         return false;
     }
 

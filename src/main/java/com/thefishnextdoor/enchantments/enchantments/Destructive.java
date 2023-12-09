@@ -16,15 +16,13 @@ import com.thefishnextdoor.enchantments.util.WorldUtil;
 
 public class Destructive extends Enchantment {
 
-    public static final String NAME = "Destructive";
-
     public Destructive(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Destructive";
     }
 
     @Override

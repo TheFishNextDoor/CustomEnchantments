@@ -13,15 +13,13 @@ import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
 public class Reflection extends Enchantment {
 
-    public static final String NAME = "Reflection";
-
     public Reflection(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Reflection";
     }
 
     @Override

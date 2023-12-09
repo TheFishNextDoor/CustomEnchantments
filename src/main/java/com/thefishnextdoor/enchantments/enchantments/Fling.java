@@ -16,15 +16,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Fling extends Enchantment {
 
-    public static final String NAME = "Fling";
-
     public Fling(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Fling";
     }
 
     @Override

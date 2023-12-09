@@ -14,15 +14,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class CurseOfMiningFatigue extends Enchantment {
 
-    public static final String NAME = "Curse of Mining Fatigue";
-
     public CurseOfMiningFatigue(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Curse of Mining Fatigue";
     }
 
     @Override

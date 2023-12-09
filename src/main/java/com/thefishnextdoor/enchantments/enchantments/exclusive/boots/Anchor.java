@@ -16,15 +16,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Anchor extends Enchantment {
 
-    public static final String NAME = "Anchor";
-
     public Anchor(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Anchor";
     }
 
     @Override
@@ -53,13 +51,11 @@ public class Anchor extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(Crush.NAME)) return true;
-        if (name.equals(Leaping.NAME)) return true;
-        if (name.equals(SlowFalling.NAME)) return true;
-        if (name.equals(Bounce.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.CRUSH)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.LEAPING)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.SLOW_FALLING)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.BOUNCE)) return true;
         return false;
     }
 

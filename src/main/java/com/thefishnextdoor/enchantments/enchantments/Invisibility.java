@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Invisibility extends Enchantment {
 
-    public static final String NAME = "Invisivility";
-
     public Invisibility(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Invisivility";
     }
 
     @Override

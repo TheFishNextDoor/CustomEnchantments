@@ -16,15 +16,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Spurs extends Enchantment {
 
-    public static final String NAME = "Spurs";
-
     public Spurs(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Spurs";
     }
 
     @Override

@@ -15,15 +15,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Crush extends Enchantment {
 
-    public static final String NAME = "Crush";
-
     public Crush(NamespacedKey key) {
         super(key);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return "Crush";
     }
 
     @Override
@@ -52,13 +50,11 @@ public class Crush extends Enchantment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean conflictsWith(Enchantment other) {
-        String name = other.getName();
-        if (name.equals(Leaping.NAME)) return true;
-        if (name.equals(SlowFalling.NAME)) return true;
-        if (name.equals(Anchor.NAME)) return true;
-        if (name.equals(Bounce.NAME)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.LEAPING)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.SLOW_FALLING)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.ANCHOR)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.BOUNCE)) return true;
         if (EnchantUtil.same(other, Enchantment.PROTECTION_FALL)) return true;
         return false;
     }
