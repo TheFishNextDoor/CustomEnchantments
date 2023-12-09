@@ -65,10 +65,9 @@ public class Bounce extends Enchantment {
     public static void onFall(Player player, ItemStack boots, EntityDamageEvent event) {
         int level = EnchantUtil.level(boots, CustomEnchantment.BOUNCE);
         if (level < 1) return;
-        double v = Math.log(event.getFinalDamage()) * (level + 2) / 10;
+        double v = Math.log(event.getDamage()) * (level + 2) / 10;
         if (v > 10) v = 10;
         player.setVelocity(player.getVelocity().setY(v));
-        event.setDamage(0);
         event.setCancelled(true);
     }
 }
