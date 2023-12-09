@@ -9,24 +9,28 @@ public class PlayerTracker {
     private static ArrayList<TrackedPlayer> trackedPlayers = new ArrayList<TrackedPlayer>();
 
     public static class TrackedPlayer {
-        private final String name;
-        private BlockFace mining = null;
+        private final String id;
+        private BlockFace miningFace = null;
 
         public TrackedPlayer(Player player) {
-            this.name = player.getName();
+            this.id = id(player);
             trackedPlayers.add(this);
         }
 
         public boolean is(Player player) {
-            return player.getName().equals(name);
+            return id(player).equals(id);
         }
 
         public BlockFace getMiningFace() {
-            return mining;
+            return miningFace;
         }
 
         public void setMiningFace(BlockFace mining) {
-            this.mining = mining;
+            this.miningFace = mining;
+        }
+
+        private static String id(Player player) {
+            return player.getName();
         }
     }
 
