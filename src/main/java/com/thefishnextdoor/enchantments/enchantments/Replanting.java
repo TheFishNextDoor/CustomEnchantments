@@ -14,7 +14,7 @@ import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.PermChecker;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
-import com.thefishnextdoor.enchantments.util.WorldUtil;
+import com.thefishnextdoor.enchantments.util.BlockUtil;
 
 public class Replanting extends Enchantment {
 
@@ -93,7 +93,7 @@ public class Replanting extends Enchantment {
         if (!(state.getBlockData() instanceof Ageable)) return false;
         Ageable ageable = (Ageable) state.getBlockData();
         if (ageable.getAge() != ageable.getMaximumAge()) return false;
-        WorldUtil.dropBlockItems(player, block, item);
+        BlockUtil.dropBlockItems(player, block, item);
         ageable.setAge(0);
         block.setBlockData(ageable);
         return true;

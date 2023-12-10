@@ -29,7 +29,6 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.helmet.Gills;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.helmet.NightVision;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.DolphinsGrace;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.Swiftness;
-import com.thefishnextdoor.enchantments.util.Optimize;
 
 public class Timer {
     private static Plugin plugin = null;
@@ -48,10 +47,10 @@ public class Timer {
                     ItemStack chestplate = player.getInventory().getChestplate();
                     ItemStack leggings = player.getInventory().getLeggings();
                     ItemStack boots = player.getInventory().getBoots();
-                    boolean checkHelmet = Optimize.couldHaveCustomEnchantment(helmet);
-                    boolean checkChestplate = Optimize.couldHaveCustomEnchantment(chestplate);
-                    boolean checkLeggings = Optimize.couldHaveCustomEnchantment(leggings);
-                    boolean checkBoots = Optimize.couldHaveCustomEnchantment(boots);
+                    boolean checkHelmet = couldHaveCustomEnchantment(helmet);
+                    boolean checkChestplate = couldHaveCustomEnchantment(chestplate);
+                    boolean checkLeggings = couldHaveCustomEnchantment(leggings);
+                    boolean checkBoots = couldHaveCustomEnchantment(boots);
                     if (!checkHelmet && !checkChestplate && !checkLeggings && !checkBoots) continue;
                     CurseOfRadiance.onTimer(player);
                     CurseOfMiningFatigue.onTimer(player);
@@ -113,5 +112,9 @@ public class Timer {
     public static void reload() {
         stop();
         if (plugin != null) start(plugin);
+    }
+
+    private static boolean couldHaveCustomEnchantment (ItemStack item) {
+        return item != null && item.hasItemMeta() && item.getItemMeta().hasLore();
     }
 }

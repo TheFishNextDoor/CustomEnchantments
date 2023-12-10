@@ -17,7 +17,7 @@ import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.PlayerTracker;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
-import com.thefishnextdoor.enchantments.util.WorldUtil;
+import com.thefishnextdoor.enchantments.util.BlockUtil;
 
 public class Excavating extends Enchantment {
 
@@ -104,7 +104,7 @@ public class Excavating extends Enchantment {
         ItemStack item = InventoryUtil.getItemInUse(player);
         while (iter.hasNext()) {
             Block iblock = iter.next();
-            if ((!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) WorldUtil.breakBlock(player, iblock, item);
+            if ((!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) BlockUtil.breakBlock(player, iblock, item);
         }
     }
 }

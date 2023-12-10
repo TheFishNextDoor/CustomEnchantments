@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
-import com.thefishnextdoor.enchantments.util.WorldUtil;
+import com.thefishnextdoor.enchantments.util.BlockUtil;
 
 public class Destructive extends Enchantment {
 
@@ -81,6 +81,6 @@ public class Destructive extends Enchantment {
         }
         if (!hasDrops) return;
         projectile.remove();
-        WorldUtil.breakBlock(player, block);
+        BlockUtil.breakBlock(player, block);
     }
 }

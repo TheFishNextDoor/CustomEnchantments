@@ -26,7 +26,7 @@ import org.bukkit.NamespacedKey;
 
 public class Smelting extends Enchantment {
 
-    public static HashMap<Material, Material> smeltingMap = Smelting.generateSmeltingMap();
+    public static HashMap<Material, Material> smeltingMap = generateSmeltingMap();
 
     public Smelting(NamespacedKey key) {
         super(key);
@@ -90,7 +90,7 @@ public class Smelting extends Enchantment {
     private static void smelt(Item item) {
         ItemStack itemStack = item.getItemStack();
         Material material = itemStack.getType();
-        Material smelted = Smelting.smelted(material);
+        Material smelted = smelted(material);
         if (smelted == null) return;
         itemStack.setType(smelted);
         item.setItemStack(itemStack);
@@ -98,7 +98,7 @@ public class Smelting extends Enchantment {
 
     private static void smelt(ItemStack itemStack) {
         Material material = itemStack.getType();
-        Material smelted = Smelting.smelted(material);
+        Material smelted = smelted(material);
         if (smelted == null) return;
         itemStack.setType(smelted);
     }

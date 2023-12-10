@@ -1,22 +1,11 @@
 package com.thefishnextdoor.enchantments.util;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 public class InventoryUtil {
-
-    public static void give(Player player, ItemStack item) {
-        HashMap<Integer, ItemStack> excessItems = player.getInventory().addItem(item);
-        if (excessItems.isEmpty()) return;
-        Iterator<ItemStack> iter = excessItems.values().iterator();
-        while (iter.hasNext()) {
-            player.getWorld().dropItem(player.getLocation(), iter.next());
-        }
-    }
 
     public static ItemStack getItemInUse(Player player) {
         PlayerInventory inv = player.getInventory();

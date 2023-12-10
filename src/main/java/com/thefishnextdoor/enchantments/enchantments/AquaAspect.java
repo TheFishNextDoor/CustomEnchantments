@@ -14,8 +14,8 @@ import org.bukkit.util.Vector;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Plugin;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
+import com.thefishnextdoor.enchantments.util.EntityUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
-import com.thefishnextdoor.enchantments.util.WorldUtil;
 
 public class AquaAspect extends Enchantment {
 
@@ -71,7 +71,7 @@ public class AquaAspect extends Enchantment {
         if (entity.getFireTicks() > 0) entity.setFireTicks(0);
         if (isAquaphobic(entity.getType())) event.setDamage(event.getDamage() + (level * 2.5));
         if (entity.getType() == EntityType.ENDERMAN) {
-            WorldUtil.cancelKnockback(plugin, entity);
+            EntityUtil.cancelKnockback(plugin, entity);
             Snowball snowball = (Snowball) entity.getWorld().spawnEntity(entity.getLocation().add(0, 4, 0), EntityType.SNOWBALL);
             snowball.setVelocity(new Vector(0, -2.0, 0));
             snowball.setShooter(player);

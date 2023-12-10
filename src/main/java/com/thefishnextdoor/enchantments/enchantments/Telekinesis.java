@@ -1,6 +1,8 @@
 package com.thefishnextdoor.enchantments.enchantments;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.NamespacedKey;
@@ -66,7 +68,7 @@ public class Telekinesis extends Enchantment {
     public static void onBlockDropItems(Player player, List<Item> drops) {
         if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
         for (Item drop : drops) {
-            InventoryUtil.give(player, drop.getItemStack());
+            give(player, drop.getItemStack());
         }
         drops.clear();
     }
@@ -74,7 +76,7 @@ public class Telekinesis extends Enchantment {
     public static void onBlockDropItems(Player player, Collection<ItemStack> drops) {
         if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
         for (ItemStack drop : drops) {
-            InventoryUtil.give(player, drop);
+            give(player, drop);
         }
         drops.clear();
     }
@@ -82,7 +84,7 @@ public class Telekinesis extends Enchantment {
     public static void onMobLoot(Player player, List<ItemStack> drops) {
         if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
         for (ItemStack drop : drops) {
-            InventoryUtil.give(player, drop);
+            give(player, drop);
         }
         drops.clear();
     }
@@ -97,5 +99,14 @@ public class Telekinesis extends Enchantment {
         if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
         player.giveExp(event.getDroppedExp());
         event.setDroppedExp(0);
+    }
+
+    private static void give(Player player, ItemStack item) {
+        HashMap<Integer, ItemStack> excessItems = player.getInventory().addItem(item);
+        if (excessItems.isEmpty()) return;
+        Iterator<ItemStack> iter = excessItems.values().iterator();
+        while (iter.hasNext()) {
+            player.getWorld().dropItem(player.getLocation(), iter.next());
+        }
     }
 }
