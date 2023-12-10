@@ -35,6 +35,28 @@ public class Timer {
     private static int armorEffectsTaskId = -1;
     private static int curseOfAquaphobiaTaskId = -1;
 
+    public static class ArmorCheckOptimizer {
+        public final ItemStack HELMET;
+        public final ItemStack CHESTPLATE;
+        public final ItemStack LEGGINGS;
+        public final ItemStack BOOTS;
+        public final boolean CHECK_HELMET;
+        public final boolean CHECK_CHESTPLATE;
+        public final boolean CHECK_LEGGINGS;
+        public final boolean CHECK_BOOTS;
+
+        public ArmorCheckOptimizer(Player player) {
+            HELMET = player.getInventory().getHelmet();
+            CHESTPLATE = player.getInventory().getChestplate();
+            LEGGINGS = player.getInventory().getLeggings();
+            BOOTS = player.getInventory().getBoots();
+            CHECK_HELMET = couldHaveCustomEnchantment(HELMET);
+            CHECK_CHESTPLATE = couldHaveCustomEnchantment(CHESTPLATE);
+            CHECK_LEGGINGS = couldHaveCustomEnchantment(LEGGINGS);
+            CHECK_BOOTS = couldHaveCustomEnchantment(BOOTS);
+        }
+    }
+
     public static void start(final Plugin p) {
         plugin = p;
         if (armorEffectsTaskId == -1) armorEffectsTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
@@ -43,44 +65,37 @@ public class Timer {
                 Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
                 while (players.hasNext()) {
                     Player player = players.next();
-                    ItemStack helmet = player.getInventory().getHelmet();
-                    ItemStack chestplate = player.getInventory().getChestplate();
-                    ItemStack leggings = player.getInventory().getLeggings();
-                    ItemStack boots = player.getInventory().getBoots();
-                    boolean checkHelmet = couldHaveCustomEnchantment(helmet);
-                    boolean checkChestplate = couldHaveCustomEnchantment(chestplate);
-                    boolean checkLeggings = couldHaveCustomEnchantment(leggings);
-                    boolean checkBoots = couldHaveCustomEnchantment(boots);
-                    if (!checkHelmet && !checkChestplate && !checkLeggings && !checkBoots) continue;
-                    CurseOfRadiance.onTimer(player);
-                    CurseOfMiningFatigue.onTimer(player);
-                    CurseOfSlowness.onTimer(player);
-                    CurseOfWeakness.onTimer(player);
-                    CurseOfLevitating.onTimer(player);
-                    Invisibility.onTimer(player);
-                    if (checkHelmet) {
-                        Gills.onTimer(player, helmet);
-                        NightVision.onTimer(player, helmet);
-                        ConduitPower.onTimer(player, helmet);
+                    ArmorCheckOptimizer o = new ArmorCheckOptimizer(player);
+                    if (! o.CHECK_HELMET && !o.CHECK_CHESTPLATE && !o.CHECK_LEGGINGS && !o.CHECK_BOOTS) continue;
+                    CurseOfRadiance.onTimer(player, o);
+                    CurseOfMiningFatigue.onTimer(player, o);
+                    CurseOfSlowness.onTimer(player, o);
+                    CurseOfWeakness.onTimer(player, o);
+                    CurseOfLevitating.onTimer(player, o);
+                    Invisibility.onTimer(player, o);
+                    if (o.CHECK_HELMET) {
+                        Gills.onTimer(player, o.HELMET);
+                        NightVision.onTimer(player, o.HELMET);
+                        ConduitPower.onTimer(player, o.HELMET);
                     }
-                    if (checkChestplate) {
-                        DragonScales.onTimer(player, chestplate);
-                        Healing.onTimer(player, chestplate);
-                        IncreasedHealth.onTimer(player, chestplate);
-                        Strength.onTimer(player, chestplate);
-                        Haste.onTimer(player, chestplate);
-                        HeroOfTheVillage.onTimer(player, chestplate);
-                        FireResistance.onTimer(player, chestplate);
+                    if (o.CHECK_CHESTPLATE) {
+                        DragonScales.onTimer(player, o.CHESTPLATE);
+                        Healing.onTimer(player, o.CHESTPLATE);
+                        IncreasedHealth.onTimer(player, o.CHESTPLATE);
+                        Strength.onTimer(player, o.CHESTPLATE);
+                        Haste.onTimer(player, o.CHESTPLATE);
+                        HeroOfTheVillage.onTimer(player, o.CHESTPLATE);
+                        FireResistance.onTimer(player, o.CHESTPLATE);
                     }
-                    if (checkLeggings) {
-                        DolphinsGrace.onTimer(player, leggings);
-                        Swiftness.onTimer(player, leggings);
+                    if (o.CHECK_LEGGINGS) {
+                        DolphinsGrace.onTimer(player, o.LEGGINGS);
+                        Swiftness.onTimer(player, o.LEGGINGS);
                     }
-                    if (checkBoots) {
-                        Anchor.onTimer(player, boots);
-                        SlowFalling.onTimer(player, boots);
-                        Spurs.onTimer(player, boots);
-                        Leaping.onTimer(player, boots);
+                    if (o.CHECK_BOOTS) {
+                        Anchor.onTimer(player, o.BOOTS);
+                        SlowFalling.onTimer(player, o.BOOTS);
+                        Spurs.onTimer(player, o.BOOTS);
+                        Leaping.onTimer(player, o.BOOTS);
                     }
                 }
             }
@@ -92,7 +107,7 @@ public class Timer {
                 Player player;
                 while (players.hasNext()) {
                     player = players.next();
-                    CurseOfAquaphobia.onTimer(player);
+                    CurseOfAquaphobia.onTimer(player, new ArmorCheckOptimizer(player));
                 }
             }
         }, 40, 40);

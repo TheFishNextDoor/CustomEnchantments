@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Settings;
+import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -278,15 +279,19 @@ public class EnchantUtil {
         return level(InventoryUtil.getShieldInUse(player), enchant);
     }
 
-    public static boolean wearing(Player player, Enchantment enchant) {
-        return armorLevel(player, enchant) > 0;
+    public static boolean wearing(Player player, Enchantment enchant, ArmorCheckOptimizer o) {
+        return armorLevel(player, enchant, o) > 0;
     }
 
-    public static int armorLevel(Player player, Enchantment enchant) {
-        int helmetLevel = level(player.getInventory().getHelmet(), enchant);
-        int chestplateLevel = level(player.getInventory().getChestplate(), enchant);
-        int leggingsLevel = level(player.getInventory().getLeggings(), enchant);
-        int bootsLevel = level(player.getInventory().getBoots(), enchant);
+    public static int armorLevel(Player player, Enchantment enchant, ArmorCheckOptimizer o) {
+        int helmetLevel = 0;
+        int chestplateLevel = 0;
+        int leggingsLevel = 0;
+        int bootsLevel = 0;
+        if (o.CHECK_HELMET) helmetLevel = level(o.HELMET, enchant);
+        if (o.CHECK_CHESTPLATE) chestplateLevel = level(o.CHESTPLATE, enchant);
+        if (o.CHECK_LEGGINGS) leggingsLevel = level(o.LEGGINGS, enchant);
+        if (o.CHECK_BOOTS) bootsLevel = level(o.BOOTS, enchant);
         return Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
     }
 

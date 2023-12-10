@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
@@ -59,8 +60,8 @@ public class CurseOfSlowness extends Enchantment {
         return InventoryUtil.isArmor(item.getType());
     }
 
-    public static void onTimer(Player player) {
-        int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_SLOWNESS);
+    public static void onTimer(Player player, ArmorCheckOptimizer o) {
+        int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_SLOWNESS, o);
         if (level < 1) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, level-1));
     }

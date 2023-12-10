@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
@@ -58,12 +59,11 @@ public class CurseOfAquaphobia extends Enchantment {
         return InventoryUtil.isArmor(item.getType());
     }
 
-    public static void onTimer(Player player) {
-        int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_AQUAPHOBIA);
+    public static void onTimer(Player player, ArmorCheckOptimizer o) {
+        int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_AQUAPHOBIA, o);
         if (level < 1) return;
-        boolean inWater = player.isInWater();
-        boolean inRain = isRaining(player.getLocation().getBlock()) && !underBlock(player);
-        if (inWater || inRain) player.damage(1);
+        if (!(player.isInWater() || (isRaining(player.getLocation().getBlock()) && !underBlock(player)))) return; 
+        player.damage(1);
     }
 
     private static boolean underBlock(Player player) {
