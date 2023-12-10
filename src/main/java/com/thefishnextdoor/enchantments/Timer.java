@@ -104,9 +104,8 @@ public class Timer {
             @Override
             public void run() {
                 Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
-                Player player;
                 while (players.hasNext()) {
-                    player = players.next();
+                    Player player = players.next();
                     CurseOfAquaphobia.onTimer(player, new ArmorCheckOptimizer(player));
                 }
             }
