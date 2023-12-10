@@ -2,6 +2,7 @@ package com.thefishnextdoor.enchantments;
 
 import java.util.logging.Logger;
 
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.thefishnextdoor.enchantments.commands.Fenchant;
@@ -33,7 +34,7 @@ public class Plugin extends JavaPlugin {
     }
     
     public void onEnable() {
-        loadConfig();
+        Settings.loadPluginConfig(this);
         CustomEnchantment.registerAll();
         Timer.start(this);
         registerEvents();
@@ -47,37 +48,30 @@ public class Plugin extends JavaPlugin {
     }
 
     public void reload() {
-        reloadConfig();
-        loadConfig();
+        Settings.loadPluginConfig(this);
         Timer.reload();
     }
 
-    private void loadConfig() {
-        saveDefaultConfig();
-        getConfig().options().copyDefaults(true);
-        saveConfig();
-        Settings.load(getConfig());
-    }
-
     private void registerEvents() {
-        getServer().getPluginManager().registerEvents(new Damage(this), this);
-        getServer().getPluginManager().registerEvents(new AttackEntity(this), this);
-        getServer().getPluginManager().registerEvents(new Quit(), this);
-        getServer().getPluginManager().registerEvents(new ProjectileHit(), this);
-        getServer().getPluginManager().registerEvents(new BlockDropItems(), this);
-        getServer().getPluginManager().registerEvents(new EntityAttack(), this);
-        getServer().getPluginManager().registerEvents(new ItemDamage(), this);
-        getServer().getPluginManager().registerEvents(new FireProjectile(), this);
-        getServer().getPluginManager().registerEvents(new Move(), this);
-        getServer().getPluginManager().registerEvents(new Till(), this);
-        getServer().getPluginManager().registerEvents(new HungerChange(), this);
-        getServer().getPluginManager().registerEvents(new Fall(), this);
-        getServer().getPluginManager().registerEvents(new ClickBlock(), this);
-        getServer().getPluginManager().registerEvents(new BreakBlock(), this);
-        getServer().getPluginManager().registerEvents(new Suffocation(), this);
-        getServer().getPluginManager().registerEvents(new PrepareAnvil(), this);
-        getServer().getPluginManager().registerEvents(new Grindstone(), this);
-        getServer().getPluginManager().registerEvents(new EntityDeath(this), this);
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new Damage(this), this);
+        pluginManager.registerEvents(new AttackEntity(this), this);
+        pluginManager.registerEvents(new Quit(), this);
+        pluginManager.registerEvents(new ProjectileHit(), this);
+        pluginManager.registerEvents(new BlockDropItems(), this);
+        pluginManager.registerEvents(new EntityAttack(), this);
+        pluginManager.registerEvents(new ItemDamage(), this);
+        pluginManager.registerEvents(new FireProjectile(), this);
+        pluginManager.registerEvents(new Move(), this);
+        pluginManager.registerEvents(new Till(), this);
+        pluginManager.registerEvents(new HungerChange(), this);
+        pluginManager.registerEvents(new Fall(), this);
+        pluginManager.registerEvents(new ClickBlock(), this);
+        pluginManager.registerEvents(new BreakBlock(), this);
+        pluginManager.registerEvents(new Suffocation(), this);
+        pluginManager.registerEvents(new PrepareAnvil(), this);
+        pluginManager.registerEvents(new Grindstone(), this);
+        pluginManager.registerEvents(new EntityDeath(this), this);
     }
 
     private void registerCommands() {
