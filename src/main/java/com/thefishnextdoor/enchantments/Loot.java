@@ -29,6 +29,7 @@ public class Loot {
         if (type == EntityType.BLAZE) {
             if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.FIRE_RESISTANCE, 1));
             if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.FLAMING, 1));
+            if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.SMELTING, 1));
         }
         if (type == EntityType.DROWNED) {
             if (NumberUtil.chance(0.1 * m)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.GILLS, 1));

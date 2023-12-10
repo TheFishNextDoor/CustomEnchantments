@@ -13,6 +13,7 @@ import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.enchantments.PermChecker;
 import com.thefishnextdoor.enchantments.Plugin;
+import com.thefishnextdoor.enchantments.enchantments.Smelting;
 import com.thefishnextdoor.enchantments.enchantments.Telekinesis;
 
 public class WorldUtil {
@@ -36,6 +37,7 @@ public class WorldUtil {
         if (item == null) drops = block.getDrops();
         else drops = block.getDrops(item);
         if (drops.isEmpty()) return;
+        Smelting.onBlockDropItems(player, drops);
         Telekinesis.onBlockDropItems(player, drops);
         if (drops.isEmpty()) return;
         World world = block.getWorld();

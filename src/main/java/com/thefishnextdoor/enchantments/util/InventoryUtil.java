@@ -2,7 +2,6 @@ package com.thefishnextdoor.enchantments.util;
 
 import java.util.HashMap;
 import java.util.Iterator;
-
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

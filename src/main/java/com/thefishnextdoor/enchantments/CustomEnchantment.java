@@ -23,6 +23,7 @@ import com.thefishnextdoor.enchantments.enchantments.Radiance;
 import com.thefishnextdoor.enchantments.enchantments.Range;
 import com.thefishnextdoor.enchantments.enchantments.Reflection;
 import com.thefishnextdoor.enchantments.enchantments.Replanting;
+import com.thefishnextdoor.enchantments.enchantments.Smelting;
 import com.thefishnextdoor.enchantments.enchantments.Spurs;
 import com.thefishnextdoor.enchantments.enchantments.Telekinesis;
 import com.thefishnextdoor.enchantments.enchantments.Tilling;
@@ -70,6 +71,7 @@ public class CustomEnchantment {
     public static Enchantment TILLING;
     public static Enchantment REPLANTING;
     public static Enchantment EXCAVATING;
+    public static Enchantment SMELTING;
     public static Enchantment TELEKINESIS;
     public static Enchantment UNBREAKABLE;
     public static Enchantment SUSTENANCE;
@@ -149,6 +151,7 @@ public class CustomEnchantment {
         TILLING = new Tilling(new NamespacedKey(plugin, "tilling"));
         REPLANTING = new Replanting(new NamespacedKey(plugin, "replanting"));
         EXCAVATING = new Excavating(new NamespacedKey(plugin, "excavating"));
+        SMELTING = new Smelting(new NamespacedKey(plugin, "smelting"));
         TELEKINESIS = new Telekinesis(new NamespacedKey(plugin, "telekinesis"));
         UNBREAKABLE = new Unbreakable(new NamespacedKey(plugin, "unbreakable"));
         SUSTENANCE = new Sustenance(new NamespacedKey(plugin, "sustenance"));
@@ -210,6 +213,7 @@ public class CustomEnchantment {
         registerCustomEnchantment(TILLING);
         registerCustomEnchantment(REPLANTING);
         registerCustomEnchantment(EXCAVATING);
+        registerCustomEnchantment(SMELTING);
         registerCustomEnchantment(TELEKINESIS);
         registerCustomEnchantment(UNBREAKABLE);
         registerCustomEnchantment(SUSTENANCE);

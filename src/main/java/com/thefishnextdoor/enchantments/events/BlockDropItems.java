@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
 
+import com.thefishnextdoor.enchantments.enchantments.Smelting;
 import com.thefishnextdoor.enchantments.enchantments.Telekinesis;
 
 public class BlockDropItems implements Listener {
@@ -20,6 +21,7 @@ public class BlockDropItems implements Listener {
         Block block = event.getBlock();
         if (player == null || block == null) return;
         List<Item> items = event.getItems();
+        Smelting.onBlockDropItems(player, items);
         Telekinesis.onBlockDropItems(player, items);
     }
 }
