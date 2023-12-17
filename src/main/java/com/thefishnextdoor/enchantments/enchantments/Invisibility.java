@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Settings;
+import com.thefishnextdoor.enchantments.Timer;
 import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
@@ -63,6 +63,6 @@ public class Invisibility extends Enchantment {
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {
         if (!EnchantUtil.wearing(player, CustomEnchantment.INVISIBILITY, o)) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Timer.PERIOD * 2, 0));
     }
 }

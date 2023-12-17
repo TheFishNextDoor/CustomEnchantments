@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Settings;
+import com.thefishnextdoor.enchantments.Timer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
@@ -77,6 +77,6 @@ public class Anchor extends Enchantment {
     public static void onTimer(Player player, ItemStack boots) {
         if (!player.isInWater()) return;
         if (!EnchantUtil.has(player.getInventory().getBoots(), CustomEnchantment.ANCHOR)) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, 2));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Timer.PERIOD * 2, 2));
     }
 }

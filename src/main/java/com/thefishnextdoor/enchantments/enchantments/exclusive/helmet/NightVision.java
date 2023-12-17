@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Settings;
+import com.thefishnextdoor.enchantments.Timer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
@@ -66,6 +66,6 @@ public class NightVision extends Enchantment {
 
     public static void onTimer(Player player, ItemStack helmet) {
         if (!EnchantUtil.has(helmet, CustomEnchantment.NIGHT_VISION)) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900 + Settings.ARMOR_EFFECTS_PERIOD_TICKS, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900 + Timer.PERIOD, 0));
     }
 }

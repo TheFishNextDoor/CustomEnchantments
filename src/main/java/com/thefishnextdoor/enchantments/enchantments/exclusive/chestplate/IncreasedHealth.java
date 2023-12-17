@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Settings;
+import com.thefishnextdoor.enchantments.Timer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
@@ -72,6 +72,6 @@ public class IncreasedHealth extends Enchantment {
     public static void onTimer(Player player, ItemStack chestplate) {
         int level = EnchantUtil.level(chestplate, CustomEnchantment.INCREASED_HEALTH);
         if (level < 1) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, level-1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Timer.PERIOD * 2, level-1));
     }
 }

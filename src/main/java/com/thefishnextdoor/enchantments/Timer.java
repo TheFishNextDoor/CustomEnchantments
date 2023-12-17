@@ -30,6 +30,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.Dolphins
 import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.Swiftness;
 
 public class Timer {
+    public static final int PERIOD = 40;
     private static Plugin plugin = null;
     private static int armorEffectsTaskId = -1;
     private static int curseOfAquaphobiaTaskId = -1;
@@ -71,6 +72,7 @@ public class Timer {
                     CurseOfWeakness.onTimer(player, o);
                     CurseOfLevitating.onTimer(player, o);
                     Invisibility.onTimer(player, o);
+                    CurseOfAquaphobia.onTimer(player, o);
                     if (o.CHECK_HELMET) {
                         Gills.onTimer(player, o.HELMET);
                         NightVision.onTimer(player, o.HELMET);
@@ -97,16 +99,7 @@ public class Timer {
                     }
                 }
             }
-        }, 0, Settings.ARMOR_EFFECTS_PERIOD_TICKS);
-        if (curseOfAquaphobiaTaskId == -1) curseOfAquaphobiaTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-                for (Player player : players) {
-                    CurseOfAquaphobia.onTimer(player, new ArmorCheckOptimizer(player));
-                }
-            }
-        }, 40, 40);
+        }, PERIOD, PERIOD);
     }
 
     public static void stop() {

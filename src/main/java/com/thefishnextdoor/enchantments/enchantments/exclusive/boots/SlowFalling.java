@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Settings;
+import com.thefishnextdoor.enchantments.Timer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
@@ -67,6 +67,6 @@ public class SlowFalling extends Enchantment {
     public static void onTimer(Player player, ItemStack boots) {
         int level = EnchantUtil.level(boots, CustomEnchantment.SLOW_FALLING);
         if (level < 1) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, level-1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, Timer.PERIOD * 2, level-1));
     }
 }

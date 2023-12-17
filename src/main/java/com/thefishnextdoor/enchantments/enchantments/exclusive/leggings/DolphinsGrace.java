@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Settings;
+import com.thefishnextdoor.enchantments.Timer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
@@ -64,6 +64,6 @@ public class DolphinsGrace extends Enchantment {
 
     public static void onTimer(Player player, ItemStack leggings) {
         if (!EnchantUtil.has(leggings, CustomEnchantment.DOLPHINS_GRACE)) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Timer.PERIOD * 2, 0));
     }
 }

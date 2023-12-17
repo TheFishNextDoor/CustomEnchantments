@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Settings;
+import com.thefishnextdoor.enchantments.Timer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
@@ -66,7 +66,7 @@ public class Spurs extends Enchantment {
         LivingEntity mount = (LivingEntity) player.getVehicle();
         int level = EnchantUtil.level(boots, CustomEnchantment.SPURS);
         if (level < 1) return;
-        mount.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, level - 1));
-        mount.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Settings.ARMOR_EFFECTS_PERIOD_TICKS * 2, level - 1));
+        mount.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Timer.PERIOD * 2, level - 1));
+        mount.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Timer.PERIOD * 2, level - 1));
     }
 }
