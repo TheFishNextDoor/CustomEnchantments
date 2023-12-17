@@ -5,6 +5,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
@@ -69,9 +70,10 @@ public class LifeSteal extends Enchantment {
         return InventoryUtil.isWeapon(item.getType());
     }
 
-    public static void onPlayerAttackEntity(Player player, double damage, boolean ranged) {
+    public static void onPlayerAttackEntity(Player player, EntityDamageByEntityEvent event, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.LIFE_STEAL, ranged);
         if (level < 1) return;
+        double damage = event.getFinalDamage();
         if (!ranged) damage /= 2;
         heal(player, calcAddedHealth(damage, level));
     }

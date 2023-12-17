@@ -7,12 +7,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.thefishnextdoor.enchantments.commands.Fenchant;
 import com.thefishnextdoor.enchantments.commands.Reload;
-import com.thefishnextdoor.enchantments.events.AttackEntity;
+import com.thefishnextdoor.enchantments.events.Attack;
 import com.thefishnextdoor.enchantments.events.BlockDropItems;
 import com.thefishnextdoor.enchantments.events.BreakBlock;
 import com.thefishnextdoor.enchantments.events.ClickBlock;
 import com.thefishnextdoor.enchantments.events.Damage;
-import com.thefishnextdoor.enchantments.events.EntityAttack;
 import com.thefishnextdoor.enchantments.events.EntityDeath;
 import com.thefishnextdoor.enchantments.events.Fall;
 import com.thefishnextdoor.enchantments.events.FireProjectile;
@@ -55,11 +54,10 @@ public class Plugin extends JavaPlugin {
     private void registerEvents() {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new Damage(this), this);
-        pluginManager.registerEvents(new AttackEntity(this), this);
+        pluginManager.registerEvents(new Attack(this), this);
         pluginManager.registerEvents(new Quit(), this);
         pluginManager.registerEvents(new ProjectileHit(), this);
         pluginManager.registerEvents(new BlockDropItems(), this);
-        pluginManager.registerEvents(new EntityAttack(), this);
         pluginManager.registerEvents(new ItemDamage(), this);
         pluginManager.registerEvents(new FireProjectile(), this);
         pluginManager.registerEvents(new Move(), this);

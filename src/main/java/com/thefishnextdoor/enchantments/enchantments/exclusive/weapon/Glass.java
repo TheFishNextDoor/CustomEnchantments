@@ -73,13 +73,14 @@ public class Glass extends Enchantment {
         return InventoryUtil.isWeapon(item.getType());
     }
 
-    public static void onPlayerAttackEntity(Player player, double damage, EntityDamageByEntityEvent event, boolean ranged) {
+    public static void onPlayerAttackEntity(Player player, EntityDamageByEntityEvent event, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.GLASS, ranged);
         if (level < 1) return;
-        event.setDamage(damage * 1.5);
+        event.setDamage(event.getDamage() * 1.5);
     }
 
     public static void onItemTakeDamage(Player player, ItemStack item, int damage, PlayerItemDamageEvent event) {
-        if (EnchantUtil.has(item, CustomEnchantment.GLASS)) event.setDamage(damage * 32);
+        if (EnchantUtil.has(item, CustomEnchantment.GLASS)) return;
+        event.setDamage(damage * 32);
     }
 }
