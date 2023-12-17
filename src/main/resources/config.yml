@@ -2,3 +2,4 @@ mobs-drop-books: true # Mobs will have a chance to drop books with custom enchan
 remove-overridden-enchantments: true # Remove unbreaking and mending when unbreakable is applied to an item
 check-lore: true # Fixes plugins with lossy item saving from losing the applied enchantments (e.g. Essentials kits)
 use-arabic-numerals: false # Use 1, 2, 3 instead of I, II, III
+play-effects: true # Certain enchantments will create particle effects

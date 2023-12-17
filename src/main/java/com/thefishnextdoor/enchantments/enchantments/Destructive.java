@@ -1,7 +1,11 @@
 package com.thefishnextdoor.enchantments.enchantments;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
@@ -10,6 +14,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.Settings;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 import com.thefishnextdoor.enchantments.util.BlockUtil;
@@ -82,5 +87,13 @@ public class Destructive extends Enchantment {
         if (!hasDrops) return;
         projectile.remove();
         BlockUtil.breakBlock(player, block);
+        if (Settings.PLAY_EFFECTS) playEffect(player, block);
+    }
+
+    private static void playEffect(Player player, Block block) {
+        World world = block.getWorld();
+        Location location = block.getLocation().add(0.5, 0.5, 0.5);
+        world.spawnParticle(Particle.EXPLOSION_LARGE, location, 1);
+        world.playSound(location, Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.0f);
     }
 }
