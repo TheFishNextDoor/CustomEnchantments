@@ -62,12 +62,13 @@ public class Bounce extends Enchantment {
         return InventoryUtil.isBoots(item.getType());
     }
 
-    public static void onFall(Player player, ItemStack boots, EntityDamageEvent event) {
-        int level = EnchantUtil.level(boots, CustomEnchantment.BOUNCE);
-        if (level < 1) return;
+    public static boolean bounce(Player player, EntityDamageEvent event) {
+        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) return false;
+        int level = EnchantUtil.level(player.getInventory().getBoots(), CustomEnchantment.BOUNCE);
+        if (level < 1) return false;
         double v = Math.log(event.getDamage()) * (level + 2) / 10;
         if (v > 10) v = 10;
         player.setVelocity(player.getVelocity().setY(v));
-        event.setCancelled(true);
+        return true;
     }
 }

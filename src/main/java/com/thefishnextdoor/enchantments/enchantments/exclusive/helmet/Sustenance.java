@@ -62,8 +62,10 @@ public class Sustenance extends Enchantment {
         return InventoryUtil.isHelmet(item.getType());
     }
 
-    public static void onHungerLoss(Player player, ItemStack helmet, FoodLevelChangeEvent event) {
-        if (!EnchantUtil.has(helmet, CustomEnchantment.SUSTENANCE)) return;
-        event.setFoodLevel(20);
+    public static void modifyFood(Player player, FoodLevelChangeEvent event) {
+        if (!EnchantUtil.has(player.getInventory().getHelmet(), CustomEnchantment.SUSTENANCE)) return;
+        int food = event.getFoodLevel() + 2;
+        if (food > 20) food = 20;
+        event.setFoodLevel(food);
     }
 }

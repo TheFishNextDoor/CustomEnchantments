@@ -12,10 +12,10 @@ import com.thefishnextdoor.enchantments.enchantments.Range;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.BloodTipped;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Volley;
 
-public class FireProjectile implements Listener {
+public class ProjectileLaunch implements Listener {
 
     @EventHandler
-    public void onFireProjectile(ProjectileLaunchEvent event) {
+    public void onProjectileLaunch(ProjectileLaunchEvent event) {
         if (event.isCancelled()) return;
         Projectile projectile = event.getEntity();
         ProjectileSource shooter = projectile.getShooter();

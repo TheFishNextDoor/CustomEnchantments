@@ -15,7 +15,7 @@ import com.thefishnextdoor.enchantments.util.NumberUtil;
 
 public class Loot {
 
-    public static void addLoot(Plugin plugin, Player player, LivingEntity livingEntity, List<ItemStack> drops) {
+    public static void addDrops(Plugin plugin, Player player, LivingEntity livingEntity, List<ItemStack> drops) {
         if (!Settings.MOBS_DROP_BOOKS) return;
         if (!livingEntity.getWorld().getGameRuleValue(GameRule.DO_MOB_LOOT)) return;
         EntityType type = livingEntity.getType();

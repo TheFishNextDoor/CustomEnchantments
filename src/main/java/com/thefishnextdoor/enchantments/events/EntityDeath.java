@@ -29,9 +29,9 @@ public class EntityDeath implements Listener {
         Player player = entity.getKiller();
         if (player == null) return;
         List<ItemStack> drops = event.getDrops();
-        Loot.addLoot(plugin, player, entity, drops); // Must run before telekinesis
-        Enlightenment.onMobXp(player, event); // Must run before telekinesis
-        Telekinesis.onMobXp(player, event);
-        Telekinesis.onMobLoot(player, drops);
+        Loot.addDrops(plugin, player, entity, drops);
+        Telekinesis.transferDrops(player, drops);
+        Enlightenment.modifyXp(player, event);
+        Telekinesis.transferXp(player, event);
     }
 }

@@ -30,15 +30,15 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Venom;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Withering;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Attack implements Listener {
+public class EntityDamageByEntity implements Listener {
     private final Plugin plugin;
 
-    public Attack(Plugin plugin) {
+    public EntityDamageByEntity(Plugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onAttack(EntityDamageByEntityEvent event) {
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.isCancelled()) return;
         if (event.getCause() != DamageCause.ENTITY_ATTACK) return;
         Entity reciever = event.getEntity();
@@ -60,20 +60,25 @@ public class Attack implements Listener {
         }
 
         if (!(event.getFinalDamage() > 0)) return;
-        if (damager instanceof Player && reciever instanceof LivingEntity) {
-            onPlayerAttackEntity((Player) damager, (LivingEntity) reciever, event, RANGED_ATTACK);
-        }
         if (reciever instanceof Player && damager instanceof LivingEntity) {
             onEntityAttackPlayer((Player) reciever, (LivingEntity) damager);
         }
+        if (damager instanceof Player && reciever instanceof LivingEntity) {
+            onPlayerAttackEntity((Player) damager, (LivingEntity) reciever, event, RANGED_ATTACK);
+        }
+    }
+
+
+    private static void onEntityAttackPlayer(Player player, LivingEntity entity) {
+        Flaming.onEntityAttackPlayer(player, entity);
     }
     
     private void onPlayerAttackEntity(Player player, LivingEntity entity, EntityDamageByEntityEvent event, boolean RANGED_ATTACK) {
         if (!RANGED_ATTACK && InventoryUtil.isRanged(InventoryUtil.getItemInUse(player).getType())) return;
-        DeathWish.onPlayerAttackEntity(player, event); // Modifies damage
-        Glass.onPlayerAttackEntity(player, event, RANGED_ATTACK); // Modifies damage
-        AquaAspect.onPlayerAttackEntity(plugin, player, entity, event, RANGED_ATTACK);  // Modifies damage
-        LifeSteal.onPlayerAttackEntity(player, event, RANGED_ATTACK); // Should come after damage modifiers
+        DeathWish.modifyDamage(player, event);
+        Glass.modifyDamage(player, event, RANGED_ATTACK);
+        AquaAspect.modifyDamage(plugin, player, entity, event, RANGED_ATTACK);
+        LifeSteal.onPlayerAttackEntity(player, event, RANGED_ATTACK);
         Fling.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
         Venom.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
         Withering.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
@@ -85,9 +90,5 @@ public class Attack implements Listener {
         Debilitating.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
         Starving.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
         Crippling.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
-    }
-
-    private void onEntityAttackPlayer(Player player, LivingEntity entity) {
-        Flaming.onEntityAttackPlayer(player, entity);
     }
 }

@@ -62,8 +62,7 @@ public class Worm extends Enchantment {
         return InventoryUtil.isHelmet(item.getType());
     }
 
-    public static void onSuffocate(Player player, ItemStack helmet, EntityDamageEvent event) {
-        if (!EnchantUtil.has(helmet, CustomEnchantment.WORM)) return;
-        event.setCancelled(true);
+    public static boolean resist(Player player, EntityDamageEvent event) {
+        return event.getCause() == EntityDamageEvent.DamageCause.SUFFOCATION && EnchantUtil.has(player.getInventory().getHelmet(), CustomEnchantment.WORM);
     }
 }

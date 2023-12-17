@@ -17,7 +17,7 @@ public class PrepareAnvil implements Listener {
         ItemStack result = event.getResult();
         ItemStack zero = event.getInventory().getItem(0);
         ItemStack one = event.getInventory().getItem(1);
-        EnchantUtil.verify(zero); EnchantUtil.verify(one); // Fix broken fishchantments
+        EnchantUtil.verify(zero); EnchantUtil.verify(one);
         if (!(EnchantUtil.hasCustomEnchantments(zero) || EnchantUtil.hasCustomEnchantments(one))) return;
         if (!EnchantUtil.canMergeInAnvil(zero, one)) return;
         boolean cloned = false;

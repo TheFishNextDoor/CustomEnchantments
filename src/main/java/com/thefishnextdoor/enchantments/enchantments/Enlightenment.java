@@ -59,13 +59,13 @@ public class Enlightenment extends Enchantment {
         return InventoryUtil.isWeapon(item.getType()) || InventoryUtil.isTool(item.getType());
     }
 
-    public static void onMobXp(Player player, EntityDeathEvent event) {
+    public static void modifyXp(Player player, EntityDeathEvent event) {
         int level = EnchantUtil.handLevel(player, CustomEnchantment.ENLIGHTENMENT);
         if (level < 1) return;
         event.setDroppedExp(xp(level, event.getDroppedExp()));
     }
 
-    public static void onBlockXp(Player player, BlockBreakEvent event) {
+    public static void modifyXp(Player player, BlockBreakEvent event) {
         int level = EnchantUtil.handLevel(player, CustomEnchantment.ENLIGHTENMENT);
         if (level < 1) return;
         event.setExpToDrop(xp(level, event.getExpToDrop()));

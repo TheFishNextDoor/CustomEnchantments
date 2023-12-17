@@ -7,23 +7,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.thefishnextdoor.enchantments.commands.Fenchant;
 import com.thefishnextdoor.enchantments.commands.Reload;
-import com.thefishnextdoor.enchantments.events.Attack;
+import com.thefishnextdoor.enchantments.events.EntityDamageByEntity;
 import com.thefishnextdoor.enchantments.events.BlockDropItems;
-import com.thefishnextdoor.enchantments.events.BreakBlock;
-import com.thefishnextdoor.enchantments.events.ClickBlock;
-import com.thefishnextdoor.enchantments.events.Damage;
+import com.thefishnextdoor.enchantments.events.BlockBreak;
+import com.thefishnextdoor.enchantments.events.PlayerInteract;
+import com.thefishnextdoor.enchantments.events.EntityDamage;
 import com.thefishnextdoor.enchantments.events.EntityDeath;
-import com.thefishnextdoor.enchantments.events.Fall;
-import com.thefishnextdoor.enchantments.events.FireProjectile;
-import com.thefishnextdoor.enchantments.events.Grindstone;
+import com.thefishnextdoor.enchantments.events.ProjectileLaunch;
+import com.thefishnextdoor.enchantments.events.InventoryClick;
 import com.thefishnextdoor.enchantments.events.HungerChange;
-import com.thefishnextdoor.enchantments.events.ItemDamage;
-import com.thefishnextdoor.enchantments.events.Move;
+import com.thefishnextdoor.enchantments.events.PlayerItemDamage;
+import com.thefishnextdoor.enchantments.events.PlayerMove;
 import com.thefishnextdoor.enchantments.events.PrepareAnvil;
 import com.thefishnextdoor.enchantments.events.ProjectileHit;
 import com.thefishnextdoor.enchantments.events.Quit;
-import com.thefishnextdoor.enchantments.events.Suffocation;
-import com.thefishnextdoor.enchantments.events.Till;
 
 public class Plugin extends JavaPlugin {
     public static final Logger LOGGER = Logger.getLogger("Fish's Custom Enchantments");
@@ -53,22 +50,19 @@ public class Plugin extends JavaPlugin {
 
     private void registerEvents() {
         PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(new Damage(this), this);
-        pluginManager.registerEvents(new Attack(this), this);
+        pluginManager.registerEvents(new EntityDamage(this), this);
+        pluginManager.registerEvents(new EntityDamageByEntity(this), this);
         pluginManager.registerEvents(new Quit(), this);
         pluginManager.registerEvents(new ProjectileHit(), this);
         pluginManager.registerEvents(new BlockDropItems(), this);
-        pluginManager.registerEvents(new ItemDamage(), this);
-        pluginManager.registerEvents(new FireProjectile(), this);
-        pluginManager.registerEvents(new Move(), this);
-        pluginManager.registerEvents(new Till(), this);
+        pluginManager.registerEvents(new PlayerItemDamage(), this);
+        pluginManager.registerEvents(new ProjectileLaunch(), this);
+        pluginManager.registerEvents(new PlayerMove(), this);
         pluginManager.registerEvents(new HungerChange(), this);
-        pluginManager.registerEvents(new Fall(), this);
-        pluginManager.registerEvents(new ClickBlock(), this);
-        pluginManager.registerEvents(new BreakBlock(), this);
-        pluginManager.registerEvents(new Suffocation(), this);
+        pluginManager.registerEvents(new PlayerInteract(), this);
+        pluginManager.registerEvents(new BlockBreak(), this);
         pluginManager.registerEvents(new PrepareAnvil(), this);
-        pluginManager.registerEvents(new Grindstone(), this);
+        pluginManager.registerEvents(new InventoryClick(), this);
         pluginManager.registerEvents(new EntityDeath(this), this);
     }
 

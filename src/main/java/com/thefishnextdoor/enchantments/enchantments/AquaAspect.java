@@ -65,7 +65,7 @@ public class AquaAspect extends Enchantment {
         return InventoryUtil.isWeapon(item.getType());
     }
 
-    public static void onPlayerAttackEntity(Plugin plugin, Player player, final LivingEntity entity, EntityDamageByEntityEvent event, boolean ranged) {
+    public static void modifyDamage(Plugin plugin, Player player, final LivingEntity entity, EntityDamageByEntityEvent event, boolean ranged) {
         int level = EnchantUtil.weaponLevel(player, CustomEnchantment.AQUA_ASPECT, ranged);
         if (level < 1) return;
         if (entity.getFireTicks() > 0) entity.setFireTicks(0);

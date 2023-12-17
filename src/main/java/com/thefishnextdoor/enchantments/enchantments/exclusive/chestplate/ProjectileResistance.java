@@ -4,7 +4,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
@@ -67,7 +66,7 @@ public class ProjectileResistance extends Enchantment {
         return InventoryUtil.isChestplate(item.getType());
     }
 
-    public static void onPlayerTakeDamage(Player player, boolean ranged, EntityDamageEvent event) {
-        if (ranged && EnchantUtil.has(player.getInventory().getChestplate(), CustomEnchantment.PROJECTILE_RESISTANCE)) event.setCancelled(true);
+    public static boolean resist(Player player, boolean ranged) {
+        return ranged && EnchantUtil.has(player.getInventory().getChestplate(), CustomEnchantment.PROJECTILE_RESISTANCE);
     }
 }

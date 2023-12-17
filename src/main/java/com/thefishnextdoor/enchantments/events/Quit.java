@@ -9,7 +9,7 @@ import com.thefishnextdoor.enchantments.PlayerTracker;
 public class Quit implements Listener {
 
     @EventHandler
-    public void onLeave(PlayerQuitEvent event) {
+    public void onQuit(PlayerQuitEvent event) {
         PlayerTracker.remove(event.getPlayer());
     }
 }

@@ -7,6 +7,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
@@ -65,12 +66,15 @@ public class Crush extends Enchantment {
         return InventoryUtil.isBoots(item.getType());
     }
 
-    public static void onFall(Player player, ItemStack boots, EntityDamageEvent event) {
-        int level = EnchantUtil.level(boots, CustomEnchantment.CRUSH);
+    public static void onPlayerTakeDamage(Player player, EntityDamageEvent event) {
+        if (event.getCause() != DamageCause.FALL) return;
+        int level = EnchantUtil.level(player.getInventory().getBoots(), CustomEnchantment.CRUSH);
         if (level < 1) return;
         double damage = calcDamage(event.getDamage(), level);
         for (Entity entity : player.getNearbyEntities(1, 1, 1)) {
-            if (entity instanceof LivingEntity) ((LivingEntity) entity).damage(damage, player);
+            if (entity instanceof LivingEntity) {
+                ((LivingEntity) entity).damage(damage, player);
+            }
         }
     }
 

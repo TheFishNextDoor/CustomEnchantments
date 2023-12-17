@@ -8,14 +8,17 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import com.thefishnextdoor.enchantments.Plugin;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.boots.Bounce;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.boots.Crush;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.chestplate.DeathWish;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.chestplate.ProjectileResistance;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.helmet.Worm;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.Heavy;
 
-public class Damage implements Listener {
+public class EntityDamage implements Listener {
     private final Plugin plugin;
 
-    public Damage(Plugin plugin) {
+    public EntityDamage(Plugin plugin) {
         this.plugin = plugin;
     }
 
@@ -25,11 +28,18 @@ public class Damage implements Listener {
         Entity entity = event.getEntity();
         if (!(entity instanceof Player)) return;
         Player player = (Player) entity;
-        double damage = event.getFinalDamage();
         boolean ranged = event.getCause() == DamageCause.PROJECTILE;
-        ProjectileResistance.onPlayerTakeDamage(player, ranged, event);
-        if (event.isCancelled()) return;
+        if (cancel(player, event, ranged)) return; 
+        DeathWish.modifyDamage(player, event);
         Heavy.onPlayerTakeDamage(plugin, player);
-        DeathWish.onPlayerTakeDamage(player, damage, event);
+        Crush.onPlayerTakeDamage(player, event);
+    }
+
+    private boolean cancel(Player player, EntityDamageEvent event, boolean ranged) {
+        if (ProjectileResistance.resist(player, ranged) || Worm.resist(player, event) || Bounce.bounce(player, event)) {
+            event.setCancelled(true);
+            return true;
+        }
+        return false;
     }
 }

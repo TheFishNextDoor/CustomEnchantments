@@ -68,13 +68,13 @@ public class DeathWish extends Enchantment {
         return InventoryUtil.isChestplate(item.getType());
     }
 
-    public static void onPlayerAttackEntity(Player player, EntityDamageByEntityEvent event) {
+    public static void modifyDamage(Player player, EntityDamageByEntityEvent event) {
         if (!EnchantUtil.has(player.getInventory().getChestplate(), CustomEnchantment.DEATHWISH)) return;
         event.setDamage(event.getDamage() * 1.75);
     }
 
-    public static void onPlayerTakeDamage(Player player, double damage, EntityDamageEvent event) {
+    public static void modifyDamage(Player player, EntityDamageEvent event) {
         if (!EnchantUtil.has(player.getInventory().getChestplate(), CustomEnchantment.DEATHWISH)) return;
-        event.setDamage(damage * 1.5);
+        event.setDamage(event.getDamage() * 1.5);
     }
 }

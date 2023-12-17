@@ -73,7 +73,7 @@ public class Smelting extends Enchantment {
         return InventoryUtil.isTool(item.getType());
     }
     
-    public static void onBlockDropItems(Player player, List<Item> drops) {
+    public static void modifyDrops(Player player, List<Item> drops) {
         if (!EnchantUtil.holding(player, CustomEnchantment.SMELTING)) return;
         for (Item drop : drops) {
             Smelting.smelt(drop);

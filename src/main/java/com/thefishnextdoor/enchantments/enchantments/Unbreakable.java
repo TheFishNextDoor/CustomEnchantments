@@ -4,7 +4,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
@@ -59,9 +58,7 @@ public class Unbreakable extends Enchantment {
         return InventoryUtil.isEnchantable(item.getType());
     }
 
-    public static void onItemTakeDamage(Player player, ItemStack item, PlayerItemDamageEvent event) {
-        if (player == null || item == null) return;
-        if (!EnchantUtil.has(item, CustomEnchantment.UNBREAKABLE)) return;
-        event.setCancelled(true);
+    public static boolean canTakeDamage(Player player, ItemStack item) {
+        return !EnchantUtil.has(item, CustomEnchantment.UNBREAKABLE);
     }
 }

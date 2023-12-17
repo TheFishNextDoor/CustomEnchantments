@@ -65,7 +65,7 @@ public class Telekinesis extends Enchantment {
         return InventoryUtil.isTool(item.getType()) || InventoryUtil.isWeapon(item.getType());
     }
 
-    public static void onBlockDropItems(Player player, List<Item> drops) {
+    public static void transferDrops(Player player, List<Item> drops) {
         if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
         for (Item drop : drops) {
             give(player, drop.getItemStack());
@@ -73,7 +73,7 @@ public class Telekinesis extends Enchantment {
         drops.clear();
     }
 
-    public static void onBlockDropItems(Player player, Collection<ItemStack> drops) {
+    public static void transferDrops(Player player, Collection<ItemStack> drops) {
         if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
         for (ItemStack drop : drops) {
             give(player, drop);
@@ -81,21 +81,13 @@ public class Telekinesis extends Enchantment {
         drops.clear();
     }
 
-    public static void onMobLoot(Player player, List<ItemStack> drops) {
-        if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
-        for (ItemStack drop : drops) {
-            give(player, drop);
-        }
-        drops.clear();
-    }
-
-    public static void onBlockXp(Player player, BlockBreakEvent event) {
+    public static void transferXp(Player player, BlockBreakEvent event) {
         if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
         player.giveExp(event.getExpToDrop());
         event.setExpToDrop(0);
     }
 
-    public static void onMobXp(Player player, EntityDeathEvent event) {
+    public static void transferXp(Player player, EntityDeathEvent event) {
         if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
         player.giveExp(event.getDroppedExp());
         event.setDroppedExp(0);

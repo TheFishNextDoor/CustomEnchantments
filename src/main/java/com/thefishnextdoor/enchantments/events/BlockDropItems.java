@@ -2,7 +2,6 @@ package com.thefishnextdoor.enchantments.events;
 
 import java.util.List;
 
-import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,10 +17,8 @@ public class BlockDropItems implements Listener {
     public void onBlockDropItems(BlockDropItemEvent event) {
         if (event.isCancelled()) return;
         Player player = event.getPlayer();
-        Block block = event.getBlock();
-        if (player == null || block == null) return;
-        List<Item> items = event.getItems();
-        Smelting.onBlockDropItems(player, items);
-        Telekinesis.onBlockDropItems(player, items);
+        List<Item> drops = event.getItems();
+        Smelting.modifyDrops(player, drops);
+        Telekinesis.transferDrops(player, drops);
     }
 }

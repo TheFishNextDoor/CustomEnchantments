@@ -12,18 +12,17 @@ import com.thefishnextdoor.enchantments.enchantments.Excavating;
 import com.thefishnextdoor.enchantments.enchantments.Replanting;
 import com.thefishnextdoor.enchantments.enchantments.Telekinesis;
 
-public class BreakBlock implements Listener {
+public class BlockBreak implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         if (event.isCancelled()) return;
+        if (!PermChecker.isReal(event)) return;
         Player player = event.getPlayer();
         Block block = event.getBlock();
-        if (player == null || block == null) return;
-        if (!PermChecker.isReal(event)) return;
-        Enlightenment.onBlockXp(player, event);
-        Telekinesis.onBlockXp(player, event);
         Replanting.onBlockBreak(player, block, event);
         Excavating.onBlockBreak(player, block, event);
+        Enlightenment.modifyXp(player, event);
+        Telekinesis.transferXp(player, event);
     }
 }
