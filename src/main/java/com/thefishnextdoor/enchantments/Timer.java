@@ -1,8 +1,6 @@
 package com.thefishnextdoor.enchantments;
 
 import java.util.Collection;
-import java.util.Iterator;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -103,9 +101,8 @@ public class Timer {
         if (curseOfAquaphobiaTaskId == -1) curseOfAquaphobiaTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
-                Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
-                while (players.hasNext()) {
-                    Player player = players.next();
+                Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+                for (Player player : players) {
                     CurseOfAquaphobia.onTimer(player, new ArmorCheckOptimizer(player));
                 }
             }
