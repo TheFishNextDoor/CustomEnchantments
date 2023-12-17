@@ -228,15 +228,12 @@ public class EnchantUtil {
         else if (meta.hasEnchant(enchant)) level = meta.getEnchantLevel(enchant);
         if (Settings.CHECK_LORE && level == 0 && meta.hasLore()) {
             String enchantLore = EnchantUtil.lore(enchant, 1);
-            Iterator<String> iter = meta.getLore().iterator();
-            while (iter.hasNext()) {
-                String line = iter.next();
-                if (line.equals(enchantLore)) level = 1;
-                else if (line.startsWith(enchantLore)) level = number(line.replaceFirst(enchantLore, "").trim());
-                if (level != 0) {
-                    EnchantUtil.fix(item, enchant, level);
-                    break;
-                }
+            for (String line : meta.getLore()) {
+                if (!line.startsWith(enchantLore)) continue;
+                level = line.equals(enchantLore) ? 1 : number(line.replaceFirst(enchantLore, "").trim());
+                if (level == 0) continue;
+                EnchantUtil.fix(item, enchant, level);
+                break;
             }
         }
         return level;

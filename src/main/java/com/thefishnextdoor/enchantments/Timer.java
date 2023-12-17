@@ -1,5 +1,6 @@
 package com.thefishnextdoor.enchantments;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.bukkit.Bukkit;
@@ -62,9 +63,8 @@ public class Timer {
         if (armorEffectsTaskId == -1) armorEffectsTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
-                Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
-                while (players.hasNext()) {
-                    Player player = players.next();
+                Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+                for (Player player : players) {
                     ArmorCheckOptimizer o = new ArmorCheckOptimizer(player);
                     if (! o.CHECK_HELMET && !o.CHECK_CHESTPLATE && !o.CHECK_LEGGINGS && !o.CHECK_BOOTS) continue;
                     CurseOfRadiance.onTimer(player, o);
