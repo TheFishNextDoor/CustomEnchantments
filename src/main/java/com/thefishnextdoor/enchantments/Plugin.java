@@ -20,7 +20,7 @@ import com.thefishnextdoor.enchantments.events.PlayerItemDamage;
 import com.thefishnextdoor.enchantments.events.PlayerMove;
 import com.thefishnextdoor.enchantments.events.PrepareAnvil;
 import com.thefishnextdoor.enchantments.events.ProjectileHit;
-import com.thefishnextdoor.enchantments.events.Quit;
+import com.thefishnextdoor.enchantments.events.PlayerQuit;
 
 public class Plugin extends JavaPlugin {
     public static final Logger LOGGER = Logger.getLogger("Fish's Custom Enchantments");
@@ -52,7 +52,7 @@ public class Plugin extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new EntityDamage(this), this);
         pluginManager.registerEvents(new EntityDamageByEntity(this), this);
-        pluginManager.registerEvents(new Quit(), this);
+        pluginManager.registerEvents(new PlayerQuit(), this);
         pluginManager.registerEvents(new ProjectileHit(), this);
         pluginManager.registerEvents(new BlockDropItems(), this);
         pluginManager.registerEvents(new PlayerItemDamage(), this);
