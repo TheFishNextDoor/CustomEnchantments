@@ -19,7 +19,7 @@ public class PlayerMove implements Listener {
             Momentum.whenGliding(player);
             Boosters.whenGliding(player);
         }
-        if (player.isInWater() && ((Entity) player).isOnGround()) {
+        if (player.isInWater() && !((Entity) player).isOnGround()) {
             Anchor.whenSwimming(player);
         }
     }
