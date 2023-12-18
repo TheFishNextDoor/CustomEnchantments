@@ -1,7 +1,6 @@
 package com.thefishnextdoor.enchantments.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -150,12 +149,6 @@ public class EnchantUtil {
             if (same(fishchantment, enchantment)) return true;
         }
         return false;
-    }
-
-    public static ArrayList<Enchantment> allEnchantments() {
-        ArrayList<Enchantment> enchants = CustomEnchantment.all();
-        enchants.addAll(Arrays.asList(Enchantment.values()));
-        return enchants;
     }
 
     public static boolean sameEnchantments(ItemStack itemA, ItemStack itemB) {
@@ -363,5 +356,16 @@ public class EnchantUtil {
             item.setItemMeta(meta);
         }
         else item.addUnsafeEnchantment(enchantment, level);
+    }
+
+    public static Enchantment getEnchantment(String name) {
+        for (Enchantment enchantment : Enchantment.values()) {
+            if (EnchantUtil.name(enchantment).equalsIgnoreCase(name)) return enchantment; 
+        }
+        return null;
+    }
+
+    public static String name(Enchantment enchantment) {
+        return enchantment.getKey().getKey();
     }
 }

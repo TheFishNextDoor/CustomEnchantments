@@ -5,11 +5,15 @@ api-version: 1.15
 authors: ["TheFishNextDoor"]
 description: Custom Enchantments by TheFishNextDoor
 commands:
-  fenchant:
-    description: Apply an enchantment to the item in your hand
-    usage: /fenchant <enchantment> [level]
-    permission: customenchantments.commands.fenchant
   reloadenchantments:
     description: Reload custom enchantments
     usage: /reloadenchantments
     permission: customenchantments.commands.reload
+  fenchant:
+    description: Apply an enchantment to the item in your hand
+    usage: /fenchant <enchantment> [level]
+    permission: customenchantments.commands.fenchant
+  enchantinfo:
+    description: Get information about an enchantment
+    usage: /enchantinfo
+    permission: customenchantments.commands.enchantinfo

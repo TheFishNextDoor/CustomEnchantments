@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.thefishnextdoor.enchantments.commands.EnchantInfo;
 import com.thefishnextdoor.enchantments.commands.Fenchant;
 import com.thefishnextdoor.enchantments.commands.Reload;
 import com.thefishnextdoor.enchantments.events.EntityDamageByEntity;
@@ -69,5 +70,6 @@ public class Plugin extends JavaPlugin {
     private void registerCommands() {
         getCommand("reloadenchantments").setExecutor(new Reload(this));
         getCommand("fenchant").setExecutor(new Fenchant());
+        getCommand("enchantinfo").setExecutor(new EnchantInfo());
     }
 }
