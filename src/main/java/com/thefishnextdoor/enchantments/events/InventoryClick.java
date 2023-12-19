@@ -11,6 +11,7 @@ import org.bukkit.inventory.GrindstoneInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
 public class InventoryClick implements Listener {
@@ -30,9 +31,9 @@ public class InventoryClick implements Listener {
         ItemStack zero = grindstone.getItem(0);
         ItemStack one = grindstone.getItem(1);
         EnchantUtil.verify(zero); EnchantUtil.verify(one);
-        if (!(EnchantUtil.hasCustomEnchantments(zero) || EnchantUtil.hasCustomEnchantments(one))) return;
-        ArrayList<Enchantment> fishchantments = EnchantUtil.customEnchantments(zero);
-        fishchantments.addAll(EnchantUtil.customEnchantments(one));
+        if (!(CustomEnchantment.hasCustomEnchantments(zero) || CustomEnchantment.hasCustomEnchantments(one))) return;
+        ArrayList<Enchantment> fishchantments = CustomEnchantment.customEnchantments(zero);
+        fishchantments.addAll(CustomEnchantment.customEnchantments(one));
         for (int i = 0; i < fishchantments.size(); i++) {
             Enchantment enchantment = fishchantments.get(i);
             EnchantUtil.removeEnchant(result, enchantment);

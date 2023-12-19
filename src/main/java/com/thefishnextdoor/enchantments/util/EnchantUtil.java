@@ -66,7 +66,7 @@ public class EnchantUtil {
         else item.addUnsafeEnchantment(enchantment, level);
         
         // Add Lore
-        if (!EnchantUtil.isCustom(enchantment)) return true;
+        if (!CustomEnchantment.isCustom(enchantment)) return true;
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
         if (lore == null) lore = new ArrayList<String>();
@@ -90,7 +90,7 @@ public class EnchantUtil {
         }
         
         // Remove Lore
-        if (!EnchantUtil.isCustom(enchantment)) return HASENCHANT;
+        if (!CustomEnchantment.isCustom(enchantment)) return HASENCHANT;
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
         if (lore == null) return HASENCHANT;
@@ -123,32 +123,6 @@ public class EnchantUtil {
             enchantments.add(iter.next());
         }
         return enchantments;
-    }
-
-    public static boolean hasCustomEnchantments(ItemStack item) {
-        return EnchantUtil.customEnchantments(item).size() > 0;
-    }
-
-    public static ArrayList<Enchantment> customEnchantments(ItemStack item) {
-        ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
-        if (item == null) return foundFishchantments;
-        if (!item.hasItemMeta()) return foundFishchantments;
-        Iterator<Enchantment> enchantments = enchantments(item).iterator();
-        while (enchantments.hasNext()) {
-            Enchantment enchantment = enchantments.next();
-            if (EnchantUtil.isCustom(enchantment)) foundFishchantments.add(enchantment);
-        }
-        return foundFishchantments;
-    }
-
-    public static boolean isCustom(Enchantment enchantment) {
-        if (enchantment == null) return false;
-        Iterator<Enchantment> fishchantments = CustomEnchantment.all().iterator();
-        while (fishchantments.hasNext()) {
-            Enchantment fishchantment = fishchantments.next();
-            if (same(fishchantment, enchantment)) return true;
-        }
-        return false;
     }
 
     public static boolean sameEnchantments(ItemStack itemA, ItemStack itemB) {

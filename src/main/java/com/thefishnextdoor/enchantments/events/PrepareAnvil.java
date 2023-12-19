@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
 public class PrepareAnvil implements Listener {
@@ -18,7 +19,7 @@ public class PrepareAnvil implements Listener {
         ItemStack zero = event.getInventory().getItem(0);
         ItemStack one = event.getInventory().getItem(1);
         EnchantUtil.verify(zero); EnchantUtil.verify(one);
-        if (!(EnchantUtil.hasCustomEnchantments(zero) || EnchantUtil.hasCustomEnchantments(one))) return;
+        if (!(CustomEnchantment.hasCustomEnchantments(zero) || CustomEnchantment.hasCustomEnchantments(one))) return;
         if (!EnchantUtil.canMergeInAnvil(zero, one)) return;
         boolean cloned = false;
         if (result == null) {
@@ -26,7 +27,7 @@ public class PrepareAnvil implements Listener {
             cloned = true;
         }
         else {
-            ArrayList<Enchantment> fishchantments = EnchantUtil.customEnchantments(zero);
+            ArrayList<Enchantment> fishchantments = CustomEnchantment.customEnchantments(zero);
             for (int i = 0; i < fishchantments.size(); i++) {
                 Enchantment enchantment = fishchantments.get(i);
                 int level = EnchantUtil.level(zero, enchantment);

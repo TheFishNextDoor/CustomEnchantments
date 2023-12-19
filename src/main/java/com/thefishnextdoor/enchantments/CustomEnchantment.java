@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.enchantments.AquaAspect;
 import com.thefishnextdoor.enchantments.enchantments.CurseOfAquaphobia;
@@ -257,7 +258,6 @@ public class CustomEnchantment {
     }
 
     public static ArrayList<Enchantment> all() {
-        System.out.println(customEnchantments.size());
         return new ArrayList<>(customEnchantments);
     }
 
@@ -278,5 +278,27 @@ public class CustomEnchantment {
 
     public static String desciption(Enchantment enchant) {
         return enchantmentDescriptions.get(enchant.getKey().getKey());
+    }
+
+    public static boolean hasCustomEnchantments(ItemStack item) {
+        return customEnchantments(item).size() > 0;
+    }
+
+    public static ArrayList<Enchantment> customEnchantments(ItemStack item) {
+        ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
+        if (item == null) return foundFishchantments;
+        if (!item.hasItemMeta()) return foundFishchantments;
+        for (Enchantment enchantment : EnchantUtil.enchantments(item)) {
+            if (isCustom(enchantment)) foundFishchantments.add(enchantment);
+        }
+        return foundFishchantments;
+    }
+
+    public static boolean isCustom(Enchantment enchantment) {
+        if (enchantment == null) return false;
+        for (Enchantment customEnchantment : customEnchantments) {
+            if (EnchantUtil.same(customEnchantment, enchantment)) return true;
+        }
+        return false;
     }
 }
