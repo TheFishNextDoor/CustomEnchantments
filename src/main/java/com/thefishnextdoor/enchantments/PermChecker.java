@@ -9,11 +9,12 @@ public class PermChecker {
     private static BlockBreakEvent checking = null;
 
     public static boolean canBreak(Player player, Block block) {
-        BlockBreakEvent event = new BlockBreakEvent(block, player);
-        checking = event;
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        boolean cancelled;
+        checking = new BlockBreakEvent(block, player);
+        Bukkit.getServer().getPluginManager().callEvent(checking);
+        cancelled = checking.isCancelled();
         checking = null;
-        return !event.isCancelled();
+        return !cancelled;
     }
 
     public static boolean isReal(BlockBreakEvent event) {
