@@ -55,6 +55,10 @@ public class Timer {
             CHECK_LEGGINGS = couldHaveCustomEnchantment(LEGGINGS);
             CHECK_BOOTS = couldHaveCustomEnchantment(BOOTS);
         }
+
+        private static boolean couldHaveCustomEnchantment (ItemStack item) {
+            return item != null && item.hasItemMeta() && item.getItemMeta().hasLore() && item.getItemMeta().hasEnchants();
+        }
     }
 
     public static void start(final Plugin p) {
@@ -116,9 +120,5 @@ public class Timer {
     public static void reload() {
         stop();
         if (plugin != null) start(plugin);
-    }
-
-    private static boolean couldHaveCustomEnchantment (ItemStack item) {
-        return item != null && item.hasItemMeta() && item.getItemMeta().hasLore();
     }
 }
