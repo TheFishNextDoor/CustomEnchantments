@@ -1,6 +1,7 @@
 package com.thefishnextdoor.enchantments;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -42,9 +43,11 @@ public class PlayerTracker {
     }
 
     public static void remove(Player player) {
-        for (TrackedPlayer trackedPlayer : trackedPlayers) {
+        Iterator<TrackedPlayer> iterator = trackedPlayers.iterator();
+        while (iterator.hasNext()) {
+            TrackedPlayer trackedPlayer = iterator.next();
             if (trackedPlayer.is(player)) {
-                trackedPlayers.remove(trackedPlayer);
+                iterator.remove();
                 return;
             }
         }
