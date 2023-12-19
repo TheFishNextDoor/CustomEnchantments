@@ -30,7 +30,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.Dolphins
 import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.Swiftness;
 
 public class Timer {
-    public static final int PERIOD = 40;
+    public static final int PERIOD = 30;
     private static Plugin plugin = null;
     private static int armorEffectsTaskId = -1;
     private static int curseOfAquaphobiaTaskId = -1;
