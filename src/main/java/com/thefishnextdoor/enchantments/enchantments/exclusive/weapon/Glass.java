@@ -80,7 +80,7 @@ public class Glass extends Enchantment {
     }
 
     public static void modifyDamage(Player player, ItemStack item, PlayerItemDamageEvent event) {
-        if (EnchantUtil.has(item, CustomEnchantment.GLASS)) return;
+        if (!EnchantUtil.has(item, CustomEnchantment.GLASS)) return;
         event.setDamage(event.getDamage() * 32);
     }
 }
