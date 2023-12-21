@@ -59,7 +59,7 @@ public class Precision extends Enchantment {
         return InventoryUtil.isRanged(item.getType());
     }
 
-    public static void onPlayerFireProjectile(Player player, Projectile projectile) {
+    public static void modifyVelocity(Player player, Projectile projectile) {
         if (player == null || projectile == null) return;
         if (!EnchantUtil.holding(player, CustomEnchantment.PRECISION)) return;
         Vector direction = player.getEyeLocation().getDirection();

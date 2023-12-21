@@ -58,7 +58,7 @@ public class Range extends Enchantment {
         return InventoryUtil.isRanged(item.getType());
     }
 
-    public static void onPlayerFireProjectile(Player player, Projectile projectile) {
+    public static void modifyVelocity(Player player, Projectile projectile) {
         if (player == null || projectile == null) return;
         final int level = EnchantUtil.rangedLevel(player, CustomEnchantment.RANGE);
         if (level < 1) return;

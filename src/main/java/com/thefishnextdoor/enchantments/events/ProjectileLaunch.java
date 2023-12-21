@@ -22,8 +22,8 @@ public class ProjectileLaunch implements Listener {
         ProjectileSource shooter = projectile.getShooter();
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
-        Range.onPlayerFireProjectile(player, projectile);
-        Precision.onPlayerFireProjectile(player, projectile);
+        Range.modifyVelocity(player, projectile);
+        Precision.modifyVelocity(player, projectile);
         Volley.onPlayerFireProjectile(player, projectile);
         SalmonSlinger.onPlayerFireProjectile(player, projectile);
         BloodTipped.onPlayerFireProjectile(player);
