@@ -1,6 +1,5 @@
 package com.thefishnextdoor.enchantments.events;
 
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -19,7 +18,6 @@ public class ProjectileLaunch implements Listener {
 
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
-        if (event.getEntity().getType() == EntityType.SMALL_FIREBALL) System.out.println(event.getEntity().getVelocity().length());
         if (event.isCancelled()) return;
         Projectile projectile = event.getEntity();
         ProjectileSource shooter = projectile.getShooter();
