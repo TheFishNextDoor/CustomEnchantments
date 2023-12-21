@@ -14,6 +14,7 @@ public class PlayerMove implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
+        if (event.isCancelled()) return;
         Player player = event.getPlayer();
         if (player.isGliding()) {
             Momentum.whenGliding(player);

@@ -14,6 +14,7 @@ public class ProjectileHit implements Listener {
 
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
+        if (event.isCancelled()) return;
         Projectile projectile = event.getEntity();
         ProjectileSource shooter = projectile.getShooter();
         if (!(shooter instanceof Player)) return;
