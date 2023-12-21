@@ -1,5 +1,6 @@
 package com.thefishnextdoor.enchantments.events;
 
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -10,6 +11,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import com.thefishnextdoor.enchantments.enchantments.Precision;
 import com.thefishnextdoor.enchantments.enchantments.Range;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.BloodTipped;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.FireBlast;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.SalmonSlinger;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Volley;
 
@@ -17,6 +19,7 @@ public class ProjectileLaunch implements Listener {
 
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
+        if (event.getEntity().getType() == EntityType.SMALL_FIREBALL) System.out.println(event.getEntity().getVelocity().length());
         if (event.isCancelled()) return;
         Projectile projectile = event.getEntity();
         ProjectileSource shooter = projectile.getShooter();
@@ -26,6 +29,7 @@ public class ProjectileLaunch implements Listener {
         Precision.modifyVelocity(player, projectile);
         Volley.onPlayerFireProjectile(player, projectile);
         SalmonSlinger.onPlayerFireProjectile(player, projectile);
+        FireBlast.onPlayerFireProjectile(player, projectile);
         BloodTipped.onPlayerFireProjectile(player);
     }
 }

@@ -44,6 +44,7 @@ public class Loot {
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.FIRE_RESISTANCE, 1));
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.FLAMING, 1));
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.SMELTING, 1));
+                if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.FIRE_BLAST, 1));
                 break;
             case DROWNED:
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.GILLS, 1));

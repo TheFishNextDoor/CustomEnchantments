@@ -59,6 +59,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.BloodTippe
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Crippling;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Debilitating;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Disorienting;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.FireBlast;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Glass;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Levitating;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.LifeSteal;
@@ -131,6 +132,7 @@ public class CustomEnchantment {
     public static Enchantment PROJECTILE_RESISTANCE;
     public static Enchantment HEAVY;
     public static Enchantment FLAMING;
+    public static Enchantment FIRE_BLAST;
 
     private static ArrayList<Enchantment> customEnchantments = new ArrayList<>();
     private static HashMap<String, String> enchantmentDescriptions = new HashMap<>();
@@ -196,6 +198,7 @@ public class CustomEnchantment {
         PROJECTILE_RESISTANCE = new ProjectileResistance(new NamespacedKey(plugin, "projectile_resistance"));
         HEAVY = new Heavy(new NamespacedKey(plugin, "heavy"));
         FLAMING = new Flaming(new NamespacedKey(plugin, "flaming"));
+        FIRE_BLAST = new FireBlast(new NamespacedKey(plugin, "fire_blast"));
     }
 
     static void registerAll() {
@@ -258,7 +261,8 @@ public class CustomEnchantment {
         registerCustomEnchantment(BOUNCE, "Wearer bounces instead of taking fall damage. Rare drop from slime.");
         registerCustomEnchantment(PROJECTILE_RESISTANCE, "Wearer is immune to projectile damage. Rare drop from wither.");
         registerCustomEnchantment(HEAVY, "Wearer receives no knockback. Rare drop from warden.");
-        registerCustomEnchantment(FLAMING, "Attackers will be lit on fire. Rare drop from blaze.");        
+        registerCustomEnchantment(FLAMING, "Attackers will be lit on fire. Rare drop from blaze.");
+        registerCustomEnchantment(FIRE_BLAST, "Launched projectiles are transformed into a blaze fire ball. Rare drop from blaze.");   
     }
 
     public static ArrayList<Enchantment> all() {
@@ -319,6 +323,7 @@ public class CustomEnchantment {
         if (EnchantUtil.same(enchantment, CustomEnchantment.GLASS)) return true;
         if (EnchantUtil.same(enchantment, CustomEnchantment.LEVITATING)) return true;
         if (EnchantUtil.same(enchantment, CustomEnchantment.VOLLEY)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.FIRE_BLAST)) return true;
         return false;
     }
 
