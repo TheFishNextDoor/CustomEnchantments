@@ -51,18 +51,7 @@ public class Debilitating extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, CustomEnchantment.LIFE_STEAL)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.VENOM)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.WITHERING)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.OBSCURE)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.DISORIENTING)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.STARVING)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.CRIPPLING)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.GLASS)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.LEVITATING)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.BLOOD_TIPPED)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.VOLLEY)) return true;
-        return false;
+        return CustomEnchantment.isMutuallyExclusiveWeapon(other);
     }
 
     @Override

@@ -51,11 +51,7 @@ public class Gills extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, CustomEnchantment.SUSTENANCE)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.WORM)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.NIGHT_VISION)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.CONDUIT_POWER)) return true;
-        return false;
+        return CustomEnchantment.isMutuallyExclusiveHelmet(other);
     }
 
     @Override

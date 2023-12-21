@@ -52,12 +52,7 @@ public class Crush extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, CustomEnchantment.LEAPING)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.SLOW_FALLING)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.ANCHOR)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.BOUNCE)) return true;
-        if (EnchantUtil.same(other, Enchantment.PROTECTION_FALL)) return true;
-        return false;
+        return CustomEnchantment.isMutuallyExclusiveBoots(other);
     }
 
     @Override

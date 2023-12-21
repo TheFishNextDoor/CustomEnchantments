@@ -52,11 +52,7 @@ public class Anchor extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, CustomEnchantment.CRUSH)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.LEAPING)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.SLOW_FALLING)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.BOUNCE)) return true;
-        return false;
+        return CustomEnchantment.isMutuallyExclusiveBoots(other);
     }
 
     @Override

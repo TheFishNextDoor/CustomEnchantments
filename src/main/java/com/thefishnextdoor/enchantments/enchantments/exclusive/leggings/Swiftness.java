@@ -51,9 +51,7 @@ public class Swiftness extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, CustomEnchantment.DOLPHINS_GRACE)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.HEAVY)) return true;
-        return false;
+        return CustomEnchantment.isMutuallyExclusiveLeggings(other);
     }
 
     @Override

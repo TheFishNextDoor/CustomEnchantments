@@ -51,9 +51,7 @@ public class DolphinsGrace extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, CustomEnchantment.SWIFTNESS)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.HEAVY)) return true;
-        return false;
+        return CustomEnchantment.isMutuallyExclusiveLeggings(other);
     }
 
     @Override

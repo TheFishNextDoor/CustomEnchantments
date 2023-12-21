@@ -301,4 +301,65 @@ public class CustomEnchantment {
         }
         return false;
     }
+
+    public static boolean isMutuallyExclusiveWeapon(Enchantment enchantment) {
+        if (EnchantUtil.same(enchantment, CustomEnchantment.BLOOD_TIPPED)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.LIFE_STEAL)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.VENOM)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.WITHERING)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.OBSCURE)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.DISORIENTING)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.DEBILITATING)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.STARVING)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.CRIPPLING)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.GLASS)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.LEVITATING)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.VOLLEY)) return true;
+        return false;
+    }
+
+    public static boolean isMutuallyExclusiveHelmet(Enchantment enchantment) {
+        if (EnchantUtil.same(enchantment, CustomEnchantment.CONDUIT_POWER)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.SUSTENANCE)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.WORM)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.GILLS)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.NIGHT_VISION)) return true;
+        return false;
+    }
+
+    public static boolean isMutuallyExclusiveChestplate(Enchantment enchantment) {
+        if (EnchantUtil.same(enchantment, CustomEnchantment.DEATHWISH)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.DRAGON_SCALES)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.HEALING)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.FIRE_RESISTANCE)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.STRENGTH)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.HASTE)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.INCREASED_HEALTH)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.HERO_OF_THE_VILLAGE)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.PROJECTILE_RESISTANCE)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.FLAMING)) return true;
+        return false;
+    }
+
+    public static boolean isMutuallyExclusiveElytra(Enchantment enchantment) {
+        if (EnchantUtil.same(enchantment, CustomEnchantment.BOOSTERS)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.MOMENTUM)) return true;
+        return false;
+    }
+
+    public static boolean isMutuallyExclusiveLeggings(Enchantment enchantment) {
+        if (EnchantUtil.same(enchantment, CustomEnchantment.DOLPHINS_GRACE)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.SWIFTNESS)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.HEAVY)) return true;
+        return false;
+    }
+
+    public static boolean isMutuallyExclusiveBoots(Enchantment enchantment) {
+        if (EnchantUtil.same(enchantment, CustomEnchantment.ANCHOR)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.CRUSH)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.LEAPING)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.SLOW_FALLING)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.BOUNCE)) return true;
+        return false;
+    }
 }

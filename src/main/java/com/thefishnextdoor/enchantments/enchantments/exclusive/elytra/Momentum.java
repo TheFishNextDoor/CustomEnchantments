@@ -49,8 +49,7 @@ public class Momentum extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, CustomEnchantment.BOOSTERS)) return true;
-        return false;
+        return CustomEnchantment.isMutuallyExclusiveElytra(other);
     }
 
     @Override

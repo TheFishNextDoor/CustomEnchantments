@@ -48,16 +48,7 @@ public class ProjectileResistance extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, CustomEnchantment.DRAGON_SCALES)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.HEALING)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.FIRE_RESISTANCE)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.STRENGTH)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.HASTE)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.INCREASED_HEALTH)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.HERO_OF_THE_VILLAGE)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.DEATHWISH)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.FLAMING)) return true;
-        return false;
+        return CustomEnchantment.isMutuallyExclusiveChestplate(other);
     }
 
     @Override
