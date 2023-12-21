@@ -78,7 +78,7 @@ public class Volley extends Enchantment {
             AbstractArrow arrow = (AbstractArrow) world.spawnEntity(location, type);
             arrow.setShooter(player);
             arrow.setVelocity(velocity.clone().multiply(1.0 - (i * 0.1)));
-            arrow.setPickupStatus(PickupStatus.DISALLOWED);
+            arrow.setPickupStatus(PickupStatus.CREATIVE_ONLY);
         }
     }
 }
