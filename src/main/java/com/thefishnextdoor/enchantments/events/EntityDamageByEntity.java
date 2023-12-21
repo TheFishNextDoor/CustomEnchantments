@@ -10,7 +10,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.projectiles.ProjectileSource;
 
-import com.thefishnextdoor.enchantments.Plugin;
 import com.thefishnextdoor.enchantments.enchantments.AquaAspect;
 import com.thefishnextdoor.enchantments.enchantments.Fling;
 import com.thefishnextdoor.enchantments.enchantments.Radiance;
@@ -31,11 +30,6 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Withering;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class EntityDamageByEntity implements Listener {
-    private final Plugin plugin;
-
-    public EntityDamageByEntity(Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
@@ -77,9 +71,9 @@ public class EntityDamageByEntity implements Listener {
         if (!RANGED_ATTACK && InventoryUtil.isRanged(InventoryUtil.getItemInUse(player).getType())) return;
         DeathWish.modifyDamage(player, event);
         Glass.modifyDamage(player, event, RANGED_ATTACK);
-        AquaAspect.modifyDamage(plugin, player, entity, event, RANGED_ATTACK);
+        AquaAspect.modifyDamage(player, entity, event, RANGED_ATTACK);
         LifeSteal.onPlayerAttackEntity(player, event, RANGED_ATTACK);
-        Fling.onPlayerAttackEntity(plugin, player, entity, RANGED_ATTACK);
+        Fling.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
         Venom.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
         Withering.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
         BloodTipped.onPlayerAttackEntity(player, entity, RANGED_ATTACK);

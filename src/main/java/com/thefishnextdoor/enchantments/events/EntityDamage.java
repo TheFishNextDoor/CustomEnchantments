@@ -7,7 +7,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-import com.thefishnextdoor.enchantments.Plugin;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.boots.Bounce;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.boots.Crush;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.chestplate.DeathWish;
@@ -16,11 +15,6 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.helmet.Worm;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.Heavy;
 
 public class EntityDamage implements Listener {
-    private final Plugin plugin;
-
-    public EntityDamage(Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
@@ -31,7 +25,7 @@ public class EntityDamage implements Listener {
         boolean ranged = event.getCause() == DamageCause.PROJECTILE;
         if (cancel(player, event, ranged)) return; 
         DeathWish.modifyDamage(player, event);
-        Heavy.onPlayerTakeDamage(plugin, player);
+        Heavy.onPlayerTakeDamage(player);
         Crush.onPlayerTakeDamage(player, event);
     }
 

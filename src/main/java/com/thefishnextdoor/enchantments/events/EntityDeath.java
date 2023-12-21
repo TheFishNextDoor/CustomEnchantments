@@ -10,18 +10,12 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.Loot;
-import com.thefishnextdoor.enchantments.Plugin;
 import com.thefishnextdoor.enchantments.Settings;
 import com.thefishnextdoor.enchantments.enchantments.Enlightenment;
 import com.thefishnextdoor.enchantments.enchantments.Telekinesis;
 
 public class EntityDeath implements Listener {
-    private final Plugin plugin;
 
-    public EntityDeath(Plugin plugin) {
-        this.plugin = plugin;
-    }
-    
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
         if (!Settings.MOBS_DROP_BOOKS) return;
@@ -29,7 +23,7 @@ public class EntityDeath implements Listener {
         Player player = entity.getKiller();
         if (player == null) return;
         List<ItemStack> drops = event.getDrops();
-        Loot.addDrops(plugin, player, entity, drops);
+        Loot.addDrops(player, entity, drops);
         Telekinesis.transferDrops(player, drops);
         Enlightenment.modifyXp(player, event);
         Telekinesis.transferXp(player, event);

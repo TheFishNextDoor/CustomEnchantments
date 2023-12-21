@@ -1,24 +1,16 @@
 package com.thefishnextdoor.enchantments.util;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.AbstractArrow;
+import org.bukkit.entity.AbstractArrow.PickupStatus;
+
+import com.thefishnextdoor.enchantments.EndOfTick;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Projectile;
-import org.bukkit.entity.AbstractArrow.PickupStatus;
 import org.bukkit.util.Vector;
 
-import com.thefishnextdoor.enchantments.Plugin;
-
 public class EntityUtil {
-
-    public static void cancelKnockback(Plugin plugin, final Entity entity) {
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            public void run() {
-                entity.setVelocity(new Vector(0, 0, 0));
-            }
-        }, 0);
-    }
 
     public static Entity convert(Entity entity, EntityType type) {
         if (entity.getType() == type) return entity;
@@ -30,7 +22,11 @@ public class EntityUtil {
         if (entity instanceof AbstractArrow) {
             ((AbstractArrow) entity).setPickupStatus(PickupStatus.DISALLOWED);
         }
-        entity.remove();
+        EndOfTick.remove(entity);
         return newEntity;
+    }
+
+    public static void cancelKnockback(Entity entity) {
+        EndOfTick.setVelocity(entity, new Vector(0, 0, 0));
     }
 }

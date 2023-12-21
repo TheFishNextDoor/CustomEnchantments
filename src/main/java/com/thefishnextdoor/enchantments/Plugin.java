@@ -28,6 +28,7 @@ public class Plugin extends JavaPlugin {
 
     public Plugin() {
         CustomEnchantment.init(this);
+        EndOfTick.init(this);
     }
     
     public void onEnable() {
@@ -51,8 +52,8 @@ public class Plugin extends JavaPlugin {
 
     private void registerEvents() {
         PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(new EntityDamage(this), this);
-        pluginManager.registerEvents(new EntityDamageByEntity(this), this);
+        pluginManager.registerEvents(new EntityDamage(), this);
+        pluginManager.registerEvents(new EntityDamageByEntity(), this);
         pluginManager.registerEvents(new PlayerQuit(), this);
         pluginManager.registerEvents(new ProjectileHit(), this);
         pluginManager.registerEvents(new BlockDropItems(), this);
@@ -64,7 +65,7 @@ public class Plugin extends JavaPlugin {
         pluginManager.registerEvents(new BlockBreak(), this);
         pluginManager.registerEvents(new PrepareAnvil(), this);
         pluginManager.registerEvents(new InventoryClick(), this);
-        pluginManager.registerEvents(new EntityDeath(this), this);
+        pluginManager.registerEvents(new EntityDeath(), this);
     }
 
     private void registerCommands() {

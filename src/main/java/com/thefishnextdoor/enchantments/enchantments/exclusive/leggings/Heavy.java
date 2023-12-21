@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Plugin;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.EntityUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
@@ -59,7 +58,7 @@ public class Heavy extends Enchantment {
         return InventoryUtil.isLeggings(item.getType());
     }
 
-    public static void onPlayerTakeDamage(Plugin plugin, Player player) {
-        if (EnchantUtil.has(player.getInventory().getLeggings(), CustomEnchantment.HEAVY)) EntityUtil.cancelKnockback(plugin, player);
+    public static void onPlayerTakeDamage(Player player) {
+        if (EnchantUtil.has(player.getInventory().getLeggings(), CustomEnchantment.HEAVY)) EntityUtil.cancelKnockback(player);
     }
 }
