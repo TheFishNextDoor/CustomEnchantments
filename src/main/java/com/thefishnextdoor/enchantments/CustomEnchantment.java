@@ -63,6 +63,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Glass;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Levitating;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.LifeSteal;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Obscure;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.SalmonSlinger;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Starving;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Venom;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Volley;
@@ -93,6 +94,7 @@ public class CustomEnchantment {
     public static Enchantment LEVITATING;
     public static Enchantment RADIANCE;
     public static Enchantment OBSCURE;
+    public static Enchantment SALMON_SLINGER;
     public static Enchantment DISORIENTING;
     public static Enchantment DEBILITATING;
     public static Enchantment STARVING;
@@ -157,6 +159,7 @@ public class CustomEnchantment {
         LEVITATING = new Levitating(new NamespacedKey(plugin, "levitating"));
         RADIANCE = new Radiance(new NamespacedKey(plugin, "radiance"));
         OBSCURE = new Obscure(new NamespacedKey(plugin, "obscure"));
+        SALMON_SLINGER = new SalmonSlinger(new NamespacedKey(plugin, "salmon_slinger"));
         DISORIENTING = new Disorienting(new NamespacedKey(plugin, "disorienting"));
         DEBILITATING = new Debilitating(new NamespacedKey(plugin, "debilitating"));
         STARVING = new Starving(new NamespacedKey(plugin, "starving"));
@@ -219,6 +222,7 @@ public class CustomEnchantment {
         registerCustomEnchantment(LEVITATING, "Attacked entities will begin to float upwards. Rare drop from shulker.");
         registerCustomEnchantment(RADIANCE, "Attacked entities receive glowing. Rare drop from magma cube.");
         registerCustomEnchantment(OBSCURE, "Attacked entities receive blindness. Rare drop from warden.");
+        registerCustomEnchantment(SALMON_SLINGER, "Launched projectiles are transformed into salmon. This enchantment is not dropped by any mob.");
         registerCustomEnchantment(DISORIENTING, "Attacked entities receive confusion. Rare drop from spider.");
         registerCustomEnchantment(DEBILITATING, "Attacked entities receive weakness. Rare drop from witch.");
         registerCustomEnchantment(STARVING, "Attacked entities receive hunger. Rare drop from husk.");

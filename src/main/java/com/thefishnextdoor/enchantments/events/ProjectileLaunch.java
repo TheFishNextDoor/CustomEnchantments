@@ -10,6 +10,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import com.thefishnextdoor.enchantments.enchantments.Precision;
 import com.thefishnextdoor.enchantments.enchantments.Range;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.BloodTipped;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.SalmonSlinger;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Volley;
 
 public class ProjectileLaunch implements Listener {
@@ -24,6 +25,7 @@ public class ProjectileLaunch implements Listener {
         Range.onPlayerFireProjectile(player, projectile);
         Precision.onPlayerFireProjectile(player, projectile);
         Volley.onPlayerFireProjectile(player, projectile);
+        SalmonSlinger.onPlayerFireProjectile(player, projectile);
         BloodTipped.onPlayerFireProjectile(player);
     }
 }
