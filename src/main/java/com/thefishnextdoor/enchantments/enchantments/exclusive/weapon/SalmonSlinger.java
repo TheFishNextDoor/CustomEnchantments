@@ -3,6 +3,7 @@ package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -62,6 +63,7 @@ public class SalmonSlinger extends Enchantment {
 
     public static void onPlayerFireProjectile(Player player, Projectile projectile) {
         if (!EnchantUtil.holdingRanged(player, CustomEnchantment.SALMON_SLINGER)) return;
-        EntityUtil.convert(projectile, EntityType.SALMON);
+        Entity entity = EntityUtil.convert(projectile, EntityType.SALMON);
+        entity.setFallDistance(100);
     }
 }
