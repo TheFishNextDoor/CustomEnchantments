@@ -3,12 +3,14 @@ package com.thefishnextdoor.enchantments.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.CommandUtil;
@@ -35,16 +37,35 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
         if (enchantment == null) return false;
         sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + CommandUtil.titleCase(EnchantUtil.name(enchantment)));
         sender.sendMessage(ChatColor.AQUA + "Max Level: " + ChatColor.WHITE + enchantment.getMaxLevel());
-        String description = CustomEnchantment.desciption(enchantment);
+        ArrayList<String> items = canEnchant(enchantment);
+        if (!items.isEmpty()) {
+            sender.sendMessage(ChatColor.AQUA + "Can Enchant: " + ChatColor.WHITE + String.join(", ", items));
+        }
         ArrayList<String> conflicts = getConflicts(enchantment);
         if (!conflicts.isEmpty()) {
             sender.sendMessage(ChatColor.AQUA + "Conflicts With: " + ChatColor.WHITE + String.join(", ", conflicts));
         }
+        String description = CustomEnchantment.desciption(enchantment);
         if (description != null) {
             sender.sendMessage(ChatColor.AQUA + "Description: " + ChatColor.WHITE + description);
         }
         return true;
     }
+
+    private ArrayList<String> canEnchant(Enchantment enchantment) {
+        ArrayList<String> items = new ArrayList<>();
+        if (enchantment.canEnchantItem(new ItemStack(Material.DIAMOND_SWORD))) items.add("Sword");
+        if (enchantment.canEnchantItem(new ItemStack(Material.BOW))) items.add("Bow");
+        if (enchantment.canEnchantItem(new ItemStack(Material.CROSSBOW))) items.add("Crossbow");
+        if (enchantment.canEnchantItem(new ItemStack(Material.TRIDENT))) items.add("Trident");
+        if (enchantment.canEnchantItem(new ItemStack(Material.DIAMOND_PICKAXE))) items.add("Pickaxe");
+        if (enchantment.canEnchantItem(new ItemStack(Material.DIAMOND_SHOVEL))) items.add("Shovel");
+        if (enchantment.canEnchantItem(new ItemStack(Material.DIAMOND_AXE))) items.add("Axe");
+        if (enchantment.canEnchantItem(new ItemStack(Material.DIAMOND_HOE))) items.add("Hoe");
+        if (enchantment.canEnchantItem(new ItemStack(Material.FISHING_ROD))) items.add("Fishing Rod");
+        if (enchantment.canEnchantItem(new ItemStack(Material.SHEARS))) items.add("Shears");
+        return items;
+    } 
     
     private ArrayList<String> getConflicts(Enchantment enchantment) {
         ArrayList<String> conflicts = new ArrayList<>();
