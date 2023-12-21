@@ -38,7 +38,7 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
         String description = CustomEnchantment.desciption(enchantment);
         ArrayList<String> conflicts = getConflicts(enchantment);
         if (!conflicts.isEmpty()) {
-            sender.sendMessage(ChatColor.AQUA + "Conflicts: " + ChatColor.WHITE + String.join(", ", conflicts));
+            sender.sendMessage(ChatColor.AQUA + "Conflicts With: " + ChatColor.WHITE + String.join(", ", conflicts));
         }
         if (description != null) {
             sender.sendMessage(ChatColor.AQUA + "Description: " + ChatColor.WHITE + description);
