@@ -1,5 +1,6 @@
 package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
@@ -11,7 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.EntityUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Teleport extends Enchantment {
 
@@ -57,7 +57,8 @@ public class Teleport extends Enchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isRanged(item.getType());
+        Material type = item.getType();
+        return type == Material.BOW || type == Material.CROSSBOW;
     }
 
     public static void onPlayerFireProjectile(Player player, Projectile projectile) {
