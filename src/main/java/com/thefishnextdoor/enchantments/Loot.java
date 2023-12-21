@@ -70,6 +70,7 @@ public class Loot {
             case ENDERMAN:
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.CURSE_OF_AQUAPHOBIA, 1));
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.TELEKINESIS, 1));
+                if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.TELEPORT, 1));
                 break;
             case PILLAGER:
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.HERO_OF_THE_VILLAGE, 1));

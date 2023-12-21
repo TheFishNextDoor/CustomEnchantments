@@ -66,6 +66,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.LifeSteal;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Obscure;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.SalmonSlinger;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Starving;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Teleport;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Venom;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Volley;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Withering;
@@ -133,6 +134,7 @@ public class CustomEnchantment {
     public static Enchantment HEAVY;
     public static Enchantment FLAMING;
     public static Enchantment FIRE_BLAST;
+    public static Enchantment TELEPORT;
 
     private static ArrayList<Enchantment> customEnchantments = new ArrayList<>();
     private static HashMap<String, String> enchantmentDescriptions = new HashMap<>();
@@ -199,6 +201,7 @@ public class CustomEnchantment {
         HEAVY = new Heavy(new NamespacedKey(plugin, "heavy"));
         FLAMING = new Flaming(new NamespacedKey(plugin, "flaming"));
         FIRE_BLAST = new FireBlast(new NamespacedKey(plugin, "fire_blast"));
+        TELEPORT = new Teleport(new NamespacedKey(plugin, "teleport"));
     }
 
     static void registerAll() {
@@ -262,7 +265,8 @@ public class CustomEnchantment {
         registerCustomEnchantment(PROJECTILE_RESISTANCE, "Wearer is immune to projectile damage. Rare drop from wither.");
         registerCustomEnchantment(HEAVY, "Wearer receives no knockback. Rare drop from warden.");
         registerCustomEnchantment(FLAMING, "Attackers will be lit on fire. Rare drop from blaze.");
-        registerCustomEnchantment(FIRE_BLAST, "Launched projectiles are transformed into a blaze fire ball. Rare drop from blaze.");   
+        registerCustomEnchantment(FIRE_BLAST, "Launched projectiles are transformed into a blaze fire ball. Rare drop from blaze.");
+        registerCustomEnchantment(TELEPORT, "Teleport to the location your projectile hits. Rare drop from enderman.");
     }
 
     public static ArrayList<Enchantment> all() {
@@ -324,6 +328,7 @@ public class CustomEnchantment {
         if (EnchantUtil.same(enchantment, CustomEnchantment.LEVITATING)) return true;
         if (EnchantUtil.same(enchantment, CustomEnchantment.VOLLEY)) return true;
         if (EnchantUtil.same(enchantment, CustomEnchantment.FIRE_BLAST)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.TELEPORT)) return true;
         return false;
     }
 

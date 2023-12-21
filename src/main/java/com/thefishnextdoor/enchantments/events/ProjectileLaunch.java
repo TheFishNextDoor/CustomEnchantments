@@ -12,6 +12,7 @@ import com.thefishnextdoor.enchantments.enchantments.Range;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.BloodTipped;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.FireBlast;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.SalmonSlinger;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Teleport;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Volley;
 
 public class ProjectileLaunch implements Listener {
@@ -28,6 +29,7 @@ public class ProjectileLaunch implements Listener {
         Volley.onPlayerFireProjectile(player, projectile);
         SalmonSlinger.onPlayerFireProjectile(player, projectile);
         FireBlast.onPlayerFireProjectile(player, projectile);
+        Teleport.onPlayerFireProjectile(player, projectile);
         BloodTipped.onPlayerFireProjectile(player);
     }
 }
