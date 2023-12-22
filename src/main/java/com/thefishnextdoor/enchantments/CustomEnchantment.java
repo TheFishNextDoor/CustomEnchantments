@@ -110,7 +110,7 @@ public class CustomEnchantment {
     public static Enchantment MOMENTUM;
     public static Enchantment BOOSTERS;
     public static Enchantment REFLECTION;
-    public static Enchantment DEATHWISH;
+    public static Enchantment DEATH_WISH;
     public static Enchantment FIRE_RESISTANCE;
     public static Enchantment GILLS;
     public static Enchantment STRENGTH;
@@ -177,7 +177,7 @@ public class CustomEnchantment {
         MOMENTUM = new Momentum(new NamespacedKey(plugin, "momentum"));
         BOOSTERS = new Boosters(new NamespacedKey(plugin, "boosters"));
         REFLECTION = new Reflection(new NamespacedKey(plugin, "reflection"));
-        DEATHWISH = new DeathWish(new NamespacedKey(plugin, "death_wish"));
+        DEATH_WISH = new DeathWish(new NamespacedKey(plugin, "death_wish"));
         FIRE_RESISTANCE = new FireResistance(new NamespacedKey(plugin, "fire_resistance"));
         GILLS = new Gills(new NamespacedKey(plugin, "gills"));
         STRENGTH = new Strength(new NamespacedKey(plugin, "strength"));
@@ -242,7 +242,7 @@ public class CustomEnchantment {
         registerCustomEnchantment(MOMENTUM, "Wearer will gain speed faster when gliding. Rare drop from ender dragon.");
         registerCustomEnchantment(BOOSTERS, "A small amount of constant thrust is added to the elytra. Rare drop from creeper.");
         registerCustomEnchantment(REFLECTION, "Reflect arrows at a higher velocity. Rare drop from pillager.");
-        registerCustomEnchantment(DEATHWISH, "Wearer takes increased damage and deals increased damage. Rare drop from wither skeleton.");
+        registerCustomEnchantment(DEATH_WISH, "Wearer takes increased damage and deals increased damage. Rare drop from wither skeleton.");
         registerCustomEnchantment(FIRE_RESISTANCE, "Wearer is immune to fire damage. Rare drop from blaze.");
         registerCustomEnchantment(GILLS, "Wearer can breath underwater. Rare drop from drowned.");
         registerCustomEnchantment(STRENGTH, "Wearer has increased melee damage. Rare drop from zombified piglin.");
@@ -343,7 +343,7 @@ public class CustomEnchantment {
     }
 
     public static boolean isMutuallyExclusiveChestplate(Enchantment enchantment) {
-        if (EnchantUtil.same(enchantment, CustomEnchantment.DEATHWISH)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.DEATH_WISH)) return true;
         if (EnchantUtil.same(enchantment, CustomEnchantment.DRAGON_SCALES)) return true;
         if (EnchantUtil.same(enchantment, CustomEnchantment.HEALING)) return true;
         if (EnchantUtil.same(enchantment, CustomEnchantment.FIRE_RESISTANCE)) return true;

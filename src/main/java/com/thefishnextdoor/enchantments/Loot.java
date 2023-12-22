@@ -26,7 +26,7 @@ public class Loot {
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.SUSTENANCE, 1));
                 break;
             case WITHER_SKELETON:
-                if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.DEATHWISH, 1));
+                if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.DEATH_WISH, 1));
                 break;
             case HUSK:
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.STARVING, 1));
