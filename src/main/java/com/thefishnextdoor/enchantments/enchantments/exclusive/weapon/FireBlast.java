@@ -59,7 +59,7 @@ public class FireBlast extends Enchantment {
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
         Material type = item.getType();
-        return type == Material.BOW || type == Material.CROSSBOW;
+        return type == Material.CROSSBOW;
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
