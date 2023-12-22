@@ -15,7 +15,6 @@ import com.thefishnextdoor.enchantments.enchantments.CurseOfMiningFatigue;
 import com.thefishnextdoor.enchantments.enchantments.CurseOfRadiance;
 import com.thefishnextdoor.enchantments.enchantments.CurseOfSlowness;
 import com.thefishnextdoor.enchantments.enchantments.CurseOfWeakness;
-import com.thefishnextdoor.enchantments.enchantments.Destructive;
 import com.thefishnextdoor.enchantments.enchantments.Enlightenment;
 import com.thefishnextdoor.enchantments.enchantments.Excavating;
 import com.thefishnextdoor.enchantments.enchantments.Fling;
@@ -58,6 +57,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.Swiftnes
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.BloodTipped;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Crippling;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Debilitating;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Destructive;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Disorienting;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.FireBlast;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Glass;
@@ -329,6 +329,7 @@ public class CustomEnchantment {
         if (EnchantUtil.same(enchantment, CustomEnchantment.VOLLEY)) return true;
         if (EnchantUtil.same(enchantment, CustomEnchantment.FIRE_BLAST)) return true;
         if (EnchantUtil.same(enchantment, CustomEnchantment.TELEPORT)) return true;
+        if (EnchantUtil.same(enchantment, CustomEnchantment.DESTRUCTIVE)) return true;
         return false;
     }
 

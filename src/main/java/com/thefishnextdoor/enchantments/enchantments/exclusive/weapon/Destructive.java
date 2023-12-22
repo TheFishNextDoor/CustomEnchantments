@@ -1,4 +1,4 @@
-package com.thefishnextdoor.enchantments.enchantments;
+package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -58,7 +58,7 @@ public class Destructive extends Enchantment {
     @Override
     public boolean conflictsWith(Enchantment other) {
         if (EnchantUtil.same(other, Enchantment.ARROW_INFINITE)) return true;
-        return false;
+        return CustomEnchantment.isMutuallyExclusiveWeapon(other);
     }
 
     @Override
