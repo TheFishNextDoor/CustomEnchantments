@@ -225,7 +225,7 @@ public class CustomEnchantment {
         registerCustomEnchantment(BLOOD_TIPPED, "Take slight damage when firing, applies your potion effects to the arrow. Rare drop from piglin.");
         registerCustomEnchantment(VOLLEY, "Fire multiple arrows at once. Rare drop from skeleton.");
         registerCustomEnchantment(GLASS, "Increased damage, decreased durability. Rare drop from stray.");
-        registerCustomEnchantment(LEVITATING, "Attacked entities will begin to float upwards. Rare drop from shulker.");
+        registerCustomEnchantment(LEVITATING, "Launched projectiles are transformed into a shulker bullet. Rare drop from shulker.");
         registerCustomEnchantment(RADIANCE, "Attacked entities receive glowing. Rare drop from magma cube.");
         registerCustomEnchantment(OBSCURE, "Attacked entities receive blindness. Rare drop from warden.");
         registerCustomEnchantment(SALMON_SLINGER, "Launched projectiles are transformed into salmon. This enchantment is not dropped by any mob.");
