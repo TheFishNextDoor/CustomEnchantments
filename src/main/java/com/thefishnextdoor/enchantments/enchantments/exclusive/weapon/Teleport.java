@@ -62,7 +62,7 @@ public class Teleport extends Enchantment {
         return type == Material.BOW || type == Material.CROSSBOW;
     }
 
-    public static void onPlayerFireProjectile(Player player, Projectile projectile) {
+    public static void convertProjectile(Player player, Projectile projectile) {
         if (!EnchantUtil.holdingRanged(player, CustomEnchantment.TELEPORT)) return;
         EntityUtil.convert(projectile, EntityType.ENDER_PEARL);
     }

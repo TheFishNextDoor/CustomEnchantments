@@ -63,7 +63,7 @@ public class SalmonSlinger extends Enchantment {
         return type == Material.BOW || type == Material.CROSSBOW;
     }
 
-    public static void onPlayerFireProjectile(Player player, Projectile projectile) {
+    public static void convertProjectile(Player player, Projectile projectile) {
         if (!EnchantUtil.holdingRanged(player, CustomEnchantment.SALMON_SLINGER)) return;
         Entity entity = EntityUtil.convert(projectile, EntityType.SALMON);
         entity.setFallDistance(100);

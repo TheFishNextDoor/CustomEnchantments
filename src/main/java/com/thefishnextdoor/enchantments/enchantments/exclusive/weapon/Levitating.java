@@ -1,17 +1,17 @@
 package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.EntityUtil;
 
 public class Levitating extends Enchantment {
 
@@ -26,7 +26,7 @@ public class Levitating extends Enchantment {
 
     @Override
     public int getMaxLevel() {
-        return 3;
+        return 1;
     }
 
     @Override
@@ -57,12 +57,13 @@ public class Levitating extends Enchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isRanged(item.getType());
+        Material type = item.getType();
+        return type == Material.BOW || type == Material.CROSSBOW;
     }
 
-    public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {
-        final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.LEVITATING, ranged);
-        if (level < 1) return;
-        reciever.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, level * 40, 0));
+    public static void convertProjectile(Player player, Projectile projectile) {
+        if (!EnchantUtil.holdingRanged(player, CustomEnchantment.LEVITATING)) return;
+        EntityUtil.convert(projectile, EntityType.SHULKER_BULLET);
+
     }
 }
