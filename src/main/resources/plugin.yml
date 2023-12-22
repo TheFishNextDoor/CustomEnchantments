@@ -1,6 +1,6 @@
 name: CustomEnchantments
 main: com.thefishnextdoor.enchantments.Plugin
-version: 0.3.2
+version: 0.3.3
 api-version: 1.15
 authors: ["TheFishNextDoor"]
 description: Custom Enchantments by TheFishNextDoor
