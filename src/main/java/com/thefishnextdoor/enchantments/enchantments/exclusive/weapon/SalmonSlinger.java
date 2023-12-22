@@ -52,6 +52,7 @@ public class SalmonSlinger extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
+        if (EnchantUtil.same(other, Enchantment.ARROW_INFINITE)) return true;
         return CustomEnchantment.isMutuallyExclusiveWeapon(other);
     }
 

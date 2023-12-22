@@ -32,7 +32,7 @@ public class Destructive extends Enchantment {
 
     @Override
     public int getMaxLevel() {
-        return 4;
+        return 1;
     }
 
     @Override
@@ -70,21 +70,7 @@ public class Destructive extends Enchantment {
     public static void onProjectileHitBlock(Player player, Projectile projectile, Block block) {
         final int level = EnchantUtil.rangedLevel(player, CustomEnchantment.DESTRUCTIVE);
         if (level < 1) return;
-        ItemStack usedTool = new ItemStack(new ItemStack(Material.SHEARS));
-        boolean hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
-        if (!hasDrops && level >= 2) {
-            usedTool = new ItemStack(Material.WOODEN_PICKAXE);
-            hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
-        }
-        if (!hasDrops && level >= 3) {
-            usedTool = new ItemStack(Material.IRON_PICKAXE);
-            hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
-        }
-        if (!hasDrops && level >= 4) {
-            usedTool = new ItemStack(Material.DIAMOND_PICKAXE);
-            hasDrops = !block.getDrops(new ItemStack(usedTool)).isEmpty();
-        }
-        if (!hasDrops) return;
+        if (block.getDrops(new ItemStack(Material.DIAMOND_PICKAXE)).isEmpty() && block.getDrops((new ItemStack(Material.SHEARS))).isEmpty()) return;
         projectile.remove();
         BlockUtil.breakBlock(player, block);
         if (Settings.PLAY_EFFECTS) playEffect(player, block);
