@@ -15,5 +15,5 @@ commands:
     permission: customenchantments.commands.fenchant
   enchantinfo:
     description: Get information about an enchantment
-    usage: /enchantinfo
+    usage: /enchantinfo <enchantment>
     permission: customenchantments.commands.enchantinfo

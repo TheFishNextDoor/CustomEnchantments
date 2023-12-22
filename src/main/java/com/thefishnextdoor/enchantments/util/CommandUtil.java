@@ -9,13 +9,20 @@ public class CommandUtil {
 
     public static ArrayList<String> recommendedEnchants(ItemStack item) {
         ArrayList<String> names = new ArrayList<>();
-        ArrayList<String> allNames = new ArrayList<>();
         for (Enchantment enchantment : Enchantment.values()) {
-            String name = EnchantUtil.name(enchantment);
-            allNames.add(name);
-            if (EnchantUtil.has(item, enchantment) || enchantment.canEnchantItem(item)) names.add(name);
+            if (EnchantUtil.has(item, enchantment) || enchantment.canEnchantItem(item)) {
+                names.add(EnchantUtil.name(enchantment));
+            }
         }
-        return names.size() == 0 ? allNames : names;
+        return names.isEmpty() ? allEnchants() : names;
+    }
+
+    public static ArrayList<String> allEnchants() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Enchantment enchantment : Enchantment.values()) {
+            names.add(EnchantUtil.name(enchantment));
+        }
+        return names;
     }
 
     public static String titleCase(String str) {
