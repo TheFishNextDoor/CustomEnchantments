@@ -9,24 +9,19 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.CommandUtil;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
-
 import net.md_5.bungee.api.ChatColor;
 
 public class EnchantInfo implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (!(sender instanceof Player)) return null;
-        Player player = (Player) sender;
-        if (args.length == 1) return CommandUtil.recommendedEnchants(InventoryUtil.getItemInUse(player));
-        return null;
+        if (args.length != 1) return null;
+        return CommandUtil.allEnchantmentNames();
     }
 
     @Override
@@ -34,10 +29,13 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
         if (args.length == 0) return false;
         String enchantName = args[0];
         Enchantment enchantment = EnchantUtil.getEnchantment(enchantName);
-        if (enchantment == null) return false;
+        if (enchantment == null) {
+            sender.sendMessage(ChatColor.RED + "Enchantment not found.");
+            return true;
+        }
         sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + CommandUtil.titleCase(EnchantUtil.name(enchantment)));
         sender.sendMessage(ChatColor.AQUA + "Max Level: " + ChatColor.WHITE + enchantment.getMaxLevel());
-        ArrayList<String> items = canEnchant(enchantment);
+        ArrayList<String> items = getItems(enchantment);
         if (!items.isEmpty()) {
             sender.sendMessage(ChatColor.AQUA + "Can Enchant: " + ChatColor.WHITE + String.join(", ", items));
         }
@@ -52,7 +50,7 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    private ArrayList<String> canEnchant(Enchantment enchantment) {
+    private ArrayList<String> getItems(Enchantment enchantment) {
         ArrayList<String> items = new ArrayList<>();
         if (enchantment.canEnchantItem(new ItemStack(Material.DIAMOND_SWORD))) items.add("Sword");
         if (enchantment.canEnchantItem(new ItemStack(Material.BOW))) items.add("Bow");

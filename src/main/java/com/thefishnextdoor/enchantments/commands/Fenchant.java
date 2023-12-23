@@ -22,7 +22,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (!(sender instanceof Player)) return null;
         Player player = (Player) sender;
-        if (args.length == 1) return CommandUtil.recommendedEnchants(InventoryUtil.getItemInUse(player));
+        if (args.length == 1) return CommandUtil.recommendedEnchantmentNames(InventoryUtil.getItemInUse(player));
         else if (args.length == 2) {
             ArrayList<String> levels = new ArrayList<>();
             Enchantment enchantment = EnchantUtil.getEnchantment(args[0]);

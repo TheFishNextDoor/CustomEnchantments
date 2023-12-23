@@ -7,17 +7,17 @@ import org.bukkit.inventory.ItemStack;
 
 public class CommandUtil {
 
-    public static ArrayList<String> recommendedEnchants(ItemStack item) {
+    public static ArrayList<String> recommendedEnchantmentNames(ItemStack item) {
         ArrayList<String> names = new ArrayList<>();
         for (Enchantment enchantment : Enchantment.values()) {
             if (EnchantUtil.has(item, enchantment) || enchantment.canEnchantItem(item)) {
                 names.add(EnchantUtil.name(enchantment));
             }
         }
-        return names.isEmpty() ? allEnchants() : names;
+        return names.isEmpty() ? allEnchantmentNames() : names;
     }
 
-    public static ArrayList<String> allEnchants() {
+    public static ArrayList<String> allEnchantmentNames() {
         ArrayList<String> names = new ArrayList<>();
         for (Enchantment enchantment : Enchantment.values()) {
             names.add(EnchantUtil.name(enchantment));
