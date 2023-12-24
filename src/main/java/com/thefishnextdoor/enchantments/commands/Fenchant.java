@@ -43,7 +43,10 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         if (args.length == 0) return false;
         String enchantName = args[0];
         Enchantment enchantment = EnchantUtil.getEnchantment(enchantName);
-        if (enchantment == null) return false;
+        if (enchantment == null) {
+            sender.sendMessage(ChatColor.RED + "Enchantment not found.");
+            return true;
+        }
         int level = 1;
         if (args.length >= 2) level = EnchantUtil.number(args[1]);
         if (level > 0) {
