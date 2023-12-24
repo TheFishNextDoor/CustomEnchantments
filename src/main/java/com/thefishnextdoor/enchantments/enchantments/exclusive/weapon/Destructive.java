@@ -78,10 +78,11 @@ public class Destructive extends Enchantment {
     }
 
     public static void onProjectileHitBlock(Player player, Projectile projectile, Block block) {
-        final int level = EnchantUtil.rangedLevel(player, CustomEnchantment.DESTRUCTIVE);
+        ItemStack item = InventoryUtil.getRangedItemInUse(player);
+        final int level = EnchantUtil.level(item, CustomEnchantment.DESTRUCTIVE);
         if (level < 1) return;
         if (!breakable(block)) return;
-        BlockUtil.breakBlock(player, block);
+        BlockUtil.breakBlock(player, block, item);
         if (Settings.PLAY_EFFECTS) playEffect(block.getLocation().add(0.5, 0.5, 0.5));
     }
 
