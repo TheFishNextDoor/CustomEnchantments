@@ -64,7 +64,6 @@ public class FireBlast extends Enchantment {
 
     public static void convertProjectile(Player player, Projectile projectile) {
         if (!EnchantUtil.holdingRanged(player, CustomEnchantment.FIRE_BLAST)) return;
-        Projectile newProjectile = (Projectile) EntityUtil.convert(projectile, EntityType.SMALL_FIREBALL);
-        newProjectile.setVelocity(projectile.getVelocity().normalize().multiply(0.1));
+        EntityUtil.convert(projectile, EntityType.SMALL_FIREBALL);
     }
 }

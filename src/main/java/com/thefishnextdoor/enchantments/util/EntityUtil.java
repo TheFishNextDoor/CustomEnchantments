@@ -4,6 +4,7 @@ import com.thefishnextdoor.enchantments.EndOfTick;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Projectile;
 import org.bukkit.util.Vector;
 
@@ -12,7 +13,12 @@ public class EntityUtil {
     public static Entity convert(Entity entity, EntityType type) {
         if (entity.getType() == type) return entity;
         Entity newEntity = entity.getWorld().spawnEntity(entity.getLocation(), type);
-        newEntity.setVelocity(entity.getVelocity());
+        if (newEntity instanceof Fireball) {
+            ((Fireball) newEntity).setDirection(entity.getVelocity());
+        }
+        else {
+            newEntity.setVelocity(entity.getVelocity());
+        }
         if (entity instanceof Projectile && newEntity instanceof Projectile) {
             ((Projectile) newEntity).setShooter(((Projectile) entity).getShooter());
         }
