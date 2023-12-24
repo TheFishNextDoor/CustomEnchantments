@@ -3,7 +3,6 @@ package com.thefishnextdoor.enchantments;
 import java.util.List;
 
 import org.bukkit.GameRule;
-import org.bukkit.Material;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -105,21 +104,12 @@ public class Loot {
                 break;
             case SKELETON:
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.VOLLEY, 1));
-                for (int i = 0; i < drops.size(); i++) {
-                    ItemStack drop = drops.get(i);
-                    if (drop.getType() != Material.BOW) continue;
-                    if (NumberUtil.chance(3.0)) EnchantUtil.addEnchant(drop, CustomEnchantment.RANGE, 1, false, false);
-                    if (NumberUtil.chance(1.0))  EnchantUtil.addEnchant(drop, CustomEnchantment.PRECISION, 1, false, false);
-                }
+                if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.RANGE, 1));
+                if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.PRECISION, 1));
                 break;
             case STRAY:
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.GLASS, 1));
-                for (int i = 0; i < drops.size(); i++) {
-                    ItemStack drop = drops.get(i);
-                    if (drop.getType() != Material.BOW) continue;
-                    if (NumberUtil.chance(3.0)) EnchantUtil.addEnchant(drop, CustomEnchantment.CRIPPLING, 1, false, false);
-                    if (NumberUtil.chance(1.0)) EnchantUtil.addEnchant(drop, CustomEnchantment.PRECISION, 1, false, false);
-                }
+                if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.CRIPPLING, 1));
                 break;
             case RAVAGER:
                 if (NumberUtil.chance(6.0 * lootingMultiplier)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.CRUSH, 1));

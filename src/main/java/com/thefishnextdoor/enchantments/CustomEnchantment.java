@@ -218,13 +218,13 @@ public class CustomEnchantment {
         registerCustomEnchantment(LIFE_STEAL, "A portion of the damage you deal is added to your health. Rare drop from wither.");
         registerCustomEnchantment(FLING, "Sends attacked entities upwards. Rare drop from creeper.");
         registerCustomEnchantment(ENLIGHTENMENT, "Increased Xp drops from blocks and mobs. Rare drop from warden.");
-        registerCustomEnchantment(RANGE, "Fired projectiles have a higher velocity. Can appear on skeletons bows.");
-        registerCustomEnchantment(PRECISION, "Fired projectiles have 100% accuracy. Can appear on skeletons bows.");
+        registerCustomEnchantment(RANGE, "Fired projectiles have a higher velocity. Rare drop from skeleton.");
+        registerCustomEnchantment(PRECISION, "Fired projectiles have 100% accuracy. Rare drop from skeleton.");
         registerCustomEnchantment(VENOM, "Attacked entities receive poison. Rare drop from cave spider.");
         registerCustomEnchantment(WITHERING, "Attacked entities receive wither. Rare drop from the wither.");
         registerCustomEnchantment(BLOOD_TIPPED, "Take slight damage when firing, applies your potion effects to the arrow. Rare drop from piglin.");
         registerCustomEnchantment(VOLLEY, "Fire multiple arrows at once. Rare drop from skeleton.");
-        registerCustomEnchantment(GLASS, "Increased damage, decreased durability. Rare drop from stray.");
+        registerCustomEnchantment(GLASS, "Increased damage, decreased durability. Rare drop from skeleton.");
         registerCustomEnchantment(LEVITATING, "Launched projectiles are transformed into a shulker bullet. Rare drop from shulker.");
         registerCustomEnchantment(RADIANCE, "Attacked entities receive glowing. Rare drop from magma cube.");
         registerCustomEnchantment(OBSCURE, "Attacked entities receive blindness. Rare drop from warden.");
@@ -232,7 +232,7 @@ public class CustomEnchantment {
         registerCustomEnchantment(DISORIENTING, "Attacked entities receive confusion. Rare drop from spider.");
         registerCustomEnchantment(DEBILITATING, "Attacked entities receive weakness. Rare drop from witch.");
         registerCustomEnchantment(STARVING, "Attacked entities receive hunger. Rare drop from husk.");
-        registerCustomEnchantment(CRIPPLING, "Attacked entities receive slowness. Can appear on strays bows.");
+        registerCustomEnchantment(CRIPPLING, "Attacked entities receive slowness. Rare drop from skeleton.");
         registerCustomEnchantment(SWIFTNESS, "Wearer has increased movement speed. Rare drop from witch.");
         registerCustomEnchantment(LEAPING, "Wearer has increased jump height. Rare drop from slime.");
         registerCustomEnchantment(SLOW_FALLING, "Wearer falls gracefully like a feather. Rare drop from ghast.");
