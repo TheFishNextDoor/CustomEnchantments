@@ -33,7 +33,6 @@ public class Timer {
     public static final int PERIOD = 30;
     private static Plugin plugin = null;
     private static int armorEffectsTaskId = -1;
-    private static int curseOfAquaphobiaTaskId = -1;
 
     public static class ArmorCheckOptimizer {
         public final ItemStack HELMET;
@@ -110,10 +109,6 @@ public class Timer {
         if (armorEffectsTaskId != -1) {
             Bukkit.getScheduler().cancelTask(armorEffectsTaskId);
             armorEffectsTaskId = -1;
-        }
-        if (curseOfAquaphobiaTaskId != -1) {
-            Bukkit.getScheduler().cancelTask(curseOfAquaphobiaTaskId);
-            curseOfAquaphobiaTaskId = -1;
         }
     }
 
