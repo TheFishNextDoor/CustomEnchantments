@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.PermChecker;
@@ -20,6 +21,7 @@ public class BlockUtil {
 
     public static void breakBlock(Player player, Block block, ItemStack item) {
         if (!PermChecker.canBreak(player, block)) return;
+        if (block.getState() instanceof InventoryHolder) return;
         BlockUtil.dropBlockItems(player, block, item);
         block.setType(Material.AIR);
     }
