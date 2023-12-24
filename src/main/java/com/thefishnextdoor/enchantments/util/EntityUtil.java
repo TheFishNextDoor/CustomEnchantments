@@ -1,8 +1,5 @@
 package com.thefishnextdoor.enchantments.util;
 
-import org.bukkit.entity.AbstractArrow;
-import org.bukkit.entity.AbstractArrow.PickupStatus;
-
 import com.thefishnextdoor.enchantments.EndOfTick;
 
 import org.bukkit.entity.Entity;
@@ -18,9 +15,6 @@ public class EntityUtil {
         newEntity.setVelocity(entity.getVelocity());
         if (entity instanceof Projectile && newEntity instanceof Projectile) {
             ((Projectile) newEntity).setShooter(((Projectile) entity).getShooter());
-        }
-        if (entity instanceof AbstractArrow) {
-            ((AbstractArrow) entity).setPickupStatus(PickupStatus.DISALLOWED);
         }
         EndOfTick.remove(entity);
         return newEntity;
