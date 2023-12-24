@@ -2,7 +2,6 @@ package com.thefishnextdoor.enchantments.util;
 
 import java.util.Collection;
 
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -20,8 +19,7 @@ public class BlockUtil {
 
     public static void breakBlock(Player player, Block block, ItemStack item) {
         if (!PermChecker.canBreak(player, block)) return;
-        BlockUtil.dropBlockItems(player, block, item);
-        block.setType(Material.AIR);
+        block.breakNaturally(item);
     }
 
     public static void dropBlockItems(Player player, Block block) {
