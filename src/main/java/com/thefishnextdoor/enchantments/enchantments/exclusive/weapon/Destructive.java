@@ -80,8 +80,7 @@ public class Destructive extends Enchantment {
     public static void onProjectileHitBlock(Player player, Projectile projectile, Block block) {
         final int level = EnchantUtil.rangedLevel(player, CustomEnchantment.DESTRUCTIVE);
         if (level < 1) return;
-        if (block.getDrops(new ItemStack(Material.DIAMOND_PICKAXE)).isEmpty() && block.getDrops((new ItemStack(Material.SHEARS))).isEmpty()) return;
-        projectile.remove();
+        if (!breakable(block)) return;
         BlockUtil.breakBlock(player, block);
         if (Settings.PLAY_EFFECTS) playEffect(block.getLocation().add(0.5, 0.5, 0.5));
     }
@@ -90,6 +89,15 @@ public class Destructive extends Enchantment {
         final int level = EnchantUtil.rangedLevel(player, CustomEnchantment.DESTRUCTIVE);
         if (level < 1) return;
         if (Settings.PLAY_EFFECTS) playEffect(entity.getLocation());
+    }
+
+    private static boolean breakable(Block block) {
+        ItemStack silkTouchPickaxe = new ItemStack(Material.IRON_PICKAXE);
+        silkTouchPickaxe.addEnchantment(Enchantment.SILK_TOUCH, 1);
+        if (!block.getDrops(silkTouchPickaxe).isEmpty()) return true;
+        ItemStack shears = new ItemStack(Material.SHEARS);
+        if (!block.getDrops(shears).isEmpty()) return true;
+        return false;
     }
 
     private static void playEffect(Location location) {
