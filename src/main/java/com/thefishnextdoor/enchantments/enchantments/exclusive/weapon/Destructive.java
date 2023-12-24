@@ -68,7 +68,8 @@ public class Destructive extends Enchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isRanged(item.getType());
+        Material type = item.getType();
+        return type == Material.BOW || type == Material.CROSSBOW;
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
