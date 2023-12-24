@@ -9,13 +9,16 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Snowball;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Settings;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
+import com.thefishnextdoor.enchantments.util.EntityUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 import com.thefishnextdoor.enchantments.util.BlockUtil;
 
@@ -65,6 +68,12 @@ public class Destructive extends Enchantment {
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
         return InventoryUtil.isRanged(item.getType());
+    }
+
+    public static void convertProjectile(Player player, Projectile projectile) {
+        if (!EnchantUtil.holdingRanged(player, CustomEnchantment.DESTRUCTIVE)) return;
+        Snowball snowball = (Snowball) EntityUtil.convert(projectile, EntityType.SNOWBALL);
+        snowball.setItem(new ItemStack(Material.TNT));
     }
 
     public static void onProjectileHitBlock(Player player, Projectile projectile, Block block) {

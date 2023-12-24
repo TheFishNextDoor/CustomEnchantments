@@ -10,6 +10,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import com.thefishnextdoor.enchantments.enchantments.Precision;
 import com.thefishnextdoor.enchantments.enchantments.Range;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.BloodTipped;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Destructive;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.FireBlast;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Levitating;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.SalmonSlinger;
@@ -33,5 +34,6 @@ public class ProjectileLaunch implements Listener {
         FireBlast.convertProjectile(player, projectile);
         Teleport.convertProjectile(player, projectile);
         Levitating.convertProjectile(player, projectile);
+        Destructive.convertProjectile(player, projectile);
     }
 }
