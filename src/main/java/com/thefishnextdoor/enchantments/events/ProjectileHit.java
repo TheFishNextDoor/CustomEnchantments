@@ -1,6 +1,7 @@
 package com.thefishnextdoor.enchantments.events;
 
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -20,7 +21,12 @@ public class ProjectileHit implements Listener {
         if (!(shooter instanceof Player)) return;
         Player player = (Player) shooter;
         Block block = event.getHitBlock();
-        if (block == null) return;
-        Destructive.onProjectileHitBlock(player, projectile, block);
+        if (block != null) {
+            Destructive.onProjectileHitBlock(player, projectile, block);
+        }
+        Entity entity = event.getHitEntity();
+        if (entity != null) {
+            Destructive.onProjectileHitEntity(player, projectile, entity);
+        }
     }
 }

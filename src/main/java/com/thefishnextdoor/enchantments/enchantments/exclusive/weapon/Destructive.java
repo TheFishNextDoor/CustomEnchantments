@@ -9,6 +9,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -82,12 +83,17 @@ public class Destructive extends Enchantment {
         if (block.getDrops(new ItemStack(Material.DIAMOND_PICKAXE)).isEmpty() && block.getDrops((new ItemStack(Material.SHEARS))).isEmpty()) return;
         projectile.remove();
         BlockUtil.breakBlock(player, block);
-        if (Settings.PLAY_EFFECTS) playEffect(player, block);
+        if (Settings.PLAY_EFFECTS) playEffect(block.getLocation().add(0.5, 0.5, 0.5));
     }
 
-    private static void playEffect(Player player, Block block) {
-        World world = block.getWorld();
-        Location location = block.getLocation().add(0.5, 0.5, 0.5);
+    public static void onProjectileHitEntity(Player player, Projectile projectile, Entity entity) {
+        final int level = EnchantUtil.rangedLevel(player, CustomEnchantment.DESTRUCTIVE);
+        if (level < 1) return;
+        if (Settings.PLAY_EFFECTS) playEffect(entity.getLocation());
+    }
+
+    private static void playEffect(Location location) {
+        World world = location.getWorld();
         world.spawnParticle(Particle.EXPLOSION_LARGE, location, 1);
         world.playSound(location, Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.0f);
     }
