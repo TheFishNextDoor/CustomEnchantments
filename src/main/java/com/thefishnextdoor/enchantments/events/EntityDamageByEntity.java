@@ -67,7 +67,7 @@ public class EntityDamageByEntity implements Listener {
     }
     
     private void onPlayerAttackEntity(Player player, LivingEntity entity, EntityDamageByEntityEvent event, boolean RANGED_ATTACK) {
-        if (!RANGED_ATTACK && InventoryUtil.isRanged(InventoryUtil.getItemInUse(player).getType())) return;
+        if (!RANGED_ATTACK && InventoryUtil.isRanged(InventoryUtil.getMeleeItemInUse(player).getType())) return;
         DeathWish.modifyDamage(player, event);
         Glass.modifyDamage(player, event, RANGED_ATTACK);
         AquaAspect.modifyDamage(player, entity, event, RANGED_ATTACK);

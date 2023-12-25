@@ -101,7 +101,7 @@ public class Excavating extends Enchantment {
             blocks.add(block.getRelative(-1, 0, -1));
         }
         Iterator<Block> iter = blocks.iterator();
-        ItemStack item = InventoryUtil.getItemInUse(player);
+        ItemStack item = InventoryUtil.getMeleeItemInUse(player);
         while (iter.hasNext()) {
             Block iblock = iter.next();
             if ((!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) BlockUtil.breakBlock(player, iblock, item);

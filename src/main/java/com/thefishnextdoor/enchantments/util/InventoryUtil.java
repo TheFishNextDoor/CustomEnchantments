@@ -7,7 +7,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class InventoryUtil {
 
-    public static ItemStack getItemInUse(Player player) {
+    public static ItemStack getMeleeItemInUse(Player player) {
         PlayerInventory inv = player.getInventory();
         ItemStack mainHand = inv.getItemInMainHand();
         ItemStack offHand = inv.getItemInOffHand();

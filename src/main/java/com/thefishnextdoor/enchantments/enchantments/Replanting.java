@@ -82,9 +82,9 @@ public class Replanting extends Enchantment {
     }
 
     public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {
-        final int level = EnchantUtil.handLevel(player, CustomEnchantment.REPLANTING);
+        final int level = EnchantUtil.meleeLevel(player, CustomEnchantment.REPLANTING);
         if (level < 1) return;
-        ItemStack item = InventoryUtil.getItemInUse(player);
+        ItemStack item = InventoryUtil.getMeleeItemInUse(player);
         event.setCancelled(harvest(player, block, item));
     }
 

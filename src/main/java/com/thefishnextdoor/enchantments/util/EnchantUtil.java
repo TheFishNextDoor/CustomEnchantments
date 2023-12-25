@@ -207,11 +207,11 @@ public class EnchantUtil {
     }
 
     public static boolean holding(Player player, Enchantment enchant) {
-        return handLevel(player, enchant) > 0;
+        return meleeLevel(player, enchant) > 0;
     }
 
-    public static int handLevel(Player player, Enchantment enchant) {
-        return level(InventoryUtil.getItemInUse(player), enchant);
+    public static int meleeLevel(Player player, Enchantment enchant) {
+        return level(InventoryUtil.getMeleeItemInUse(player), enchant);
     }
 
     public static boolean holdingRanged(Player player, Enchantment enchant) {
@@ -224,7 +224,7 @@ public class EnchantUtil {
 
     public static int weaponLevel(Player player, Enchantment enchant, boolean ranged) {
         if (ranged) return rangedLevel(player, enchant);
-        else return handLevel(player, enchant);
+        else return meleeLevel(player, enchant);
     }
 
     public static boolean holdingHoe(Player player, Enchantment enchant) {

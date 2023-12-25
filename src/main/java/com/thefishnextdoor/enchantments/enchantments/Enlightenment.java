@@ -60,13 +60,13 @@ public class Enlightenment extends Enchantment {
     }
 
     public static void modifyXp(Player player, EntityDeathEvent event) {
-        int level = EnchantUtil.handLevel(player, CustomEnchantment.ENLIGHTENMENT);
+        int level = EnchantUtil.meleeLevel(player, CustomEnchantment.ENLIGHTENMENT);
         if (level < 1) return;
         event.setDroppedExp(xp(level, event.getDroppedExp()));
     }
 
     public static void modifyXp(Player player, BlockBreakEvent event) {
-        int level = EnchantUtil.handLevel(player, CustomEnchantment.ENLIGHTENMENT);
+        int level = EnchantUtil.meleeLevel(player, CustomEnchantment.ENLIGHTENMENT);
         if (level < 1) return;
         event.setExpToDrop(xp(level, event.getExpToDrop()));
     }
