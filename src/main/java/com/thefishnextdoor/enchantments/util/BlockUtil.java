@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -21,7 +22,6 @@ public class BlockUtil {
 
     public static void breakBlock(Player player, Block block, ItemStack item) {
         if (!PermChecker.canBreak(player, block)) return;
-        if (block.getState() instanceof InventoryHolder) return;
         BlockUtil.dropBlockItems(player, block, item);
         block.setType(Material.AIR);
     }
@@ -30,9 +30,16 @@ public class BlockUtil {
         BlockUtil.dropBlockItems(player, block, null);
     }
 
-    // TODO - Make this function drop inventory of block
     public static void dropBlockItems(Player player, Block block, ItemStack item) {
         Collection<ItemStack> drops = item == null ? block.getDrops() : block.getDrops(item);
+        BlockState state = block.getState();
+        if (state instanceof InventoryHolder) {
+            ItemStack[] contents = ((InventoryHolder) state).getInventory().getContents();
+            for (ItemStack content : contents) {
+                if (content == null) continue;
+                drops.add(content);
+            }
+        }
         Smelting.onBlockDropItems(player, drops);
         Telekinesis.transferDrops(player, drops);
         World world = block.getWorld();
