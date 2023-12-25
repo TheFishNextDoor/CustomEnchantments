@@ -30,6 +30,7 @@ public class BlockUtil {
         BlockUtil.dropBlockItems(player, block, null);
     }
 
+    // TODO - Make this function drop inventory of block
     public static void dropBlockItems(Player player, Block block, ItemStack item) {
         Collection<ItemStack> drops = item == null ? block.getDrops() : block.getDrops(item);
         Smelting.onBlockDropItems(player, drops);
