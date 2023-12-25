@@ -31,9 +31,7 @@ public class BlockUtil {
     }
 
     public static void dropBlockItems(Player player, Block block, ItemStack item) {
-        Collection<ItemStack> drops;
-        if (item == null) drops = block.getDrops();
-        else drops = block.getDrops(item);
+        Collection<ItemStack> drops = item == null ? block.getDrops() : block.getDrops(item);
         if (drops.isEmpty()) return;
         Smelting.onBlockDropItems(player, drops);
         Telekinesis.transferDrops(player, drops);
