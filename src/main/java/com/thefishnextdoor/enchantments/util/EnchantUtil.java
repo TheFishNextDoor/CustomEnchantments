@@ -26,7 +26,7 @@ public class EnchantUtil {
         if (item == null) return false;
         if (item.getType() == Material.AIR) return false;
         if (level < 1) return false;
-        if (level > 255) level = 255;
+        level = Math.min(level, 255);
         int currentLevel = level(item, enchantment);
         if (!force) {
             if (level < currentLevel) return false;
