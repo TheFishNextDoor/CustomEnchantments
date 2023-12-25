@@ -32,10 +32,8 @@ public class BlockUtil {
 
     public static void dropBlockItems(Player player, Block block, ItemStack item) {
         Collection<ItemStack> drops = item == null ? block.getDrops() : block.getDrops(item);
-        if (drops.isEmpty()) return;
         Smelting.onBlockDropItems(player, drops);
         Telekinesis.transferDrops(player, drops);
-        if (drops.isEmpty()) return;
         World world = block.getWorld();
         for (ItemStack drop : drops) {
             world.dropItemNaturally(block.getLocation(), drop);
