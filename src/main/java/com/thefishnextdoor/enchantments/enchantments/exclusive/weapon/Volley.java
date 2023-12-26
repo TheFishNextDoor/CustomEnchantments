@@ -4,7 +4,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.EntityType;
@@ -48,12 +47,7 @@ public class Volley extends MutuallyExclusiveWeaponEnchantment {
     public boolean isCursed() {
         return false;
     }
-
-    @Override
-    public boolean conflictsWith(Enchantment other) {
-        return other instanceof MutuallyExclusiveWeaponEnchantment;
-    }
-
+    
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;

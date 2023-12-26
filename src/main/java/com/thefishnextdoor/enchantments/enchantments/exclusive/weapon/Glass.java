@@ -46,6 +46,9 @@ public class Glass extends MutuallyExclusiveWeaponEnchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
+        if (EnchantUtil.same(other, Enchantment.DURABILITY)) return true;
+        if (EnchantUtil.same(other, Enchantment.MENDING)) return true;
+        if (EnchantUtil.same(other, CustomEnchantment.UNBREAKABLE)) return true;
         return other instanceof MutuallyExclusiveWeaponEnchantment;
     }
 

@@ -2,7 +2,6 @@ package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -44,12 +43,7 @@ public class Levitating extends MutuallyExclusiveWeaponEnchantment {
     public boolean isCursed() {
         return false;
     }
-
-    @Override
-    public boolean conflictsWith(Enchantment other) {
-        return other instanceof MutuallyExclusiveWeaponEnchantment;
-    }
-
+    
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;

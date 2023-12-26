@@ -2,7 +2,6 @@ package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -42,11 +41,6 @@ public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public boolean conflictsWith(Enchantment other) {
-        return other instanceof MutuallyExclusiveWeaponEnchantment;
     }
 
     @Override

@@ -151,11 +151,21 @@ public abstract class CustomEnchantment extends Enchantment {
         public MutuallyExclusiveWeaponEnchantment(NamespacedKey key) {
             super(key);
         }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return other instanceof MutuallyExclusiveWeaponEnchantment;
+        }
     }
 
     public static abstract class MutuallyExclusiveHelmetEnchantment extends CustomEnchantment {
         public MutuallyExclusiveHelmetEnchantment(NamespacedKey key) {
             super(key);
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return other instanceof MutuallyExclusiveHelmetEnchantment;
         }
     }
 
@@ -163,11 +173,21 @@ public abstract class CustomEnchantment extends Enchantment {
         public MutuallyExclusiveChestplateEnchantment(NamespacedKey key) {
             super(key);
         }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return other instanceof MutuallyExclusiveChestplateEnchantment;
+        }
     }
 
     public static abstract class MutuallyExclusiveElytraEnchantment extends CustomEnchantment {
         public MutuallyExclusiveElytraEnchantment(NamespacedKey key) {
             super(key);
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return other instanceof MutuallyExclusiveElytraEnchantment;
         }
     }
 
@@ -175,11 +195,21 @@ public abstract class CustomEnchantment extends Enchantment {
         public MutuallyExclusiveLeggingsEnchantment(NamespacedKey key) {
             super(key);
         }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return other instanceof MutuallyExclusiveLeggingsEnchantment;
+        }
     }
 
     public static abstract class MutuallyExclusiveBootsEnchantment extends CustomEnchantment {
         public MutuallyExclusiveBootsEnchantment(NamespacedKey key) {
             super(key);
+        }
+
+        @Override
+        public boolean conflictsWith(Enchantment other) {
+            return other instanceof MutuallyExclusiveBootsEnchantment;
         }
     }
 

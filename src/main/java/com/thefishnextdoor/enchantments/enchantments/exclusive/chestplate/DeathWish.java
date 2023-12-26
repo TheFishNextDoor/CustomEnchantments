@@ -1,7 +1,6 @@
 package com.thefishnextdoor.enchantments.enchantments.exclusive.chestplate;
 
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -42,11 +41,6 @@ public class DeathWish extends MutuallyExclusiveChestplateEnchantment {
     @Override
     public boolean isCursed() {
         return true;
-    }
-
-    @Override
-    public boolean conflictsWith(Enchantment other) {
-        return other instanceof MutuallyExclusiveChestplateEnchantment;
     }
 
     @Override

@@ -54,12 +54,6 @@ public class Destructive extends MutuallyExclusiveWeaponEnchantment {
     public boolean isCursed() {
         return false;
     }
-    
-    @Override
-    public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, Enchantment.ARROW_INFINITE)) return true;
-        return other instanceof MutuallyExclusiveWeaponEnchantment;
-    }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
