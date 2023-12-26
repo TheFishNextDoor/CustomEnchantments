@@ -29,11 +29,6 @@ public class Bounce extends MutuallyExclusiveBootsEnchantment {
     }
 
     @Override
-    public int getStartLevel() {
-        return 1;
-    }
-
-    @Override
     public EnchantmentTarget getItemTarget() {
         return EnchantmentTarget.ARMOR_FEET;
     }

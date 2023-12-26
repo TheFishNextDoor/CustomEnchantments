@@ -29,11 +29,6 @@ public class Boosters extends MutuallyExclusiveElytraEnchantment {
     }
 
     @Override
-    public int getStartLevel() {
-        return 1;
-    }
-
-    @Override
     public EnchantmentTarget getItemTarget() {
         return EnchantmentTarget.ARMOR_TORSO;
     }

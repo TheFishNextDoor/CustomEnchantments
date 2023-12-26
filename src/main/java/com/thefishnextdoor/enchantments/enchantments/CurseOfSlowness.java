@@ -30,11 +30,6 @@ public class CurseOfSlowness extends CustomEnchantment {
     }
 
     @Override
-    public int getStartLevel() {
-        return 1;
-    }
-
-    @Override
     public EnchantmentTarget getItemTarget() {
         return EnchantmentTarget.ARMOR;
     }

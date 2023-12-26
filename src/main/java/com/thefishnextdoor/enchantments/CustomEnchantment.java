@@ -142,6 +142,11 @@ public abstract class CustomEnchantment extends Enchantment {
         super(key);
     }
 
+    @Override
+    public int getStartLevel() {
+        return 1;
+    }
+
     public static abstract class MutuallyExclusiveWeaponEnchantment extends CustomEnchantment {
         public MutuallyExclusiveWeaponEnchantment(NamespacedKey key) {
             super(key);

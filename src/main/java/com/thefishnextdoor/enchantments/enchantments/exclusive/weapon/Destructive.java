@@ -41,11 +41,6 @@ public class Destructive extends MutuallyExclusiveWeaponEnchantment {
     }
 
     @Override
-    public int getStartLevel() {
-        return 1;
-    }
-
-    @Override
     public EnchantmentTarget getItemTarget() {
         return EnchantmentTarget.BREAKABLE;
     }
