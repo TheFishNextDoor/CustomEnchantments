@@ -1,7 +1,6 @@
 package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,11 +24,6 @@ public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public int getMaxLevel() {
         return 1;
-    }
-
-    @Override
-    public EnchantmentTarget getItemTarget() {
-        return EnchantmentTarget.BREAKABLE;
     }
 
     @Override

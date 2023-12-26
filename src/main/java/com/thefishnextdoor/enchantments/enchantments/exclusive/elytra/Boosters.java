@@ -1,10 +1,7 @@
 package com.thefishnextdoor.enchantments.enchantments.exclusive.elytra;
 
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
@@ -28,11 +25,6 @@ public class Boosters extends MutuallyExclusiveElytraEnchantment {
     }
 
     @Override
-    public EnchantmentTarget getItemTarget() {
-        return EnchantmentTarget.ARMOR_TORSO;
-    }
-
-    @Override
     public boolean isTreasure() {
         return false;
     }
@@ -40,12 +32,6 @@ public class Boosters extends MutuallyExclusiveElytraEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return item.getType() == Material.ELYTRA;
     }
 
     public static void whenGliding(Player player) {

@@ -1,7 +1,6 @@
 package com.thefishnextdoor.enchantments.enchantments.exclusive.leggings;
 
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -11,7 +10,6 @@ import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Timer;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveLeggingsEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class DolphinsGrace extends MutuallyExclusiveLeggingsEnchantment {
 
@@ -30,11 +28,6 @@ public class DolphinsGrace extends MutuallyExclusiveLeggingsEnchantment {
     }
 
     @Override
-    public EnchantmentTarget getItemTarget() {
-        return EnchantmentTarget.ARMOR_LEGS;
-    }
-
-    @Override
     public boolean isTreasure() {
         return false;
     }
@@ -42,12 +35,6 @@ public class DolphinsGrace extends MutuallyExclusiveLeggingsEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return InventoryUtil.isLeggings(item.getType());
     }
 
     public static void onTimer(Player player, ItemStack leggings) {

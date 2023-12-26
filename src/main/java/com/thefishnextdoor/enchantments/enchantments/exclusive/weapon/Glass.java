@@ -2,7 +2,6 @@ package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
@@ -11,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Glass extends MutuallyExclusiveWeaponEnchantment {
 
@@ -30,11 +28,6 @@ public class Glass extends MutuallyExclusiveWeaponEnchantment {
     }
 
     @Override
-    public EnchantmentTarget getItemTarget() {
-        return EnchantmentTarget.BREAKABLE;
-    }
-
-    @Override
     public boolean isTreasure() {
         return false;
     }
@@ -50,12 +43,6 @@ public class Glass extends MutuallyExclusiveWeaponEnchantment {
         if (EnchantUtil.same(other, Enchantment.MENDING)) return true;
         if (EnchantUtil.same(other, CustomEnchantment.UNBREAKABLE)) return true;
         return other instanceof MutuallyExclusiveWeaponEnchantment;
-    }
-
-    @Override
-    public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return InventoryUtil.isWeapon(item.getType());
     }
 
     public static void modifyDamage(Player player, EntityDamageByEntityEvent event, boolean ranged) {

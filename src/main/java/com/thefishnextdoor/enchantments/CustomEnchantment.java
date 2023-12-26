@@ -4,8 +4,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.enchantments.AquaAspect;
@@ -71,6 +73,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Venom;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Volley;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Withering;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
+import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public abstract class CustomEnchantment extends Enchantment {
     private static ArrayList<CustomEnchantment> customEnchantments = new ArrayList<>();
@@ -156,6 +159,17 @@ public abstract class CustomEnchantment extends Enchantment {
         public boolean conflictsWith(Enchantment other) {
             return other instanceof MutuallyExclusiveWeaponEnchantment;
         }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.BREAKABLE;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return InventoryUtil.isWeapon(item.getType());
+        }
     }
 
     public static abstract class MutuallyExclusiveHelmetEnchantment extends CustomEnchantment {
@@ -166,6 +180,17 @@ public abstract class CustomEnchantment extends Enchantment {
         @Override
         public boolean conflictsWith(Enchantment other) {
             return other instanceof MutuallyExclusiveHelmetEnchantment;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_HEAD;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return InventoryUtil.isHelmet(item.getType());
         }
     }
 
@@ -178,6 +203,17 @@ public abstract class CustomEnchantment extends Enchantment {
         public boolean conflictsWith(Enchantment other) {
             return other instanceof MutuallyExclusiveChestplateEnchantment;
         }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_TORSO;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return InventoryUtil.isChestplate(item.getType());
+        }
     }
 
     public static abstract class MutuallyExclusiveElytraEnchantment extends CustomEnchantment {
@@ -188,6 +224,17 @@ public abstract class CustomEnchantment extends Enchantment {
         @Override
         public boolean conflictsWith(Enchantment other) {
             return other instanceof MutuallyExclusiveElytraEnchantment;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_TORSO;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return item.getType() == Material.ELYTRA;
         }
     }
 
@@ -200,6 +247,17 @@ public abstract class CustomEnchantment extends Enchantment {
         public boolean conflictsWith(Enchantment other) {
             return other instanceof MutuallyExclusiveLeggingsEnchantment;
         }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_LEGS;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return InventoryUtil.isLeggings(item.getType());
+        }
     }
 
     public static abstract class MutuallyExclusiveBootsEnchantment extends CustomEnchantment {
@@ -210,6 +268,17 @@ public abstract class CustomEnchantment extends Enchantment {
         @Override
         public boolean conflictsWith(Enchantment other) {
             return other instanceof MutuallyExclusiveBootsEnchantment;
+        }
+
+        @Override
+        public EnchantmentTarget getItemTarget() {
+            return EnchantmentTarget.ARMOR_FEET;
+        }
+
+        @Override
+        public boolean canEnchantItem(ItemStack item) {
+            if (item == null) return false;
+            return InventoryUtil.isBoots(item.getType());
         }
     }
 

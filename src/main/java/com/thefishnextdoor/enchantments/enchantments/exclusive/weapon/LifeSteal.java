@@ -2,15 +2,11 @@ package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.inventory.ItemStack;
-
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
 
@@ -29,11 +25,6 @@ public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
     }
 
     @Override
-    public EnchantmentTarget getItemTarget() {
-        return EnchantmentTarget.BREAKABLE;
-    }
-
-    @Override
     public boolean isTreasure() {
         return false;
     }
@@ -41,12 +32,6 @@ public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return InventoryUtil.isWeapon(item.getType());
     }
 
     public static void onPlayerAttackEntity(Player player, EntityDamageByEntityEvent event, boolean ranged) {

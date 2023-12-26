@@ -2,7 +2,6 @@ package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -28,12 +27,7 @@ public class Teleport extends MutuallyExclusiveWeaponEnchantment {
     public int getMaxLevel() {
         return 1;
     }
-
-    @Override
-    public EnchantmentTarget getItemTarget() {
-        return EnchantmentTarget.BREAKABLE;
-    }
-
+    
     @Override
     public boolean isTreasure() {
         return false;

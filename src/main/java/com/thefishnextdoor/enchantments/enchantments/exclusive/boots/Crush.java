@@ -1,18 +1,14 @@
 package com.thefishnextdoor.enchantments.enchantments.exclusive.boots;
 
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.inventory.ItemStack;
-
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveBootsEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Crush extends MutuallyExclusiveBootsEnchantment {
 
@@ -31,11 +27,6 @@ public class Crush extends MutuallyExclusiveBootsEnchantment {
     }
 
     @Override
-    public EnchantmentTarget getItemTarget() {
-        return EnchantmentTarget.ARMOR_FEET;
-    }
-
-    @Override
     public boolean isTreasure() {
         return false;
     }
@@ -43,12 +34,6 @@ public class Crush extends MutuallyExclusiveBootsEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return InventoryUtil.isBoots(item.getType());
     }
 
     public static void onPlayerTakeDamage(Player player, EntityDamageEvent event) {
