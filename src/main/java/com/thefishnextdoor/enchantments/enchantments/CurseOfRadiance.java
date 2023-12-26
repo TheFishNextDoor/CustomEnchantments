@@ -36,11 +36,6 @@ public class CurseOfRadiance extends CustomEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
     public boolean isCursed() {
         return true;
     }
