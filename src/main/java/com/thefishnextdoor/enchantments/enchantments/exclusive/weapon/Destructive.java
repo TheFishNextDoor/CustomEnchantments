@@ -38,12 +38,7 @@ public class Destructive extends MutuallyExclusiveWeaponEnchantment {
     public int getMaxLevel() {
         return 1;
     }
-
-    @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
+    
     @Override
     public boolean isCursed() {
         return false;

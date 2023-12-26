@@ -23,10 +23,6 @@ public class Momentum extends MutuallyExclusiveElytraEnchantment {
     public int getMaxLevel() {
         return 3;
     }
-    @Override
-    public boolean isTreasure() {
-        return false;
-    }
 
     @Override
     public boolean isCursed() {

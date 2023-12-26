@@ -150,6 +150,11 @@ public abstract class CustomEnchantment extends Enchantment {
         return 1;
     }
 
+    @Override
+    public boolean isTreasure() {
+        return true;
+    }
+
     public static abstract class MutuallyExclusiveWeaponEnchantment extends CustomEnchantment {
         public MutuallyExclusiveWeaponEnchantment(NamespacedKey key) {
             super(key);

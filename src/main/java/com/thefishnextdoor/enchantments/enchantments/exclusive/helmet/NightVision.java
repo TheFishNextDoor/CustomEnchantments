@@ -28,11 +28,6 @@ public class NightVision extends MutuallyExclusiveHelmetEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
     public boolean isCursed() {
         return false;
     }

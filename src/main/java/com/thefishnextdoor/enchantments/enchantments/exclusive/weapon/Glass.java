@@ -28,11 +28,6 @@ public class Glass extends MutuallyExclusiveWeaponEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
     public boolean isCursed() {
         return true;
     }

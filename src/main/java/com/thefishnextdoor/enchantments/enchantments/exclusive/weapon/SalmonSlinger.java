@@ -31,11 +31,6 @@ public class SalmonSlinger extends MutuallyExclusiveWeaponEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
     public boolean isCursed() {
         return false;
     }

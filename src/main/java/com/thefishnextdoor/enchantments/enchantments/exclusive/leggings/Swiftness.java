@@ -28,11 +28,6 @@ public class Swiftness extends MutuallyExclusiveLeggingsEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
     public boolean isCursed() {
         return false;
     }

@@ -26,11 +26,6 @@ public class Haste extends MutuallyExclusiveChestplateEnchantment {
     public int getMaxLevel() {
         return 2;
     }
-    
-    @Override
-    public boolean isTreasure() {
-        return false;
-    }
 
     @Override
     public boolean isCursed() {

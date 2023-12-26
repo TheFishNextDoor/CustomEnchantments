@@ -27,11 +27,6 @@ public class Starving extends MutuallyExclusiveWeaponEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
     public boolean isCursed() {
         return false;
     }

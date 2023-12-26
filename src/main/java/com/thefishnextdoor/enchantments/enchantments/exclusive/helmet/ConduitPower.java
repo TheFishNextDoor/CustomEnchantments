@@ -28,11 +28,6 @@ public class ConduitPower extends MutuallyExclusiveHelmetEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
     public boolean isCursed() {
         return false;
     }
