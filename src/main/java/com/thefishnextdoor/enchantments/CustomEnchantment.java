@@ -317,13 +317,14 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static boolean hasCustomEnchantments(ItemStack item) {
-        return customEnchantments(item).size() > 0;
+        for (Enchantment enchantment : EnchantUtil.enchantments(item)) {
+            if (enchantment instanceof CustomEnchantment) return true;
+        }
+        return false;
     }
 
     public static ArrayList<Enchantment> customEnchantments(ItemStack item) {
         ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
-        if (item == null) return foundFishchantments;
-        if (!item.hasItemMeta()) return foundFishchantments;
         for (Enchantment enchantment : EnchantUtil.enchantments(item)) {
             if (enchantment instanceof CustomEnchantment) {
                 foundFishchantments.add(enchantment);
