@@ -8,10 +8,11 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveBootsEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Bounce extends Enchantment {
+public class Bounce extends MutuallyExclusiveBootsEnchantment {
 
     public Bounce(NamespacedKey key) {
         super(key);
@@ -49,7 +50,7 @@ public class Bounce extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveBoots(other);
+        return other instanceof MutuallyExclusiveBootsEnchantment;
     }
 
     @Override

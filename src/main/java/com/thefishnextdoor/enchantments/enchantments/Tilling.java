@@ -13,7 +13,7 @@ import com.thefishnextdoor.enchantments.PermChecker;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Tilling extends Enchantment {
+public class Tilling extends CustomEnchantment {
 
     public Tilling(NamespacedKey key) {
         super(key);

@@ -18,12 +18,13 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Settings;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.EntityUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 import com.thefishnextdoor.enchantments.util.BlockUtil;
 
-public class Destructive extends Enchantment {
+public class Destructive extends MutuallyExclusiveWeaponEnchantment {
 
     public Destructive(NamespacedKey key) {
         super(key);
@@ -62,7 +63,7 @@ public class Destructive extends Enchantment {
     @Override
     public boolean conflictsWith(Enchantment other) {
         if (EnchantUtil.same(other, Enchantment.ARROW_INFINITE)) return true;
-        return CustomEnchantment.isMutuallyExclusiveWeapon(other);
+        return other instanceof MutuallyExclusiveWeaponEnchantment;
     }
 
     @Override

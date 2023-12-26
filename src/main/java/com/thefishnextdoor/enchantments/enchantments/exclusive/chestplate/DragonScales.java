@@ -10,10 +10,11 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Timer;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveChestplateEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class DragonScales extends Enchantment {
+public class DragonScales extends MutuallyExclusiveChestplateEnchantment {
 
     public DragonScales(NamespacedKey key) {
         super(key);
@@ -51,7 +52,7 @@ public class DragonScales extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveChestplate(other);
+        return other instanceof MutuallyExclusiveChestplateEnchantment;
     }
 
     @Override

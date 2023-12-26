@@ -11,7 +11,7 @@ import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Range extends Enchantment {
+public class Range extends CustomEnchantment {
 
     public Range(NamespacedKey key) {
         super(key);

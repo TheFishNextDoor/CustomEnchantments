@@ -11,10 +11,11 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.EntityUtil;
 
-public class SalmonSlinger extends Enchantment {
+public class SalmonSlinger extends MutuallyExclusiveWeaponEnchantment {
 
     public SalmonSlinger(NamespacedKey key) {
         super(key);
@@ -53,7 +54,7 @@ public class SalmonSlinger extends Enchantment {
     @Override
     public boolean conflictsWith(Enchantment other) {
         if (EnchantUtil.same(other, Enchantment.ARROW_INFINITE)) return true;
-        return CustomEnchantment.isMutuallyExclusiveWeapon(other);
+        return other instanceof MutuallyExclusiveWeaponEnchantment;
     }
 
     @Override

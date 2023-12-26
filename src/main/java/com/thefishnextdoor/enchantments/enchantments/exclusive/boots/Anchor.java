@@ -11,10 +11,11 @@ import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Timer;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveBootsEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Anchor extends Enchantment {
+public class Anchor extends MutuallyExclusiveBootsEnchantment {
 
     public Anchor(NamespacedKey key) {
         super(key);
@@ -52,7 +53,7 @@ public class Anchor extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveBoots(other);
+        return other instanceof MutuallyExclusiveBootsEnchantment;
     }
 
     @Override

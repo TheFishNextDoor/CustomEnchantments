@@ -8,10 +8,11 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveHelmetEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Worm extends Enchantment {
+public class Worm extends MutuallyExclusiveHelmetEnchantment {
 
     public Worm(NamespacedKey key) {
         super(key);
@@ -49,7 +50,7 @@ public class Worm extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveHelmet(other);
+        return other instanceof MutuallyExclusiveHelmetEnchantment;
     }
 
     @Override

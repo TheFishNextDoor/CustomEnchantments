@@ -16,7 +16,7 @@ import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 import com.thefishnextdoor.enchantments.util.BlockUtil;
 
-public class Replanting extends Enchantment {
+public class Replanting extends CustomEnchantment {
 
     public Replanting(NamespacedKey key) {
         super(key);

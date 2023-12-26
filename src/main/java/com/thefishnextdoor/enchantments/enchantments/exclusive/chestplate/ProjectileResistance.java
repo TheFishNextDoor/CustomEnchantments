@@ -7,10 +7,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveChestplateEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class ProjectileResistance extends Enchantment {
+public class ProjectileResistance extends MutuallyExclusiveChestplateEnchantment {
 
     public ProjectileResistance(NamespacedKey key) {
         super(key);
@@ -48,7 +49,7 @@ public class ProjectileResistance extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveChestplate(other);
+        return other instanceof MutuallyExclusiveChestplateEnchantment;
     }
 
     @Override

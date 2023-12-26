@@ -12,7 +12,7 @@ import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Precision extends Enchantment {
+public class Precision extends CustomEnchantment {
 
     public Precision(NamespacedKey key) {
         super(key);

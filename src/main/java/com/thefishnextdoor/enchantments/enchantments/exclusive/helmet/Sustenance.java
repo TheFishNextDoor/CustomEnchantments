@@ -8,10 +8,11 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveHelmetEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Sustenance extends Enchantment {
+public class Sustenance extends MutuallyExclusiveHelmetEnchantment {
 
     public Sustenance(NamespacedKey key) {
         super(key);
@@ -49,7 +50,7 @@ public class Sustenance extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveHelmet(other);
+        return other instanceof MutuallyExclusiveHelmetEnchantment;
     }
 
     @Override

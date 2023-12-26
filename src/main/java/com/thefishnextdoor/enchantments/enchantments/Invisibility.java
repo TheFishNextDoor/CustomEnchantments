@@ -14,7 +14,7 @@ import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Invisibility extends Enchantment {
+public class Invisibility extends CustomEnchantment {
 
     public Invisibility(NamespacedKey key) {
         super(key);

@@ -24,7 +24,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 
-public class Smelting extends Enchantment {
+public class Smelting extends CustomEnchantment {
 
     public static HashMap<Material, Material> smeltingMap = generateSmeltingMap();
 

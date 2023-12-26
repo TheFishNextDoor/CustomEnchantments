@@ -8,10 +8,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class BloodTipped extends Enchantment {
+public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
 
     public BloodTipped(NamespacedKey key) {
         super(key);
@@ -49,7 +50,7 @@ public class BloodTipped extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveWeapon(other);
+        return other instanceof MutuallyExclusiveWeaponEnchantment;
     }
 
     @Override

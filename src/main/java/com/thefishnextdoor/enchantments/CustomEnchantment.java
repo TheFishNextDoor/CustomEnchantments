@@ -72,72 +72,111 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Volley;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Withering;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
-public class CustomEnchantment {
-    public static Enchantment DESTRUCTIVE;
-    public static Enchantment TILLING;
-    public static Enchantment REPLANTING;
-    public static Enchantment EXCAVATING;
-    public static Enchantment SMELTING;
-    public static Enchantment TELEKINESIS;
-    public static Enchantment UNBREAKABLE;
-    public static Enchantment SUSTENANCE;
-    public static Enchantment WORM;
-    public static Enchantment CRUSH;
-    public static Enchantment LIFE_STEAL;
-    public static Enchantment FLING;
-    public static Enchantment ENLIGHTENMENT;
-    public static Enchantment RANGE;
-    public static Enchantment PRECISION;
-    public static Enchantment VENOM;
-    public static Enchantment WITHERING;
-    public static Enchantment BLOOD_TIPPED;
-    public static Enchantment VOLLEY;
-    public static Enchantment GLASS;
-    public static Enchantment LEVITATING;
-    public static Enchantment RADIANCE;
-    public static Enchantment OBSCURE;
-    public static Enchantment SALMON_SLINGER;
-    public static Enchantment DISORIENTING;
-    public static Enchantment DEBILITATING;
-    public static Enchantment STARVING;
-    public static Enchantment CRIPPLING;
-    public static Enchantment SWIFTNESS;
-    public static Enchantment LEAPING;
-    public static Enchantment SLOW_FALLING;
-    public static Enchantment DRAGON_SCALES;
-    public static Enchantment HEALING;
-    public static Enchantment INVISIBILITY;
-    public static Enchantment MOMENTUM;
-    public static Enchantment BOOSTERS;
-    public static Enchantment REFLECTION;
-    public static Enchantment DEATH_WISH;
-    public static Enchantment FIRE_RESISTANCE;
-    public static Enchantment GILLS;
-    public static Enchantment STRENGTH;
-    public static Enchantment HASTE;
-    public static Enchantment INCREASED_HEALTH;
-    public static Enchantment NIGHT_VISION;
-    public static Enchantment DOLPHINS_GRACE;
-    public static Enchantment CONDUIT_POWER;
-    public static Enchantment HERO_OF_THE_VILLAGE;
-    public static Enchantment CURSE_OF_MINING_FATIGUE;
-    public static Enchantment CURSE_OF_SLOWNESS;
-    public static Enchantment CURSE_OF_WEAKNESS;
-    public static Enchantment CURSE_OF_LEVITATING;
-    public static Enchantment CURSE_OF_AQUAPHOBIA;
-    public static Enchantment CURSE_OF_RADIANCE;
-    public static Enchantment ANCHOR;
-    public static Enchantment SPURS;
-    public static Enchantment AQUA_ASPECT;
-    public static Enchantment BOUNCE;
-    public static Enchantment PROJECTILE_RESISTANCE;
-    public static Enchantment HEAVY;
-    public static Enchantment FLAMING;
-    public static Enchantment FIRE_BLAST;
-    public static Enchantment TELEPORT;
-
-    private static ArrayList<Enchantment> customEnchantments = new ArrayList<>();
+public abstract class CustomEnchantment extends Enchantment {
+    private static ArrayList<CustomEnchantment> customEnchantments = new ArrayList<>();
     private static HashMap<String, String> enchantmentDescriptions = new HashMap<>();
+    public static CustomEnchantment DESTRUCTIVE;
+    public static CustomEnchantment TILLING;
+    public static CustomEnchantment REPLANTING;
+    public static CustomEnchantment EXCAVATING;
+    public static CustomEnchantment SMELTING;
+    public static CustomEnchantment TELEKINESIS;
+    public static CustomEnchantment UNBREAKABLE;
+    public static CustomEnchantment SUSTENANCE;
+    public static CustomEnchantment WORM;
+    public static CustomEnchantment CRUSH;
+    public static CustomEnchantment LIFE_STEAL;
+    public static CustomEnchantment FLING;
+    public static CustomEnchantment ENLIGHTENMENT;
+    public static CustomEnchantment RANGE;
+    public static CustomEnchantment PRECISION;
+    public static CustomEnchantment VENOM;
+    public static CustomEnchantment WITHERING;
+    public static CustomEnchantment BLOOD_TIPPED;
+    public static CustomEnchantment VOLLEY;
+    public static CustomEnchantment GLASS;
+    public static CustomEnchantment LEVITATING;
+    public static CustomEnchantment RADIANCE;
+    public static CustomEnchantment OBSCURE;
+    public static CustomEnchantment SALMON_SLINGER;
+    public static CustomEnchantment DISORIENTING;
+    public static CustomEnchantment DEBILITATING;
+    public static CustomEnchantment STARVING;
+    public static CustomEnchantment CRIPPLING;
+    public static CustomEnchantment SWIFTNESS;
+    public static CustomEnchantment LEAPING;
+    public static CustomEnchantment SLOW_FALLING;
+    public static CustomEnchantment DRAGON_SCALES;
+    public static CustomEnchantment HEALING;
+    public static CustomEnchantment INVISIBILITY;
+    public static CustomEnchantment MOMENTUM;
+    public static CustomEnchantment BOOSTERS;
+    public static CustomEnchantment REFLECTION;
+    public static CustomEnchantment DEATH_WISH;
+    public static CustomEnchantment FIRE_RESISTANCE;
+    public static CustomEnchantment GILLS;
+    public static CustomEnchantment STRENGTH;
+    public static CustomEnchantment HASTE;
+    public static CustomEnchantment INCREASED_HEALTH;
+    public static CustomEnchantment NIGHT_VISION;
+    public static CustomEnchantment DOLPHINS_GRACE;
+    public static CustomEnchantment CONDUIT_POWER;
+    public static CustomEnchantment HERO_OF_THE_VILLAGE;
+    public static CustomEnchantment CURSE_OF_MINING_FATIGUE;
+    public static CustomEnchantment CURSE_OF_SLOWNESS;
+    public static CustomEnchantment CURSE_OF_WEAKNESS;
+    public static CustomEnchantment CURSE_OF_LEVITATING;
+    public static CustomEnchantment CURSE_OF_AQUAPHOBIA;
+    public static CustomEnchantment CURSE_OF_RADIANCE;
+    public static CustomEnchantment ANCHOR;
+    public static CustomEnchantment SPURS;
+    public static CustomEnchantment AQUA_ASPECT;
+    public static CustomEnchantment BOUNCE;
+    public static CustomEnchantment PROJECTILE_RESISTANCE;
+    public static CustomEnchantment HEAVY;
+    public static CustomEnchantment FLAMING;
+    public static CustomEnchantment FIRE_BLAST;
+    public static CustomEnchantment TELEPORT;
+
+    public CustomEnchantment(NamespacedKey key) {
+        super(key);
+    }
+
+    public static abstract class MutuallyExclusiveWeaponEnchantment extends CustomEnchantment {
+        public MutuallyExclusiveWeaponEnchantment(NamespacedKey key) {
+            super(key);
+        }
+    }
+
+    public static abstract class MutuallyExclusiveHelmetEnchantment extends CustomEnchantment {
+        public MutuallyExclusiveHelmetEnchantment(NamespacedKey key) {
+            super(key);
+        }
+    }
+
+    public static abstract class MutuallyExclusiveChestplateEnchantment extends CustomEnchantment {
+        public MutuallyExclusiveChestplateEnchantment(NamespacedKey key) {
+            super(key);
+        }
+    }
+
+    public static abstract class MutuallyExclusiveElytraEnchantment extends CustomEnchantment {
+        public MutuallyExclusiveElytraEnchantment(NamespacedKey key) {
+            super(key);
+        }
+    }
+
+    public static abstract class MutuallyExclusiveLeggingsEnchantment extends CustomEnchantment {
+        public MutuallyExclusiveLeggingsEnchantment(NamespacedKey key) {
+            super(key);
+        }
+    }
+
+    public static abstract class MutuallyExclusiveBootsEnchantment extends CustomEnchantment {
+        public MutuallyExclusiveBootsEnchantment(NamespacedKey key) {
+            super(key);
+        }
+    }
 
     static void init(Plugin plugin) {
         DESTRUCTIVE = new Destructive(new NamespacedKey(plugin, "destructive"));
@@ -205,75 +244,95 @@ public class CustomEnchantment {
     }
 
     static void registerAll() {
-        registerCustomEnchantment(DESTRUCTIVE, "Projectiles destroy blocks. Rare drop from creeper.");
-        registerCustomEnchantment(TILLING, "Hoe farmland 3x3. Rare drop from pillager.");
-        registerCustomEnchantment(REPLANTING, "Replants anything harvested automatically. Rare drop from pillager.");
-        registerCustomEnchantment(EXCAVATING, "Mine blocks in a 3x3 grid. Rare drop from charged creeper.");
-        registerCustomEnchantment(SMELTING, "Dropped items will be smelted if possible. Rare drop from blaze.");
-        registerCustomEnchantment(TELEKINESIS, "Dropped items are added to your inventory. Rare drop from enderman.");
-        registerCustomEnchantment(UNBREAKABLE, "Item will not lose durability. Rare drop from wither.");
-        registerCustomEnchantment(SUSTENANCE, "Hunger bar replenishes over time. Rare drop from zombie.");
-        registerCustomEnchantment(WORM, "Prevents suffocation damage. Rare drop from silverfish.");
-        registerCustomEnchantment(CRUSH, "Falling on an entity will damage it. Rare drop from ravagers.");
-        registerCustomEnchantment(LIFE_STEAL, "A portion of the damage you deal is added to your health. Rare drop from wither.");
-        registerCustomEnchantment(FLING, "Sends attacked entities upwards. Rare drop from creeper.");
-        registerCustomEnchantment(ENLIGHTENMENT, "Increased Xp drops from blocks and mobs. Rare drop from warden.");
-        registerCustomEnchantment(RANGE, "Fired projectiles have a higher velocity. Rare drop from skeleton.");
-        registerCustomEnchantment(PRECISION, "Fired projectiles have 100% accuracy. Rare drop from skeleton.");
-        registerCustomEnchantment(VENOM, "Attacked entities receive poison. Rare drop from cave spider.");
-        registerCustomEnchantment(WITHERING, "Attacked entities receive wither. Rare drop from the wither.");
-        registerCustomEnchantment(BLOOD_TIPPED, "Take slight damage when firing, applies your potion effects to the arrow. Rare drop from piglin.");
-        registerCustomEnchantment(VOLLEY, "Fire multiple arrows at once. Rare drop from skeleton.");
-        registerCustomEnchantment(GLASS, "Increased damage, decreased durability. Rare drop from skeleton.");
-        registerCustomEnchantment(LEVITATING, "Launched projectiles are transformed into a shulker bullet. Rare drop from shulker.");
-        registerCustomEnchantment(RADIANCE, "Attacked entities receive glowing. Rare drop from magma cube.");
-        registerCustomEnchantment(OBSCURE, "Attacked entities receive blindness. Rare drop from warden.");
-        registerCustomEnchantment(SALMON_SLINGER, "Launched projectiles are transformed into salmon. This enchantment is not dropped by any mob.");
-        registerCustomEnchantment(DISORIENTING, "Attacked entities receive confusion. Rare drop from spider.");
-        registerCustomEnchantment(DEBILITATING, "Attacked entities receive weakness. Rare drop from witch.");
-        registerCustomEnchantment(STARVING, "Attacked entities receive hunger. Rare drop from husk.");
-        registerCustomEnchantment(CRIPPLING, "Attacked entities receive slowness. Rare drop from skeleton.");
-        registerCustomEnchantment(SWIFTNESS, "Wearer has increased movement speed. Rare drop from witch.");
-        registerCustomEnchantment(LEAPING, "Wearer has increased jump height. Rare drop from slime.");
-        registerCustomEnchantment(SLOW_FALLING, "Wearer falls gracefully like a feather. Rare drop from ghast.");
-        registerCustomEnchantment(DRAGON_SCALES, "Wearer has increased damage resistance. Rare drop from ender dragon.");
-        registerCustomEnchantment(HEALING, "Wearer has faster health regeneration. Rare drop from zombified piglin.");
-        registerCustomEnchantment(INVISIBILITY, "Wearer receives invisibility. Rare drop from witch.");
-        registerCustomEnchantment(MOMENTUM, "Wearer will gain speed faster when gliding. Rare drop from ender dragon.");
-        registerCustomEnchantment(BOOSTERS, "A small amount of constant thrust is added to the elytra. Rare drop from creeper.");
-        registerCustomEnchantment(REFLECTION, "Reflect arrows at a higher velocity. Rare drop from pillager.");
-        registerCustomEnchantment(DEATH_WISH, "Wearer takes increased damage and deals increased damage. Rare drop from wither skeleton.");
-        registerCustomEnchantment(FIRE_RESISTANCE, "Wearer is immune to fire damage. Rare drop from blaze.");
-        registerCustomEnchantment(GILLS, "Wearer can breath underwater. Rare drop from drowned.");
-        registerCustomEnchantment(STRENGTH, "Wearer has increased melee damage. Rare drop from zombified piglin.");
-        registerCustomEnchantment(HASTE, "Wearer has increased mining speed. Rare drop from piglin.");
-        registerCustomEnchantment(INCREASED_HEALTH, "Wearer has increased max health. Rare drop from ender dragon.");
-        registerCustomEnchantment(NIGHT_VISION, "Wearer has improved vision in the dark. Rare drop from spider.");
-        registerCustomEnchantment(DOLPHINS_GRACE, "Wearer can move quickly in water. Rare drop from guardian.");
-        registerCustomEnchantment(CONDUIT_POWER, "See underwater, breathe underwater, mine faster underwater. Drop from elder guardian.");
-        registerCustomEnchantment(HERO_OF_THE_VILLAGE, "Wearer receives reduced villager prices. Rare drop from pillager.");
-        registerCustomEnchantment(CURSE_OF_MINING_FATIGUE, "Wearer has decreased mining speed. Rare drop from elder guardian.");
-        registerCustomEnchantment(CURSE_OF_SLOWNESS, "Wearer has decreased movement speed. Rare drop from warden.");
-        registerCustomEnchantment(CURSE_OF_WEAKNESS, "Wearer has decreased melee damage. Rare drop from cave spider.");
-        registerCustomEnchantment(CURSE_OF_LEVITATING, "Wearer levitates uncontrollably. Rare drop from shulkers.");
-        registerCustomEnchantment(CURSE_OF_AQUAPHOBIA, "Wearer takes damage from water and rain. Rare drop from enderman.");
-        registerCustomEnchantment(CURSE_OF_RADIANCE, "Wearer will begin to glow. Rare drop from magma cube.");
-        registerCustomEnchantment(ANCHOR, "Wearer sinks in water and has increased traction in water. Should be combined with depth strider for best effect. Rare drop from drowned.");
-        registerCustomEnchantment(SPURS, "Mounted mobs receive speed and jump boost. Rare drop from pillager.");
-        registerCustomEnchantment(AQUA_ASPECT, "Deal extra damage to enderman, blaze etc. Rare drop from drowned.");
-        registerCustomEnchantment(BOUNCE, "Wearer bounces instead of taking fall damage. Rare drop from slime.");
-        registerCustomEnchantment(PROJECTILE_RESISTANCE, "Wearer is immune to projectile damage. Rare drop from wither.");
-        registerCustomEnchantment(HEAVY, "Wearer receives no knockback. Rare drop from warden.");
-        registerCustomEnchantment(FLAMING, "Attackers will be lit on fire. Rare drop from blaze.");
-        registerCustomEnchantment(FIRE_BLAST, "Launched projectiles are transformed into a blaze fire ball. Rare drop from blaze.");
-        registerCustomEnchantment(TELEPORT, "Teleport to the location your projectile hits. Rare drop from enderman.");
+        register(DESTRUCTIVE, "Projectiles destroy blocks. Rare drop from creeper.");
+        register(TILLING, "Hoe farmland 3x3. Rare drop from pillager.");
+        register(REPLANTING, "Replants anything harvested automatically. Rare drop from pillager.");
+        register(EXCAVATING, "Mine blocks in a 3x3 grid. Rare drop from charged creeper.");
+        register(SMELTING, "Dropped items will be smelted if possible. Rare drop from blaze.");
+        register(TELEKINESIS, "Dropped items are added to your inventory. Rare drop from enderman.");
+        register(UNBREAKABLE, "Item will not lose durability. Rare drop from wither.");
+        register(SUSTENANCE, "Hunger bar replenishes over time. Rare drop from zombie.");
+        register(WORM, "Prevents suffocation damage. Rare drop from silverfish.");
+        register(CRUSH, "Falling on an entity will damage it. Rare drop from ravagers.");
+        register(LIFE_STEAL, "A portion of the damage you deal is added to your health. Rare drop from wither.");
+        register(FLING, "Sends attacked entities upwards. Rare drop from creeper.");
+        register(ENLIGHTENMENT, "Increased Xp drops from blocks and mobs. Rare drop from warden.");
+        register(RANGE, "Fired projectiles have a higher velocity. Rare drop from skeleton.");
+        register(PRECISION, "Fired projectiles have 100% accuracy. Rare drop from skeleton.");
+        register(VENOM, "Attacked entities receive poison. Rare drop from cave spider.");
+        register(WITHERING, "Attacked entities receive wither. Rare drop from the wither.");
+        register(BLOOD_TIPPED, "Take slight damage when firing, applies your potion effects to the arrow. Rare drop from piglin.");
+        register(VOLLEY, "Fire multiple arrows at once. Rare drop from skeleton.");
+        register(GLASS, "Increased damage, decreased durability. Rare drop from skeleton.");
+        register(LEVITATING, "Launched projectiles are transformed into a shulker bullet. Rare drop from shulker.");
+        register(RADIANCE, "Attacked entities receive glowing. Rare drop from magma cube.");
+        register(OBSCURE, "Attacked entities receive blindness. Rare drop from warden.");
+        register(SALMON_SLINGER, "Launched projectiles are transformed into salmon. This enchantment is not dropped by any mob.");
+        register(DISORIENTING, "Attacked entities receive confusion. Rare drop from spider.");
+        register(DEBILITATING, "Attacked entities receive weakness. Rare drop from witch.");
+        register(STARVING, "Attacked entities receive hunger. Rare drop from husk.");
+        register(CRIPPLING, "Attacked entities receive slowness. Rare drop from skeleton.");
+        register(SWIFTNESS, "Wearer has increased movement speed. Rare drop from witch.");
+        register(LEAPING, "Wearer has increased jump height. Rare drop from slime.");
+        register(SLOW_FALLING, "Wearer falls gracefully like a feather. Rare drop from ghast.");
+        register(DRAGON_SCALES, "Wearer has increased damage resistance. Rare drop from ender dragon.");
+        register(HEALING, "Wearer has faster health regeneration. Rare drop from zombified piglin.");
+        register(INVISIBILITY, "Wearer receives invisibility. Rare drop from witch.");
+        register(MOMENTUM, "Wearer will gain speed faster when gliding. Rare drop from ender dragon.");
+        register(BOOSTERS, "A small amount of constant thrust is added to the elytra. Rare drop from creeper.");
+        register(REFLECTION, "Reflect arrows at a higher velocity. Rare drop from pillager.");
+        register(DEATH_WISH, "Wearer takes increased damage and deals increased damage. Rare drop from wither skeleton.");
+        register(FIRE_RESISTANCE, "Wearer is immune to fire damage. Rare drop from blaze.");
+        register(GILLS, "Wearer can breath underwater. Rare drop from drowned.");
+        register(STRENGTH, "Wearer has increased melee damage. Rare drop from zombified piglin.");
+        register(HASTE, "Wearer has increased mining speed. Rare drop from piglin.");
+        register(INCREASED_HEALTH, "Wearer has increased max health. Rare drop from ender dragon.");
+        register(NIGHT_VISION, "Wearer has improved vision in the dark. Rare drop from spider.");
+        register(DOLPHINS_GRACE, "Wearer can move quickly in water. Rare drop from guardian.");
+        register(CONDUIT_POWER, "See underwater, breathe underwater, mine faster underwater. Drop from elder guardian.");
+        register(HERO_OF_THE_VILLAGE, "Wearer receives reduced villager prices. Rare drop from pillager.");
+        register(CURSE_OF_MINING_FATIGUE, "Wearer has decreased mining speed. Rare drop from elder guardian.");
+        register(CURSE_OF_SLOWNESS, "Wearer has decreased movement speed. Rare drop from warden.");
+        register(CURSE_OF_WEAKNESS, "Wearer has decreased melee damage. Rare drop from cave spider.");
+        register(CURSE_OF_LEVITATING, "Wearer levitates uncontrollably. Rare drop from shulkers.");
+        register(CURSE_OF_AQUAPHOBIA, "Wearer takes damage from water and rain. Rare drop from enderman.");
+        register(CURSE_OF_RADIANCE, "Wearer will begin to glow. Rare drop from magma cube.");
+        register(ANCHOR, "Wearer sinks in water and has increased traction in water. Should be combined with depth strider for best effect. Rare drop from drowned.");
+        register(SPURS, "Mounted mobs receive speed and jump boost. Rare drop from pillager.");
+        register(AQUA_ASPECT, "Deal extra damage to enderman, blaze etc. Rare drop from drowned.");
+        register(BOUNCE, "Wearer bounces instead of taking fall damage. Rare drop from slime.");
+        register(PROJECTILE_RESISTANCE, "Wearer is immune to projectile damage. Rare drop from wither.");
+        register(HEAVY, "Wearer receives no knockback. Rare drop from warden.");
+        register(FLAMING, "Attackers will be lit on fire. Rare drop from blaze.");
+        register(FIRE_BLAST, "Launched projectiles are transformed into a blaze fire ball. Rare drop from blaze.");
+        register(TELEPORT, "Teleport to the location your projectile hits. Rare drop from enderman.");
     }
 
-    public static ArrayList<Enchantment> all() {
+    public static ArrayList<CustomEnchantment> all() {
         return new ArrayList<>(customEnchantments);
     }
 
-    public static void registerCustomEnchantment(Enchantment enchant, String info) {
+    public static String desciption(Enchantment enchant) {
+        return enchantmentDescriptions.get(EnchantUtil.name(enchant));
+    }
+
+    public static boolean hasCustomEnchantments(ItemStack item) {
+        return customEnchantments(item).size() > 0;
+    }
+
+    public static ArrayList<Enchantment> customEnchantments(ItemStack item) {
+        ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
+        if (item == null) return foundFishchantments;
+        if (!item.hasItemMeta()) return foundFishchantments;
+        for (Enchantment enchantment : EnchantUtil.enchantments(item)) {
+            if (enchantment instanceof CustomEnchantment) {
+                foundFishchantments.add(enchantment);
+            }
+        }
+        return foundFishchantments;
+    }
+
+    private static void register(CustomEnchantment enchant, String info) {
         if (customEnchantments.contains(enchant)) return;
         customEnchantments.add(enchant);
         enchantmentDescriptions.put(EnchantUtil.name(enchant), info);
@@ -286,95 +345,5 @@ public class CustomEnchantment {
         catch (Exception e) {
             Plugin.LOGGER.warning("Failed to register " + enchant.getKey().getKey() + ": " + e.getMessage());
         }
-    }
-
-    public static String desciption(Enchantment enchant) {
-        return enchantmentDescriptions.get(enchant.getKey().getKey());
-    }
-
-    public static boolean hasCustomEnchantments(ItemStack item) {
-        return customEnchantments(item).size() > 0;
-    }
-
-    public static ArrayList<Enchantment> customEnchantments(ItemStack item) {
-        ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
-        if (item == null) return foundFishchantments;
-        if (!item.hasItemMeta()) return foundFishchantments;
-        for (Enchantment enchantment : EnchantUtil.enchantments(item)) {
-            if (isCustom(enchantment)) foundFishchantments.add(enchantment);
-        }
-        return foundFishchantments;
-    }
-
-    public static boolean isCustom(Enchantment enchantment) {
-        if (enchantment == null) return false;
-        for (Enchantment customEnchantment : customEnchantments) {
-            if (EnchantUtil.same(customEnchantment, enchantment)) return true;
-        }
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveWeapon(Enchantment enchantment) {
-        if (EnchantUtil.same(enchantment, CustomEnchantment.BLOOD_TIPPED)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.LIFE_STEAL)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.VENOM)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.WITHERING)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.OBSCURE)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.DISORIENTING)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.DEBILITATING)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.STARVING)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.CRIPPLING)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.GLASS)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.LEVITATING)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.VOLLEY)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.FIRE_BLAST)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.TELEPORT)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.DESTRUCTIVE)) return true;
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveHelmet(Enchantment enchantment) {
-        if (EnchantUtil.same(enchantment, CustomEnchantment.CONDUIT_POWER)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.SUSTENANCE)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.WORM)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.GILLS)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.NIGHT_VISION)) return true;
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveChestplate(Enchantment enchantment) {
-        if (EnchantUtil.same(enchantment, CustomEnchantment.DEATH_WISH)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.DRAGON_SCALES)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.HEALING)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.FIRE_RESISTANCE)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.STRENGTH)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.HASTE)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.INCREASED_HEALTH)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.HERO_OF_THE_VILLAGE)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.PROJECTILE_RESISTANCE)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.FLAMING)) return true;
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveElytra(Enchantment enchantment) {
-        if (EnchantUtil.same(enchantment, CustomEnchantment.BOOSTERS)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.MOMENTUM)) return true;
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveLeggings(Enchantment enchantment) {
-        if (EnchantUtil.same(enchantment, CustomEnchantment.DOLPHINS_GRACE)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.SWIFTNESS)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.HEAVY)) return true;
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveBoots(Enchantment enchantment) {
-        if (EnchantUtil.same(enchantment, CustomEnchantment.ANCHOR)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.CRUSH)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.LEAPING)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.SLOW_FALLING)) return true;
-        if (EnchantUtil.same(enchantment, CustomEnchantment.BOUNCE)) return true;
-        return false;
     }
 }

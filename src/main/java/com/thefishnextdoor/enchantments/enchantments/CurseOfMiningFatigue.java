@@ -13,7 +13,7 @@ import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class CurseOfMiningFatigue extends Enchantment {
+public class CurseOfMiningFatigue extends CustomEnchantment {
 
     public CurseOfMiningFatigue(NamespacedKey key) {
         super(key);

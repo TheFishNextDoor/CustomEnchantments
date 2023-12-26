@@ -10,10 +10,11 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.EntityUtil;
 
-public class Levitating extends Enchantment {
+public class Levitating extends MutuallyExclusiveWeaponEnchantment {
 
     public Levitating(NamespacedKey key) {
         super(key);
@@ -51,7 +52,7 @@ public class Levitating extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveWeapon(other);
+        return other instanceof MutuallyExclusiveWeaponEnchantment;
     }
 
     @Override

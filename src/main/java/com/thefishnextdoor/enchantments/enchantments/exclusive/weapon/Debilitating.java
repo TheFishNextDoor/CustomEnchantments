@@ -10,10 +10,11 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Debilitating extends Enchantment {
+public class Debilitating extends MutuallyExclusiveWeaponEnchantment {
 
     public Debilitating(NamespacedKey key) {
         super(key);
@@ -51,7 +52,7 @@ public class Debilitating extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveWeapon(other);
+        return other instanceof MutuallyExclusiveWeaponEnchantment;
     }
 
     @Override

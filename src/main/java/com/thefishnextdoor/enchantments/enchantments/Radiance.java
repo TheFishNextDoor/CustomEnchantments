@@ -13,7 +13,7 @@ import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Radiance extends Enchantment {
+public class Radiance extends CustomEnchantment {
 
     public Radiance(NamespacedKey key) {
         super(key);

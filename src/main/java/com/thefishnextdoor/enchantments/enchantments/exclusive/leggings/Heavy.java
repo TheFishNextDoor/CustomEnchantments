@@ -7,11 +7,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveLeggingsEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.EntityUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Heavy extends Enchantment {
+public class Heavy extends MutuallyExclusiveLeggingsEnchantment {
 
     public Heavy(NamespacedKey key) {
         super(key);
@@ -49,7 +50,7 @@ public class Heavy extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveLeggings(other);
+        return other instanceof MutuallyExclusiveLeggingsEnchantment;
     }
 
     @Override

@@ -9,9 +9,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveElytraEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
-public class Momentum extends Enchantment {
+public class Momentum extends MutuallyExclusiveElytraEnchantment {
 
     public Momentum(NamespacedKey key) {
         super(key);
@@ -49,7 +50,7 @@ public class Momentum extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveElytra(other);
+        return other instanceof MutuallyExclusiveElytraEnchantment;
     }
 
     @Override

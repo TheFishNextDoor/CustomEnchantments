@@ -13,7 +13,7 @@ import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class CurseOfSlowness extends Enchantment {
+public class CurseOfSlowness extends CustomEnchantment {
 
     public CurseOfSlowness(NamespacedKey key) {
         super(key);

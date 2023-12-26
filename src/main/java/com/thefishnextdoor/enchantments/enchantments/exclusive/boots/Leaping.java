@@ -10,10 +10,11 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Timer;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveBootsEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Leaping extends Enchantment {
+public class Leaping extends MutuallyExclusiveBootsEnchantment {
 
     public Leaping(NamespacedKey key) {
         super(key);
@@ -52,7 +53,7 @@ public class Leaping extends Enchantment {
     @Override
 
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveBoots(other);
+        return other instanceof MutuallyExclusiveBootsEnchantment;
     }
 
     @Override

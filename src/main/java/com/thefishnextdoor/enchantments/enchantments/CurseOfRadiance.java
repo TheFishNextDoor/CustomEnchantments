@@ -14,7 +14,7 @@ import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class CurseOfRadiance extends Enchantment {
+public class CurseOfRadiance extends CustomEnchantment {
 
     public CurseOfRadiance(NamespacedKey key) {
         super(key);

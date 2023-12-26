@@ -10,10 +10,11 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Timer;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveLeggingsEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class DolphinsGrace extends Enchantment {
+public class DolphinsGrace extends MutuallyExclusiveLeggingsEnchantment {
 
     public DolphinsGrace(NamespacedKey key) {
         super(key);
@@ -51,7 +52,7 @@ public class DolphinsGrace extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveLeggings(other);
+        return other instanceof MutuallyExclusiveLeggingsEnchantment;
     }
 
     @Override

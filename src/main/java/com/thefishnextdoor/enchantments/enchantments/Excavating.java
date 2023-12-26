@@ -19,7 +19,7 @@ import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 import com.thefishnextdoor.enchantments.util.BlockUtil;
 
-public class Excavating extends Enchantment {
+public class Excavating extends CustomEnchantment {
 
     public Excavating(NamespacedKey key) {
         super(key);

@@ -14,7 +14,7 @@ import com.thefishnextdoor.enchantments.Timer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Spurs extends Enchantment {
+public class Spurs extends CustomEnchantment {
 
     public Spurs(NamespacedKey key) {
         super(key);

@@ -10,10 +10,11 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Timer;
+import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveHelmetEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class NightVision extends Enchantment {
+public class NightVision extends MutuallyExclusiveHelmetEnchantment {
 
     public NightVision(NamespacedKey key) {
         super(key);
@@ -51,7 +52,7 @@ public class NightVision extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return CustomEnchantment.isMutuallyExclusiveHelmet(other);
+        return other instanceof MutuallyExclusiveHelmetEnchantment;
     }
 
     @Override

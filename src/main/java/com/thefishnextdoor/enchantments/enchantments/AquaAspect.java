@@ -16,7 +16,7 @@ import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.EntityUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class AquaAspect extends Enchantment {
+public class AquaAspect extends CustomEnchantment {
 
     public AquaAspect(NamespacedKey key) {
         super(key);

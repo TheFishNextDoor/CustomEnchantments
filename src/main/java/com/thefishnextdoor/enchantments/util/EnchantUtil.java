@@ -16,7 +16,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Settings;
 import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
-
 import net.md_5.bungee.api.ChatColor;
 
 public class EnchantUtil {
@@ -66,7 +65,7 @@ public class EnchantUtil {
         else item.addUnsafeEnchantment(enchantment, level);
         
         // Add Lore
-        if (!CustomEnchantment.isCustom(enchantment)) return true;
+        if (!(enchantment instanceof CustomEnchantment)) return true;
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
         if (lore == null) lore = new ArrayList<String>();
@@ -90,7 +89,7 @@ public class EnchantUtil {
         }
         
         // Remove Lore
-        if (!CustomEnchantment.isCustom(enchantment)) return HASENCHANT;
+       if (!(enchantment instanceof CustomEnchantment)) return HASENCHANT;
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
         if (lore == null) return HASENCHANT;
@@ -314,10 +313,8 @@ public class EnchantUtil {
     }
 
     public static void verify(ItemStack item) {
-        if (item == null) return;
-        Iterator<Enchantment> iter = CustomEnchantment.all().iterator();
-        while (iter.hasNext()) {
-            level(item, iter.next());
+        for (CustomEnchantment enchant : CustomEnchantment.all()) {
+            level(item, enchant);
         }
     }
 

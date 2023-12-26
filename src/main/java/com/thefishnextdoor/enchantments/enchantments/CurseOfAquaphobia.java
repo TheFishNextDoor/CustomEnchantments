@@ -12,7 +12,7 @@ import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class CurseOfAquaphobia extends Enchantment {
+public class CurseOfAquaphobia extends CustomEnchantment {
 
     public CurseOfAquaphobia(NamespacedKey key) {
         super(key);

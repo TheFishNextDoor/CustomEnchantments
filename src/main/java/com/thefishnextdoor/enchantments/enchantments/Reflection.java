@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
-public class Reflection extends Enchantment {
+public class Reflection extends CustomEnchantment {
 
     public Reflection(NamespacedKey key) {
         super(key);

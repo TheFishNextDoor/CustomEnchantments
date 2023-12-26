@@ -10,7 +10,7 @@ import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Unbreakable extends Enchantment {
+public class Unbreakable extends CustomEnchantment {
 
     public Unbreakable(NamespacedKey key) {
         super(key);

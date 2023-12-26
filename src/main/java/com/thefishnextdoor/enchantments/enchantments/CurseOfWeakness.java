@@ -13,7 +13,7 @@ import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class CurseOfWeakness extends Enchantment {
+public class CurseOfWeakness extends CustomEnchantment {
 
     public CurseOfWeakness(NamespacedKey key) {
         super(key);

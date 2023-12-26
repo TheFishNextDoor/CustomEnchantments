@@ -13,7 +13,7 @@ import com.thefishnextdoor.enchantments.EndOfTick;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Fling extends Enchantment {
+public class Fling extends CustomEnchantment {
 
     public Fling(NamespacedKey key) {
         super(key);

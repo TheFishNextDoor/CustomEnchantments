@@ -18,7 +18,7 @@ import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
-public class Telekinesis extends Enchantment {
+public class Telekinesis extends CustomEnchantment {
 
     public Telekinesis(NamespacedKey key) {
         super(key);
