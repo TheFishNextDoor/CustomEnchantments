@@ -366,6 +366,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static boolean isCustomEnchantment(Enchantment enchantment) {
+        //return enchantment instanceof CustomEnchantment; // Not reload safe
         for (CustomEnchantment customEnchantment : customEnchantments) {
             if (EnchantUtil.same(customEnchantment, enchantment)) return true;
         }
@@ -373,6 +374,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static boolean isMutuallyExclusiveWeaponEnchantment(Enchantment enchantment) {
+        //return enchantment instanceof MutuallyExclusiveWeaponEnchantment; // Not reload safe
         for (MutuallyExclusiveWeaponEnchantment mutuallyExclusiveWeaponEnchantment : mutuallyExclusiveWeaponEnchantments) {
             if (EnchantUtil.same(mutuallyExclusiveWeaponEnchantment, enchantment)) return true;
         }
@@ -380,6 +382,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static boolean isMutuallyExclusiveHelmetEnchantment(Enchantment enchantment) {
+        //return enchantment instanceof MutuallyExclusiveHelmetEnchantment; // Not reload safe
         for (MutuallyExclusiveHelmetEnchantment mutuallyExclusiveHelmetEnchantment : mutuallyExclusiveHelmetEnchantments) {
             if (EnchantUtil.same(mutuallyExclusiveHelmetEnchantment, enchantment)) return true;
         }
@@ -387,6 +390,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static boolean isMutuallyExclusiveChestplateEnchantment(Enchantment enchantment) {
+        //return enchantment instanceof MutuallyExclusiveChestplateEnchantment; // Not reload safe
         for (MutuallyExclusiveChestplateEnchantment mutuallyExclusiveChestplateEnchantment : mutuallyExclusiveChestplateEnchantments) {
             if (EnchantUtil.same(mutuallyExclusiveChestplateEnchantment, enchantment)) return true;
         }
@@ -394,6 +398,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static boolean isMutuallyExclusiveElytraEnchantment(Enchantment enchantment) {
+        //return enchantment instanceof MutuallyExclusiveElytraEnchantment; // Not reload safe
         for (MutuallyExclusiveElytraEnchantment mutuallyExclusiveElytraEnchantment : mutuallyExclusiveElytraEnchantments) {
             if (EnchantUtil.same(mutuallyExclusiveElytraEnchantment, enchantment)) return true;
         }
@@ -401,6 +406,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static boolean isMutuallyExclusiveLeggingsEnchantment(Enchantment enchantment) {
+        //return enchantment instanceof MutuallyExclusiveLeggingsEnchantment; // Not reload safe
         for (MutuallyExclusiveLeggingsEnchantment mutuallyExclusiveLeggingsEnchantment : mutuallyExclusiveLeggingsEnchantments) {
             if (EnchantUtil.same(mutuallyExclusiveLeggingsEnchantment, enchantment)) return true;
         }
@@ -408,6 +414,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static boolean isMutuallyExclusiveBootsEnchantment(Enchantment enchantment) {
+        //return enchantment instanceof MutuallyExclusiveBootsEnchantment; // Not reload safe
         for (MutuallyExclusiveBootsEnchantment mutuallyExclusiveBootsEnchantment : mutuallyExclusiveBootsEnchantments) {
             if (EnchantUtil.same(mutuallyExclusiveBootsEnchantment, enchantment)) return true;
         }
