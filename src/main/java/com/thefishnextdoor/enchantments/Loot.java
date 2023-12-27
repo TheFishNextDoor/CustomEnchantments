@@ -49,6 +49,7 @@ public class Loot {
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.GILLS, 1));
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.ANCHOR, 1));
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.AQUA_ASPECT, 1));
+                if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.HARPOON, 1));
                 break;
             case SLIME:
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.LEAPING, 1));

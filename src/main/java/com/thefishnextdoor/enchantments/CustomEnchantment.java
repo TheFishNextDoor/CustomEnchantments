@@ -63,6 +63,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Destructiv
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Disorienting;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.FireBlast;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Glass;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Harpoon;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Levitating;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.LifeSteal;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Obscure;
@@ -132,6 +133,7 @@ public abstract class CustomEnchantment extends Enchantment {
     public static MutuallyExclusiveWeaponEnchantment DISORIENTING;
     public static MutuallyExclusiveWeaponEnchantment FIRE_BLAST;
     public static MutuallyExclusiveWeaponEnchantment GLASS;
+    public static MutuallyExclusiveWeaponEnchantment HARPOON;
     public static MutuallyExclusiveWeaponEnchantment LEVITATING;
     public static MutuallyExclusiveWeaponEnchantment LIFE_STEAL;
     public static MutuallyExclusiveWeaponEnchantment OBSCURE;
@@ -345,6 +347,7 @@ public abstract class CustomEnchantment extends Enchantment {
         DISORIENTING = new Disorienting(new NamespacedKey(plugin, "disorienting"));
         FIRE_BLAST = new FireBlast(new NamespacedKey(plugin, "fire_blast"));
         GLASS = new Glass(new NamespacedKey(plugin, "glass"));
+        HARPOON = new Harpoon(new NamespacedKey(plugin, "harpoon"));
         LEVITATING = new Levitating(new NamespacedKey(plugin, "levitating"));
         LIFE_STEAL = new LifeSteal(new NamespacedKey(plugin, "life_steal"));
         OBSCURE = new Obscure(new NamespacedKey(plugin, "obscure"));

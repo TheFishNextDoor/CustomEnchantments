@@ -12,6 +12,7 @@ import com.thefishnextdoor.enchantments.enchantments.Range;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.BloodTipped;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Destructive;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.FireBlast;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Harpoon;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Levitating;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.SalmonSlinger;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Teleport;
@@ -35,5 +36,6 @@ public class ProjectileLaunch implements Listener {
         Teleport.convertProjectile(player, projectile);
         Levitating.convertProjectile(player, projectile);
         Destructive.convertProjectile(player, projectile);
+        Harpoon.convertProjectile(player, projectile);
     }
 }
