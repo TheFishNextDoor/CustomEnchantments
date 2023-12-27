@@ -28,7 +28,9 @@ public class Worm extends MutuallyExclusiveHelmetEnchantment {
         return false;
     }
 
-    public static boolean resist(Player player, EntityDamageEvent event) {
-        return event.getCause() == EntityDamageEvent.DamageCause.SUFFOCATION && EnchantUtil.has(player.getInventory().getHelmet(), CustomEnchantment.WORM);
+    public static void modifyCancelStatus(Player player, EntityDamageEvent event) {
+        if (event.getCause() != EntityDamageEvent.DamageCause.SUFFOCATION) return;
+        if (!EnchantUtil.has(player.getInventory().getHelmet(), CustomEnchantment.WORM)) return;
+        event.setCancelled(true);
     }
 }

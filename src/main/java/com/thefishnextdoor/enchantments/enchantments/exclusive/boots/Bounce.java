@@ -28,12 +28,12 @@ public class Bounce extends MutuallyExclusiveBootsEnchantment {
         return false;
     }
 
-    public static boolean bounce(Player player, EntityDamageEvent event) {
-        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) return false;
+    public static void modifyCancelStatus(Player player, EntityDamageEvent event) {
+        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) return;
         int level = EnchantUtil.level(player.getInventory().getBoots(), CustomEnchantment.BOUNCE);
-        if (level < 1) return false;
+        if (level < 1) return;
         double v = Math.log(event.getDamage()) * (level + 2) / 10;
         player.setVelocity(player.getVelocity().setY(v));
-        return true;
+        event.setCancelled(true);
     }
 }
