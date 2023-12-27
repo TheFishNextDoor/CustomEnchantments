@@ -2,6 +2,7 @@ package com.thefishnextdoor.enchantments.util;
 
 import java.util.ArrayList;
 
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
@@ -10,7 +11,7 @@ public class CommandUtil {
     public static ArrayList<String> recommendedEnchantmentNames(ItemStack item) {
         ArrayList<String> names = new ArrayList<>();
         for (Enchantment enchantment : Enchantment.values()) {
-            if (EnchantUtil.has(item, enchantment) || enchantment.canEnchantItem(item)) {
+            if (EnchantUtil.has(item, enchantment) || enchantment.canEnchantItem(item) || item.getType() == Material.ENCHANTED_BOOK) {
                 names.add(EnchantUtil.name(enchantment));
             }
         }
