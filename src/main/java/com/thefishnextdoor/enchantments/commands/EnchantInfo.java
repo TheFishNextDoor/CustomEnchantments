@@ -62,6 +62,11 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
         if (enchantment.canEnchantItem(new ItemStack(Material.DIAMOND_HOE))) items.add("Hoe");
         if (enchantment.canEnchantItem(new ItemStack(Material.FISHING_ROD))) items.add("Fishing Rod");
         if (enchantment.canEnchantItem(new ItemStack(Material.SHEARS))) items.add("Shears");
+        if (enchantment.canEnchantItem(new ItemStack(Material.DIAMOND_HELMET))) items.add("Helmet");
+        if (enchantment.canEnchantItem(new ItemStack(Material.DIAMOND_CHESTPLATE))) items.add("Chestplate");
+        if (enchantment.canEnchantItem(new ItemStack(Material.ELYTRA))) items.add("Elytra");
+        if (enchantment.canEnchantItem(new ItemStack(Material.DIAMOND_LEGGINGS))) items.add("Leggings");
+        if (enchantment.canEnchantItem(new ItemStack(Material.DIAMOND_BOOTS))) items.add("Boots");
         return items;
     } 
     
