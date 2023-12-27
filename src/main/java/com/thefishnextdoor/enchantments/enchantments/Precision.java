@@ -49,6 +49,11 @@ public class Precision extends CustomEnchantment {
         return InventoryUtil.isRanged(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Fired projectiles have 100% accuracy. Rare drop from skeleton.";
+    }
+
     public static void modifyVelocity(Player player, Projectile projectile) {
         if (player == null || projectile == null) return;
         if (!EnchantUtil.holding(player, CustomEnchantment.PRECISION)) return;

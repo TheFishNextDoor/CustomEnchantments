@@ -37,6 +37,11 @@ public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
         return InventoryUtil.isRanged(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Take slight damage when firing, applies your potion effects to the arrow. Rare drop from piglin.";
+    }
+
     public static void onPlayerAttackEntity(Player player, LivingEntity livingEntity, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.BLOOD_TIPPED, ranged);
         if (level < 1) return;

@@ -31,6 +31,11 @@ public class Crush extends MutuallyExclusiveBootsEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Falling on an entity will damage it. Rare drop from ravagers.";
+    }
+
     public static void onPlayerTakeDamage(Player player, EntityDamageEvent event) {
         if (event.getCause() != DamageCause.FALL) return;
         int level = EnchantUtil.level(player.getInventory().getBoots(), CustomEnchantment.CRUSH);

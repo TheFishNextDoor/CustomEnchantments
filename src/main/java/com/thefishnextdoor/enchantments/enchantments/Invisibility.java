@@ -51,6 +51,11 @@ public class Invisibility extends CustomEnchantment {
         return InventoryUtil.isArmor(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer receives invisibility. Rare drop from witch.";
+    }
+
     public static void onTimer(Player player, ArmorCheckOptimizer o) {
         if (!EnchantUtil.wearing(player, CustomEnchantment.INVISIBILITY, o)) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Timer.PERIOD * 2, 0));

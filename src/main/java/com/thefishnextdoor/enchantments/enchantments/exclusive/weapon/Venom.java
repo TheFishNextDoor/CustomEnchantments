@@ -31,6 +31,11 @@ public class Venom extends MutuallyExclusiveWeaponEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Attacked entities receive poison. Rare drop from cave spider.";
+    }
+
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.VENOM, ranged);
         if (level < 1) return;

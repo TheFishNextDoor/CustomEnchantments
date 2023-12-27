@@ -32,6 +32,11 @@ public class SlowFalling extends MutuallyExclusiveBootsEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer falls gracefully like a feather. Rare drop from ghast.";
+    }
+
     public static void onTimer(Player player, ItemStack boots) {
         int level = EnchantUtil.level(boots, CustomEnchantment.SLOW_FALLING);
         if (level < 1) return;

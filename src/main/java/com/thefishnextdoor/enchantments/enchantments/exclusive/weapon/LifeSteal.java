@@ -29,6 +29,11 @@ public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "A portion of the damage you deal is added to your health. Rare drop from wither.";
+    }
+
     public static void onPlayerAttackEntity(Player player, EntityDamageByEntityEvent event, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.LIFE_STEAL, ranged);
         if (level < 1) return;

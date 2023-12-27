@@ -50,6 +50,11 @@ public class Radiance extends CustomEnchantment {
         return InventoryUtil.isWeapon(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Attacked entities receive glowing. Rare drop from magma cube.";
+    }
+
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.RADIANCE, ranged);
         if (level < 1) return;

@@ -40,6 +40,11 @@ public class FireBlast extends MutuallyExclusiveWeaponEnchantment {
         return type == Material.CROSSBOW;
     }
 
+    @Override
+    public String getDescription() {
+        return "Launched projectiles are transformed into a blaze fire ball. Rare drop from blaze.";
+    }
+
     public static void convertProjectile(Player player, Projectile projectile) {
         if (!EnchantUtil.holdingRanged(player, CustomEnchantment.FIRE_BLAST)) return;
         EntityUtil.convert(projectile, EntityType.SMALL_FIREBALL);

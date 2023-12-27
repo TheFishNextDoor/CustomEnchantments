@@ -32,6 +32,11 @@ public class DolphinsGrace extends MutuallyExclusiveLeggingsEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer can move quickly in water. Rare drop from guardian.";
+    }
+
     public static void onTimer(Player player, ItemStack leggings) {
         if (!EnchantUtil.has(leggings, CustomEnchantment.DOLPHINS_GRACE)) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Timer.PERIOD * 2, 0));

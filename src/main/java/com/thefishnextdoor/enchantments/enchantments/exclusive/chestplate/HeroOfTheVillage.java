@@ -32,6 +32,11 @@ public class HeroOfTheVillage extends MutuallyExclusiveChestplateEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer receives reduced villager prices. Rare drop from pillager.";
+    }
+
     public static void onTimer(Player player, ItemStack chestplate) {
         int level = EnchantUtil.level(chestplate, CustomEnchantment.HERO_OF_THE_VILLAGE);
         if (level < 1) return;

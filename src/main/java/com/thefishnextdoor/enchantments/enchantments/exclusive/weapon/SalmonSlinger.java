@@ -38,7 +38,7 @@ public class SalmonSlinger extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public boolean conflictsWith(Enchantment other) {
         if (EnchantUtil.same(other, Enchantment.ARROW_INFINITE)) return true;
-        return other instanceof MutuallyExclusiveWeaponEnchantment;
+        return CustomEnchantment.isMutuallyExclusiveWeaponEnchantment(other);
     }
 
     @Override
@@ -46,6 +46,11 @@ public class SalmonSlinger extends MutuallyExclusiveWeaponEnchantment {
         if (item == null) return false;
         Material type = item.getType();
         return type == Material.BOW || type == Material.CROSSBOW;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Launched projectiles are transformed into salmon. This enchantment is not dropped by any mob.";
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {

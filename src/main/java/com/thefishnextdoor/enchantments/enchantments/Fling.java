@@ -50,6 +50,11 @@ public class Fling extends CustomEnchantment {
         return InventoryUtil.isWeapon(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Sends attacked entities upwards. Rare drop from creeper.";
+    }
+
     public static void onPlayerAttackEntity(Player player, final Entity entity, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.FLING, ranged);
         if (level < 1) return;

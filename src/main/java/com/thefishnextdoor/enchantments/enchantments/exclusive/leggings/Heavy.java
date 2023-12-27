@@ -31,6 +31,11 @@ public class Heavy extends MutuallyExclusiveLeggingsEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer receives no knockback. Rare drop from warden.";
+    }
+
     public static void onPlayerTakeDamage(Player player, EntityDamageEvent event) {
         if (event.getCause() != DamageCause.ENTITY_ATTACK) return;
         if (!EnchantUtil.has(player.getInventory().getLeggings(), CustomEnchantment.HEAVY)) return;

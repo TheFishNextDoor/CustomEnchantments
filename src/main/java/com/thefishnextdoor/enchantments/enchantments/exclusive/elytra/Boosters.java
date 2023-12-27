@@ -29,6 +29,11 @@ public class Boosters extends MutuallyExclusiveElytraEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "A small amount of constant thrust is added to the elytra. Rare drop from creeper.";
+    }
+
     public static void whenGliding(Player player) {
         if (player.isInWater()) return;
         Vector velocity = player.getVelocity();

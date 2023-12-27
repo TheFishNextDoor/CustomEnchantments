@@ -32,6 +32,11 @@ public class Leaping extends MutuallyExclusiveBootsEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer has increased jump height. Rare drop from slime.";
+    }
+
     public static void onTimer(Player player, ItemStack boots) {
         int level = EnchantUtil.level(boots, CustomEnchantment.LEAPING);
         if (level < 1) return;

@@ -29,6 +29,11 @@ public class DeathWish extends MutuallyExclusiveChestplateEnchantment {
         return true;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer takes increased damage and deals increased damage. Rare drop from wither skeleton.";
+    }
+
     public static void modifyDamage(Player player, EntityDamageByEntityEvent event) {
         if (!EnchantUtil.has(player.getInventory().getChestplate(), CustomEnchantment.DEATH_WISH)) return;
         event.setDamage(event.getDamage() * 1.75);

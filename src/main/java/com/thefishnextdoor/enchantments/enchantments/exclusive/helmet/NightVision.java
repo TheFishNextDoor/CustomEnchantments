@@ -32,6 +32,11 @@ public class NightVision extends MutuallyExclusiveHelmetEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer has improved vision in the dark. Rare drop from spider.";
+    }
+
     public static void onTimer(Player player, ItemStack helmet) {
         if (!EnchantUtil.has(helmet, CustomEnchantment.NIGHT_VISION)) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900 + Timer.PERIOD, 0));

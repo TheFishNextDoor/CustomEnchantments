@@ -29,6 +29,11 @@ public class ProjectileResistance extends MutuallyExclusiveChestplateEnchantment
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer is immune to projectile damage. Rare drop from wither.";
+    }
+
     public static void modifyCancelStatus(Player player, EntityDamageEvent event) {
         if (event.getCause() != EntityDamageEvent.DamageCause.PROJECTILE) return;
         if (!EnchantUtil.has(player.getInventory().getChestplate(), CustomEnchantment.PROJECTILE_RESISTANCE)) return;

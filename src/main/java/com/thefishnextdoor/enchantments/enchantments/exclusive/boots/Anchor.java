@@ -33,6 +33,11 @@ public class Anchor extends MutuallyExclusiveBootsEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer sinks in water and has increased traction in water. Should be combined with depth strider for best effect. Rare drop from drowned.";
+    }
+
     public static void whenSwimming(Player player) {
         if (!EnchantUtil.has(player.getInventory().getBoots(), CustomEnchantment.ANCHOR)) return;
         Vector velocity = player.getVelocity();

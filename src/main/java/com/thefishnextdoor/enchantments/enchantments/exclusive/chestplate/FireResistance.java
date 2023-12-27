@@ -32,6 +32,11 @@ public class FireResistance extends MutuallyExclusiveChestplateEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer is immune to fire damage. Rare drop from blaze.";
+    }
+
     public static void onTimer(Player player, ItemStack chestplate) {
         if (!(EnchantUtil.has(chestplate, CustomEnchantment.FIRE_RESISTANCE))) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Timer.PERIOD * 2, 0));

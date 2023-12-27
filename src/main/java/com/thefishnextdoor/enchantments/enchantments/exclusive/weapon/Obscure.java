@@ -31,6 +31,11 @@ public class Obscure extends MutuallyExclusiveWeaponEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Attacked entities receive blindness. Rare drop from warden.";
+    }
+
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.OBSCURE, ranged);
         if (level < 1) return;

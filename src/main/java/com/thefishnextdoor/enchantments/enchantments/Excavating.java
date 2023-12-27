@@ -56,6 +56,11 @@ public class Excavating extends CustomEnchantment {
         return InventoryUtil.isTool(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Mine blocks in a 3x3 grid. Rare drop from charged creeper.";
+    }
+
     public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {
         if (!EnchantUtil.holding(player, CustomEnchantment.EXCAVATING)) return;
         BlockFace face = PlayerTracker.get(player).getMiningFace();

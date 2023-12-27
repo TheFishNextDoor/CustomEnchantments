@@ -31,6 +31,11 @@ public class Starving extends MutuallyExclusiveWeaponEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Attacked entities receive hunger. Rare drop from husk.";
+    }
+
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.STARVING, ranged);
         if (level < 1) return;

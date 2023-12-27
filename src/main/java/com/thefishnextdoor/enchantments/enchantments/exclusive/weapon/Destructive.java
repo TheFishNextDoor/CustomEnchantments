@@ -51,6 +51,11 @@ public class Destructive extends MutuallyExclusiveWeaponEnchantment {
         return type == Material.BOW || type == Material.CROSSBOW;
     }
 
+    @Override
+    public String getDescription() {
+        return "Projectiles destroy blocks. Rare drop from creeper.";
+    }
+
     public static void convertProjectile(Player player, Projectile projectile) {
         if (!EnchantUtil.holdingRanged(player, CustomEnchantment.DESTRUCTIVE)) return;
         Snowball snowball = (Snowball) EntityUtil.convert(projectile, EntityType.SNOWBALL);

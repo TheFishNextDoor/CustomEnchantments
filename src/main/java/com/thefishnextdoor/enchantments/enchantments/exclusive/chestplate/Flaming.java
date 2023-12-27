@@ -28,6 +28,11 @@ public class Flaming extends MutuallyExclusiveChestplateEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Attackers will be lit on fire. Rare drop from blaze.";
+    }
+
     public static void onEntityAttackPlayer(Player player, LivingEntity entity) {
         int level = EnchantUtil.level(player.getInventory().getChestplate(), CustomEnchantment.FLAMING);
         if (level < 1) return;

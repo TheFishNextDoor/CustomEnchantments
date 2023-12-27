@@ -40,6 +40,11 @@ public class Teleport extends MutuallyExclusiveWeaponEnchantment {
         return type == Material.BOW || type == Material.CROSSBOW;
     }
 
+    @Override
+    public String getDescription() {
+        return "Teleport to the location your projectile hits. Rare drop from enderman.";
+    }
+
     public static void convertProjectile(Player player, Projectile projectile) {
         if (!EnchantUtil.holdingRanged(player, CustomEnchantment.TELEPORT)) return;
         EntityUtil.convert(projectile, EntityType.ENDER_PEARL);

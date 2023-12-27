@@ -51,6 +51,11 @@ public class Spurs extends CustomEnchantment {
         return InventoryUtil.isBoots(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Mounted mobs receive speed and jump boost. Rare drop from pillager.";
+    }
+
     public static void onTimer(Player player, ItemStack boots) {
         if (player.getVehicle() == null || !(player.getVehicle() instanceof LivingEntity)) return;
         LivingEntity mount = (LivingEntity) player.getVehicle();

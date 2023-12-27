@@ -48,6 +48,11 @@ public class Unbreakable extends CustomEnchantment {
         return InventoryUtil.isEnchantable(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Item will not lose durability. Rare drop from wither.";
+    }
+
     public static boolean canTakeDamage(Player player, ItemStack item) {
         return !EnchantUtil.has(item, CustomEnchantment.UNBREAKABLE);
     }

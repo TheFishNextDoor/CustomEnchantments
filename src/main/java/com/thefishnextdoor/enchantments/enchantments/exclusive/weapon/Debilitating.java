@@ -31,6 +31,11 @@ public class Debilitating extends MutuallyExclusiveWeaponEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Attacked entities receive weakness. Rare drop from witch.";
+    }
+
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.DEBILITATING, ranged);
         if (level < 1) return;

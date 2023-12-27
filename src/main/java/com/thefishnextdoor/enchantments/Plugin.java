@@ -33,7 +33,6 @@ public class Plugin extends JavaPlugin {
     
     public void onEnable() {
         Settings.loadPluginConfig(this);
-        CustomEnchantment.registerAll();
         Timer.start(this);
         registerEvents();
         registerCommands();

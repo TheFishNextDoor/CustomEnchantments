@@ -48,6 +48,11 @@ public class Range extends CustomEnchantment {
         return InventoryUtil.isRanged(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Fired projectiles have a higher velocity. Rare drop from skeleton.";
+    }
+
     public static void modifyVelocity(Player player, Projectile projectile) {
         if (player == null || projectile == null) return;
         final int level = EnchantUtil.rangedLevel(player, CustomEnchantment.RANGE);

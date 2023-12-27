@@ -32,6 +32,11 @@ public class IncreasedHealth extends MutuallyExclusiveChestplateEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer has increased max health. Rare drop from ender dragon.";
+    }
+
     public static void onTimer(Player player, ItemStack chestplate) {
         int level = EnchantUtil.level(chestplate, CustomEnchantment.INCREASED_HEALTH);
         if (level < 1) return;

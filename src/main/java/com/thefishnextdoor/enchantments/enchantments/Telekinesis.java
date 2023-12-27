@@ -55,6 +55,11 @@ public class Telekinesis extends CustomEnchantment {
         return InventoryUtil.isTool(item.getType()) || InventoryUtil.isWeapon(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Dropped items are added to your inventory. Rare drop from enderman.";
+    }
+
     public static void transferDrops(Player player, List<Item> drops) {
         if (!EnchantUtil.holding(player, CustomEnchantment.TELEKINESIS)) return;
         for (Item drop : drops) {

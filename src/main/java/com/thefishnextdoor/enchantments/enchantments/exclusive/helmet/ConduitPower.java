@@ -32,6 +32,11 @@ public class ConduitPower extends MutuallyExclusiveHelmetEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "See underwater, breathe underwater, mine faster underwater. Drop from elder guardian.";
+    }
+
     public static void onTimer(Player player, ItemStack helmet) {
         int level = EnchantUtil.level(helmet, CustomEnchantment.CONDUIT_POWER);
         if (level < 1) return;

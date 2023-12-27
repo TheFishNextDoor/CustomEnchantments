@@ -53,6 +53,11 @@ public class Replanting extends CustomEnchantment {
         return InventoryUtil.isHoe(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Replants anything harvested automatically. Rare drop from pillager.";
+    }
+
     public static void onRightClick(Player player, Block block) {
         final int level = EnchantUtil.hoeLevel(player, CustomEnchantment.REPLANTING);
         if (level < 1) return;

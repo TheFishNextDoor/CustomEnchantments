@@ -32,6 +32,11 @@ public class Healing extends MutuallyExclusiveChestplateEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer has faster health regeneration. Rare drop from zombified piglin.";
+    }
+
     public static void onTimer(Player player, ItemStack chestplate) {
         int level = EnchantUtil.level(chestplate, CustomEnchantment.HEALING);
         if (level < 1) return;

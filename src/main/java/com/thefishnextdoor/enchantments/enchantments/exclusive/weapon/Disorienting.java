@@ -31,6 +31,11 @@ public class Disorienting extends MutuallyExclusiveWeaponEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Attacked entities receive confusion. Rare drop from spider.";
+    }
+
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.DISORIENTING, ranged);
         if (level < 1) return;

@@ -32,6 +32,11 @@ public class Haste extends MutuallyExclusiveChestplateEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer has increased mining speed. Rare drop from piglin.";
+    }
+
     public static void onTimer(Player player, ItemStack chestplate) {
         int level = EnchantUtil.level(chestplate, CustomEnchantment.HASTE);
         if (level < 1) return;

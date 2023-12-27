@@ -28,6 +28,11 @@ public class Bounce extends MutuallyExclusiveBootsEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer bounces instead of taking fall damage. Rare drop from slime.";
+    }
+
     public static void modifyCancelStatus(Player player, EntityDamageEvent event) {
         if (event.getCause() != EntityDamageEvent.DamageCause.FALL) return;
         int level = EnchantUtil.level(player.getInventory().getBoots(), CustomEnchantment.BOUNCE);

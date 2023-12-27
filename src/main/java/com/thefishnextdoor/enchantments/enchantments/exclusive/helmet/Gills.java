@@ -32,6 +32,11 @@ public class Gills extends MutuallyExclusiveHelmetEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer can breath underwater. Rare drop from drowned.";
+    }
+
     public static void onTimer(Player player, ItemStack helmet) {
         if (!EnchantUtil.has(helmet, CustomEnchantment.GILLS)) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Timer.PERIOD * 2, 0));

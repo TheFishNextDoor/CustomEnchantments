@@ -32,6 +32,11 @@ public class Swiftness extends MutuallyExclusiveLeggingsEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer has increased movement speed. Rare drop from witch.";
+    }
+
     public static void onTimer(Player player, ItemStack boots) {
         int level = EnchantUtil.level(boots, CustomEnchantment.SWIFTNESS);
         if (level < 1) return;

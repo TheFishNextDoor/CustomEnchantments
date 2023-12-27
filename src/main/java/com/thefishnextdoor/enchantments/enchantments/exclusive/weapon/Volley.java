@@ -44,6 +44,11 @@ public class Volley extends MutuallyExclusiveWeaponEnchantment {
         return type == Material.BOW || type == Material.CROSSBOW;
     }
 
+    @Override
+    public String getDescription() {
+        return "Fire multiple arrows at once. Rare drop from skeleton.";
+    }
+
     public static void onPlayerFireProjectile(Player player, Projectile projectile) {
         if (!(projectile instanceof AbstractArrow)) return;
         int level = EnchantUtil.rangedLevel(player, CustomEnchantment.VOLLEY);

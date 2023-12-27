@@ -28,6 +28,11 @@ public class Worm extends MutuallyExclusiveHelmetEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Prevents suffocation damage. Rare drop from silverfish.";
+    }
+
     public static void modifyCancelStatus(Player player, EntityDamageEvent event) {
         if (event.getCause() != EntityDamageEvent.DamageCause.SUFFOCATION) return;
         if (!EnchantUtil.has(player.getInventory().getHelmet(), CustomEnchantment.WORM)) return;

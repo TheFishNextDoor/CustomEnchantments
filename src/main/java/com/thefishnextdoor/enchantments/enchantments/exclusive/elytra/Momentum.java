@@ -29,6 +29,11 @@ public class Momentum extends MutuallyExclusiveElytraEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer will gain speed faster when gliding. Rare drop from ender dragon.";
+    }
+
     public static void whenGliding(Player player) {
         Vector velocity = player.getVelocity();
         double speed = velocity.length();

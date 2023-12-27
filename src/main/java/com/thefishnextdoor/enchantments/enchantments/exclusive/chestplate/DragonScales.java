@@ -32,6 +32,11 @@ public class DragonScales extends MutuallyExclusiveChestplateEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer has increased damage resistance. Rare drop from ender dragon.";
+    }
+
     public static void onTimer(Player player, ItemStack chestplate) {
         int level = EnchantUtil.level(chestplate, CustomEnchantment.DRAGON_SCALES);
         if (level < 1) return;

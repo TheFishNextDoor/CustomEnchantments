@@ -31,6 +31,11 @@ public class Crippling extends MutuallyExclusiveWeaponEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Attacked entities receive slowness. Rare drop from skeleton.";
+    }
+
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.CRIPPLING, ranged);
         if (level < 1) return;

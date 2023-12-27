@@ -51,6 +51,11 @@ public class CurseOfRadiance extends CustomEnchantment {
         return InventoryUtil.isArmor(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer will begin to glow. Rare drop from magma cube.";
+    }
+
     public static void onTimer(Player player, ArmorCheckOptimizer o) {
         if (!EnchantUtil.wearing(player, CustomEnchantment.CURSE_OF_RADIANCE, o)) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Timer.PERIOD * 2, 0));

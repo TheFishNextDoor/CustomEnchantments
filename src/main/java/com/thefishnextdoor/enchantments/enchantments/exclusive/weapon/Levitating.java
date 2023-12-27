@@ -40,6 +40,11 @@ public class Levitating extends MutuallyExclusiveWeaponEnchantment {
         return type == Material.BOW || type == Material.CROSSBOW;
     }
 
+    @Override
+    public String getDescription() {
+        return "Launched projectiles are transformed into a shulker bullet. Rare drop from shulker.";
+    }
+
     public static void convertProjectile(Player player, Projectile projectile) {
         if (!EnchantUtil.holdingRanged(player, CustomEnchantment.LEVITATING)) return;
         EntityUtil.convert(projectile, EntityType.SHULKER_BULLET);

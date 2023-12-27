@@ -50,6 +50,11 @@ public class CurseOfMiningFatigue extends CustomEnchantment {
         return InventoryUtil.isArmor(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Wearer has decreased mining speed. Rare drop from elder guardian.";
+    }
+
     public static void onTimer(Player player, ArmorCheckOptimizer o) {
         int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_MINING_FATIGUE, o);
         if (level < 1) return;

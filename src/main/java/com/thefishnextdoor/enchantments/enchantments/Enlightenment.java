@@ -49,6 +49,11 @@ public class Enlightenment extends CustomEnchantment {
         return InventoryUtil.isWeapon(item.getType()) || InventoryUtil.isTool(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Increased Xp drops from blocks and mobs. Rare drop from warden.";
+    }
+
     public static void modifyXp(Player player, EntityDeathEvent event) {
         int level = EnchantUtil.meleeLevel(player, CustomEnchantment.ENLIGHTENMENT);
         if (level < 1) return;

@@ -37,13 +37,18 @@ public class Glass extends MutuallyExclusiveWeaponEnchantment {
         if (EnchantUtil.same(other, Enchantment.DURABILITY)) return true;
         if (EnchantUtil.same(other, Enchantment.MENDING)) return true;
         if (EnchantUtil.same(other, CustomEnchantment.UNBREAKABLE)) return true;
-        return other instanceof MutuallyExclusiveWeaponEnchantment;
+        return CustomEnchantment.isMutuallyExclusiveWeaponEnchantment(other);
     }
 
     public static void modifyDamage(Player player, EntityDamageByEntityEvent event, boolean ranged) {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.GLASS, ranged);
         if (level < 1) return;
         event.setDamage(event.getDamage() * 1.5);
+    }
+
+    @Override
+    public String getDescription() {
+        return "Increased damage, decreased durability. Rare drop from skeleton.";
     }
 
     public static void modifyDamage(Player player, ItemStack item, PlayerItemDamageEvent event) {

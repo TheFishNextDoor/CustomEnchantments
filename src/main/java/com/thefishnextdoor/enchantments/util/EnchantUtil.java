@@ -65,7 +65,7 @@ public class EnchantUtil {
         else item.addUnsafeEnchantment(enchantment, level);
         
         // Add Lore
-        if (!(enchantment instanceof CustomEnchantment)) return true;
+        if (!CustomEnchantment.isCustomEnchantment(enchantment)) return true;
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
         if (lore == null) lore = new ArrayList<String>();
@@ -89,7 +89,7 @@ public class EnchantUtil {
         }
         
         // Remove Lore
-       if (!(enchantment instanceof CustomEnchantment)) return HASENCHANT;
+       if (!CustomEnchantment.isCustomEnchantment(enchantment)) return HASENCHANT;
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
         if (lore == null) return HASENCHANT;

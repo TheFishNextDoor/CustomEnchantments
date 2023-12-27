@@ -28,6 +28,11 @@ public class Sustenance extends MutuallyExclusiveHelmetEnchantment {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Hunger bar replenishes over time. Rare drop from zombie.";
+    }
+
     public static void modifyFood(Player player, FoodLevelChangeEvent event) {
         if (!EnchantUtil.has(player.getInventory().getHelmet(), CustomEnchantment.SUSTENANCE)) return;
         int food = event.getFoodLevel() + 2;

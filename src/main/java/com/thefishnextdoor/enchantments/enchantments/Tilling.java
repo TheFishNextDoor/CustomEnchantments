@@ -50,6 +50,11 @@ public class Tilling extends CustomEnchantment {
         return InventoryUtil.isHoe(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Hoe farmland 3x3. Rare drop from pillager.";
+    }
+
     public static void onTill(Player player, Block block) {
         if (player == null || block == null) return;
         if (!EnchantUtil.holdingHoe(player, CustomEnchantment.TILLING)) return;

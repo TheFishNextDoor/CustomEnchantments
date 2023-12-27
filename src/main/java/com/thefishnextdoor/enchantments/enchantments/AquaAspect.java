@@ -57,6 +57,11 @@ public class AquaAspect extends CustomEnchantment {
         return InventoryUtil.isWeapon(item.getType());
     }
 
+    @Override
+    public String getDescription() {
+        return "Deal extra damage to enderman, blaze etc. Rare drop from drowned.";
+    }
+
     public static void modifyDamage(Player player, final LivingEntity entity, EntityDamageByEntityEvent event, boolean ranged) {
         int level = EnchantUtil.weaponLevel(player, CustomEnchantment.AQUA_ASPECT, ranged);
         if (level < 1) return;

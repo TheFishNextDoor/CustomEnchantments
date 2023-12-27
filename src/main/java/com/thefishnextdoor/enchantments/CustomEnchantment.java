@@ -77,7 +77,13 @@ import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public abstract class CustomEnchantment extends Enchantment {
     private static ArrayList<CustomEnchantment> customEnchantments = new ArrayList<>();
-    private static HashMap<String, String> enchantmentDescriptions = new HashMap<>();
+    private static ArrayList<MutuallyExclusiveWeaponEnchantment> mutuallyExclusiveWeaponEnchantments = new ArrayList<>();
+    private static ArrayList<MutuallyExclusiveHelmetEnchantment> mutuallyExclusiveHelmetEnchantments = new ArrayList<>();
+    private static ArrayList<MutuallyExclusiveChestplateEnchantment> mutuallyExclusiveChestplateEnchantments = new ArrayList<>();
+    private static ArrayList<MutuallyExclusiveElytraEnchantment> mutuallyExclusiveElytraEnchantments = new ArrayList<>();
+    private static ArrayList<MutuallyExclusiveLeggingsEnchantment> mutuallyExclusiveLeggingsEnchantments = new ArrayList<>();
+    private static ArrayList<MutuallyExclusiveBootsEnchantment> mutuallyExclusiveBootsEnchantments = new ArrayList<>();
+    private static HashMap<String, String> descriptions = new HashMap<>();
     public static CustomEnchantment AQUA_ASPECT;
     public static CustomEnchantment CURSE_OF_AQUAPHOBIA;
     public static CustomEnchantment CURSE_OF_LEVITATING;
@@ -143,6 +149,7 @@ public abstract class CustomEnchantment extends Enchantment {
 
     public CustomEnchantment(NamespacedKey key) {
         super(key);
+        register(this);
     }
 
     @Override
@@ -155,6 +162,8 @@ public abstract class CustomEnchantment extends Enchantment {
         return true;
     }
 
+    public abstract String getDescription();
+
     public static abstract class MutuallyExclusiveWeaponEnchantment extends CustomEnchantment {
         public MutuallyExclusiveWeaponEnchantment(NamespacedKey key) {
             super(key);
@@ -162,7 +171,7 @@ public abstract class CustomEnchantment extends Enchantment {
 
         @Override
         public boolean conflictsWith(Enchantment other) {
-            return other instanceof MutuallyExclusiveWeaponEnchantment;
+            return isMutuallyExclusiveWeaponEnchantment(other);
         }
 
         @Override
@@ -184,7 +193,7 @@ public abstract class CustomEnchantment extends Enchantment {
 
         @Override
         public boolean conflictsWith(Enchantment other) {
-            return other instanceof MutuallyExclusiveHelmetEnchantment;
+            return isMutuallyExclusiveHelmetEnchantment(other);
         }
 
         @Override
@@ -206,7 +215,7 @@ public abstract class CustomEnchantment extends Enchantment {
 
         @Override
         public boolean conflictsWith(Enchantment other) {
-            return other instanceof MutuallyExclusiveChestplateEnchantment;
+            return isMutuallyExclusiveChestplateEnchantment(other);
         }
 
         @Override
@@ -228,7 +237,7 @@ public abstract class CustomEnchantment extends Enchantment {
 
         @Override
         public boolean conflictsWith(Enchantment other) {
-            return other instanceof MutuallyExclusiveElytraEnchantment;
+            return isMutuallyExclusiveElytraEnchantment(other);
         }
 
         @Override
@@ -250,7 +259,7 @@ public abstract class CustomEnchantment extends Enchantment {
 
         @Override
         public boolean conflictsWith(Enchantment other) {
-            return other instanceof MutuallyExclusiveLeggingsEnchantment;
+            return isMutuallyExclusiveLeggingsEnchantment(other);
         }
 
         @Override
@@ -272,7 +281,7 @@ public abstract class CustomEnchantment extends Enchantment {
 
         @Override
         public boolean conflictsWith(Enchantment other) {
-            return other instanceof MutuallyExclusiveBootsEnchantment;
+            return isMutuallyExclusiveBootsEnchantment(other);
         }
 
         @Override
@@ -352,82 +361,66 @@ public abstract class CustomEnchantment extends Enchantment {
         SLOW_FALLING = new SlowFalling(new NamespacedKey(plugin, "slow_falling"));
     }
 
-    static void registerAll() {
-        register(AQUA_ASPECT, "Deal extra damage to enderman, blaze etc. Rare drop from drowned.");
-        register(CURSE_OF_AQUAPHOBIA, "Wearer takes damage from water and rain. Rare drop from enderman.");
-        register(CURSE_OF_LEVITATING, "Wearer levitates uncontrollably. Rare drop from shulkers.");
-        register(CURSE_OF_MINING_FATIGUE, "Wearer has decreased mining speed. Rare drop from elder guardian.");
-        register(CURSE_OF_RADIANCE, "Wearer will begin to glow. Rare drop from magma cube.");
-        register(CURSE_OF_SLOWNESS, "Wearer has decreased movement speed. Rare drop from warden.");
-        register(CURSE_OF_WEAKNESS, "Wearer has decreased melee damage. Rare drop from cave spider.");
-        register(ENLIGHTENMENT, "Increased Xp drops from blocks and mobs. Rare drop from warden.");
-        register(EXCAVATING, "Mine blocks in a 3x3 grid. Rare drop from charged creeper.");
-        register(FLING, "Sends attacked entities upwards. Rare drop from creeper.");
-        register(INVISIBILITY, "Wearer receives invisibility. Rare drop from witch.");
-        register(PRECISION, "Fired projectiles have 100% accuracy. Rare drop from skeleton.");
-        register(RADIANCE, "Attacked entities receive glowing. Rare drop from magma cube.");
-        register(RANGE, "Fired projectiles have a higher velocity. Rare drop from skeleton.");
-        register(REFLECTION, "Reflect arrows at a higher velocity. Rare drop from pillager.");
-        register(REPLANTING, "Replants anything harvested automatically. Rare drop from pillager.");
-        register(SMELTING, "Dropped items will be smelted if possible. Rare drop from blaze.");
-        register(SPURS, "Mounted mobs receive speed and jump boost. Rare drop from pillager.");
-        register(TELEKINESIS, "Dropped items are added to your inventory. Rare drop from enderman.");
-        register(TILLING, "Hoe farmland 3x3. Rare drop from pillager.");
-        register(UNBREAKABLE, "Item will not lose durability. Rare drop from wither.");
-        register(CONDUIT_POWER, "See underwater, breathe underwater, mine faster underwater. Drop from elder guardian.");
-        register(GILLS, "Wearer can breath underwater. Rare drop from drowned.");
-        register(NIGHT_VISION, "Wearer has improved vision in the dark. Rare drop from spider.");
-        register(SUSTENANCE, "Hunger bar replenishes over time. Rare drop from zombie.");
-        register(WORM, "Prevents suffocation damage. Rare drop from silverfish.");
-        register(DEATH_WISH, "Wearer takes increased damage and deals increased damage. Rare drop from wither skeleton.");
-        register(DRAGON_SCALES, "Wearer has increased damage resistance. Rare drop from ender dragon.");
-        register(FIRE_RESISTANCE, "Wearer is immune to fire damage. Rare drop from blaze.");
-        register(FLAMING, "Attackers will be lit on fire. Rare drop from blaze.");
-        register(HASTE, "Wearer has increased mining speed. Rare drop from piglin.");
-        register(HEALING, "Wearer has faster health regeneration. Rare drop from zombified piglin.");
-        register(HERO_OF_THE_VILLAGE, "Wearer receives reduced villager prices. Rare drop from pillager.");
-        register(INCREASED_HEALTH, "Wearer has increased max health. Rare drop from ender dragon.");
-        register(PROJECTILE_RESISTANCE, "Wearer is immune to projectile damage. Rare drop from wither.");
-        register(STRENGTH, "Wearer has increased melee damage. Rare drop from zombified piglin.");
-        register(BOOSTERS, "A small amount of constant thrust is added to the elytra. Rare drop from creeper.");
-        register(MOMENTUM, "Wearer will gain speed faster when gliding. Rare drop from ender dragon.");
-        register(DOLPHINS_GRACE, "Wearer can move quickly in water. Rare drop from guardian.");
-        register(HEAVY, "Wearer receives no knockback. Rare drop from warden.");
-        register(SWIFTNESS, "Wearer has increased movement speed. Rare drop from witch.");
-        register(BLOOD_TIPPED, "Take slight damage when firing, applies your potion effects to the arrow. Rare drop from piglin.");
-        register(CRIPPLING, "Attacked entities receive slowness. Rare drop from skeleton.");
-        register(DEBILITATING, "Attacked entities receive weakness. Rare drop from witch.");
-        register(DESTRUCTIVE, "Projectiles destroy blocks. Rare drop from creeper.");
-        register(DISORIENTING, "Attacked entities receive confusion. Rare drop from spider.");
-        register(FIRE_BLAST, "Launched projectiles are transformed into a blaze fire ball. Rare drop from blaze.");
-        register(GLASS, "Increased damage, decreased durability. Rare drop from skeleton.");
-        register(LEVITATING, "Launched projectiles are transformed into a shulker bullet. Rare drop from shulker.");
-        register(LIFE_STEAL, "A portion of the damage you deal is added to your health. Rare drop from wither.");
-        register(OBSCURE, "Attacked entities receive blindness. Rare drop from warden.");
-        register(SALMON_SLINGER, "Launched projectiles are transformed into salmon. This enchantment is not dropped by any mob.");
-        register(STARVING, "Attacked entities receive hunger. Rare drop from husk.");
-        register(TELEPORT, "Teleport to the location your projectile hits. Rare drop from enderman.");
-        register(VENOM, "Attacked entities receive poison. Rare drop from cave spider.");
-        register(VOLLEY, "Fire multiple arrows at once. Rare drop from skeleton.");
-        register(WITHERING, "Attacked entities receive wither. Rare drop from the wither.");
-        register(ANCHOR, "Wearer sinks in water and has increased traction in water. Should be combined with depth strider for best effect. Rare drop from drowned.");
-        register(BOUNCE, "Wearer bounces instead of taking fall damage. Rare drop from slime.");
-        register(CRUSH, "Falling on an entity will damage it. Rare drop from ravagers.");
-        register(LEAPING, "Wearer has increased jump height. Rare drop from slime.");
-        register(SLOW_FALLING, "Wearer falls gracefully like a feather. Rare drop from ghast.");
-    }    
-
     public static ArrayList<CustomEnchantment> all() {
         return new ArrayList<>(customEnchantments);
     }
 
-    public static String desciption(Enchantment enchant) {
-        return enchantmentDescriptions.get(EnchantUtil.name(enchant));
+    public static boolean isCustomEnchantment(Enchantment enchantment) {
+        for (CustomEnchantment customEnchantment : customEnchantments) {
+            if (EnchantUtil.same(customEnchantment, enchantment)) return true;
+        }
+        return false;
+    }
+
+    public static boolean isMutuallyExclusiveWeaponEnchantment(Enchantment enchantment) {
+        for (MutuallyExclusiveWeaponEnchantment mutuallyExclusiveWeaponEnchantment : mutuallyExclusiveWeaponEnchantments) {
+            if (EnchantUtil.same(mutuallyExclusiveWeaponEnchantment, enchantment)) return true;
+        }
+        return false;
+    }
+
+    public static boolean isMutuallyExclusiveHelmetEnchantment(Enchantment enchantment) {
+        for (MutuallyExclusiveHelmetEnchantment mutuallyExclusiveHelmetEnchantment : mutuallyExclusiveHelmetEnchantments) {
+            if (EnchantUtil.same(mutuallyExclusiveHelmetEnchantment, enchantment)) return true;
+        }
+        return false;
+    }
+
+    public static boolean isMutuallyExclusiveChestplateEnchantment(Enchantment enchantment) {
+        for (MutuallyExclusiveChestplateEnchantment mutuallyExclusiveChestplateEnchantment : mutuallyExclusiveChestplateEnchantments) {
+            if (EnchantUtil.same(mutuallyExclusiveChestplateEnchantment, enchantment)) return true;
+        }
+        return false;
+    }
+
+    public static boolean isMutuallyExclusiveElytraEnchantment(Enchantment enchantment) {
+        for (MutuallyExclusiveElytraEnchantment mutuallyExclusiveElytraEnchantment : mutuallyExclusiveElytraEnchantments) {
+            if (EnchantUtil.same(mutuallyExclusiveElytraEnchantment, enchantment)) return true;
+        }
+        return false;
+    }
+
+    public static boolean isMutuallyExclusiveLeggingsEnchantment(Enchantment enchantment) {
+        for (MutuallyExclusiveLeggingsEnchantment mutuallyExclusiveLeggingsEnchantment : mutuallyExclusiveLeggingsEnchantments) {
+            if (EnchantUtil.same(mutuallyExclusiveLeggingsEnchantment, enchantment)) return true;
+        }
+        return false;
+    }
+
+    public static boolean isMutuallyExclusiveBootsEnchantment(Enchantment enchantment) {
+        for (MutuallyExclusiveBootsEnchantment mutuallyExclusiveBootsEnchantment : mutuallyExclusiveBootsEnchantments) {
+            if (EnchantUtil.same(mutuallyExclusiveBootsEnchantment, enchantment)) return true;
+        }
+        return false;
+    }
+
+    public static String description(Enchantment enchantment) {
+        return descriptions.get(EnchantUtil.name(enchantment));
     }
 
     public static boolean hasCustomEnchantments(ItemStack item) {
         for (Enchantment enchantment : EnchantUtil.enchantments(item)) {
-            if (enchantment instanceof CustomEnchantment) return true;
+            if (isCustomEnchantment(enchantment)) return true;
         }
         return false;
     }
@@ -435,22 +428,40 @@ public abstract class CustomEnchantment extends Enchantment {
     public static ArrayList<Enchantment> customEnchantments(ItemStack item) {
         ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
         for (Enchantment enchantment : EnchantUtil.enchantments(item)) {
-            if (enchantment instanceof CustomEnchantment) {
+            if (isCustomEnchantment(enchantment)) {
                 foundFishchantments.add(enchantment);
             }
         }
         return foundFishchantments;
     }
 
-    private static void register(CustomEnchantment enchant, String info) {
+    private static void register(CustomEnchantment enchant) {
         if (customEnchantments.contains(enchant)) return;
         customEnchantments.add(enchant);
-        enchantmentDescriptions.put(EnchantUtil.name(enchant), info);
+        if (enchant instanceof MutuallyExclusiveWeaponEnchantment) {
+            mutuallyExclusiveWeaponEnchantments.add((MutuallyExclusiveWeaponEnchantment) enchant);
+        }
+        else if (enchant instanceof MutuallyExclusiveHelmetEnchantment) {
+            mutuallyExclusiveHelmetEnchantments.add((MutuallyExclusiveHelmetEnchantment) enchant);
+        }
+        else if (enchant instanceof MutuallyExclusiveChestplateEnchantment) {
+            mutuallyExclusiveChestplateEnchantments.add((MutuallyExclusiveChestplateEnchantment) enchant);
+        }
+        else if (enchant instanceof MutuallyExclusiveElytraEnchantment) {
+            mutuallyExclusiveElytraEnchantments.add((MutuallyExclusiveElytraEnchantment) enchant);
+        }
+        else if (enchant instanceof MutuallyExclusiveLeggingsEnchantment) {
+            mutuallyExclusiveLeggingsEnchantments.add((MutuallyExclusiveLeggingsEnchantment) enchant);
+        }
+        else if (enchant instanceof MutuallyExclusiveBootsEnchantment) {
+            mutuallyExclusiveBootsEnchantments.add((MutuallyExclusiveBootsEnchantment) enchant);
+        }
+        descriptions.put(EnchantUtil.name(enchant), enchant.getDescription());
         try {
             Field f = Enchantment.class.getDeclaredField("acceptingNew");
             f.setAccessible(true);
             f.set(null, true);
-            Enchantment.registerEnchantment(enchant); 
+            Enchantment.registerEnchantment(enchant);
         } 
         catch (Exception e) {
             Plugin.LOGGER.warning("Failed to register " + enchant.getKey().getKey() + ": " + e.getMessage());

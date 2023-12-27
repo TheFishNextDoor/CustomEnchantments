@@ -48,6 +48,11 @@ public class Reflection extends CustomEnchantment {
         return item.getType() == Material.SHIELD;
     }
 
+    @Override
+    public String getDescription() {
+        return "Reflect arrows at a higher velocity. Rare drop from pillager.";
+    }
+
     public static void onDeflectProjectile(Player player, Projectile projectile) {
         if (projectile.isOnGround()) return;
         int level = EnchantUtil.shieldLevel(player, CustomEnchantment.REFLECTION);

@@ -62,6 +62,11 @@ public class Smelting extends CustomEnchantment {
         if (item == null) return false;
         return InventoryUtil.isTool(item.getType());
     }
+
+    @Override
+    public String getDescription() {
+        return "Dropped items will be smelted if possible. Rare drop from blaze.";
+    }
     
     public static void modifyDrops(Player player, List<Item> drops) {
         if (!EnchantUtil.holding(player, CustomEnchantment.SMELTING)) return;
