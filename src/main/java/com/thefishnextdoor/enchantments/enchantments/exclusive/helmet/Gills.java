@@ -38,6 +38,7 @@ public class Gills extends MutuallyExclusiveHelmetEnchantment {
     }
 
     public static void onTimer(Player player, ItemStack helmet) {
+        if (!player.isInWater()) return;
         if (!EnchantUtil.has(helmet, CustomEnchantment.GILLS)) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Timer.PERIOD * 2, 0));
     }

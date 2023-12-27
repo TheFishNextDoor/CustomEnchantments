@@ -38,6 +38,7 @@ public class DolphinsGrace extends MutuallyExclusiveLeggingsEnchantment {
     }
 
     public static void onTimer(Player player, ItemStack leggings) {
+        if (!player.isInWater()) return;
         if (!EnchantUtil.has(leggings, CustomEnchantment.DOLPHINS_GRACE)) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Timer.PERIOD * 2, 0));
     }

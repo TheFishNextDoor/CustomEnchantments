@@ -33,7 +33,7 @@ public class Timer {
     public static final int PERIOD = 30;
     private static Plugin plugin = null;
     private static int armorEffectsTaskId = -1;
-
+    
     public static class ArmorCheckOptimizer {
         public final ItemStack HELMET;
         public final ItemStack CHESTPLATE;

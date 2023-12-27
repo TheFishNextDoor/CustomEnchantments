@@ -38,6 +38,7 @@ public class ConduitPower extends MutuallyExclusiveHelmetEnchantment {
     }
 
     public static void onTimer(Player player, ItemStack helmet) {
+        if (!player.isInWater()) return;
         int level = EnchantUtil.level(helmet, CustomEnchantment.CONDUIT_POWER);
         if (level < 1) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, Timer.PERIOD * 2, level-1));
