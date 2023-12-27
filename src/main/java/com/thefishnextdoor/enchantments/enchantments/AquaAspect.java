@@ -1,8 +1,11 @@
 package com.thefishnextdoor.enchantments.enchantments;
 
+import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
+import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.Enderman;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -59,11 +62,9 @@ public class AquaAspect extends CustomEnchantment {
         if (level < 1) return;
         if (entity.getFireTicks() > 0) entity.setFireTicks(0);
         if (isAquaphobic(entity.getType())) event.setDamage(event.getDamage() + (level * 2.5));
-        if (entity.getType() == EntityType.ENDERMAN) {
+        if (entity instanceof Enderman) {
             EntityUtil.cancelKnockback(entity);
-            Snowball snowball = (Snowball) entity.getWorld().spawnEntity(entity.getLocation().add(0, 4, 0), EntityType.SNOWBALL);
-            snowball.setVelocity(new Vector(0, -2.0, 0));
-            snowball.setShooter(player);
+            teleport((Enderman) entity, player);
         }
     }
 
@@ -73,5 +74,14 @@ public class AquaAspect extends CustomEnchantment {
         if (type == EntityType.MAGMA_CUBE) return true;
         if (type == EntityType.STRIDER) return true;
         return false;
+    }
+
+    private static void teleport(Enderman enderman, Player attacker) {
+        World world = enderman.getWorld();
+        Location location = enderman.getLocation().add(0, enderman.getHeight() + 1.0, 0);
+        Snowball snowball = (Snowball) world.spawnEntity(location, EntityType.SNOWBALL);
+        snowball.setVelocity(new Vector(0, -2.0, 0));
+        snowball.setShooter(attacker);
+        snowball.setVisibleByDefault(false);
     }
 }
