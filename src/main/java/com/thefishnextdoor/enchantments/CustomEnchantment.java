@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.enchantments.AquaAspect;
 import com.thefishnextdoor.enchantments.enchantments.CurseOfAquaphobia;
+import com.thefishnextdoor.enchantments.enchantments.CurseOfIronGrip;
 import com.thefishnextdoor.enchantments.enchantments.CurseOfLevitating;
 import com.thefishnextdoor.enchantments.enchantments.CurseOfMiningFatigue;
 import com.thefishnextdoor.enchantments.enchantments.CurseOfRadiance;
@@ -88,6 +89,7 @@ public abstract class CustomEnchantment extends Enchantment {
     private static HashMap<String, String> descriptions = new HashMap<>();
     public static CustomEnchantment AQUA_ASPECT;
     public static CustomEnchantment CURSE_OF_AQUAPHOBIA;
+    public static CustomEnchantment CURSE_OF_IRON_GRIP;
     public static CustomEnchantment CURSE_OF_LEVITATING;
     public static CustomEnchantment CURSE_OF_MINING_FATIGUE;
     public static CustomEnchantment CURSE_OF_RADIANCE;
@@ -297,6 +299,7 @@ public abstract class CustomEnchantment extends Enchantment {
     static void init(Plugin plugin) {
         AQUA_ASPECT = new AquaAspect(new NamespacedKey(plugin, "aqua_aspect"));
         CURSE_OF_AQUAPHOBIA = new CurseOfAquaphobia(new NamespacedKey(plugin, "curse_of_aquaphobia"));
+        CURSE_OF_IRON_GRIP = new CurseOfIronGrip(new NamespacedKey(plugin, "curse_of_iron_grip"));
         CURSE_OF_LEVITATING = new CurseOfLevitating(new NamespacedKey(plugin, "curse_of_levitating"));
         CURSE_OF_MINING_FATIGUE = new CurseOfMiningFatigue(new NamespacedKey(plugin, "curse_of_mining_fatigue"));
         CURSE_OF_RADIANCE = new CurseOfRadiance(new NamespacedKey(plugin, "curse_of_radiance"));

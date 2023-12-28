@@ -10,6 +10,7 @@ import com.thefishnextdoor.enchantments.commands.Fenchant;
 import com.thefishnextdoor.enchantments.commands.Reload;
 import com.thefishnextdoor.enchantments.events.EntityDamageByEntity;
 import com.thefishnextdoor.enchantments.events.BlockDropItems;
+import com.thefishnextdoor.enchantments.events.DropItem;
 import com.thefishnextdoor.enchantments.events.BlockBreak;
 import com.thefishnextdoor.enchantments.events.PlayerInteract;
 import com.thefishnextdoor.enchantments.events.EntityDamage;
@@ -65,6 +66,7 @@ public class Plugin extends JavaPlugin {
         pluginManager.registerEvents(new PrepareAnvil(), this);
         pluginManager.registerEvents(new InventoryClick(), this);
         pluginManager.registerEvents(new EntityDeath(), this);
+        pluginManager.registerEvents(new DropItem(), this);
     }
 
     private void registerCommands() {

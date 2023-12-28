@@ -96,6 +96,7 @@ public class Loot {
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.DEBILITATING, 1));
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.INVISIBILITY, 1));
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.SWIFTNESS, 1));
+                if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.CURSE_OF_IRON_GRIP, 1));
                 break;
             case CREEPER:
                 Creeper creeper = (Creeper) livingEntity;
