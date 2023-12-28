@@ -40,7 +40,6 @@ public class InventoryUtil {
         ItemStack mainHand = inv.getItemInMainHand();
         ItemStack offHand = inv.getItemInOffHand();
         if (isRanged(mainHand.getType())) return mainHand;
-        if (isHoe(mainHand.getType())) return null;
         if (isRanged(offHand.getType())) return offHand;
         return null;
     }
