@@ -11,6 +11,7 @@ import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.EntityUtil;
+import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Teleport extends MutuallyExclusiveWeaponEnchantment {
 
@@ -36,8 +37,7 @@ public class Teleport extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        Material type = item.getType();
-        return type == Material.BOW || type == Material.CROSSBOW;
+        return InventoryUtil.firesArrows(item.getType());
     }
 
     @Override

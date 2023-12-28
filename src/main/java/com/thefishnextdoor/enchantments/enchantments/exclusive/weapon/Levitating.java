@@ -1,6 +1,5 @@
 package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -11,6 +10,7 @@ import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.EntityUtil;
+import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Levitating extends MutuallyExclusiveWeaponEnchantment {
 
@@ -36,8 +36,7 @@ public class Levitating extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        Material type = item.getType();
-        return type == Material.BOW || type == Material.CROSSBOW;
+        return InventoryUtil.firesArrows(item.getType());
     }
 
     @Override

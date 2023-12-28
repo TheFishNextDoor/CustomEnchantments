@@ -82,7 +82,11 @@ public class InventoryUtil {
     }
 
     public static boolean isRanged(Material material) {
-        return material == Material.BOW || material == Material.CROSSBOW || material == Material.TRIDENT || material == Material.FISHING_ROD;
+        return firesArrows(material) || material == Material.TRIDENT || material == Material.FISHING_ROD;
+    }
+
+    public static boolean firesArrows(Material material) {
+        return material == Material.BOW || material == Material.CROSSBOW;
     }
 
     public static boolean isArmor(Material material) {

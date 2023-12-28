@@ -182,12 +182,6 @@ public abstract class CustomEnchantment extends Enchantment {
         public EnchantmentTarget getItemTarget() {
             return EnchantmentTarget.BREAKABLE;
         }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
-            return InventoryUtil.isWeapon(item.getType());
-        }
     }
 
     public static abstract class MutuallyExclusiveHelmetEnchantment extends CustomEnchantment {

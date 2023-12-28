@@ -5,12 +5,14 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Trident;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.AbstractArrow.PickupStatus;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.EntityUtil;
+import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Harpoon extends MutuallyExclusiveWeaponEnchantment {
 
@@ -31,6 +33,12 @@ public class Harpoon extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public boolean isCursed() {
         return false;
+    }
+
+    @Override
+    public boolean canEnchantItem(ItemStack item) {
+        if (item == null) return false;
+        return InventoryUtil.firesArrows(item.getType());
     }
 
     @Override

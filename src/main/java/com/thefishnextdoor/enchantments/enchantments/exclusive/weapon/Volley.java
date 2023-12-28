@@ -1,7 +1,6 @@
 package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.entity.AbstractArrow;
@@ -15,6 +14,7 @@ import org.bukkit.util.Vector;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
+import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Volley extends MutuallyExclusiveWeaponEnchantment {
 
@@ -40,8 +40,7 @@ public class Volley extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        Material type = item.getType();
-        return type == Material.BOW || type == Material.CROSSBOW;
+        return InventoryUtil.firesArrows(item.getType());
     }
 
     @Override

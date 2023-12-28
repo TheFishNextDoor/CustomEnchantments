@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
+import com.thefishnextdoor.enchantments.util.InventoryUtil;
 
 public class Glass extends MutuallyExclusiveWeaponEnchantment {
 
@@ -44,6 +45,12 @@ public class Glass extends MutuallyExclusiveWeaponEnchantment {
         final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.GLASS, ranged);
         if (level < 1) return;
         event.setDamage(event.getDamage() * 1.5);
+    }
+
+    @Override
+    public boolean canEnchantItem(ItemStack item) {
+        if (item == null) return false;
+        return InventoryUtil.isWeapon(item.getType());
     }
 
     @Override
