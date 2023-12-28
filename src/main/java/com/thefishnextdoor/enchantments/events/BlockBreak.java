@@ -11,6 +11,7 @@ import com.thefishnextdoor.enchantments.enchantments.Enlightenment;
 import com.thefishnextdoor.enchantments.enchantments.Excavating;
 import com.thefishnextdoor.enchantments.enchantments.Replanting;
 import com.thefishnextdoor.enchantments.enchantments.Telekinesis;
+import com.thefishnextdoor.enchantments.enchantments.TreeFeller;
 
 public class BlockBreak implements Listener {
 
@@ -22,6 +23,7 @@ public class BlockBreak implements Listener {
         Block block = event.getBlock();
         Replanting.onBlockBreak(player, block, event);
         Excavating.onBlockBreak(player, block, event);
+        TreeFeller.onBlockBreak(player, block, event);
         Enlightenment.modifyXp(player, event);
         Telekinesis.transferXp(player, event);
     }

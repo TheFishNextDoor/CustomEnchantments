@@ -30,6 +30,7 @@ import com.thefishnextdoor.enchantments.enchantments.Smelting;
 import com.thefishnextdoor.enchantments.enchantments.Spurs;
 import com.thefishnextdoor.enchantments.enchantments.Telekinesis;
 import com.thefishnextdoor.enchantments.enchantments.Tilling;
+import com.thefishnextdoor.enchantments.enchantments.TreeFeller;
 import com.thefishnextdoor.enchantments.enchantments.Unbreakable;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.boots.Anchor;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.boots.Bounce;
@@ -105,6 +106,7 @@ public abstract class CustomEnchantment extends Enchantment {
     public static CustomEnchantment SPURS;
     public static CustomEnchantment TELEKINESIS;
     public static CustomEnchantment TILLING;
+    public static CustomEnchantment TREE_FELLER;
     public static CustomEnchantment UNBREAKABLE;
     public static MutuallyExclusiveHelmetEnchantment CONDUIT_POWER;
     public static MutuallyExclusiveHelmetEnchantment GILLS;
@@ -319,6 +321,7 @@ public abstract class CustomEnchantment extends Enchantment {
         SPURS = new Spurs(new NamespacedKey(plugin, "spurs"));
         TELEKINESIS = new Telekinesis(new NamespacedKey(plugin, "telekinesis"));
         TILLING = new Tilling(new NamespacedKey(plugin, "tilling"));
+        TREE_FELLER = new TreeFeller(new NamespacedKey(plugin, "tree_feller"));
         UNBREAKABLE = new Unbreakable(new NamespacedKey(plugin, "unbreakable"));
         CONDUIT_POWER = new ConduitPower(new NamespacedKey(plugin, "conduit_power"));
         GILLS = new Gills(new NamespacedKey(plugin, "gills"));
