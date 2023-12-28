@@ -1,6 +1,5 @@
 package com.thefishnextdoor.enchantments.enchantments.exclusive.weapon;
 
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
