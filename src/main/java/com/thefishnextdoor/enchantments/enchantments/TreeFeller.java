@@ -74,6 +74,7 @@ public class TreeFeller extends CustomEnchantment {
         if (!InventoryUtil.isLog(block.getType())) return;
         TrackedPlayer trackedPlayer = PlayerTracker.get(player);
         if (!trackedPlayer.treeFellerReady()) return;
+        trackedPlayer.setTreeFellerTick();
         ArrayList<Block> logs = new ArrayList<>();
         ArrayList<Block> leaves = new ArrayList<>();
         logs(block.getLocation(), logs, leaves, 25, 10);
@@ -81,8 +82,6 @@ public class TreeFeller extends CustomEnchantment {
         for (Block log : logs) {
             BlockUtil.breakBlock(player, log);
         }
-        if (logs.size() <= 2) return;
-        trackedPlayer.setTreeFellerTick();
         String msg = ChatColor.GRAY + "" + ChatColor.ITALIC + "You feel tired after chopping down a tree";
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(msg));
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, Settings.TREE_FELLER_COOLDOWN, 2), true);
