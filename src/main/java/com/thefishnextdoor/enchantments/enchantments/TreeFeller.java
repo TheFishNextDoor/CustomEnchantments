@@ -15,6 +15,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
+import com.thefishnextdoor.enchantments.PlayerTracker;
+import com.thefishnextdoor.enchantments.Settings;
+import com.thefishnextdoor.enchantments.PlayerTracker.TrackedPlayer;
 import com.thefishnextdoor.enchantments.util.BlockUtil;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
@@ -65,9 +68,12 @@ public class TreeFeller extends CustomEnchantment {
         return "Breaks the entire trunk of the tree. Rare drop from pillager.";
     }
 
+    @SuppressWarnings("deprecation")
     public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {
         if (!EnchantUtil.holding(player, CustomEnchantment.TREE_FELLER)) return;
         if (!InventoryUtil.isLog(block.getType())) return;
+        TrackedPlayer trackedPlayer = PlayerTracker.get(player);
+        if (!trackedPlayer.treeFellerReady()) return;
         ArrayList<Block> logs = new ArrayList<>();
         ArrayList<Block> leaves = new ArrayList<>();
         logs(block.getLocation(), logs, leaves, 25, 10);
@@ -75,10 +81,11 @@ public class TreeFeller extends CustomEnchantment {
         for (Block log : logs) {
             BlockUtil.breakBlock(player, log);
         }
-        if (logs.size() <= 2) return; 
+        if (logs.size() <= 2) return;
+        trackedPlayer.setTreeFellerTick();
         String msg = ChatColor.GRAY + "" + ChatColor.ITALIC + "You feel tired after chopping down a tree";
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(msg));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 60, 2));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, Settings.TREE_FELLER_COOLDOWN, 2), true);
     }
 
     private static void logs(Location loc, ArrayList<Block> logs, ArrayList<Block> leaves, int height, int radius) {

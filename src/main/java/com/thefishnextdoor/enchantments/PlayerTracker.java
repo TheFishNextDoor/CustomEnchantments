@@ -12,6 +12,7 @@ public class PlayerTracker {
     public static class TrackedPlayer {
         private final String id;
         private BlockFace miningFace = null;
+        private long lastTreeFellerTick = 0;
 
         public TrackedPlayer(Player player) {
             this.id = id(player);
@@ -22,6 +23,10 @@ public class PlayerTracker {
             return id(player).equals(id);
         }
 
+        private static String id(Player player) {
+            return player.getName();
+        }
+
         public BlockFace getMiningFace() {
             return miningFace;
         }
@@ -30,9 +35,18 @@ public class PlayerTracker {
             this.miningFace = mining;
         }
 
-        private static String id(Player player) {
-            return player.getName();
+        public boolean treeFellerReady() {
+            return currentTimeTicks() >= lastTreeFellerTick + Settings.TREE_FELLER_COOLDOWN - 2;
         }
+
+        public void setTreeFellerTick() {
+            this.lastTreeFellerTick = currentTimeTicks();
+        }
+
+        private static long currentTimeTicks() {
+            return System.currentTimeMillis() / 50;
+        }
+
     }
 
     public static TrackedPlayer get(Player player) {
