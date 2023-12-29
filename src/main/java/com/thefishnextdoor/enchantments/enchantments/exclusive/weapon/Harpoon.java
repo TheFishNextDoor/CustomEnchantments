@@ -47,7 +47,7 @@ public class Harpoon extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
-        if (!EnchantUtil.holdingRanged(player, CustomEnchantment.HARPOON)) return;
+        if (!EnchantUtil.holdingRangedWith(player, CustomEnchantment.HARPOON)) return;
         Trident trident = (Trident) EntityUtil.convert(projectile, EntityType.TRIDENT);
         trident.setPickupStatus(PickupStatus.DISALLOWED);
     }

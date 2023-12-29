@@ -25,7 +25,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         if (args.length == 1) return CommandUtil.recommendedEnchantmentNames(InventoryUtil.getMeleeItemInUse(player));
         else if (args.length == 2) {
             ArrayList<String> levels = new ArrayList<>();
-            Enchantment enchantment = EnchantUtil.getEnchantment(args[0]);
+            Enchantment enchantment = CommandUtil.getEnchantment(args[0]);
             if (enchantment == null) return null;
             int maxLevel = enchantment.getMaxLevel();
             for (Integer i=0; i<=maxLevel; i++) {
@@ -42,7 +42,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
         if (args.length == 0) return false;
         String enchantName = args[0];
-        Enchantment enchantment = EnchantUtil.getEnchantment(enchantName);
+        Enchantment enchantment = CommandUtil.getEnchantment(enchantName);
         if (enchantment == null) {
             sender.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;

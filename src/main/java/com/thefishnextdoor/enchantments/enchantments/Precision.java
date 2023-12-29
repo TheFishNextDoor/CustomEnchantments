@@ -56,7 +56,7 @@ public class Precision extends CustomEnchantment {
 
     public static void modifyVelocity(Player player, Projectile projectile) {
         if (player == null || projectile == null) return;
-        if (!EnchantUtil.holding(player, CustomEnchantment.PRECISION)) return;
+        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.PRECISION)) return;
         Vector direction = player.getEyeLocation().getDirection();
         Vector velocity = projectile.getVelocity();
         velocity.setX(direction.getX() * velocity.length());

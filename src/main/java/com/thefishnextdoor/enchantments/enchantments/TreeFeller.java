@@ -70,7 +70,7 @@ public class TreeFeller extends CustomEnchantment {
 
     @SuppressWarnings("deprecation")
     public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {
-        if (!EnchantUtil.holding(player, CustomEnchantment.TREE_FELLER)) return;
+        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.TREE_FELLER)) return;
         if (!InventoryUtil.isLog(block.getType())) return;
         TrackedPlayer trackedPlayer = PlayerTracker.get(player);
         if (!trackedPlayer.treeFellerReady()) return;

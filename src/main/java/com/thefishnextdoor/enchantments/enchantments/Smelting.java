@@ -69,14 +69,14 @@ public class Smelting extends CustomEnchantment {
     }
     
     public static void modifyDrops(Player player, List<Item> drops) {
-        if (!EnchantUtil.holding(player, CustomEnchantment.SMELTING)) return;
+        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.SMELTING)) return;
         for (Item drop : drops) {
             Smelting.smelt(drop);
         }
     }
 
     public static void onBlockDropItems(Player player, Collection<ItemStack> drops) {
-        if (!EnchantUtil.holding(player, CustomEnchantment.SMELTING)) return;
+        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.SMELTING)) return;
         for (ItemStack drop : drops) {
             Smelting.smelt(drop);
         }

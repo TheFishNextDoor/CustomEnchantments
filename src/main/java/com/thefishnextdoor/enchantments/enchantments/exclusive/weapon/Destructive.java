@@ -56,7 +56,7 @@ public class Destructive extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
-        if (!EnchantUtil.holdingRanged(player, CustomEnchantment.DESTRUCTIVE)) return;
+        if (!EnchantUtil.holdingRangedWith(player, CustomEnchantment.DESTRUCTIVE)) return;
         Snowball snowball = (Snowball) EntityUtil.convert(projectile, EntityType.SNOWBALL);
         snowball.setItem(new ItemStack(Material.TNT));
     }

@@ -46,7 +46,7 @@ public class FireBlast extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
-        if (!EnchantUtil.holdingRanged(player, CustomEnchantment.FIRE_BLAST)) return;
+        if (!EnchantUtil.holdingRangedWith(player, CustomEnchantment.FIRE_BLAST)) return;
         EntityUtil.convert(projectile, EntityType.SMALL_FIREBALL);
     }
 }

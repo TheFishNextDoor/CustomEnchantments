@@ -45,7 +45,7 @@ public class Teleport extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
-        if (!EnchantUtil.holdingRanged(player, CustomEnchantment.TELEPORT)) return;
+        if (!EnchantUtil.holdingRangedWith(player, CustomEnchantment.TELEPORT)) return;
         EntityUtil.convert(projectile, EntityType.ENDER_PEARL);
     }
 }

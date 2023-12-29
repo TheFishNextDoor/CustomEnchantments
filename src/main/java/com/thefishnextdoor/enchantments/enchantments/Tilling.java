@@ -57,7 +57,7 @@ public class Tilling extends CustomEnchantment {
 
     public static void onTill(Player player, Block block) {
         if (player == null || block == null) return;
-        if (!EnchantUtil.holdingHoe(player, CustomEnchantment.TILLING)) return;
+        if (!EnchantUtil.holdingHoeWith(player, CustomEnchantment.TILLING)) return;
         till(player, block);
     }
 

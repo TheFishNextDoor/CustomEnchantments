@@ -62,7 +62,7 @@ public class Excavating extends CustomEnchantment {
     }
 
     public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {
-        if (!EnchantUtil.holding(player, CustomEnchantment.EXCAVATING)) return;
+        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.EXCAVATING)) return;
         BlockFace face = PlayerTracker.get(player).getMiningFace();
         ArrayList<Block> blocks = new ArrayList<>();
         if (face == BlockFace.EAST || face == BlockFace.WEST) { // Looking along x axis

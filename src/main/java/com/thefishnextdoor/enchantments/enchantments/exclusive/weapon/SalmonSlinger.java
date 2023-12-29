@@ -53,7 +53,7 @@ public class SalmonSlinger extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
-        if (!EnchantUtil.holdingRanged(player, CustomEnchantment.SALMON_SLINGER)) return;
+        if (!EnchantUtil.holdingRangedWith(player, CustomEnchantment.SALMON_SLINGER)) return;
         Entity entity = EntityUtil.convert(projectile, EntityType.SALMON);
         entity.setFallDistance(100);
     }

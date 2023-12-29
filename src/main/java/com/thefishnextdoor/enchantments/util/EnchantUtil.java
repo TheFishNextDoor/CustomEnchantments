@@ -20,6 +20,93 @@ import net.md_5.bungee.api.ChatColor;
 
 public class EnchantUtil {
 
+    public static boolean has(ItemStack item, Enchantment enchant) {
+        return level(item, enchant) > 0;
+    }
+
+    public static int level(ItemStack item, Enchantment enchant) {
+        int level = 0;
+        if (item == null) return level;
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return level;
+        if (item.getType() == Material.ENCHANTED_BOOK) {
+            EnchantmentStorageMeta bookMeta = (EnchantmentStorageMeta) meta;
+            if (bookMeta.hasStoredEnchant(enchant)) level = bookMeta.getStoredEnchantLevel(enchant);
+        }
+        else if (meta.hasEnchant(enchant)) level = meta.getEnchantLevel(enchant);
+        if (Settings.CHECK_LORE && level == 0 && meta.hasLore()) {
+            String enchantLore = EnchantUtil.lore(enchant, 1);
+            for (String line : meta.getLore()) {
+                if (!line.startsWith(enchantLore)) continue;
+                level = line.equals(enchantLore) ? 1 : number(line.replaceFirst(enchantLore, "").trim());
+                if (level == 0) continue;
+                EnchantUtil.fix(item, enchant, level);
+                break;
+            }
+        }
+        return level;
+    }
+
+    public static boolean wearing(Player player, Enchantment enchant, ArmorCheckOptimizer o) {
+        return armorLevel(player, enchant, o) > 0;
+    }
+
+    public static int armorLevel(Player player, Enchantment enchant, ArmorCheckOptimizer o) {
+        int helmetLevel = 0;
+        int chestplateLevel = 0;
+        int leggingsLevel = 0;
+        int bootsLevel = 0;
+        if (o.CHECK_HELMET) helmetLevel = level(o.HELMET, enchant);
+        if (o.CHECK_CHESTPLATE) chestplateLevel = level(o.CHESTPLATE, enchant);
+        if (o.CHECK_LEGGINGS) leggingsLevel = level(o.LEGGINGS, enchant);
+        if (o.CHECK_BOOTS) bootsLevel = level(o.BOOTS, enchant);
+        return Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
+    }
+
+    public static boolean holdingMeleeWith(Player player, Enchantment enchant) {
+        return meleeLevel(player, enchant) > 0;
+    }
+
+    public static int meleeLevel(Player player, Enchantment enchant) {
+        return level(InventoryUtil.getMeleeItemInUse(player), enchant);
+    }
+
+    public static boolean holdingRangedWith(Player player, Enchantment enchant) {
+        return rangedLevel(player, enchant) > 0;
+    }
+
+    public static int rangedLevel(Player player, Enchantment enchant) {
+        return level(InventoryUtil.getRangedItemInUse(player), enchant);
+    }
+
+    public static int weaponLevel(Player player, Enchantment enchant, boolean ranged) {
+        if (ranged) return rangedLevel(player, enchant);
+        else return meleeLevel(player, enchant);
+    }
+
+    public static boolean holdingHoeWith(Player player, Enchantment enchant) {
+        return hoeLevel(player, enchant) > 0;
+    }
+
+    public static int hoeLevel(Player player, Enchantment enchant) {
+        return level(InventoryUtil.getHoeInUse(player), enchant);
+    }
+
+    public static boolean holdingShieldWith(Player player, Enchantment enchant) {
+        return shieldLevel(player, enchant) > 0;
+    }
+
+    public static int shieldLevel(Player player, Enchantment enchant) {
+        return level(InventoryUtil.getShieldInUse(player), enchant);
+    }
+
+    public static int lootingLevel(Player player) {
+        PlayerInventory inv = player.getInventory();
+        int mainHandLevel = level(inv.getItemInMainHand(), Enchantment.LOOT_BONUS_MOBS);
+        int offHandLevel = level(inv.getItemInOffHand(), Enchantment.LOOT_BONUS_MOBS);
+        return Math.max(mainHandLevel, offHandLevel);
+    }
+
     public static boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
         // Verify
         if (item == null) return false;
@@ -156,113 +243,20 @@ public class EnchantUtil {
         return enchantedBook;
     }
 
+    public static boolean same(Enchantment enchant1, Enchantment enchant2) {
+        return name(enchant1).equals(name(enchant2));
+    }
+
+    public static String name(Enchantment enchantment) {
+        return enchantment.getKey().getKey();
+    }
+
     @SuppressWarnings("deprecation")
     public static String lore(Enchantment enchantment, Integer level) {
         if (level < 0) return null;
         String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
         if (level == 1) return lore;
         else return lore + " " + (Settings.USE_ARABIC_NUMERALS ? level.toString() : numeral(level));
-    }
-
-    public static boolean hasConflictingEnchantments(ItemStack item, Enchantment enchantment) {
-        Iterator<Enchantment> iter = enchantments(item).iterator();
-        while (iter.hasNext()) {
-            Enchantment ienchantment = iter.next();
-            if (same(ienchantment, enchantment)) continue;
-            if (enchantment.conflictsWith(ienchantment) || ienchantment.conflictsWith(enchantment)) return true;
-        }
-        return false;
-    }
-
-    public static boolean same(Enchantment enchant1, Enchantment enchant2) {
-        return enchant1.getKey().getKey().equals(enchant2.getKey().getKey());
-    }
-
-    public static boolean has(ItemStack item, Enchantment enchant) {
-        return level(item, enchant) > 0;
-    }
-
-    public static int level(ItemStack item, Enchantment enchant) {
-        int level = 0;
-        if (item == null) return level;
-        ItemMeta meta = item.getItemMeta();
-        if (meta == null) return level;
-        if (item.getType() == Material.ENCHANTED_BOOK) {
-            EnchantmentStorageMeta bookMeta = (EnchantmentStorageMeta) meta;
-            if (bookMeta.hasStoredEnchant(enchant)) level = bookMeta.getStoredEnchantLevel(enchant);
-        }
-        else if (meta.hasEnchant(enchant)) level = meta.getEnchantLevel(enchant);
-        if (Settings.CHECK_LORE && level == 0 && meta.hasLore()) {
-            String enchantLore = EnchantUtil.lore(enchant, 1);
-            for (String line : meta.getLore()) {
-                if (!line.startsWith(enchantLore)) continue;
-                level = line.equals(enchantLore) ? 1 : number(line.replaceFirst(enchantLore, "").trim());
-                if (level == 0) continue;
-                EnchantUtil.fix(item, enchant, level);
-                break;
-            }
-        }
-        return level;
-    }
-
-    public static boolean holding(Player player, Enchantment enchant) {
-        return meleeLevel(player, enchant) > 0;
-    }
-
-    public static int meleeLevel(Player player, Enchantment enchant) {
-        return level(InventoryUtil.getMeleeItemInUse(player), enchant);
-    }
-
-    public static boolean holdingRanged(Player player, Enchantment enchant) {
-        return rangedLevel(player, enchant) > 0;
-    }
-
-    public static int rangedLevel(Player player, Enchantment enchant) {
-        return level(InventoryUtil.getRangedItemInUse(player), enchant);
-    }
-
-    public static int weaponLevel(Player player, Enchantment enchant, boolean ranged) {
-        if (ranged) return rangedLevel(player, enchant);
-        else return meleeLevel(player, enchant);
-    }
-
-    public static boolean holdingHoe(Player player, Enchantment enchant) {
-        return hoeLevel(player, enchant) > 0;
-    }
-
-    public static int hoeLevel(Player player, Enchantment enchant) {
-        return level(InventoryUtil.getHoeInUse(player), enchant);
-    }
-
-    public static boolean holdingShield(Player player, Enchantment enchant) {
-        return shieldLevel(player, enchant) > 0;
-    }
-
-    public static int shieldLevel(Player player, Enchantment enchant) {
-        return level(InventoryUtil.getShieldInUse(player), enchant);
-    }
-
-    public static boolean wearing(Player player, Enchantment enchant, ArmorCheckOptimizer o) {
-        return armorLevel(player, enchant, o) > 0;
-    }
-
-    public static int armorLevel(Player player, Enchantment enchant, ArmorCheckOptimizer o) {
-        int helmetLevel = 0;
-        int chestplateLevel = 0;
-        int leggingsLevel = 0;
-        int bootsLevel = 0;
-        if (o.CHECK_HELMET) helmetLevel = level(o.HELMET, enchant);
-        if (o.CHECK_CHESTPLATE) chestplateLevel = level(o.CHESTPLATE, enchant);
-        if (o.CHECK_LEGGINGS) leggingsLevel = level(o.LEGGINGS, enchant);
-        if (o.CHECK_BOOTS) bootsLevel = level(o.BOOTS, enchant);
-        return Math.max(Math.max(helmetLevel, chestplateLevel), Math.max(leggingsLevel, bootsLevel));
-    }
-
-    public static int lootingLevel(Player player) {
-        PlayerInventory inv = player.getInventory();
-        int mainHandLevel = level(inv.getItemInMainHand(), Enchantment.LOOT_BONUS_MOBS);
-        int offHandLevel = level(inv.getItemInOffHand(), Enchantment.LOOT_BONUS_MOBS);
-        return Math.max(mainHandLevel, offHandLevel);
     }
 
     public static String numeral(int number) {
@@ -304,6 +298,16 @@ public class EnchantUtil {
         }
     }
 
+    public static boolean hasConflictingEnchantments(ItemStack item, Enchantment enchantment) {
+        Iterator<Enchantment> iter = enchantments(item).iterator();
+        while (iter.hasNext()) {
+            Enchantment ienchantment = iter.next();
+            if (same(ienchantment, enchantment)) continue;
+            if (enchantment.conflictsWith(ienchantment) || ienchantment.conflictsWith(enchantment)) return true;
+        }
+        return false;
+    }
+
     public static boolean canMergeInAnvil(ItemStack itemA, ItemStack itemB) {
         if (itemA == null || itemB == null) return false;
         if (itemA.getAmount() != 1 || itemB.getAmount() != 1) return false;
@@ -327,16 +331,5 @@ public class EnchantUtil {
             item.setItemMeta(meta);
         }
         else item.addUnsafeEnchantment(enchantment, level);
-    }
-
-    public static Enchantment getEnchantment(String name) {
-        for (Enchantment enchantment : Enchantment.values()) {
-            if (EnchantUtil.name(enchantment).equalsIgnoreCase(name)) return enchantment; 
-        }
-        return null;
-    }
-
-    public static String name(Enchantment enchantment) {
-        return enchantment.getKey().getKey();
     }
 }

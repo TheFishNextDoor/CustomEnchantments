@@ -45,7 +45,7 @@ public class Levitating extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
-        if (!EnchantUtil.holdingRanged(player, CustomEnchantment.LEVITATING)) return;
+        if (!EnchantUtil.holdingRangedWith(player, CustomEnchantment.LEVITATING)) return;
         EntityUtil.convert(projectile, EntityType.SHULKER_BULLET);
 
     }

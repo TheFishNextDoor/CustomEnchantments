@@ -35,5 +35,12 @@ public class CommandUtil {
         }
         return titleCase.trim();
     }
+
+    public static Enchantment getEnchantment(String name) {
+        for (Enchantment enchantment : Enchantment.values()) {
+            if (EnchantUtil.name(enchantment).equalsIgnoreCase(name)) return enchantment; 
+        }
+        return null;
+    }
     
 }
