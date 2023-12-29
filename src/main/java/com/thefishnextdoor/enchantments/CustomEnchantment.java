@@ -184,6 +184,24 @@ public abstract class CustomEnchantment extends Enchantment {
         public EnchantmentTarget getItemTarget() {
             return EnchantmentTarget.BREAKABLE;
         }
+
+        public static abstract class ArrowTransformEnchantment extends MutuallyExclusiveWeaponEnchantment {
+            public ArrowTransformEnchantment(NamespacedKey key) {
+                super(key);
+            }
+
+            @Override
+            public boolean conflictsWith(Enchantment other) {
+                if (EnchantUtil.same(other, Enchantment.PIERCING)) return true;
+                return isMutuallyExclusiveWeaponEnchantment(other);
+            }
+
+            @Override
+            public boolean canEnchantItem(ItemStack item) {
+                if (item == null) return false;
+                return InventoryUtil.firesArrows(item.getType());
+            }
+        }
     }
 
     public static abstract class MutuallyExclusiveHelmetEnchantment extends CustomEnchantment {
