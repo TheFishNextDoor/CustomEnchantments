@@ -93,8 +93,10 @@ public class TreeFeller extends CustomEnchantment {
     }
 
     private static void logs(Location loc, ArrayList<Block> logs, ArrayList<Block> leaves, int height, int radius, int dx, int dy, int dz, int dl) {
-        if (dx > radius || dx < -radius || dz > radius || dz < -radius) return;
-        if (dy > height || dl > 6) return;
+        if (dx > radius || dx < -radius) return;
+        if (dz > radius || dz < -radius) return;
+        if (dy > height || dy < -height) return;
+        if (dl > 5) return;
         Block block = loc.getBlock();
         Material type = block.getType();
         if (InventoryUtil.isLog(type)) {
@@ -102,6 +104,7 @@ public class TreeFeller extends CustomEnchantment {
             logs.add(block);
             dl = 0;
             logs(loc.clone().add(0, 1, 0), logs, leaves, height, radius, dx, dy + 1, dz, dl);
+            logs(loc.clone().add(0, -1, 0), logs, leaves, height, radius, dx, dy - 1, dz, dl);
         }
         else if (InventoryUtil.isLeaves(type)) {
             if (leaves.contains(block)) return;
