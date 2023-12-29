@@ -74,10 +74,11 @@ public class TreeFeller extends CustomEnchantment {
         if (!InventoryUtil.isLog(block.getType())) return;
         TrackedPlayer trackedPlayer = PlayerTracker.get(player);
         if (!trackedPlayer.treeFellerReady()) return;
-        trackedPlayer.setTreeFellerTick();
         ArrayList<Block> logs = new ArrayList<>();
         ArrayList<Block> leaves = new ArrayList<>();
         logs(block.getLocation(), logs, leaves, 25, 10);
+        if (logs.size() <= 3 || leaves.size() <= 15) return;
+        trackedPlayer.setTreeFellerTick();
         logs.remove(block);
         for (Block log : logs) {
             BlockUtil.breakBlock(player, log);
