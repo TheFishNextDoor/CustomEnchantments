@@ -119,7 +119,6 @@ public class TreeFeller extends CustomEnchantment {
         else if (leaf) leaves.add(block);
 
         if (log || leaf) outOfTree = 0;
-        else if (current.getBlockX() != start.getBlockX() || current.getBlockZ() != start.getBlockZ()) return;
         else if (outOfTree > 1) return;
         else outOfTree++;
 
