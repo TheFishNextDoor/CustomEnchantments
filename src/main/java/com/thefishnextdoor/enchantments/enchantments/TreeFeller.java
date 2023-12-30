@@ -1,6 +1,7 @@
 package com.thefishnextdoor.enchantments.enchantments;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,6 +28,9 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class TreeFeller extends CustomEnchantment {
+
+    private static final int RADIUS = 8;
+    private static final int HEIGHT = 32;
 
     public TreeFeller(NamespacedKey key) {
         super(key);
@@ -72,55 +76,61 @@ public class TreeFeller extends CustomEnchantment {
     public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {
         if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.TREE_FELLER)) return;
         if (!InventoryUtil.isLog(block.getType())) return;
+
         TrackedPlayer trackedPlayer = PlayerTracker.get(player);
         if (!trackedPlayer.treeFellerReady()) return;
+
         ArrayList<Block> logs = new ArrayList<>();
         ArrayList<Block> leaves = new ArrayList<>();
-        logs(block.getLocation(), logs, leaves, 25, 10);
+        logs(block.getLocation(), logs, leaves);
+        
         if (logs.size() <= 3 || leaves.size() <= 15) return;
+
         trackedPlayer.setTreeFellerTick();
-        logs.remove(block);
         for (Block log : logs) {
             BlockUtil.breakBlock(player, log);
         }
+
         String msg = ChatColor.GRAY + "" + ChatColor.ITALIC + "You feel tired after chopping down a tree";
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(msg));
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, Settings.TREE_FELLER_COOLDOWN, 2), true);
     }
 
-    private static void logs(Location loc, ArrayList<Block> logs, ArrayList<Block> leaves, int height, int radius) {
-        logs(loc, logs, leaves, height, radius, 0, 0, 0, 0);
+    private static void logs(Location start, ArrayList<Block> logs, ArrayList<Block> leaves) {
+        Material type = start.getBlock().getType();
+        if (!InventoryUtil.isLog(type)) return;
+        logs(start, start, type, logs, leaves,  new HashSet<Location>(), 0);
     }
 
-    private static void logs(Location loc, ArrayList<Block> logs, ArrayList<Block> leaves, int height, int radius, int dx, int dy, int dz, int dl) {
-        if (dx > radius || dx < -radius) return;
-        if (dz > radius || dz < -radius) return;
-        if (dy > height || dy < -height) return;
-        if (dl > 5) return;
-        Block block = loc.getBlock();
+    private static void logs(Location start, Location current, Material logType, ArrayList<Block> logs, ArrayList<Block> leaves, HashSet<Location> checked, int outOfTree) {
+        if (checked.contains(current)) return;
+        checked.add(current);
+
+        if (Math.abs(current.getY() - start.getY()) > HEIGHT) return;
+        if (Math.abs(current.getX() - start.getX()) > RADIUS) return;
+        if (Math.abs(current.getZ() - start.getZ()) > RADIUS) return;
+
+        Block block = current.getBlock();
         Material type = block.getType();
-        if (InventoryUtil.isLog(type)) {
-            if (logs.contains(block)) return;
-            logs.add(block);
-            dl = 0;
-            logs(loc.clone().add(0, 1, 0), logs, leaves, height, radius, dx, dy + 1, dz, dl);
-            logs(loc.clone().add(0, -1, 0), logs, leaves, height, radius, dx, dy - 1, dz, dl);
-        }
-        else if (InventoryUtil.isLeaves(type)) {
-            if (leaves.contains(block)) return;
-            leaves.add(block);
-            dl++;
-        }
-        else {
-            return;
-        }
-        logs(loc.clone().add(1, 0, 0), logs, leaves, height, radius, dx + 1, dy, dz, dl);
-        logs(loc.clone().add(-1, 0, 0), logs, leaves, height, radius, dx - 1, dy, dz, dl);
-        logs(loc.clone().add(0, 0, 1), logs, leaves, height, radius, dx, dy, dz + 1, dl);
-        logs(loc.clone().add(0, 0, -1), logs, leaves, height, radius, dx, dy, dz - 1, dl);
-        logs(loc.clone().add(1, 0, 1), logs, leaves, height, radius, dx + 1, dy, dz + 1, dl);
-        logs(loc.clone().add(1, 0, -1), logs, leaves, height, radius, dx + 1, dy, dz - 1, dl);
-        logs(loc.clone().add(-1, 0, 1), logs, leaves, height, radius, dx - 1, dy, dz + 1, dl);
-        logs(loc.clone().add(-1, 0, -1), logs, leaves, height, radius, dx - 1, dy, dz - 1, dl);
+        boolean log = type == logType;
+        boolean leaf = InventoryUtil.isLeaves(type);
+
+        if (log && !current.equals(start)) logs.add(block);
+        else if (leaf) leaves.add(block);
+
+        if (log || leaf) outOfTree = 0;
+        else if (outOfTree > 1) return;
+        else outOfTree++;
+
+        logs(start, current.clone().add(1, 0, 0), logType, logs, leaves, checked, outOfTree);
+        logs(start, current.clone().add(-1, 0, 0), logType, logs, leaves, checked, outOfTree);
+        logs(start, current.clone().add(0, 0, 1), logType, logs,leaves, checked, outOfTree);
+        logs(start, current.clone().add(0, 0, -1), logType, logs, leaves, checked, outOfTree);
+        logs(start, current.clone().add(1, 0, 1), logType, logs, leaves, checked, outOfTree);
+        logs(start, current.clone().add(1, 0, -1), logType, logs, leaves, checked, outOfTree);
+        logs(start, current.clone().add(-1, 0, 1), logType, logs, leaves, checked, outOfTree);
+        logs(start, current.clone().add(-1, 0, -1), logType, logs, leaves, checked, outOfTree);
+        logs(start ,current.clone().add(0, 1, 0), logType, logs, leaves, checked, outOfTree);
+        logs(start, current.clone().add(0, -1, 0), logType, logs, leaves, checked, outOfTree);
     }
 }
