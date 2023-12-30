@@ -119,17 +119,14 @@ public class TreeFeller extends CustomEnchantment {
         else if (leaf) leaves.add(block);
 
         if (log || leaf) outOfTree = 0;
-        else if (outOfTree > 1) return;
         else outOfTree++;
+
+        if (outOfTree > 1) return;
 
         logs(start, current.clone().add(1, 0, 0), logType, logs, leaves, checked, outOfTree);
         logs(start, current.clone().add(-1, 0, 0), logType, logs, leaves, checked, outOfTree);
         logs(start, current.clone().add(0, 0, 1), logType, logs,leaves, checked, outOfTree);
         logs(start, current.clone().add(0, 0, -1), logType, logs, leaves, checked, outOfTree);
-        logs(start, current.clone().add(1, 0, 1), logType, logs, leaves, checked, outOfTree);
-        logs(start, current.clone().add(1, 0, -1), logType, logs, leaves, checked, outOfTree);
-        logs(start, current.clone().add(-1, 0, 1), logType, logs, leaves, checked, outOfTree);
-        logs(start, current.clone().add(-1, 0, -1), logType, logs, leaves, checked, outOfTree);
         logs(start ,current.clone().add(0, 1, 0), logType, logs, leaves, checked, outOfTree);
         logs(start, current.clone().add(0, -1, 0), logType, logs, leaves, checked, outOfTree);
     }
