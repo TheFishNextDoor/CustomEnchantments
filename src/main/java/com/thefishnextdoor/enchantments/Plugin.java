@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.thefishnextdoor.enchantments.commands.EnchantInfo;
 import com.thefishnextdoor.enchantments.commands.Fenchant;
 import com.thefishnextdoor.enchantments.commands.Reload;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Seeking;
 import com.thefishnextdoor.enchantments.events.EntityDamageByEntity;
 import com.thefishnextdoor.enchantments.events.BlockDropItems;
 import com.thefishnextdoor.enchantments.events.DropItem;
@@ -35,6 +36,7 @@ public class Plugin extends JavaPlugin {
     public void onEnable() {
         Settings.loadPluginConfig(this);
         Timer.start(this);
+        Seeking.startTask(this);
         registerEvents();
         registerCommands();
         LOGGER.info("Plugin enabled");

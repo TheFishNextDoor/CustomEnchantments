@@ -15,6 +15,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.FireBlast;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Harpoon;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Levitating;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.SalmonSlinger;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Seeking;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Teleport;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Volley;
 
@@ -31,6 +32,7 @@ public class ProjectileLaunch implements Listener {
         Precision.modifyVelocity(player, projectile);
         Volley.onPlayerFireProjectile(player, projectile);
         BloodTipped.onPlayerFireProjectile(player);
+        Seeking.onPlayerFireProjectile(player, projectile);
         SalmonSlinger.convertProjectile(player, projectile);
         FireBlast.convertProjectile(player, projectile);
         Teleport.convertProjectile(player, projectile);

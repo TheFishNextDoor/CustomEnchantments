@@ -113,6 +113,7 @@ public class Loot {
             case STRAY:
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.GLASS, 1));
                 if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.CRIPPLING, 1));
+                if (NumberUtil.chance(c)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.SEEKING, 1));
                 break;
             case RAVAGER:
                 if (NumberUtil.chance(6.0 * lootingMultiplier)) drops.add(EnchantUtil.enchantedBook(CustomEnchantment.CRUSH, 1));

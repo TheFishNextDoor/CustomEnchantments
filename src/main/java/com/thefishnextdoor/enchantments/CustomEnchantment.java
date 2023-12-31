@@ -70,6 +70,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Levitating
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.LifeSteal;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Obscure;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.SalmonSlinger;
+import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Seeking;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Starving;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Teleport;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Venom;
@@ -142,6 +143,7 @@ public abstract class CustomEnchantment extends Enchantment {
     public static MutuallyExclusiveWeaponEnchantment LIFE_STEAL;
     public static MutuallyExclusiveWeaponEnchantment OBSCURE;
     public static MutuallyExclusiveWeaponEnchantment SALMON_SLINGER;
+    public static MutuallyExclusiveWeaponEnchantment SEEKING;
     public static MutuallyExclusiveWeaponEnchantment STARVING;
     public static MutuallyExclusiveWeaponEnchantment TELEPORT;
     public static MutuallyExclusiveWeaponEnchantment VENOM;
@@ -370,6 +372,7 @@ public abstract class CustomEnchantment extends Enchantment {
         LIFE_STEAL = new LifeSteal(new NamespacedKey(plugin, "life_steal"));
         OBSCURE = new Obscure(new NamespacedKey(plugin, "obscure"));
         SALMON_SLINGER = new SalmonSlinger(new NamespacedKey(plugin, "salmon_slinger"));
+        SEEKING = new Seeking(new NamespacedKey(plugin, "seeking"));
         STARVING = new Starving(new NamespacedKey(plugin, "starving"));
         TELEPORT = new Teleport(new NamespacedKey(plugin, "teleport"));
         VENOM = new Venom(new NamespacedKey(plugin, "venom"));
