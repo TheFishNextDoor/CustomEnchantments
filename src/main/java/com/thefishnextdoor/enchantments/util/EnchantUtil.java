@@ -15,7 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Settings;
-import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
+import com.thefishnextdoor.enchantments.ArmorEffects.ArmorCheckOptimizer;
 import net.md_5.bungee.api.ChatColor;
 
 public class EnchantUtil {

@@ -7,7 +7,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Timer;
+import com.thefishnextdoor.enchantments.ArmorEffects;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveHelmetEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
@@ -41,6 +41,6 @@ public class ConduitPower extends MutuallyExclusiveHelmetEnchantment {
         if (!player.isInWater()) return;
         int level = EnchantUtil.level(helmet, CustomEnchantment.CONDUIT_POWER);
         if (level < 1) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, Timer.PERIOD * 2, level-1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, ArmorEffects.PERIOD * 2, level-1));
     }
 }

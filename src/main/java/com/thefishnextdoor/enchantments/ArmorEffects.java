@@ -29,7 +29,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.helmet.NightVisio
 import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.DolphinsGrace;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.leggings.Swiftness;
 
-public class Timer {
+public class ArmorEffects {
     public static final int PERIOD = 30;
     private static Plugin plugin = null;
     private static int armorEffectsTaskId = -1;
@@ -60,7 +60,7 @@ public class Timer {
         }
     }
 
-    public static void start(final Plugin p) {
+    public static void startTask(final Plugin p) {
         plugin = p;
         if (armorEffectsTaskId == -1) armorEffectsTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
@@ -105,15 +105,10 @@ public class Timer {
         }, PERIOD, PERIOD);
     }
 
-    public static void stop() {
+    public static void stopTask() {
         if (armorEffectsTaskId != -1) {
             Bukkit.getScheduler().cancelTask(armorEffectsTaskId);
             armorEffectsTaskId = -1;
         }
-    }
-
-    public static void reload() {
-        stop();
-        if (plugin != null) start(plugin);
     }
 }

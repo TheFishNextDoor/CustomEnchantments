@@ -7,7 +7,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Timer;
+import com.thefishnextdoor.enchantments.ArmorEffects;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveBootsEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
@@ -40,6 +40,6 @@ public class Leaping extends MutuallyExclusiveBootsEnchantment {
     public static void onTimer(Player player, ItemStack boots) {
         int level = EnchantUtil.level(boots, CustomEnchantment.LEAPING);
         if (level < 1) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Timer.PERIOD * 2, level-1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, ArmorEffects.PERIOD * 2, level-1));
     }
 }

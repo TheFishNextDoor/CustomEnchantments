@@ -7,7 +7,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Timer;
+import com.thefishnextdoor.enchantments.ArmorEffects;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveChestplateEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
@@ -40,6 +40,6 @@ public class Strength extends MutuallyExclusiveChestplateEnchantment {
     public static void onTimer(Player player, ItemStack chestplate) {
         int level = EnchantUtil.level(chestplate, CustomEnchantment.STRENGTH);
         if (level < 1) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Timer.PERIOD * 2, level-1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, ArmorEffects.PERIOD * 2, level-1));
     }
 }

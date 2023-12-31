@@ -8,7 +8,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Timer;
+import com.thefishnextdoor.enchantments.ArmorEffects;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveBootsEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
@@ -50,6 +50,6 @@ public class Anchor extends MutuallyExclusiveBootsEnchantment {
     public static void onTimer(Player player, ItemStack boots) {
         if (!player.isInWater()) return;
         if (!EnchantUtil.has(player.getInventory().getBoots(), CustomEnchantment.ANCHOR)) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Timer.PERIOD * 2, 2));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, ArmorEffects.PERIOD * 2, 2));
     }
 }

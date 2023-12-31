@@ -35,7 +35,7 @@ public class Plugin extends JavaPlugin {
     
     public void onEnable() {
         Settings.loadPluginConfig(this);
-        Timer.start(this);
+        ArmorEffects.startTask(this);
         Seeking.startTask(this);
         registerEvents();
         registerCommands();
@@ -43,13 +43,13 @@ public class Plugin extends JavaPlugin {
     }
     
     public void onDisable() {
-        Timer.stop();
+        ArmorEffects.stopTask();
+        Seeking.stopTask();
         LOGGER.info("Plugin disabled");
     }
 
     public void reload() {
         Settings.loadPluginConfig(this);
-        Timer.reload();
     }
 
     private void registerEvents() {

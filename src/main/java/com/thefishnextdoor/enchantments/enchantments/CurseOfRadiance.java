@@ -9,8 +9,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Timer;
-import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
+import com.thefishnextdoor.enchantments.ArmorEffects;
+import com.thefishnextdoor.enchantments.ArmorEffects.ArmorCheckOptimizer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
@@ -58,6 +58,6 @@ public class CurseOfRadiance extends CustomEnchantment {
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {
         if (!EnchantUtil.wearing(player, CustomEnchantment.CURSE_OF_RADIANCE, o)) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Timer.PERIOD * 2, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, ArmorEffects.PERIOD * 2, 0));
     }
 }

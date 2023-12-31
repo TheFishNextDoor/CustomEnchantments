@@ -7,7 +7,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
-import com.thefishnextdoor.enchantments.Timer;
+import com.thefishnextdoor.enchantments.ArmorEffects;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveHelmetEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 
@@ -40,6 +40,6 @@ public class Gills extends MutuallyExclusiveHelmetEnchantment {
     public static void onTimer(Player player, ItemStack helmet) {
         if (!player.isInWater()) return;
         if (!EnchantUtil.has(helmet, CustomEnchantment.GILLS)) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Timer.PERIOD * 2, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, ArmorEffects.PERIOD * 2, 0));
     }
 }
