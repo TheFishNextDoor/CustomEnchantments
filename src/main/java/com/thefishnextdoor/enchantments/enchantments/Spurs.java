@@ -12,7 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Timer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class Spurs extends CustomEnchantment {
 
@@ -48,7 +48,7 @@ public class Spurs extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isBoots(item.getType());
+        return MaterialUtil.isBoots(item.getType());
     }
 
     @Override

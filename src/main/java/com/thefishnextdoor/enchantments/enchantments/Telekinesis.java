@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class Telekinesis extends CustomEnchantment {
 
@@ -52,7 +52,7 @@ public class Telekinesis extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isTool(item.getType()) || InventoryUtil.isWeapon(item.getType());
+        return MaterialUtil.isTool(item.getType()) || MaterialUtil.isWeapon(item.getType());
     }
 
     @Override

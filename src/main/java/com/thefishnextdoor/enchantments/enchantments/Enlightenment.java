@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class Enlightenment extends CustomEnchantment {
 
@@ -46,7 +46,7 @@ public class Enlightenment extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isWeapon(item.getType()) || InventoryUtil.isTool(item.getType());
+        return MaterialUtil.isWeapon(item.getType()) || MaterialUtil.isTool(item.getType());
     }
 
     @Override

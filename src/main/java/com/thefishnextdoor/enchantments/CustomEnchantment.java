@@ -77,7 +77,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Venom;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Volley;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Withering;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public abstract class CustomEnchantment extends Enchantment {
     private static ArrayList<CustomEnchantment> customEnchantments = new ArrayList<>();
@@ -201,7 +201,7 @@ public abstract class CustomEnchantment extends Enchantment {
             @Override
             public boolean canEnchantItem(ItemStack item) {
                 if (item == null) return false;
-                return InventoryUtil.firesArrows(item.getType());
+                return MaterialUtil.firesArrows(item.getType());
             }
         }
     }
@@ -224,7 +224,7 @@ public abstract class CustomEnchantment extends Enchantment {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return InventoryUtil.isHelmet(item.getType());
+            return MaterialUtil.isHelmet(item.getType());
         }
     }
 
@@ -246,7 +246,7 @@ public abstract class CustomEnchantment extends Enchantment {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return InventoryUtil.isChestplate(item.getType());
+            return MaterialUtil.isChestplate(item.getType());
         }
     }
 
@@ -290,7 +290,7 @@ public abstract class CustomEnchantment extends Enchantment {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return InventoryUtil.isLeggings(item.getType());
+            return MaterialUtil.isLeggings(item.getType());
         }
     }
 
@@ -312,7 +312,7 @@ public abstract class CustomEnchantment extends Enchantment {
         @Override
         public boolean canEnchantItem(ItemStack item) {
             if (item == null) return false;
-            return InventoryUtil.isBoots(item.getType());
+            return MaterialUtil.isBoots(item.getType());
         }
     }
 

@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class CurseOfIronGrip extends CustomEnchantment {
 
@@ -47,7 +47,7 @@ public class CurseOfIronGrip extends CustomEnchantment {
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
         Material type = item.getType();
-        return InventoryUtil.isWeapon(type) || InventoryUtil.isTool(type);
+        return MaterialUtil.isWeapon(type) || MaterialUtil.isTool(type);
     }
 
     @Override

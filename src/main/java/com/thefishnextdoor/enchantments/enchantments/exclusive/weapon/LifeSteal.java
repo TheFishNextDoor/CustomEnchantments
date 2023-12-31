@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
 
@@ -35,7 +35,7 @@ public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isWeapon(item.getType());
+        return MaterialUtil.isWeapon(item.getType());
     }
 
     @Override

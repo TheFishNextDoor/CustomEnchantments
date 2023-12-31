@@ -10,7 +10,7 @@ import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class Precision extends CustomEnchantment {
 
@@ -46,7 +46,7 @@ public class Precision extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isRanged(item.getType());
+        return MaterialUtil.isRangedWeapon(item.getType());
     }
 
     @Override

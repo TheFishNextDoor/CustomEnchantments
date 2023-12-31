@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
 
@@ -34,7 +34,7 @@ public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isRanged(item.getType());
+        return MaterialUtil.isRangedWeapon(item.getType());
     }
 
     @Override

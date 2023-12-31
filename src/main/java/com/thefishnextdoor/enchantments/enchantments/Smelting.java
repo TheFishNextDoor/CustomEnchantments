@@ -13,7 +13,7 @@ import org.bukkit.inventory.RecipeChoice.MaterialChoice;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -60,7 +60,7 @@ public class Smelting extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isTool(item.getType());
+        return MaterialUtil.isTool(item.getType());
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.PermChecker;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class Tilling extends CustomEnchantment {
 
@@ -47,7 +47,7 @@ public class Tilling extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isHoe(item.getType());
+        return MaterialUtil.isHoe(item.getType());
     }
 
     @Override

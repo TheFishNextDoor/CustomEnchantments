@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffectType;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class Withering extends MutuallyExclusiveWeaponEnchantment {
 
@@ -36,7 +36,7 @@ public class Withering extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isWeapon(item.getType());
+        return MaterialUtil.isWeapon(item.getType());
     }
 
     @Override

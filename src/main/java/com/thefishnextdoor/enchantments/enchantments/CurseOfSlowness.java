@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.Timer.ArmorCheckOptimizer;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class CurseOfSlowness extends CustomEnchantment {
 
@@ -47,7 +47,7 @@ public class CurseOfSlowness extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isArmor(item.getType());
+        return MaterialUtil.isArmor(item.getType());
     }
 
     @Override

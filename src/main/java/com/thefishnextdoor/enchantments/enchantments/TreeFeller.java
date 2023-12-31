@@ -21,7 +21,7 @@ import com.thefishnextdoor.enchantments.Settings;
 import com.thefishnextdoor.enchantments.PlayerTracker.TrackedPlayer;
 import com.thefishnextdoor.enchantments.util.BlockUtil;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
@@ -64,7 +64,7 @@ public class TreeFeller extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isAxe(item.getType());
+        return MaterialUtil.isAxe(item.getType());
     }
     
     @Override
@@ -75,7 +75,7 @@ public class TreeFeller extends CustomEnchantment {
     @SuppressWarnings("deprecation")
     public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {
         if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.TREE_FELLER)) return;
-        if (!InventoryUtil.isLog(block.getType())) return;
+        if (!MaterialUtil.isLog(block.getType())) return;
 
         TrackedPlayer trackedPlayer = PlayerTracker.get(player);
         if (!trackedPlayer.treeFellerReady()) return;
@@ -98,7 +98,7 @@ public class TreeFeller extends CustomEnchantment {
 
     private static void logs(Location start, ArrayList<Block> logs, ArrayList<Block> leaves) {
         Material type = start.getBlock().getType();
-        if (!InventoryUtil.isLog(type)) return;
+        if (!MaterialUtil.isLog(type)) return;
         logs(start, start, type, logs, leaves,  new HashSet<Location>(), 0);
     }
 
@@ -113,7 +113,7 @@ public class TreeFeller extends CustomEnchantment {
         Block block = current.getBlock();
         Material type = block.getType();
         boolean log = type == logType;
-        boolean leaf = InventoryUtil.isLeaves(type);
+        boolean leaf = MaterialUtil.isLeaves(type);
 
         if (log && !current.equals(start)) logs.add(block);
         else if (leaf) leaves.add(block);

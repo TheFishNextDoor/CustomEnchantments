@@ -17,6 +17,7 @@ import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.PlayerTracker;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 import com.thefishnextdoor.enchantments.util.BlockUtil;
 
 public class Excavating extends CustomEnchantment {
@@ -53,7 +54,7 @@ public class Excavating extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isTool(item.getType());
+        return MaterialUtil.isTool(item.getType());
     }
 
     @Override

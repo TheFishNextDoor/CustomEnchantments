@@ -17,7 +17,7 @@ import org.bukkit.util.Vector;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
 import com.thefishnextdoor.enchantments.util.EntityUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class AquaAspect extends CustomEnchantment {
 
@@ -54,7 +54,7 @@ public class AquaAspect extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isWeapon(item.getType());
+        return MaterialUtil.isWeapon(item.getType());
     }
 
     @Override

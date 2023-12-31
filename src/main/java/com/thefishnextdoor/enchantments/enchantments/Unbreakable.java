@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class Unbreakable extends CustomEnchantment {
 
@@ -45,7 +45,7 @@ public class Unbreakable extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.isEnchantable(item.getType());
+        return MaterialUtil.isEnchantable(item.getType());
     }
 
     @Override

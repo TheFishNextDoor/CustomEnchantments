@@ -27,6 +27,7 @@ import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Starving;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Venom;
 import com.thefishnextdoor.enchantments.enchantments.exclusive.weapon.Withering;
 import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class EntityDamageByEntity implements Listener {
 
@@ -67,7 +68,7 @@ public class EntityDamageByEntity implements Listener {
     }
     
     private void onPlayerAttackEntity(Player player, LivingEntity entity, EntityDamageByEntityEvent event, boolean RANGED_ATTACK) {
-        if (!RANGED_ATTACK && InventoryUtil.isRanged(InventoryUtil.getMeleeItemInUse(player).getType())) return;
+        if (!RANGED_ATTACK && MaterialUtil.isRangedWeapon(InventoryUtil.getMeleeItemInUse(player).getType())) return;
         DeathWish.modifyDamage(player, event);
         Glass.modifyDamage(player, event, RANGED_ATTACK);
         AquaAspect.modifyDamage(player, entity, event, RANGED_ATTACK);

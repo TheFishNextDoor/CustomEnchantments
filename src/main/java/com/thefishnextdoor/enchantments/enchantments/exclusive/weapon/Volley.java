@@ -14,7 +14,7 @@ import org.bukkit.util.Vector;
 import com.thefishnextdoor.enchantments.CustomEnchantment;
 import com.thefishnextdoor.enchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.enchantments.util.EnchantUtil;
-import com.thefishnextdoor.enchantments.util.InventoryUtil;
+import com.thefishnextdoor.enchantments.util.MaterialUtil;
 
 public class Volley extends MutuallyExclusiveWeaponEnchantment {
 
@@ -40,7 +40,7 @@ public class Volley extends MutuallyExclusiveWeaponEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack item) {
         if (item == null) return false;
-        return InventoryUtil.firesArrows(item.getType());
+        return MaterialUtil.firesArrows(item.getType());
     }
 
     @Override
