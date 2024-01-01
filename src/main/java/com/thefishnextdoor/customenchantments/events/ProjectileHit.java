@@ -13,9 +13,8 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Dest
 
 public class ProjectileHit implements Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onProjectileHit(ProjectileHitEvent event) {
-        if (event.isCancelled()) return;
         Projectile projectile = event.getEntity();
         ProjectileSource shooter = projectile.getShooter();
         if (!(shooter instanceof Player)) return;

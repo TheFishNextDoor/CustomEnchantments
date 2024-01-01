@@ -13,9 +13,8 @@ import com.thefishnextdoor.customenchantments.enchantments.Telekinesis;
 
 public class BlockDropItems implements Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockDropItems(BlockDropItemEvent event) {
-        if (event.isCancelled()) return;
         Player player = event.getPlayer();
         List<Item> drops = event.getItems();
         Smelting.modifyDrops(player, drops);

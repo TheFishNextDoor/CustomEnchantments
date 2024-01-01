@@ -16,9 +16,8 @@ import com.thefishnextdoor.customenchantments.util.EnchantUtil;
 
 public class InventoryClick implements Listener {
     
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onInventoryClick(InventoryClickEvent event) {
-        if (event.isCancelled()) return;
         Inventory inventory = event.getInventory();
         if (inventory instanceof GrindstoneInventory) {
             onGrindstone(event, (GrindstoneInventory) event.getInventory());

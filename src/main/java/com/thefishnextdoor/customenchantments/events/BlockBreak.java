@@ -15,9 +15,8 @@ import com.thefishnextdoor.customenchantments.enchantments.TreeFeller;
 
 public class BlockBreak implements Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (event.isCancelled()) return;
         if (!PermChecker.isReal(event)) return;
         Player player = event.getPlayer();
         Block block = event.getBlock();

@@ -21,9 +21,8 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Voll
 
 public class ProjectileLaunch implements Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
-        if (event.isCancelled()) return;
         Projectile projectile = event.getEntity();
         ProjectileSource shooter = projectile.getShooter();
         if (!(shooter instanceof Player)) return;

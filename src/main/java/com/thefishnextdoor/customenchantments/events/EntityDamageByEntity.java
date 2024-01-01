@@ -31,9 +31,8 @@ import com.thefishnextdoor.customenchantments.util.MaterialUtil;
 
 public class EntityDamageByEntity implements Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (event.isCancelled()) return;
         if (event.getCause() != DamageCause.ENTITY_ATTACK) return;
         Entity reciever = event.getEntity();
         Entity damager = event.getDamager();

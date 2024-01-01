@@ -8,9 +8,8 @@ import com.thefishnextdoor.customenchantments.enchantments.CurseOfIronGrip;
 
 public class DropItem implements Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onDropItem(PlayerDropItemEvent event) {
-        if (event.isCancelled()) return;
         CurseOfIronGrip.modifyCancelStatus(event.getPlayer(), event.getItemDrop().getItemStack(), event);
     }
 }

@@ -12,9 +12,8 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.elytra.Mome
 
 public class PlayerMove implements Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerMove(PlayerMoveEvent event) {
-        if (event.isCancelled()) return;
         Player player = event.getPlayer();
         if (player.isGliding()) {
             Momentum.whenGliding(player);

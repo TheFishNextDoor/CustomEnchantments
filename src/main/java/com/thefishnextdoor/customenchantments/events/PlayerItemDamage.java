@@ -11,9 +11,8 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Glas
 
 public class PlayerItemDamage implements Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerItemDamage(PlayerItemDamageEvent event) {
-        if (event.isCancelled()) return;
         ItemStack item = event.getItem();
         Player player = event.getPlayer();
         if (cancel(player, event, item)) return;

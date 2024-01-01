@@ -9,9 +9,8 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.helmet.Sust
 
 public class HungerChange implements Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onHungerChange(FoodLevelChangeEvent event) {
-        if (event.isCancelled()) return;
         if (!(event.getEntity() instanceof Player)) return;
         Player player = (Player) event.getEntity();
         Sustenance.modifyFood(player, event);
