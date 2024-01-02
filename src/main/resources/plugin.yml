@@ -17,3 +17,7 @@ commands:
     description: Get information about an enchantment
     usage: /enchantinfo <enchantment>
     permission: customenchantments.commands.enchantinfo
+  disenchant:
+    description: Remove an enchantment from the item in your hand and return the enchantment book
+    usage: /disenchant <enchantment>
+    permission: customenchantments.commands.disenchant

@@ -1,8 +1,6 @@
 package com.thefishnextdoor.customenchantments.enchantments;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.NamespacedKey;
@@ -16,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.util.InventoryUtil;
 import com.thefishnextdoor.customenchantments.util.MaterialUtil;
 
 public class Telekinesis extends CustomEnchantment {
@@ -63,7 +62,7 @@ public class Telekinesis extends CustomEnchantment {
     public static void transferDrops(Player player, List<Item> drops) {
         if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.TELEKINESIS)) return;
         for (Item drop : drops) {
-            give(player, drop.getItemStack());
+            InventoryUtil.give(player, drop.getItemStack());
         }
         drops.clear();
     }
@@ -71,7 +70,7 @@ public class Telekinesis extends CustomEnchantment {
     public static void transferDrops(Player player, Collection<ItemStack> drops) {
         if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.TELEKINESIS)) return;
         for (ItemStack drop : drops) {
-            give(player, drop);
+            InventoryUtil.give(player, drop);
         }
         drops.clear();
     }
@@ -86,14 +85,5 @@ public class Telekinesis extends CustomEnchantment {
         if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.TELEKINESIS)) return;
         player.giveExp(event.getDroppedExp());
         event.setDroppedExp(0);
-    }
-
-    private static void give(Player player, ItemStack item) {
-        HashMap<Integer, ItemStack> excessItems = player.getInventory().addItem(item);
-        if (excessItems.isEmpty()) return;
-        Iterator<ItemStack> iter = excessItems.values().iterator();
-        while (iter.hasNext()) {
-            player.getWorld().dropItem(player.getLocation(), iter.next());
-        }
     }
 }

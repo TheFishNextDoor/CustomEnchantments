@@ -41,10 +41,9 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player)) return false;
         Player player = (Player) sender;
         if (args.length == 0) return false;
-        String enchantName = args[0];
-        Enchantment enchantment = CommandUtil.getEnchantment(enchantName);
+        Enchantment enchantment = CommandUtil.getEnchantment(args[0]);
         if (enchantment == null) {
-            sender.sendMessage(ChatColor.RED + "Enchantment not found.");
+            player.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;
         }
         int level = 1;

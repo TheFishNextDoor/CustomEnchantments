@@ -18,6 +18,16 @@ public class CommandUtil {
         return names.isEmpty() ? allEnchantmentNames() : names;
     }
 
+    public static ArrayList<String> equippedEnchantmentNames(ItemStack item) {
+        ArrayList<String> names = new ArrayList<>();
+        for (Enchantment enchantment : Enchantment.values()) {
+            if (EnchantUtil.has(item, enchantment)) {
+                names.add(EnchantUtil.name(enchantment));
+            }
+        }
+        return names;
+    }
+
     public static ArrayList<String> allEnchantmentNames() {
         ArrayList<String> names = new ArrayList<>();
         for (Enchantment enchantment : Enchantment.values()) {

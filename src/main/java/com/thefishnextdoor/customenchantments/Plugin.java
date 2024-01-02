@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.thefishnextdoor.customenchantments.commands.EnchantInfo;
 import com.thefishnextdoor.customenchantments.commands.Fenchant;
 import com.thefishnextdoor.customenchantments.commands.Reload;
+import com.thefishnextdoor.customenchantments.commands.Disenchant;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Seeking;
 import com.thefishnextdoor.customenchantments.events.BlockBreak;
 import com.thefishnextdoor.customenchantments.events.BlockDropItems;
@@ -75,5 +76,6 @@ public class Plugin extends JavaPlugin {
         getCommand("reloadenchantments").setExecutor(new Reload(this));
         getCommand("fenchant").setExecutor(new Fenchant());
         getCommand("enchantinfo").setExecutor(new EnchantInfo());
+        getCommand("disenchant").setExecutor(new Disenchant());
     }
 }
