@@ -35,7 +35,7 @@ public class Disenchant implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length != 1) {
+        if (args.length < 1) {
             return false;
         }
 
@@ -44,7 +44,6 @@ public class Disenchant implements CommandExecutor, TabCompleter {
             return true;
         }
         Player player = (Player) sender;
-        boolean creative = player.getGameMode() == GameMode.CREATIVE;
 
         Enchantment enchantment = CommandUtil.getEnchantment(args[0]);
         if (enchantment == null) {
@@ -52,6 +51,7 @@ public class Disenchant implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        boolean creative = player.getGameMode() == GameMode.CREATIVE;
         if (!creative && !InventoryUtil.has(player, Material.BOOK, 1)) {
             player.sendMessage(ChatColor.RED + "You must have a book in your inventory to use this command.");
             return true;
@@ -59,12 +59,17 @@ public class Disenchant implements CommandExecutor, TabCompleter {
 
         ItemStack item = InventoryUtil.getMeleeItemInUse(player);
         int level = EnchantUtil.level(item, enchantment);
-        if (!EnchantUtil.removeEnchant(item, enchantment)) {
-            player.sendMessage(ChatColor.RED + "Enchantment could not be removed from item in hand.");
+        boolean confirm = args.length >= 2 && args[1].equalsIgnoreCase("confirm");
+        if (level > enchantment.getMaxLevel() && !confirm) {
+            player.sendMessage(ChatColor.YELLOW + "Removing this enchantment will reduce its level from " + level + " to "
+                    + enchantment.getMaxLevel() + ". Use " + ChatColor.GOLD + "/disenchant " + args[0] + " confirm" 
+                    + ChatColor.YELLOW + " to confirm.");
             return true;
         }
-
-        if (player.getGameMode() == GameMode.CREATIVE) {
+        
+        level = Math.min(level, enchantment.getMaxLevel());
+        if (!EnchantUtil.removeEnchant(item, enchantment)) {
+            player.sendMessage(ChatColor.RED + "Enchantment could not be removed from item in hand.");
             return true;
         }
 
@@ -72,7 +77,6 @@ public class Disenchant implements CommandExecutor, TabCompleter {
             InventoryUtil.take(player, Material.BOOK, 1);
             InventoryUtil.give(player, EnchantUtil.enchantedBook(enchantment, level));
         }
-
         player.sendMessage(ChatColor.AQUA + "Enchantment removed from item in hand.");
         return true;
     }
