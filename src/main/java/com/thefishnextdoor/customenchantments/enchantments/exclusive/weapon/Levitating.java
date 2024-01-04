@@ -40,6 +40,5 @@ public class Levitating extends ArrowTransformEnchantment {
         if (EnchantTools.holdingRangedWith(player, CustomEnchantment.LEVITATING)) {
             EntityTools.convert(projectile, EntityType.SHULKER_BULLET);
         }
-
     }
 }

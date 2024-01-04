@@ -41,7 +41,9 @@ public class Fenchant implements CommandExecutor, TabCompleter {
             }
             return levels;
         }
-        else return null;
+        else {
+            return null;
+        }
     }
 
     @Override

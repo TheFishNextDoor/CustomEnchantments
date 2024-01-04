@@ -21,11 +21,11 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length != 1) {
-            return null;
+        if (args.length == 1) {
+            return Commands.allEnchantmentNames();
         }
         else {
-            return Commands.allEnchantmentNames();
+            return null;
         }
     }
 

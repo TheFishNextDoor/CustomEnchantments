@@ -50,11 +50,10 @@ public class Destructive extends ArrowTransformEnchantment {
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
-        if (!EnchantTools.holdingRangedWith(player, CustomEnchantment.DESTRUCTIVE)) {
-            return;
+        if (EnchantTools.holdingRangedWith(player, CustomEnchantment.DESTRUCTIVE)) {
+            Snowball snowball = (Snowball) EntityTools.convert(projectile, EntityType.SNOWBALL);
+            snowball.setItem(new ItemStack(Material.TNT));
         }
-        Snowball snowball = (Snowball) EntityTools.convert(projectile, EntityType.SNOWBALL);
-        snowball.setItem(new ItemStack(Material.TNT));
     }
 
     public static void onProjectileHitBlock(Player player, Projectile projectile, Block block) {

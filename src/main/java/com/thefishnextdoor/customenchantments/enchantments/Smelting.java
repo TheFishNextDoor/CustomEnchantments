@@ -92,11 +92,10 @@ public class Smelting extends CustomEnchantment {
         ItemStack itemStack = item.getItemStack();
         Material material = itemStack.getType();
         Material smelted = smelted(material);
-        if (smelted == null) {
-            return;
+        if (smelted != null) {
+            itemStack.setType(smelted);
+            item.setItemStack(itemStack);
         }
-        itemStack.setType(smelted);
-        item.setItemStack(itemStack);
     }
 
     private static void smelt(ItemStack itemStack) {
@@ -128,7 +127,8 @@ public class Smelting extends CustomEnchantment {
                 for (Material material : materialChoice.getChoices()) {
                     smeltingMap.put(material, resultMaterial);
                 }
-            } else if (inputChoice instanceof ExactChoice) {
+            } 
+            else if (inputChoice instanceof ExactChoice) {
                 ExactChoice exactChoice = (ExactChoice) inputChoice;
                 for (ItemStack itemStack : exactChoice.getChoices()) {
                     smeltingMap.put(itemStack.getType(), resultMaterial);

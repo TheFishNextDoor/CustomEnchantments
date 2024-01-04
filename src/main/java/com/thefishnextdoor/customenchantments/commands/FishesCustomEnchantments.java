@@ -65,7 +65,7 @@ public class FishesCustomEnchantments implements CommandExecutor, TabCompleter {
 
         if (subcommand.equals("reload") && reloadPermission) {
             plugin.reload();
-            sender.sendMessage(ChatColor.GREEN + "Plugin reloaded");
+            sender.sendMessage(ChatColor.AQUA + "Plugin reloaded");
             return true;
         }
 

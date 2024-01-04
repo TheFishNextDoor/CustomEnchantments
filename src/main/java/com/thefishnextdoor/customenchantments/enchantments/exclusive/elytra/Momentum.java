@@ -41,7 +41,7 @@ public class Momentum extends MutuallyExclusiveElytraEnchantment {
             return;
         }
 
-        float pitch = -((float) Math.toDegrees(Math.asin(velocity.getY() / velocity.length())));
+        float pitch = -((float) Math.toDegrees(Math.asin(velocity.getY() / speed)));
         if (pitch <= 0) {
             return;
         }
