@@ -60,7 +60,7 @@ public class Disenchant implements CommandExecutor, TabCompleter {
         ItemStack item = InventoryUtil.getMeleeItemInUse(player);
         int level = EnchantUtil.level(item, enchantment);
         boolean confirm = args.length >= 2 && args[1].equalsIgnoreCase("confirm");
-        if (level > enchantment.getMaxLevel() && !confirm) {
+        if (level > enchantment.getMaxLevel() && !confirm && !creative) {
             player.sendMessage(ChatColor.YELLOW + "Removing this enchantment will reduce its level from " + level + " to "
                     + enchantment.getMaxLevel() + ". Use " + ChatColor.GOLD + "/disenchant " + args[0] + " confirm" 
                     + ChatColor.YELLOW + " to confirm.");
