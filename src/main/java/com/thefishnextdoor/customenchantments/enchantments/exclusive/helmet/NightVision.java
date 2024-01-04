@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffectType;
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveHelmetEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class NightVision extends MutuallyExclusiveHelmetEnchantment {
 
@@ -38,7 +38,8 @@ public class NightVision extends MutuallyExclusiveHelmetEnchantment {
     }
 
     public static void onTimer(Player player, ItemStack helmet) {
-        if (!EnchantUtil.has(helmet, CustomEnchantment.NIGHT_VISION)) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900 + ArmorEffects.PERIOD, 0));
+        if (EnchantTools.has(helmet, CustomEnchantment.NIGHT_VISION)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 900 + ArmorEffects.PERIOD, 0));
+        }
     }
 }

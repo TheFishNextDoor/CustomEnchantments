@@ -11,8 +11,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Spurs extends CustomEnchantment {
 
@@ -47,8 +47,10 @@ public class Spurs extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isBoots(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isBoots(item.getType());
     }
 
     @Override
@@ -57,10 +59,16 @@ public class Spurs extends CustomEnchantment {
     }
 
     public static void onTimer(Player player, ItemStack boots) {
-        if (player.getVehicle() == null || !(player.getVehicle() instanceof LivingEntity)) return;
+        if (player.getVehicle() == null || !(player.getVehicle() instanceof LivingEntity)) {
+            return;
+        }
+
+        int level = EnchantTools.level(boots, CustomEnchantment.SPURS);
+        if (level < 1) {
+            return;
+        }
+        
         LivingEntity mount = (LivingEntity) player.getVehicle();
-        int level = EnchantUtil.level(boots, CustomEnchantment.SPURS);
-        if (level < 1) return;
         mount.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, ArmorEffects.PERIOD * 2, level - 1));
         mount.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, ArmorEffects.PERIOD * 2, level - 1));
     }

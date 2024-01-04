@@ -6,7 +6,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveHelmetEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Worm extends MutuallyExclusiveHelmetEnchantment {
 
@@ -35,8 +35,12 @@ public class Worm extends MutuallyExclusiveHelmetEnchantment {
     }
 
     public static void modifyCancelStatus(Player player, EntityDamageEvent event) {
-        if (event.getCause() != EntityDamageEvent.DamageCause.SUFFOCATION) return;
-        if (!EnchantUtil.has(player.getInventory().getHelmet(), CustomEnchantment.WORM)) return;
+        if (event.getCause() != EntityDamageEvent.DamageCause.SUFFOCATION) {
+            return;
+        }
+        if (!EnchantTools.has(player.getInventory().getHelmet(), CustomEnchantment.WORM)) {
+            return;
+        }
         event.setCancelled(true);
     }
 }

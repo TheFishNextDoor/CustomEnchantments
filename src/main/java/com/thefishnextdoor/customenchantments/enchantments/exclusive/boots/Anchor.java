@@ -10,7 +10,7 @@ import org.bukkit.util.Vector;
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveBootsEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Anchor extends MutuallyExclusiveBootsEnchantment {
 
@@ -39,17 +39,28 @@ public class Anchor extends MutuallyExclusiveBootsEnchantment {
     }
 
     public static void whenSwimming(Player player) {
-        if (!EnchantUtil.has(player.getInventory().getBoots(), CustomEnchantment.ANCHOR)) return;
+        if (!EnchantTools.has(player.getInventory().getBoots(), CustomEnchantment.ANCHOR)) {
+            return;
+        }
+
         Vector velocity = player.getVelocity();
         double y = velocity.getY();
-        if (y <= 0) velocity.setY(y - (0.06));
-        else velocity.setY(y - (0.03));
+        if (y <= 0) {
+            velocity.setY(y - (0.06));
+        }
+        else {
+            velocity.setY(y - (0.03));
+        }
         player.setVelocity(velocity);
     }
 
     public static void onTimer(Player player, ItemStack boots) {
-        if (!player.isInWater()) return;
-        if (!EnchantUtil.has(player.getInventory().getBoots(), CustomEnchantment.ANCHOR)) return;
+        if (!player.isInWater()) {
+            return;
+        }
+        if (!EnchantTools.has(player.getInventory().getBoots(), CustomEnchantment.ANCHOR)) {
+            return;
+        }
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, ArmorEffects.PERIOD * 2, 2));
     }
 }

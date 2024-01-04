@@ -7,8 +7,8 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveLeggingsEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.EntityUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.EntityTools;
 
 public class Heavy extends MutuallyExclusiveLeggingsEnchantment {
 
@@ -37,8 +37,12 @@ public class Heavy extends MutuallyExclusiveLeggingsEnchantment {
     }
 
     public static void onPlayerTakeDamage(Player player, EntityDamageEvent event) {
-        if (event.getCause() != DamageCause.ENTITY_ATTACK) return;
-        if (!EnchantUtil.has(player.getInventory().getLeggings(), CustomEnchantment.HEAVY)) return;
-        EntityUtil.cancelKnockback(player);
+        if (event.getCause() != DamageCause.ENTITY_ATTACK) {
+            return;
+        }
+        if (!EnchantTools.has(player.getInventory().getLeggings(), CustomEnchantment.HEAVY)) {
+            return;
+        }
+        EntityTools.cancelKnockback(player);
     }
 }

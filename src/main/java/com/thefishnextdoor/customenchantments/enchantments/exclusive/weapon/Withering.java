@@ -9,8 +9,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Withering extends MutuallyExclusiveWeaponEnchantment {
 
@@ -35,8 +35,10 @@ public class Withering extends MutuallyExclusiveWeaponEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isWeapon(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isWeapon(item.getType());
     }
 
     @Override
@@ -45,8 +47,10 @@ public class Withering extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {
-        final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.WITHERING, ranged);
-        if (level < 1) return;
+        final int level = EnchantTools.weaponLevel(player, CustomEnchantment.WITHERING, ranged);
+        if (level < 1) {
+            return;
+        }
         int strength = level/3;
         reciever.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 40 + (level * 20)/(strength + 1), strength));
     }

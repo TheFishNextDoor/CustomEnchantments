@@ -15,10 +15,10 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.PlayerTracker;
-import com.thefishnextdoor.customenchantments.WorldTools;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.InventoryUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.InventoryTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
+import com.thefishnextdoor.customenchantments.tools.WorldTools;
 
 public class Excavating extends CustomEnchantment {
 
@@ -53,8 +53,10 @@ public class Excavating extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isTool(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isTool(item.getType());
     }
 
     @Override
@@ -63,7 +65,10 @@ public class Excavating extends CustomEnchantment {
     }
 
     public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {
-        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.EXCAVATING)) return;
+        if (!EnchantTools.holdingMeleeWith(player, CustomEnchantment.EXCAVATING)) {
+            return;
+        }
+
         BlockFace face = PlayerTracker.get(player).getMiningFace();
         ArrayList<Block> blocks = new ArrayList<>();
         if (face == BlockFace.EAST || face == BlockFace.WEST) { // Looking along x axis
@@ -96,8 +101,9 @@ public class Excavating extends CustomEnchantment {
             blocks.add(block.getRelative(-1, 0, 1));
             blocks.add(block.getRelative(-1, 0, -1));
         }
+        
         Iterator<Block> iter = blocks.iterator();
-        ItemStack item = InventoryUtil.getMeleeItemInUse(player);
+        ItemStack item = InventoryTools.getMeleeItemInUse(player);
         while (iter.hasNext()) {
             Block iblock = iter.next();
             if ((!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) WorldTools.breakBlock(player, iblock, item);

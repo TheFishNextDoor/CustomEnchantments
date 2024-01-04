@@ -13,8 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.Commands;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.InventoryUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.InventoryTools;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -30,7 +30,7 @@ public class Disenchant implements CommandExecutor, TabCompleter {
             return null;
         }
 
-        return Commands.equippedEnchantmentNames(InventoryUtil.getMeleeItemInUse((Player) sender));
+        return Commands.equippedEnchantmentNames(InventoryTools.getMeleeItemInUse((Player) sender));
     }
 
     @Override
@@ -43,22 +43,22 @@ public class Disenchant implements CommandExecutor, TabCompleter {
             sender.sendMessage(ChatColor.RED + "Only players can use this command.");
             return true;
         }
-        Player player = (Player) sender;
 
-        Enchantment enchantment = EnchantUtil.getEnchantment(args[0]);
+        Player player = (Player) sender;
+        Enchantment enchantment = EnchantTools.getEnchantment(args[0]);
         if (enchantment == null) {
             player.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;
         }
 
         boolean creative = player.getGameMode() == GameMode.CREATIVE;
-        if (!creative && !InventoryUtil.has(player, Material.BOOK, 1)) {
+        if (!creative && !InventoryTools.has(player, Material.BOOK, 1)) {
             player.sendMessage(ChatColor.RED + "You must have a book in your inventory to use this command.");
             return true;
         }
 
-        ItemStack item = InventoryUtil.getMeleeItemInUse(player);
-        int level = EnchantUtil.level(item, enchantment);
+        ItemStack item = InventoryTools.getMeleeItemInUse(player);
+        int level = EnchantTools.level(item, enchantment);
         boolean confirm = args.length >= 2 && args[1].equalsIgnoreCase("confirm");
         if (level > enchantment.getMaxLevel() && !confirm && !creative) {
             player.sendMessage(ChatColor.YELLOW + "Removing this enchantment will reduce its level from " + level + " to "
@@ -68,14 +68,14 @@ public class Disenchant implements CommandExecutor, TabCompleter {
         }
         
         level = Math.min(level, enchantment.getMaxLevel());
-        if (!EnchantUtil.removeEnchant(item, enchantment)) {
+        if (!EnchantTools.removeEnchant(item, enchantment)) {
             player.sendMessage(ChatColor.RED + "Enchantment could not be removed from item in hand.");
             return true;
         }
 
         if (!creative) {
-            InventoryUtil.take(player, Material.BOOK, 1);
-            InventoryUtil.give(player, EnchantUtil.enchantedBook(enchantment, level));
+            InventoryTools.take(player, Material.BOOK, 1);
+            InventoryTools.give(player, EnchantTools.enchantedBook(enchantment, level));
         }
         player.sendMessage(ChatColor.AQUA + "Enchantment removed from item in hand.");
         return true;

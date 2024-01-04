@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffectType;
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveChestplateEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class DragonScales extends MutuallyExclusiveChestplateEnchantment {
 
@@ -38,8 +38,10 @@ public class DragonScales extends MutuallyExclusiveChestplateEnchantment {
     }
 
     public static void onTimer(Player player, ItemStack chestplate) {
-        int level = EnchantUtil.level(chestplate, CustomEnchantment.DRAGON_SCALES);
-        if (level < 1) return;
+        int level = EnchantTools.level(chestplate, CustomEnchantment.DRAGON_SCALES);
+        if (level < 1) {
+            return;
+        }
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, ArmorEffects.PERIOD * 2, level-1));
     }
 }

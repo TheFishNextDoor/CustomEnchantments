@@ -8,8 +8,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
 
@@ -34,8 +34,10 @@ public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isWeapon(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isWeapon(item.getType());
     }
 
     @Override
@@ -44,31 +46,50 @@ public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void onPlayerAttackEntity(Player player, EntityDamageByEntityEvent event, boolean ranged) {
-        final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.LIFE_STEAL, ranged);
-        if (level < 1) return;
+        final int level = EnchantTools.weaponLevel(player, CustomEnchantment.LIFE_STEAL, ranged);
+        if (level < 1) {
+            return;
+        }
+
         double damage = event.getFinalDamage();
-        if (!ranged) damage /= 2;
+        if (!ranged) {
+            damage /= 2;
+        }
+
         heal(player, calcAddedHealth(damage, level));
     }
 
     private static double calcAddedHealth(double damage, int level) {
-        if (level == 1) return damage/6;
-        else if (level == 2) return damage/5;
-        else if (level == 3) return damage/4;
-        else if (level == 4) return damage/3;
-        else if (level == 5) return damage/2;
-        else if (level == 6) return damage/1.75;
-        else if (level == 7) return damage/1.5;
-        else if (level == 8) return damage/1.25;
-        else if (level == 9) return damage;
-        else if (level >= 10) return damage*1.25;
-        else return 0;
+        switch (level) {
+            case 1:
+                return damage/6;
+            case 2:
+                return damage/5;
+            case 3:
+                return damage/4;
+            case 4:
+                return damage/3;
+            case 5:
+                return damage/2;
+            case 6:
+                return damage/1.75;
+            case 7:
+                return damage/1.5;
+            case 8:
+                return damage/1.25;
+            case 9:
+                return damage;
+            case 10:
+                return damage*1.25;
+            default:
+                return 0;
+        }
     }
 
     private static void heal(Player player, double amount) {
-        final double maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+        double maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
         double newHealth = player.getHealth() + amount;
-        if (newHealth > maxHealth) newHealth = maxHealth;
+        newHealth = Math.min(newHealth, maxHealth);
         player.setHealth(newHealth);
     }
 }

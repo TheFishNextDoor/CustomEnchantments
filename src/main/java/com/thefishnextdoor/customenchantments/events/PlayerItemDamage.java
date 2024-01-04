@@ -15,15 +15,14 @@ public class PlayerItemDamage implements Listener {
     public void onPlayerItemDamage(PlayerItemDamageEvent event) {
         ItemStack item = event.getItem();
         Player player = event.getPlayer();
-        if (cancel(player, event, item)) return;
+        if (cancel(player, item)) {
+            event.setCancelled(true);
+            return;
+        }
         Glass.modifyDamage(player, item, event);
     }
 
-    private static boolean cancel(Player player, PlayerItemDamageEvent event, ItemStack item) {
-        if (!Unbreakable.canTakeDamage(player, item)) {
-            event.setCancelled(true);
-            return true;
-        }
-        return false;
+    private static boolean cancel(Player player, ItemStack item) {
+        return !Unbreakable.canTakeDamage(player, item);
     }
 }

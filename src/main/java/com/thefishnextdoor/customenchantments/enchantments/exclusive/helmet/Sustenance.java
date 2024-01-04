@@ -6,7 +6,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveHelmetEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Sustenance extends MutuallyExclusiveHelmetEnchantment {
 
@@ -35,9 +35,10 @@ public class Sustenance extends MutuallyExclusiveHelmetEnchantment {
     }
 
     public static void modifyFood(Player player, FoodLevelChangeEvent event) {
-        if (!EnchantUtil.has(player.getInventory().getHelmet(), CustomEnchantment.SUSTENANCE)) return;
-        int food = event.getFoodLevel() + 2;
-        if (food > 20) food = 20;
-        event.setFoodLevel(food);
+        if (EnchantTools.has(player.getInventory().getHelmet(), CustomEnchantment.SUSTENANCE)) {
+            int food = event.getFoodLevel() + 2;
+            food = Math.min(food, 20);
+            event.setFoodLevel(food);
+        }
     }
 }

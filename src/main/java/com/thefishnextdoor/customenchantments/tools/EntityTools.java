@@ -1,4 +1,4 @@
-package com.thefishnextdoor.customenchantments.util;
+package com.thefishnextdoor.customenchantments.tools;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -8,10 +8,13 @@ import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.customenchantments.EndOfTick;
 
-public class EntityUtil {
+public class EntityTools {
 
     public static Entity convert(Entity entity, EntityType type) {
-        if (entity.getType() == type) return entity;
+        if (entity.getType() == type) {
+            return entity;
+        }
+
         Entity newEntity = entity.getWorld().spawnEntity(entity.getLocation(), type);
         newEntity.setFireTicks(entity.getFireTicks());
         if (newEntity instanceof Fireball) {
@@ -20,9 +23,11 @@ public class EntityUtil {
         else {
             newEntity.setVelocity(entity.getVelocity());
         }
+
         if (entity instanceof Projectile && newEntity instanceof Projectile) {
             ((Projectile) newEntity).setShooter(((Projectile) entity).getShooter());
         }
+        
         EndOfTick.remove(entity);
         return newEntity;
     }

@@ -76,8 +76,8 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Tele
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Venom;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Volley;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Withering;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public abstract class CustomEnchantment extends Enchantment {
     private static ArrayList<CustomEnchantment> customEnchantments = new ArrayList<>();
@@ -194,14 +194,18 @@ public abstract class CustomEnchantment extends Enchantment {
 
             @Override
             public boolean conflictsWith(Enchantment other) {
-                if (EnchantUtil.same(other, Enchantment.PIERCING)) return true;
+                if (EnchantTools.same(other, Enchantment.PIERCING)) {
+                    return true;
+                }
                 return isMutuallyExclusiveWeaponEnchantment(other);
             }
 
             @Override
             public boolean canEnchantItem(ItemStack item) {
-                if (item == null) return false;
-                return MaterialUtil.firesArrows(item.getType());
+                if (item == null) {
+                    return false;
+                }
+                return MaterialTools.firesArrows(item.getType());
             }
         }
     }
@@ -223,8 +227,10 @@ public abstract class CustomEnchantment extends Enchantment {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
-            return MaterialUtil.isHelmet(item.getType());
+            if (item == null) {
+                return false;
+            }
+            return MaterialTools.isHelmet(item.getType());
         }
     }
 
@@ -245,8 +251,10 @@ public abstract class CustomEnchantment extends Enchantment {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
-            return MaterialUtil.isChestplate(item.getType());
+            if (item == null) {
+                return false;
+            }
+            return MaterialTools.isChestplate(item.getType());
         }
     }
 
@@ -267,7 +275,9 @@ public abstract class CustomEnchantment extends Enchantment {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
+            if (item == null) {
+                return false;
+            }
             return item.getType() == Material.ELYTRA;
         }
     }
@@ -289,8 +299,10 @@ public abstract class CustomEnchantment extends Enchantment {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
-            return MaterialUtil.isLeggings(item.getType());
+            if (item == null) {
+                return false;
+            }
+            return MaterialTools.isLeggings(item.getType());
         }
     }
 
@@ -311,8 +323,10 @@ public abstract class CustomEnchantment extends Enchantment {
 
         @Override
         public boolean canEnchantItem(ItemStack item) {
-            if (item == null) return false;
-            return MaterialUtil.isBoots(item.getType());
+            if (item == null) {
+                return false;
+            }
+            return MaterialTools.isBoots(item.getType());
         }
     }
 
@@ -392,7 +406,9 @@ public abstract class CustomEnchantment extends Enchantment {
     public static boolean isCustomEnchantment(Enchantment enchantment) {
         //return enchantment instanceof CustomEnchantment; // Not reload safe
         for (CustomEnchantment customEnchantment : customEnchantments) {
-            if (EnchantUtil.same(customEnchantment, enchantment)) return true;
+            if (EnchantTools.same(customEnchantment, enchantment)) {
+                return true;
+            }
         }
         return false;
     }
@@ -400,7 +416,9 @@ public abstract class CustomEnchantment extends Enchantment {
     public static boolean isMutuallyExclusiveWeaponEnchantment(Enchantment enchantment) {
         //return enchantment instanceof MutuallyExclusiveWeaponEnchantment; // Not reload safe
         for (MutuallyExclusiveWeaponEnchantment mutuallyExclusiveWeaponEnchantment : mutuallyExclusiveWeaponEnchantments) {
-            if (EnchantUtil.same(mutuallyExclusiveWeaponEnchantment, enchantment)) return true;
+            if (EnchantTools.same(mutuallyExclusiveWeaponEnchantment, enchantment)) {
+                return true;
+            }
         }
         return false;
     }
@@ -408,7 +426,9 @@ public abstract class CustomEnchantment extends Enchantment {
     public static boolean isMutuallyExclusiveHelmetEnchantment(Enchantment enchantment) {
         //return enchantment instanceof MutuallyExclusiveHelmetEnchantment; // Not reload safe
         for (MutuallyExclusiveHelmetEnchantment mutuallyExclusiveHelmetEnchantment : mutuallyExclusiveHelmetEnchantments) {
-            if (EnchantUtil.same(mutuallyExclusiveHelmetEnchantment, enchantment)) return true;
+            if (EnchantTools.same(mutuallyExclusiveHelmetEnchantment, enchantment)) {
+                return true;
+            }
         }
         return false;
     }
@@ -416,7 +436,9 @@ public abstract class CustomEnchantment extends Enchantment {
     public static boolean isMutuallyExclusiveChestplateEnchantment(Enchantment enchantment) {
         //return enchantment instanceof MutuallyExclusiveChestplateEnchantment; // Not reload safe
         for (MutuallyExclusiveChestplateEnchantment mutuallyExclusiveChestplateEnchantment : mutuallyExclusiveChestplateEnchantments) {
-            if (EnchantUtil.same(mutuallyExclusiveChestplateEnchantment, enchantment)) return true;
+            if (EnchantTools.same(mutuallyExclusiveChestplateEnchantment, enchantment)) {
+                return true;
+            }
         }
         return false;
     }
@@ -424,7 +446,9 @@ public abstract class CustomEnchantment extends Enchantment {
     public static boolean isMutuallyExclusiveElytraEnchantment(Enchantment enchantment) {
         //return enchantment instanceof MutuallyExclusiveElytraEnchantment; // Not reload safe
         for (MutuallyExclusiveElytraEnchantment mutuallyExclusiveElytraEnchantment : mutuallyExclusiveElytraEnchantments) {
-            if (EnchantUtil.same(mutuallyExclusiveElytraEnchantment, enchantment)) return true;
+            if (EnchantTools.same(mutuallyExclusiveElytraEnchantment, enchantment)) {
+                return true;
+            }
         }
         return false;
     }
@@ -432,7 +456,9 @@ public abstract class CustomEnchantment extends Enchantment {
     public static boolean isMutuallyExclusiveLeggingsEnchantment(Enchantment enchantment) {
         //return enchantment instanceof MutuallyExclusiveLeggingsEnchantment; // Not reload safe
         for (MutuallyExclusiveLeggingsEnchantment mutuallyExclusiveLeggingsEnchantment : mutuallyExclusiveLeggingsEnchantments) {
-            if (EnchantUtil.same(mutuallyExclusiveLeggingsEnchantment, enchantment)) return true;
+            if (EnchantTools.same(mutuallyExclusiveLeggingsEnchantment, enchantment)) {
+                return true;
+            }
         }
         return false;
     }
@@ -440,25 +466,29 @@ public abstract class CustomEnchantment extends Enchantment {
     public static boolean isMutuallyExclusiveBootsEnchantment(Enchantment enchantment) {
         //return enchantment instanceof MutuallyExclusiveBootsEnchantment; // Not reload safe
         for (MutuallyExclusiveBootsEnchantment mutuallyExclusiveBootsEnchantment : mutuallyExclusiveBootsEnchantments) {
-            if (EnchantUtil.same(mutuallyExclusiveBootsEnchantment, enchantment)) return true;
+            if (EnchantTools.same(mutuallyExclusiveBootsEnchantment, enchantment)) {
+                return true;
+            }
         }
         return false;
     }
 
     public static String description(Enchantment enchantment) {
-        return descriptions.get(EnchantUtil.name(enchantment));
+        return descriptions.get(EnchantTools.name(enchantment));
     }
 
     public static boolean hasCustomEnchantments(ItemStack item) {
-        for (Enchantment enchantment : EnchantUtil.enchantments(item)) {
-            if (isCustomEnchantment(enchantment)) return true;
+        for (Enchantment enchantment : EnchantTools.enchantments(item)) {
+            if (isCustomEnchantment(enchantment)) {
+                return true;
+            }
         }
         return false;
     }
 
     public static ArrayList<Enchantment> customEnchantments(ItemStack item) {
         ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
-        for (Enchantment enchantment : EnchantUtil.enchantments(item)) {
+        for (Enchantment enchantment : EnchantTools.enchantments(item)) {
             if (isCustomEnchantment(enchantment)) {
                 foundFishchantments.add(enchantment);
             }
@@ -467,8 +497,12 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     private static void register(CustomEnchantment enchant) {
-        if (customEnchantments.contains(enchant)) return;
+        if (customEnchantments.contains(enchant)) {
+            return;
+        }
+
         customEnchantments.add(enchant);
+
         if (enchant instanceof MutuallyExclusiveWeaponEnchantment) {
             mutuallyExclusiveWeaponEnchantments.add((MutuallyExclusiveWeaponEnchantment) enchant);
         }
@@ -487,7 +521,9 @@ public abstract class CustomEnchantment extends Enchantment {
         else if (enchant instanceof MutuallyExclusiveBootsEnchantment) {
             mutuallyExclusiveBootsEnchantments.add((MutuallyExclusiveBootsEnchantment) enchant);
         }
-        descriptions.put(EnchantUtil.name(enchant), enchant.getDescription());
+
+        descriptions.put(EnchantTools.name(enchant), enchant.getDescription());
+        
         try {
             Field f = Enchantment.class.getDeclaredField("acceptingNew");
             f.setAccessible(true);

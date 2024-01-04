@@ -6,7 +6,7 @@ import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveElytraEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Momentum extends MutuallyExclusiveElytraEnchantment {
 
@@ -37,12 +37,22 @@ public class Momentum extends MutuallyExclusiveElytraEnchantment {
     public static void whenGliding(Player player) {
         Vector velocity = player.getVelocity();
         double speed = velocity.length();
-        if (speed < 0.6 || speed > 2.5) return;
+        if (speed < 0.6 || speed > 2.5) {
+            return;
+        }
+
         float pitch = -((float) Math.toDegrees(Math.asin(velocity.getY() / velocity.length())));
-        if (pitch <= 0) return;
-        int level = EnchantUtil.level(player.getInventory().getChestplate(), CustomEnchantment.MOMENTUM);
-        if (level < 1) return;
-        if (level > 10) level = 10;
+        if (pitch <= 0) {
+            return;
+        }
+
+        int level = EnchantTools.level(player.getInventory().getChestplate(), CustomEnchantment.MOMENTUM);
+        if (level < 1) {
+            return;
+        }
+
+        level = Math.min(level, 10);
+        
         Vector increase = velocity.clone().normalize().multiply(level * (pitch/10) * 0.002);
         player.setVelocity(velocity.add(increase));
     }

@@ -9,8 +9,8 @@ import org.bukkit.entity.AbstractArrow.PickupStatus;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment.ArrowTransformEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.EntityUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.EntityTools;
 
 public class Harpoon extends ArrowTransformEnchantment {
 
@@ -39,8 +39,9 @@ public class Harpoon extends ArrowTransformEnchantment {
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
-        if (!EnchantUtil.holdingRangedWith(player, CustomEnchantment.HARPOON)) return;
-        Trident trident = (Trident) EntityUtil.convert(projectile, EntityType.TRIDENT);
-        trident.setPickupStatus(PickupStatus.DISALLOWED);
+        if (EnchantTools.holdingRangedWith(player, CustomEnchantment.HARPOON)) {
+            Trident trident = (Trident) EntityTools.convert(projectile, EntityType.TRIDENT);
+            trident.setPickupStatus(PickupStatus.DISALLOWED);
+        }
     }
 }

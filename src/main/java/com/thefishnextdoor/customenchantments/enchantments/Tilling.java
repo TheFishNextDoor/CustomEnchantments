@@ -10,8 +10,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.PermChecker;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Tilling extends CustomEnchantment {
 
@@ -46,8 +46,10 @@ public class Tilling extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isHoe(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isHoe(item.getType());
     }
 
     @Override
@@ -56,8 +58,12 @@ public class Tilling extends CustomEnchantment {
     }
 
     public static void onTill(Player player, Block block) {
-        if (player == null || block == null) return;
-        if (!EnchantUtil.holdingHoeWith(player, CustomEnchantment.TILLING)) return;
+        if (player == null || block == null) {
+            return;
+        }
+        if (!EnchantTools.holdingHoeWith(player, CustomEnchantment.TILLING)) {
+            return;
+        }
         till(player, block);
     }
 
@@ -66,7 +72,9 @@ public class Tilling extends CustomEnchantment {
         int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
         for (int[] coords : allCoords) {
             Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-            if (isTillable(modifiedBlock.getType()) && PermChecker.canBreak(player, modifiedBlock)) modifiedBlock.setType(Material.FARMLAND);
+            if (isTillable(modifiedBlock.getType()) && PermChecker.canBreak(player, modifiedBlock)) {
+                modifiedBlock.setType(Material.FARMLAND);
+            }
         }
     }
 

@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveChestplateEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Flaming extends MutuallyExclusiveChestplateEnchantment {
 
@@ -35,8 +35,10 @@ public class Flaming extends MutuallyExclusiveChestplateEnchantment {
     }
 
     public static void onEntityAttackPlayer(Player player, LivingEntity entity) {
-        int level = EnchantUtil.level(player.getInventory().getChestplate(), CustomEnchantment.FLAMING);
-        if (level < 1) return;
+        int level = EnchantTools.level(player.getInventory().getChestplate(), CustomEnchantment.FLAMING);
+        if (level < 1) {
+            return;
+        }
         entity.setFireTicks(level * 20);
     }
 }

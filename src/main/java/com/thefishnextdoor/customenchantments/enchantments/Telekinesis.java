@@ -13,9 +13,9 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.InventoryUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.InventoryTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Telekinesis extends CustomEnchantment {
 
@@ -50,8 +50,10 @@ public class Telekinesis extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isTool(item.getType()) || MaterialUtil.isWeapon(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isTool(item.getType()) || MaterialTools.isWeapon(item.getType());
     }
 
     @Override
@@ -60,30 +62,36 @@ public class Telekinesis extends CustomEnchantment {
     }
 
     public static void transferDrops(Player player, List<Item> drops) {
-        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.TELEKINESIS)) return;
+        if (!EnchantTools.holdingMeleeWith(player, CustomEnchantment.TELEKINESIS)) {
+            return;
+        }
         for (Item drop : drops) {
-            InventoryUtil.give(player, drop.getItemStack());
+            InventoryTools.give(player, drop.getItemStack());
         }
         drops.clear();
     }
 
     public static void transferDrops(Player player, Collection<ItemStack> drops) {
-        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.TELEKINESIS)) return;
+        if (!EnchantTools.holdingMeleeWith(player, CustomEnchantment.TELEKINESIS)) {
+            return;
+        }
         for (ItemStack drop : drops) {
-            InventoryUtil.give(player, drop);
+            InventoryTools.give(player, drop);
         }
         drops.clear();
     }
 
     public static void transferXp(Player player, BlockBreakEvent event) {
-        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.TELEKINESIS)) return;
-        player.giveExp(event.getExpToDrop());
-        event.setExpToDrop(0);
+        if (EnchantTools.holdingMeleeWith(player, CustomEnchantment.TELEKINESIS)) {
+            player.giveExp(event.getExpToDrop());
+            event.setExpToDrop(0);
+        }
     }
 
     public static void transferXp(Player player, EntityDeathEvent event) {
-        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.TELEKINESIS)) return;
-        player.giveExp(event.getDroppedExp());
-        event.setDroppedExp(0);
+        if (EnchantTools.holdingMeleeWith(player, CustomEnchantment.TELEKINESIS)) {
+            player.giveExp(event.getDroppedExp());
+            event.setDroppedExp(0);
+        }
     }
 }

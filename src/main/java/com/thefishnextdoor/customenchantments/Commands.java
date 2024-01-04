@@ -6,7 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Commands {
     public static final String RELOAD_PERMISSION = "fce.admin.reload";
@@ -17,8 +17,8 @@ public class Commands {
     public static ArrayList<String> recommendedEnchantmentNames(ItemStack item) {
         ArrayList<String> names = new ArrayList<>();
         for (Enchantment enchantment : Enchantment.values()) {
-            if (EnchantUtil.has(item, enchantment) || enchantment.canEnchantItem(item) || item.getType() == Material.ENCHANTED_BOOK) {
-                names.add(EnchantUtil.name(enchantment));
+            if (EnchantTools.has(item, enchantment) || enchantment.canEnchantItem(item) || item.getType() == Material.ENCHANTED_BOOK) {
+                names.add(EnchantTools.name(enchantment));
             }
         }
         return names.isEmpty() ? allEnchantmentNames() : names;
@@ -27,8 +27,8 @@ public class Commands {
     public static ArrayList<String> equippedEnchantmentNames(ItemStack item) {
         ArrayList<String> names = new ArrayList<>();
         for (Enchantment enchantment : Enchantment.values()) {
-            if (EnchantUtil.has(item, enchantment)) {
-                names.add(EnchantUtil.name(enchantment));
+            if (EnchantTools.has(item, enchantment)) {
+                names.add(EnchantTools.name(enchantment));
             }
         }
         return names;
@@ -37,7 +37,7 @@ public class Commands {
     public static ArrayList<String> allEnchantmentNames() {
         ArrayList<String> names = new ArrayList<>();
         for (Enchantment enchantment : Enchantment.values()) {
-            names.add(EnchantUtil.name(enchantment));
+            names.add(EnchantTools.name(enchantment));
         }
         return names;
     }

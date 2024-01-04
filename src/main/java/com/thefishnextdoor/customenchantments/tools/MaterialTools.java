@@ -1,8 +1,8 @@
-package com.thefishnextdoor.customenchantments.util;
+package com.thefishnextdoor.customenchantments.tools;
 
 import org.bukkit.Material;
 
-public class MaterialUtil {
+public class MaterialTools {
 
     public static boolean isEnchantable(Material material) {
         return isTool(material) || isWeapon(material)  || isArmor(material);

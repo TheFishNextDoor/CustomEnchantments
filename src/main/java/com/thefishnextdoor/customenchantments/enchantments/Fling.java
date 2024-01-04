@@ -10,8 +10,8 @@ import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.EndOfTick;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Fling extends CustomEnchantment {
 
@@ -46,8 +46,10 @@ public class Fling extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isWeapon(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isWeapon(item.getType());
     }
 
     @Override
@@ -56,8 +58,10 @@ public class Fling extends CustomEnchantment {
     }
 
     public static void onPlayerAttackEntity(Player player, final Entity entity, boolean ranged) {
-        final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.FLING, ranged);
-        if (level < 1) return;
+        final int level = EnchantTools.weaponLevel(player, CustomEnchantment.FLING, ranged);
+        if (level < 1) {
+            return;
+        }
         entity.teleport(entity.getLocation().add(0, 0.25, 0));
         final double y = (ranged ? 0.1 : 0.05) + (level * 0.1);
         EndOfTick.setVelocity(entity, new Vector(0, y, 0));

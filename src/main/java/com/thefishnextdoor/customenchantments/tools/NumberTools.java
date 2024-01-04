@@ -1,8 +1,8 @@
-package com.thefishnextdoor.customenchantments.util;
+package com.thefishnextdoor.customenchantments.tools;
 
 import java.util.Random;
 
-public class NumberUtil {
+public class NumberTools {
 
     public static boolean chance(double percent) {
         double randomValue = new Random().nextDouble() * 100.0;

@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffectType;
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveChestplateEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Healing extends MutuallyExclusiveChestplateEnchantment {
 
@@ -38,8 +38,10 @@ public class Healing extends MutuallyExclusiveChestplateEnchantment {
     }
 
     public static void onTimer(Player player, ItemStack chestplate) {
-        int level = EnchantUtil.level(chestplate, CustomEnchantment.HEALING);
-        if (level < 1) return;
+        int level = EnchantTools.level(chestplate, CustomEnchantment.HEALING);
+        if (level < 1) {
+            return;
+        }
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, ArmorEffects.PERIOD * 2, level-1));
     }
 }

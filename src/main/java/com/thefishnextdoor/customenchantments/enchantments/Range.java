@@ -8,8 +8,8 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Range extends CustomEnchantment {
 
@@ -44,8 +44,10 @@ public class Range extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isRanged(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isRanged(item.getType());
     }
 
     @Override
@@ -54,9 +56,15 @@ public class Range extends CustomEnchantment {
     }
 
     public static void modifyVelocity(Player player, Projectile projectile) {
-        if (player == null || projectile == null) return;
-        final int level = EnchantUtil.rangedLevel(player, CustomEnchantment.RANGE);
-        if (level < 1) return;
+        if (player == null || projectile == null) {
+            return;
+        }
+
+        final int level = EnchantTools.rangedLevel(player, CustomEnchantment.RANGE);
+        if (level < 1) {
+            return;
+        }
+        
         double levelValue = level; 
         projectile.setVelocity(projectile.getVelocity().multiply(1.0 + (levelValue/5.0)));
     }

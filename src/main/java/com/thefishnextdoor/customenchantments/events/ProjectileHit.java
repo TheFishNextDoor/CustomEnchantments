@@ -17,12 +17,16 @@ public class ProjectileHit implements Listener {
     public void onProjectileHit(ProjectileHitEvent event) {
         Projectile projectile = event.getEntity();
         ProjectileSource shooter = projectile.getShooter();
-        if (!(shooter instanceof Player)) return;
+        if (!(shooter instanceof Player)) {
+            return;
+        }
+
         Player player = (Player) shooter;
         Block block = event.getHitBlock();
         if (block != null) {
             Destructive.onProjectileHitBlock(player, projectile, block);
         }
+        
         Entity entity = event.getHitEntity();
         if (entity != null) {
             Destructive.onProjectileHitEntity(player, projectile, entity);

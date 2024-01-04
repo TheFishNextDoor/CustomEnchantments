@@ -13,8 +13,8 @@ import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Volley extends MutuallyExclusiveWeaponEnchantment {
 
@@ -39,8 +39,10 @@ public class Volley extends MutuallyExclusiveWeaponEnchantment {
     
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.firesArrows(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.firesArrows(item.getType());
     }
 
     @Override
@@ -49,10 +51,16 @@ public class Volley extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void onPlayerFireProjectile(Player player, Projectile projectile) {
-        if (!(projectile instanceof AbstractArrow)) return;
-        int level = EnchantUtil.rangedLevel(player, CustomEnchantment.VOLLEY);
-        if (level < 1) return;
-        if (level > 9) level = 9;
+        if (!(projectile instanceof AbstractArrow)) {
+            return;
+        }
+
+        int level = EnchantTools.rangedLevel(player, CustomEnchantment.VOLLEY);
+        level = Math.min(level, 9);
+        if (level < 1) {
+            return;
+        }
+        
         World world = projectile.getWorld();
         Location location = projectile.getLocation();
         EntityType type = projectile.getType();

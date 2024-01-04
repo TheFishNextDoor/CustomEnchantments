@@ -7,8 +7,8 @@ import org.bukkit.entity.Projectile;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment.ArrowTransformEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.EntityUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.EntityTools;
 
 public class Teleport extends ArrowTransformEnchantment {
 
@@ -37,7 +37,8 @@ public class Teleport extends ArrowTransformEnchantment {
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
-        if (!EnchantUtil.holdingRangedWith(player, CustomEnchantment.TELEPORT)) return;
-        EntityUtil.convert(projectile, EntityType.ENDER_PEARL);
+        if (EnchantTools.holdingRangedWith(player, CustomEnchantment.TELEPORT)) {
+            EntityTools.convert(projectile, EntityType.ENDER_PEARL);
+        }
     }
 }

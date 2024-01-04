@@ -11,8 +11,8 @@ import org.bukkit.potion.PotionEffectType;
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.ArmorEffects.ArmorCheckOptimizer;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class CurseOfLevitating extends CustomEnchantment {
 
@@ -47,8 +47,10 @@ public class CurseOfLevitating extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isArmor(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isArmor(item.getType());
     }
 
     @Override
@@ -57,8 +59,10 @@ public class CurseOfLevitating extends CustomEnchantment {
     }
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {
-        int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_LEVITATING, o);
-        if (level < 1) return;
+        int level = EnchantTools.armorLevel(player, CustomEnchantment.CURSE_OF_LEVITATING, o);
+        if (level < 1) {
+            return;
+        }
         player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, ArmorEffects.PERIOD * 2, level-1));
     }
 }

@@ -7,7 +7,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveChestplateEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class DeathWish extends MutuallyExclusiveChestplateEnchantment {
 
@@ -36,12 +36,15 @@ public class DeathWish extends MutuallyExclusiveChestplateEnchantment {
     }
 
     public static void modifyDamage(Player player, EntityDamageByEntityEvent event) {
-        if (!EnchantUtil.has(player.getInventory().getChestplate(), CustomEnchantment.DEATH_WISH)) return;
+        if (!EnchantTools.has(player.getInventory().getChestplate(), CustomEnchantment.DEATH_WISH)) {
+            return;
+        }
         event.setDamage(event.getDamage() * 1.75);
     }
 
     public static void modifyDamage(Player player, EntityDamageEvent event) {
-        if (!EnchantUtil.has(player.getInventory().getChestplate(), CustomEnchantment.DEATH_WISH)) return;
-        event.setDamage(event.getDamage() * 1.5);
+        if (EnchantTools.has(player.getInventory().getChestplate(), CustomEnchantment.DEATH_WISH)) {
+            event.setDamage(event.getDamage() * 1.5);
+        }
     }
 }

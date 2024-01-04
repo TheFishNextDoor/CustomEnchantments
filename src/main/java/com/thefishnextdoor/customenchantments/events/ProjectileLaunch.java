@@ -25,7 +25,10 @@ public class ProjectileLaunch implements Listener {
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
         Projectile projectile = event.getEntity();
         ProjectileSource shooter = projectile.getShooter();
-        if (!(shooter instanceof Player)) return;
+        if (!(shooter instanceof Player)) {
+            return;
+        }
+        
         Player player = (Player) shooter;
         Range.modifyVelocity(player, projectile);
         Precision.modifyVelocity(player, projectile);

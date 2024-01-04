@@ -11,8 +11,9 @@ public class HungerChange implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onHungerChange(FoodLevelChangeEvent event) {
-        if (!(event.getEntity() instanceof Player)) return;
-        Player player = (Player) event.getEntity();
-        Sustenance.modifyFood(player, event);
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
+            Sustenance.modifyFood(player, event);
+        }
     }
 }

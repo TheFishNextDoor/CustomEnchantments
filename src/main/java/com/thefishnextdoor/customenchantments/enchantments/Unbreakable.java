@@ -7,8 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Unbreakable extends CustomEnchantment {
 
@@ -38,14 +38,18 @@ public class Unbreakable extends CustomEnchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, CustomEnchantment.GLASS));
+        if (EnchantTools.same(other, CustomEnchantment.GLASS)) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isEnchantable(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isEnchantable(item.getType());
     }
 
     @Override
@@ -54,6 +58,6 @@ public class Unbreakable extends CustomEnchantment {
     }
 
     public static boolean canTakeDamage(Player player, ItemStack item) {
-        return !EnchantUtil.has(item, CustomEnchantment.UNBREAKABLE);
+        return !EnchantTools.has(item, CustomEnchantment.UNBREAKABLE);
     }
 }

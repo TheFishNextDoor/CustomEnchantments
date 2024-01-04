@@ -9,7 +9,7 @@ import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class PrepareAnvil implements Listener {
     
@@ -18,9 +18,15 @@ public class PrepareAnvil implements Listener {
         ItemStack result = event.getResult();
         ItemStack zero = event.getInventory().getItem(0);
         ItemStack one = event.getInventory().getItem(1);
-        EnchantUtil.verify(zero); EnchantUtil.verify(one);
-        if (!(CustomEnchantment.hasCustomEnchantments(zero) || CustomEnchantment.hasCustomEnchantments(one))) return;
-        if (!EnchantUtil.canMergeInAnvil(zero, one)) return;
+        EnchantTools.verify(zero); EnchantTools.verify(one);
+        if (!(CustomEnchantment.hasCustomEnchantments(zero) || CustomEnchantment.hasCustomEnchantments(one))) {
+            return;
+        }
+
+        if (!EnchantTools.canMergeInAnvil(zero, one)) {
+            return;
+        }
+
         boolean cloned = false;
         if (result == null) {
             result = zero.clone();
@@ -30,17 +36,18 @@ public class PrepareAnvil implements Listener {
             ArrayList<Enchantment> fishchantments = CustomEnchantment.customEnchantments(zero);
             for (int i = 0; i < fishchantments.size(); i++) {
                 Enchantment enchantment = fishchantments.get(i);
-                int level = EnchantUtil.level(zero, enchantment);
-                EnchantUtil.addEnchant(result, enchantment, level, true, false);
+                int level = EnchantTools.level(zero, enchantment);
+                EnchantTools.addEnchant(result, enchantment, level, true, false);
             }
         }
-        ArrayList<Enchantment> enchantments = EnchantUtil.enchantments(one);
+        
+        ArrayList<Enchantment> enchantments = EnchantTools.enchantments(one);
         for (int i = 0; i < enchantments.size(); i++) {
             Enchantment enchantment = enchantments.get(i);
-            int level = EnchantUtil.level(one, enchantment);
-            EnchantUtil.addEnchant(result, enchantment, level, false, true);
+            int level = EnchantTools.level(one, enchantment);
+            EnchantTools.addEnchant(result, enchantment, level, false, true);
         }
-        if (EnchantUtil.sameEnchantments(zero, result) && cloned) {
+        if (EnchantTools.sameEnchantments(zero, result) && cloned) {
             event.setResult(null);
             return;
         }

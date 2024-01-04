@@ -12,7 +12,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class InventoryClick implements Listener {
     
@@ -25,17 +25,23 @@ public class InventoryClick implements Listener {
     }
 
     private void onGrindstone(InventoryClickEvent event, GrindstoneInventory grindstone) {
-        if (event.getSlotType() != SlotType.RESULT) return;
+        if (event.getSlotType() != SlotType.RESULT) {
+            return;
+        }
+
         ItemStack result = grindstone.getItem(event.getRawSlot());
         ItemStack zero = grindstone.getItem(0);
         ItemStack one = grindstone.getItem(1);
-        EnchantUtil.verify(zero); EnchantUtil.verify(one);
-        if (!(CustomEnchantment.hasCustomEnchantments(zero) || CustomEnchantment.hasCustomEnchantments(one))) return;
+        EnchantTools.verify(zero); EnchantTools.verify(one);
+        if (!(CustomEnchantment.hasCustomEnchantments(zero) || CustomEnchantment.hasCustomEnchantments(one))) {
+            return;
+        }
+        
         ArrayList<Enchantment> fishchantments = CustomEnchantment.customEnchantments(zero);
         fishchantments.addAll(CustomEnchantment.customEnchantments(one));
         for (int i = 0; i < fishchantments.size(); i++) {
             Enchantment enchantment = fishchantments.get(i);
-            EnchantUtil.removeEnchant(result, enchantment);
+            EnchantTools.removeEnchant(result, enchantment);
         }
     }
 }

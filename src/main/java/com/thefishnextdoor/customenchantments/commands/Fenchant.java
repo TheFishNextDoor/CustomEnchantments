@@ -11,8 +11,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 
 import com.thefishnextdoor.customenchantments.Commands;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.InventoryUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.InventoryTools;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -20,13 +20,21 @@ public class Fenchant implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (!(sender instanceof Player)) return null;
+        if (!(sender instanceof Player)) {
+            return null;
+        }
+
         Player player = (Player) sender;
-        if (args.length == 1) return Commands.recommendedEnchantmentNames(InventoryUtil.getMeleeItemInUse(player));
+        if (args.length == 1) {
+            return Commands.recommendedEnchantmentNames(InventoryTools.getMeleeItemInUse(player));
+        }
         else if (args.length == 2) {
+            Enchantment enchantment = EnchantTools.getEnchantment(args[0]);
+            if (enchantment == null) {
+                return null;
+            }
+
             ArrayList<String> levels = new ArrayList<>();
-            Enchantment enchantment = EnchantUtil.getEnchantment(args[0]);
-            if (enchantment == null) return null;
             int maxLevel = enchantment.getMaxLevel();
             for (Integer i=0; i<=maxLevel; i++) {
                 levels.add(i.toString());
@@ -38,23 +46,43 @@ public class Fenchant implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) return false;
+        if (args.length == 0) {
+            return false;
+        }
+
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(ChatColor.RED + "Only players can use this command.");
+            return true;
+        
+        }
+
         Player player = (Player) sender;
-        if (args.length == 0) return false;
-        Enchantment enchantment = EnchantUtil.getEnchantment(args[0]);
+        Enchantment enchantment = EnchantTools.getEnchantment(args[0]);
         if (enchantment == null) {
             player.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;
         }
+
         int level = 1;
-        if (args.length >= 2) level = EnchantUtil.number(args[1]);
+        if (args.length >= 2) {
+            level = EnchantTools.number(args[1]);
+        }
+
         if (level > 0) {
-            if (EnchantUtil.addEnchant(player.getInventory().getItemInMainHand(), enchantment, level, true, false)) player.sendMessage("Enchantment added to item in hand.");
-            else player.sendMessage(ChatColor.RED + "Enchantment could not be added to item in hand.");
+            if (EnchantTools.addEnchant(player.getInventory().getItemInMainHand(), enchantment, level, true, false)) {
+                player.sendMessage("Enchantment added to item in hand.");
+            }
+            else {
+                player.sendMessage(ChatColor.RED + "Enchantment could not be added to item in hand.");
+            }
         }
         else {
-            if (EnchantUtil.removeEnchant(player.getInventory().getItemInMainHand(), enchantment)) player.sendMessage("Enchantment removed from item in hand.");
-            else player.sendMessage(ChatColor.RED + "Enchantment could not be removed from item in hand.");
+            if (EnchantTools.removeEnchant(player.getInventory().getItemInMainHand(), enchantment)) {
+                player.sendMessage("Enchantment removed from item in hand.");
+            }
+            else {
+                player.sendMessage(ChatColor.RED + "Enchantment could not be removed from item in hand.");
+            }
         }
         return true;
     }

@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffectType;
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveLeggingsEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Swiftness extends MutuallyExclusiveLeggingsEnchantment {
 
@@ -38,8 +38,10 @@ public class Swiftness extends MutuallyExclusiveLeggingsEnchantment {
     }
 
     public static void onTimer(Player player, ItemStack boots) {
-        int level = EnchantUtil.level(boots, CustomEnchantment.SWIFTNESS);
-        if (level < 1) return;
+        int level = EnchantTools.level(boots, CustomEnchantment.SWIFTNESS);
+        if (level < 1) {
+            return;
+        }
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, ArmorEffects.PERIOD * 2, level-1));
     }
 }

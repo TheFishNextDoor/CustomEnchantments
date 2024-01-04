@@ -29,14 +29,18 @@ public class PlayerInteract implements Listener {
     private static void leftClickBlock(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Block clickedBlock = event.getClickedBlock();
-        if (clickedBlock == null) return;
+        if (clickedBlock == null) {
+            return;
+        }
         PlayerTracker.get(player).setMiningFace(event.getBlockFace());
     }
 
     private static void rightClickBlock(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Block clickedBlock = event.getClickedBlock();
-        if (clickedBlock == null) return;
+        if (clickedBlock == null) {
+            return;
+        }
         Tilling.onTill(player, clickedBlock);
         Replanting.onRightClick(player, clickedBlock);
     }

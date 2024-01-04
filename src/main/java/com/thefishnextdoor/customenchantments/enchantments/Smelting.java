@@ -12,8 +12,8 @@ import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.bukkit.inventory.RecipeChoice.MaterialChoice;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -59,8 +59,10 @@ public class Smelting extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isTool(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isTool(item.getType());
     }
 
     @Override
@@ -69,14 +71,18 @@ public class Smelting extends CustomEnchantment {
     }
     
     public static void modifyDrops(Player player, List<Item> drops) {
-        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.SMELTING)) return;
+        if (!EnchantTools.holdingMeleeWith(player, CustomEnchantment.SMELTING)) {
+            return;
+        }
         for (Item drop : drops) {
             Smelting.smelt(drop);
         }
     }
 
     public static void onBlockDropItems(Player player, Collection<ItemStack> drops) {
-        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.SMELTING)) return;
+        if (!EnchantTools.holdingMeleeWith(player, CustomEnchantment.SMELTING)) {
+            return;
+        }
         for (ItemStack drop : drops) {
             Smelting.smelt(drop);
         }
@@ -86,7 +92,9 @@ public class Smelting extends CustomEnchantment {
         ItemStack itemStack = item.getItemStack();
         Material material = itemStack.getType();
         Material smelted = smelted(material);
-        if (smelted == null) return;
+        if (smelted == null) {
+            return;
+        }
         itemStack.setType(smelted);
         item.setItemStack(itemStack);
     }
@@ -94,8 +102,9 @@ public class Smelting extends CustomEnchantment {
     private static void smelt(ItemStack itemStack) {
         Material material = itemStack.getType();
         Material smelted = smelted(material);
-        if (smelted == null) return;
-        itemStack.setType(smelted);
+        if (smelted != null) {
+            itemStack.setType(smelted);
+        }
     }
 
     private static Material smelted(Material material) {
@@ -107,7 +116,10 @@ public class Smelting extends CustomEnchantment {
         Iterator<Recipe> recipes = Bukkit.recipeIterator();
         while (recipes.hasNext()) {
             Recipe recipe = recipes.next();
-            if (!(recipe instanceof FurnaceRecipe)) continue;
+            if (!(recipe instanceof FurnaceRecipe)) {
+                continue;
+            }
+            
             FurnaceRecipe furnaceRecipe = (FurnaceRecipe) recipe;
             RecipeChoice inputChoice = furnaceRecipe.getInputChoice();
             Material resultMaterial = furnaceRecipe.getResult().getType();

@@ -17,7 +17,9 @@ public class BlockBreak implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (!PermChecker.isReal(event)) return;
+        if (!PermChecker.isReal(event)) {
+            return;
+        }
         Player player = event.getPlayer();
         Block block = event.getBlock();
         Replanting.onBlockBreak(player, block, event);

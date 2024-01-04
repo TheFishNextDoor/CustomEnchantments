@@ -6,7 +6,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveChestplateEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class ProjectileResistance extends MutuallyExclusiveChestplateEnchantment {
 
@@ -35,8 +35,12 @@ public class ProjectileResistance extends MutuallyExclusiveChestplateEnchantment
     }
 
     public static void modifyCancelStatus(Player player, EntityDamageEvent event) {
-        if (event.getCause() != EntityDamageEvent.DamageCause.PROJECTILE) return;
-        if (!EnchantUtil.has(player.getInventory().getChestplate(), CustomEnchantment.PROJECTILE_RESISTANCE)) return;
+        if (event.getCause() != EntityDamageEvent.DamageCause.PROJECTILE) {
+            return;
+        }
+        if (!EnchantTools.has(player.getInventory().getChestplate(), CustomEnchantment.PROJECTILE_RESISTANCE)) {
+            return;
+        }
         event.setCancelled(true);
     }
 }

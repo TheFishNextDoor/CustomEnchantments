@@ -7,8 +7,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
 
@@ -33,8 +33,10 @@ public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isRangedWeapon(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isRangedWeapon(item.getType());
     }
 
     @Override
@@ -43,12 +45,16 @@ public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void onPlayerAttackEntity(Player player, LivingEntity livingEntity, boolean ranged) {
-        final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.BLOOD_TIPPED, ranged);
-        if (level < 1) return;
+        final int level = EnchantTools.weaponLevel(player, CustomEnchantment.BLOOD_TIPPED, ranged);
+        if (level < 1) {
+            return;
+        }
         livingEntity.addPotionEffects(player.getActivePotionEffects());
     }
 
     public static void onPlayerFireProjectile(Player player) {
-        if (EnchantUtil.holdingRangedWith(player, CustomEnchantment.BLOOD_TIPPED)) player.damage(1);
+        if (EnchantTools.holdingRangedWith(player, CustomEnchantment.BLOOD_TIPPED)) {
+            player.damage(1);
+        }
     }
 }

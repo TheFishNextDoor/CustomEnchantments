@@ -1,4 +1,4 @@
-package com.thefishnextdoor.customenchantments;
+package com.thefishnextdoor.customenchantments.tools;
 
 import java.util.Collection;
 
@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
+import com.thefishnextdoor.customenchantments.PermChecker;
 import com.thefishnextdoor.customenchantments.enchantments.Smelting;
 import com.thefishnextdoor.customenchantments.enchantments.Telekinesis;
 

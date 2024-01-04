@@ -17,11 +17,11 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.Settings;
-import com.thefishnextdoor.customenchantments.WorldTools;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment.ArrowTransformEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.EntityUtil;
-import com.thefishnextdoor.customenchantments.util.InventoryUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.EntityTools;
+import com.thefishnextdoor.customenchantments.tools.InventoryTools;
+import com.thefishnextdoor.customenchantments.tools.WorldTools;
 
 public class Destructive extends ArrowTransformEnchantment {
 
@@ -50,35 +50,55 @@ public class Destructive extends ArrowTransformEnchantment {
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
-        if (!EnchantUtil.holdingRangedWith(player, CustomEnchantment.DESTRUCTIVE)) return;
-        Snowball snowball = (Snowball) EntityUtil.convert(projectile, EntityType.SNOWBALL);
+        if (!EnchantTools.holdingRangedWith(player, CustomEnchantment.DESTRUCTIVE)) {
+            return;
+        }
+        Snowball snowball = (Snowball) EntityTools.convert(projectile, EntityType.SNOWBALL);
         snowball.setItem(new ItemStack(Material.TNT));
     }
 
     public static void onProjectileHitBlock(Player player, Projectile projectile, Block block) {
-        ItemStack item = InventoryUtil.getRangedItemInUse(player);
-        final int level = EnchantUtil.level(item, CustomEnchantment.DESTRUCTIVE);
-        if (level < 1) return;
+        ItemStack item = InventoryTools.getRangedItemInUse(player);
+        final int level = EnchantTools.level(item, CustomEnchantment.DESTRUCTIVE);
+        if (level < 1) {
+            return;
+        }
+
         Material material = breakableMaterial(block);
-        if (material == null) return;
+        if (material == null) {
+            return;
+        }
+
         ItemStack newItem = item.clone();
         newItem.setType(material);
         WorldTools.breakBlock(player, block, newItem);
-        if (Settings.PLAY_EFFECTS) playEffect(block.getLocation().add(0.5, 0.5, 0.5));
+        if (Settings.PLAY_EFFECTS) {
+            playEffect(block.getLocation().add(0.5, 0.5, 0.5));
+        }
     }
 
     public static void onProjectileHitEntity(Player player, Projectile projectile, Entity entity) {
-        final int level = EnchantUtil.rangedLevel(player, CustomEnchantment.DESTRUCTIVE);
-        if (level < 1) return;
-        if (Settings.PLAY_EFFECTS) playEffect(entity.getLocation());
+        final int level = EnchantTools.rangedLevel(player, CustomEnchantment.DESTRUCTIVE);
+        if (level < 1) {
+            return;
+        }
+        if (Settings.PLAY_EFFECTS) {
+            playEffect(entity.getLocation());
+        }
     }
 
     private static Material breakableMaterial(Block block) {
         ItemStack silkTouchPickaxe = new ItemStack(Material.IRON_PICKAXE);
         silkTouchPickaxe.addEnchantment(Enchantment.SILK_TOUCH, 1);
-        if (!block.getDrops(silkTouchPickaxe).isEmpty()) return Material.IRON_PICKAXE;
+        if (!block.getDrops(silkTouchPickaxe).isEmpty()) {
+            return Material.IRON_PICKAXE;
+        }
+
         ItemStack shears = new ItemStack(Material.SHEARS);
-        if (!block.getDrops(shears).isEmpty()) return Material.SHEARS;
+        if (!block.getDrops(shears).isEmpty()) {
+            return Material.SHEARS;
+        }
+        
         return null;
     }
 

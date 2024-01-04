@@ -26,14 +26,16 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Obsc
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Starving;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Venom;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Withering;
-import com.thefishnextdoor.customenchantments.util.InventoryUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.InventoryTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class EntityDamageByEntity implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (event.getCause() != DamageCause.ENTITY_ATTACK) return;
+        if (event.getCause() != DamageCause.ENTITY_ATTACK) {
+            return;
+        }
         Entity reciever = event.getEntity();
         Entity damager = event.getDamager();
 
@@ -48,14 +50,20 @@ public class EntityDamageByEntity implements Listener {
             }
             if (event.getFinalDamage() == 0 && reciever instanceof Player) {
                 Player player = (Player) reciever;
-                if (player.isBlocking()) Reflection.onDeflectProjectile(player, projectile);
+                if (player.isBlocking()) {
+                    Reflection.onDeflectProjectile(player, projectile);
+                }
             }
         }
 
-        if (!(event.getFinalDamage() > 0)) return;
+        if (!(event.getFinalDamage() > 0)) {
+            return;
+        }
+
         if (reciever instanceof Player && damager instanceof LivingEntity) {
             onEntityAttackPlayer((Player) reciever, (LivingEntity) damager);
         }
+
         if (damager instanceof Player && reciever instanceof LivingEntity) {
             onPlayerAttackEntity((Player) damager, (LivingEntity) reciever, event, RANGED_ATTACK);
         }
@@ -67,7 +75,9 @@ public class EntityDamageByEntity implements Listener {
     }
     
     private void onPlayerAttackEntity(Player player, LivingEntity entity, EntityDamageByEntityEvent event, boolean RANGED_ATTACK) {
-        if (!RANGED_ATTACK && MaterialUtil.isRangedWeapon(InventoryUtil.getMeleeItemInUse(player).getType())) return;
+        if (!RANGED_ATTACK && MaterialTools.isRangedWeapon(InventoryTools.getMeleeItemInUse(player).getType())) {
+            return;
+        }
         DeathWish.modifyDamage(player, event);
         Glass.modifyDamage(player, event, RANGED_ATTACK);
         AquaAspect.modifyDamage(player, entity, event, RANGED_ATTACK);

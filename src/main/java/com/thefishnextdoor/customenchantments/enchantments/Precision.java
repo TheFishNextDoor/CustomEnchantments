@@ -9,8 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Precision extends CustomEnchantment {
 
@@ -45,8 +45,10 @@ public class Precision extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isRangedWeapon(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isRangedWeapon(item.getType());
     }
 
     @Override
@@ -55,8 +57,12 @@ public class Precision extends CustomEnchantment {
     }
 
     public static void modifyVelocity(Player player, Projectile projectile) {
-        if (player == null || projectile == null) return;
-        if (!EnchantUtil.holdingMeleeWith(player, CustomEnchantment.PRECISION)) return;
+        if (player == null || projectile == null) {
+            return;
+        }
+        if (!EnchantTools.holdingMeleeWith(player, CustomEnchantment.PRECISION)) {
+            return;
+        }
         Vector direction = player.getEyeLocation().getDirection();
         Vector velocity = projectile.getVelocity();
         velocity.setX(direction.getX() * velocity.length());

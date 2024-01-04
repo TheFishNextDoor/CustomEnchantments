@@ -11,8 +11,8 @@ import org.bukkit.potion.PotionEffectType;
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.ArmorEffects.ArmorCheckOptimizer;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Invisibility extends CustomEnchantment {
 
@@ -47,8 +47,10 @@ public class Invisibility extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isArmor(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isArmor(item.getType());
     }
 
     @Override
@@ -57,7 +59,8 @@ public class Invisibility extends CustomEnchantment {
     }
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {
-        if (!EnchantUtil.wearing(player, CustomEnchantment.INVISIBILITY, o)) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, ArmorEffects.PERIOD * 2, 0));
+        if (EnchantTools.wearing(player, CustomEnchantment.INVISIBILITY, o)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, ArmorEffects.PERIOD * 2, 0));
+        }
     }
 }

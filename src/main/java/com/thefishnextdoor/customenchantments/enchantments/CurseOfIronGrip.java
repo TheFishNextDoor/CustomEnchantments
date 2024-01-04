@@ -9,8 +9,8 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class CurseOfIronGrip extends CustomEnchantment {
 
@@ -45,9 +45,11 @@ public class CurseOfIronGrip extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
+        if (item == null) {
+            return false;
+        }
         Material type = item.getType();
-        return MaterialUtil.isWeapon(type) || MaterialUtil.isTool(type);
+        return MaterialTools.isWeapon(type) || MaterialTools.isTool(type);
     }
 
     @Override
@@ -56,7 +58,8 @@ public class CurseOfIronGrip extends CustomEnchantment {
     }
 
     public static void modifyCancelStatus(Player player, ItemStack item, PlayerDropItemEvent event) {
-        if (!EnchantUtil.has(item, CustomEnchantment.CURSE_OF_IRON_GRIP)) return;
-        event.setCancelled(true);
+        if (EnchantTools.has(item, CustomEnchantment.CURSE_OF_IRON_GRIP)) {
+            event.setCancelled(true);
+        }
     }
 }

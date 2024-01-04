@@ -9,8 +9,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Glass extends MutuallyExclusiveWeaponEnchantment {
 
@@ -35,22 +35,32 @@ public class Glass extends MutuallyExclusiveWeaponEnchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, Enchantment.DURABILITY)) return true;
-        if (EnchantUtil.same(other, Enchantment.MENDING)) return true;
-        if (EnchantUtil.same(other, CustomEnchantment.UNBREAKABLE)) return true;
+        if (EnchantTools.same(other, Enchantment.DURABILITY)) {
+            return true;
+        }
+        if (EnchantTools.same(other, Enchantment.MENDING)) {
+            return true;
+        }
+        if (EnchantTools.same(other, CustomEnchantment.UNBREAKABLE)){
+            return true;
+        }
         return CustomEnchantment.isMutuallyExclusiveWeaponEnchantment(other);
     }
 
     public static void modifyDamage(Player player, EntityDamageByEntityEvent event, boolean ranged) {
-        final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.GLASS, ranged);
-        if (level < 1) return;
+        final int level = EnchantTools.weaponLevel(player, CustomEnchantment.GLASS, ranged);
+        if (level < 1) {
+            return;
+        }
         event.setDamage(event.getDamage() * 1.5);
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isWeapon(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isWeapon(item.getType());
     }
 
     @Override
@@ -59,7 +69,8 @@ public class Glass extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void modifyDamage(Player player, ItemStack item, PlayerItemDamageEvent event) {
-        if (!EnchantUtil.has(item, CustomEnchantment.GLASS)) return;
-        event.setDamage(event.getDamage() * 32);
+        if (EnchantTools.has(item, CustomEnchantment.GLASS)) {
+            event.setDamage(event.getDamage() * 32);
+        }
     }
 }

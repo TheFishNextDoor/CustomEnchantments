@@ -68,7 +68,9 @@ public class ArmorEffects {
                 Collection<? extends Player> players = Bukkit.getOnlinePlayers();
                 for (Player player : players) {
                     ArmorCheckOptimizer o = new ArmorCheckOptimizer(player);
-                    if (! o.CHECK_HELMET && !o.CHECK_CHESTPLATE && !o.CHECK_LEGGINGS && !o.CHECK_BOOTS) continue;
+                    if (! o.CHECK_HELMET && !o.CHECK_CHESTPLATE && !o.CHECK_LEGGINGS && !o.CHECK_BOOTS) {
+                        continue;
+                    }
                     CurseOfRadiance.onTimer(player, o);
                     CurseOfMiningFatigue.onTimer(player, o);
                     CurseOfSlowness.onTimer(player, o);

@@ -9,8 +9,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.ArmorEffects.ArmorCheckOptimizer;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class CurseOfAquaphobia extends CustomEnchantment {
 
@@ -45,8 +45,10 @@ public class CurseOfAquaphobia extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isArmor(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isArmor(item.getType());
     }
 
     @Override
@@ -55,9 +57,13 @@ public class CurseOfAquaphobia extends CustomEnchantment {
     }
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {
-        int level = EnchantUtil.armorLevel(player, CustomEnchantment.CURSE_OF_AQUAPHOBIA, o);
-        if (level < 1) return;
-        if (!(player.isInWater() || (isRaining(player.getLocation().getBlock()) && !underBlock(player)))) return; 
+        int level = EnchantTools.armorLevel(player, CustomEnchantment.CURSE_OF_AQUAPHOBIA, o);
+        if (level < 1) {
+            return;
+        }
+        if (!(player.isInWater() || (isRaining(player.getLocation().getBlock()) && !underBlock(player)))) {
+            return;
+        }
         player.damage(1);
     }
 

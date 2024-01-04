@@ -15,9 +15,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.EntityUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.EntityTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class AquaAspect extends CustomEnchantment {
 
@@ -47,14 +47,18 @@ public class AquaAspect extends CustomEnchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        if (EnchantUtil.same(other, Enchantment.FIRE_ASPECT)) return true;
+        if (EnchantTools.same(other, Enchantment.FIRE_ASPECT)) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isWeapon(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isWeapon(item.getType());
     }
 
     @Override
@@ -63,22 +67,35 @@ public class AquaAspect extends CustomEnchantment {
     }
 
     public static void modifyDamage(Player player, final LivingEntity entity, EntityDamageByEntityEvent event, boolean ranged) {
-        int level = EnchantUtil.weaponLevel(player, CustomEnchantment.AQUA_ASPECT, ranged);
-        if (level < 1) return;
-        if (entity.getFireTicks() > 0) entity.setFireTicks(0);
-        if (isAquaphobic(entity.getType())) event.setDamage(event.getDamage() + (level * 2.5));
+        int level = EnchantTools.weaponLevel(player, CustomEnchantment.AQUA_ASPECT, ranged);
+        if (level < 1) {
+            return;
+        }
+
+        if (entity.getFireTicks() > 0) {
+            entity.setFireTicks(0);
+        }
+
+        if (isAquaphobic(entity.getType())) {
+            event.setDamage(event.getDamage() + (level * 2.5));
+        }
+
         if (entity instanceof Enderman) {
-            EntityUtil.cancelKnockback(entity);
+            EntityTools.cancelKnockback(entity);
             teleport((Enderman) entity, player);
         }
     }
 
     private static boolean isAquaphobic(EntityType type) {
-        if (type == EntityType.ENDERMAN) return true;
-        if (type == EntityType.BLAZE) return true;
-        if (type == EntityType.MAGMA_CUBE) return true;
-        if (type == EntityType.STRIDER) return true;
-        return false;
+        switch (type) {
+            case ENDERMAN:
+            case BLAZE:
+            case MAGMA_CUBE:
+            case STRIDER:
+                return true;
+            default:
+                return false;
+        }
     }
 
     private static void teleport(Enderman enderman, Player attacker) {

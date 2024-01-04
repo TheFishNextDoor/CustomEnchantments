@@ -6,7 +6,7 @@ import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveElytraEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Boosters extends MutuallyExclusiveElytraEnchantment {
 
@@ -35,12 +35,22 @@ public class Boosters extends MutuallyExclusiveElytraEnchantment {
     }
 
     public static void whenGliding(Player player) {
-        if (player.isInWater()) return;
+        if (player.isInWater()) {
+            return;
+        }
+
+        int level = EnchantTools.level(player.getInventory().getChestplate(), CustomEnchantment.BOOSTERS);
+        if (level < 1) {
+            return;
+        }
+
         Vector velocity = player.getVelocity();
-        int level = EnchantUtil.level(player.getInventory().getChestplate(), CustomEnchantment.BOOSTERS);
-        if (level < 1) return;
-        if (level > 10) level = 10;
-        if (velocity.length() > 1.1) return;
+        if (velocity.length() > 1.1) {
+            return;
+        }
+        
+        level = Math.min(level, 10);
+
         Vector increase = player.getLocation().getDirection().clone().normalize().multiply(level * 0.01);
         player.setVelocity(velocity.add(increase));
     }

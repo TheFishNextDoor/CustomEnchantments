@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffectType;
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveChestplateEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class FireResistance extends MutuallyExclusiveChestplateEnchantment {
 
@@ -38,7 +38,8 @@ public class FireResistance extends MutuallyExclusiveChestplateEnchantment {
     }
 
     public static void onTimer(Player player, ItemStack chestplate) {
-        if (!(EnchantUtil.has(chestplate, CustomEnchantment.FIRE_RESISTANCE))) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, ArmorEffects.PERIOD * 2, 0));
+        if (EnchantTools.has(chestplate, CustomEnchantment.FIRE_RESISTANCE)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, ArmorEffects.PERIOD * 2, 0));
+        }
     }
 }

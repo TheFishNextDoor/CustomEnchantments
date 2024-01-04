@@ -9,8 +9,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment.ArrowTransformEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.EntityUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.EntityTools;
 
 public class FireBlast extends ArrowTransformEnchantment {
 
@@ -35,7 +35,9 @@ public class FireBlast extends ArrowTransformEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
+        if (item == null) {
+            return false;
+        }
         Material type = item.getType();
         return type == Material.CROSSBOW;
     }
@@ -46,7 +48,8 @@ public class FireBlast extends ArrowTransformEnchantment {
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {
-        if (!EnchantUtil.holdingRangedWith(player, CustomEnchantment.FIRE_BLAST)) return;
-        EntityUtil.convert(projectile, EntityType.SMALL_FIREBALL);
+        if (EnchantTools.holdingRangedWith(player, CustomEnchantment.FIRE_BLAST)) {
+            EntityTools.convert(projectile, EntityType.SMALL_FIREBALL);
+        }
     }
 }

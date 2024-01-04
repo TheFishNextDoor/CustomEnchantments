@@ -9,7 +9,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Reflection extends CustomEnchantment {
 
@@ -44,7 +44,9 @@ public class Reflection extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
+        if (item == null) {
+            return false;
+        }
         return item.getType() == Material.SHIELD;
     }
 
@@ -54,10 +56,16 @@ public class Reflection extends CustomEnchantment {
     }
 
     public static void onDeflectProjectile(Player player, Projectile projectile) {
-        if (projectile.isOnGround()) return;
-        int level = EnchantUtil.shieldLevel(player, CustomEnchantment.REFLECTION);
-        if (level < 1) return;
-        if (level > 5) level = 5;
+        if (projectile.isOnGround()) {
+            return;
+        }
+
+        int level = EnchantTools.shieldLevel(player, CustomEnchantment.REFLECTION);
+        level = Math.min(level, 5);
+        if (level < 1) {
+            return;
+        }
+        
         projectile.setVelocity(projectile.getVelocity().multiply(3.5 + (level * 1.5)));
     }
 }

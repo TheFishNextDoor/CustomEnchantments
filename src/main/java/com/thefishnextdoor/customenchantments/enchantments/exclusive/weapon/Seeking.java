@@ -19,8 +19,8 @@ import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Seeking extends MutuallyExclusiveWeaponEnchantment {
     private static ArrayList<SeekingArrow> seekingArrows = new ArrayList<>();
@@ -47,8 +47,10 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.firesArrows(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.firesArrows(item.getType());
     }
 
     @Override
@@ -57,7 +59,9 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void startTask(JavaPlugin plugin) {
-        if (taskID != -1) return;
+        if (taskID != -1) {
+            return;
+        }
         taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
@@ -72,13 +76,19 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
     }
 
     public static void stopTask() {
-        if (taskID == -1) return;
-        Bukkit.getScheduler().cancelTask(taskID);
-        taskID = -1;
+        if (taskID != -1) {
+            Bukkit.getScheduler().cancelTask(taskID);
+            taskID = -1;
+        }
     }
+
     public static void onPlayerFireProjectile(Player player, Projectile projectile) {
-        if (!(projectile instanceof AbstractArrow)) return;
-        if (!EnchantUtil.holdingRangedWith(player, CustomEnchantment.SEEKING)) return;
+        if (!(projectile instanceof AbstractArrow)) {
+            return;
+        }
+        if (!EnchantTools.holdingRangedWith(player, CustomEnchantment.SEEKING)) {
+            return;
+        }
         new SeekingArrow((AbstractArrow) projectile, player);
     }
 
@@ -101,10 +111,16 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
 
         public void seek() {
             Entity nearest = nearestEntity();
-            if (nearest == null) return;
+            if (nearest == null) {
+                return;
+            }
+
             Vector originalVelocity = arrow.getVelocity();
             double speed = originalVelocity.length();
-            if (speed < 0.6) return;
+            if (speed < 0.6) {
+                return;
+            }
+
             Vector newDirection = direction(arrow.getLocation(), nearest.getLocation());
             Vector newVelocity = newDirection.multiply(speed);
             Vector weightedVelocity = originalVelocity.multiply(1 - WEIGHT).add(newVelocity.multiply(WEIGHT));
@@ -116,10 +132,16 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
             double nearestDistance = RADIUS;
             List<Entity> nearby = arrow.getNearbyEntities(RADIUS, RADIUS, RADIUS);
             for (Entity entity : nearby) {
-                if (!(entity instanceof LivingEntity)) continue;
-                if (entity instanceof Player && ((Player) entity).getUniqueId().equals(playerID)) continue;
+                if (!(entity instanceof LivingEntity)) {
+                    continue;
+                }
+                if (entity instanceof Player && ((Player) entity).getUniqueId().equals(playerID)) {
+                    continue;
+                }
                 double distance = arrow.getLocation().distance(entity.getLocation());
-                if (distance >= nearestDistance) continue;
+                if (distance >= nearestDistance) {
+                    continue;
+                }
                 nearest = entity;
                 nearestDistance = distance;
             }

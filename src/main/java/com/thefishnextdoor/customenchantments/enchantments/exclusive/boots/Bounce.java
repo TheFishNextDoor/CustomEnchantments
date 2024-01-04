@@ -6,7 +6,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveBootsEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Bounce extends MutuallyExclusiveBootsEnchantment {
 
@@ -35,9 +35,15 @@ public class Bounce extends MutuallyExclusiveBootsEnchantment {
     }
 
     public static void modifyCancelStatus(Player player, EntityDamageEvent event) {
-        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) return;
-        int level = EnchantUtil.level(player.getInventory().getBoots(), CustomEnchantment.BOUNCE);
-        if (level < 1) return;
+        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) {
+            return;
+        }
+
+        int level = EnchantTools.level(player.getInventory().getBoots(), CustomEnchantment.BOUNCE);
+        if (level < 1) {
+            return;
+        }
+        
         double v = Math.log(event.getDamage()) * (level + 2) / 10;
         player.setVelocity(player.getVelocity().setY(v));
         event.setCancelled(true);

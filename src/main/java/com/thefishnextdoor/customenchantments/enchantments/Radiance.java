@@ -10,8 +10,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Radiance extends CustomEnchantment {
 
@@ -46,8 +46,10 @@ public class Radiance extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isWeapon(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isWeapon(item.getType());
     }
 
     @Override
@@ -56,8 +58,10 @@ public class Radiance extends CustomEnchantment {
     }
 
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {
-        final int level = EnchantUtil.weaponLevel(player, CustomEnchantment.RADIANCE, ranged);
-        if (level < 1) return;
+        final int level = EnchantTools.weaponLevel(player, CustomEnchantment.RADIANCE, ranged);
+        if (level < 1) {
+            return;
+        }
         reciever.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, level * 50, 0));
     }
 }

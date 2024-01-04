@@ -9,8 +9,8 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Enlightenment extends CustomEnchantment {
 
@@ -45,8 +45,10 @@ public class Enlightenment extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isWeapon(item.getType()) || MaterialUtil.isTool(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isWeapon(item.getType()) || MaterialTools.isTool(item.getType());
     }
 
     @Override
@@ -55,14 +57,18 @@ public class Enlightenment extends CustomEnchantment {
     }
 
     public static void modifyXp(Player player, EntityDeathEvent event) {
-        int level = EnchantUtil.meleeLevel(player, CustomEnchantment.ENLIGHTENMENT);
-        if (level < 1) return;
+        int level = EnchantTools.meleeLevel(player, CustomEnchantment.ENLIGHTENMENT);
+        if (level < 1) {
+            return;
+        }
         event.setDroppedExp(xp(level, event.getDroppedExp()));
     }
 
     public static void modifyXp(Player player, BlockBreakEvent event) {
-        int level = EnchantUtil.meleeLevel(player, CustomEnchantment.ENLIGHTENMENT);
-        if (level < 1) return;
+        int level = EnchantTools.meleeLevel(player, CustomEnchantment.ENLIGHTENMENT);
+        if (level < 1) {
+            return;
+        }
         event.setExpToDrop(xp(level, event.getExpToDrop()));
     }
 

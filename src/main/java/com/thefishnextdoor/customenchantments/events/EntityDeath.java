@@ -18,10 +18,16 @@ public class EntityDeath implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (!Settings.MOBS_DROP_BOOKS) return;
+        if (!Settings.MOBS_DROP_BOOKS) {
+            return;
+        }
+
         LivingEntity entity = event.getEntity();
         Player player = entity.getKiller();
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
+
         List<ItemStack> drops = event.getDrops();
         Loot.addDrops(player, entity, drops);
         Telekinesis.transferDrops(player, drops);

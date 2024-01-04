@@ -12,10 +12,10 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.PermChecker;
-import com.thefishnextdoor.customenchantments.WorldTools;
-import com.thefishnextdoor.customenchantments.util.EnchantUtil;
-import com.thefishnextdoor.customenchantments.util.InventoryUtil;
-import com.thefishnextdoor.customenchantments.util.MaterialUtil;
+import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.tools.InventoryTools;
+import com.thefishnextdoor.customenchantments.tools.MaterialTools;
+import com.thefishnextdoor.customenchantments.tools.WorldTools;
 
 public class Replanting extends CustomEnchantment {
 
@@ -50,8 +50,10 @@ public class Replanting extends CustomEnchantment {
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        if (item == null) return false;
-        return MaterialUtil.isHoe(item.getType());
+        if (item == null) {
+            return false;
+        }
+        return MaterialTools.isHoe(item.getType());
     }
 
     @Override
@@ -60,35 +62,53 @@ public class Replanting extends CustomEnchantment {
     }
 
     public static void onRightClick(Player player, Block block) {
-        final int level = EnchantUtil.hoeLevel(player, CustomEnchantment.REPLANTING);
-        if (level < 1) return;
-        ItemStack item = InventoryUtil.getHoeInUse(player);
-        if (item == null) return;
+        final int level = EnchantTools.hoeLevel(player, CustomEnchantment.REPLANTING);
+        if (level < 1) {
+            return;
+        }
+
+        ItemStack item = InventoryTools.getHoeInUse(player);
+        if (item == null) {
+            return;
+        }
+
         if (level == 1) {
-            if (PermChecker.canBreak(player, block)) harvest(player, block, item);
+            if (PermChecker.canBreak(player, block)) {
+                harvest(player, block, item);
+            }
         }
         else {
             int x = block.getX(); int y = block.getY(); int z = block.getZ();
             int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
             for (int[] coords : allCoords) {
                 Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                if (PermChecker.canBreak(player, modifiedBlock)) harvest(player, modifiedBlock, item);
+                if (PermChecker.canBreak(player, modifiedBlock)) {
+                    harvest(player, modifiedBlock, item);
+                }
             }
         }
     }
 
     public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {
-        final int level = EnchantUtil.meleeLevel(player, CustomEnchantment.REPLANTING);
-        if (level < 1) return;
-        ItemStack item = InventoryUtil.getMeleeItemInUse(player);
+        final int level = EnchantTools.meleeLevel(player, CustomEnchantment.REPLANTING);
+        if (level < 1) {
+            return;
+        }
+        ItemStack item = InventoryTools.getMeleeItemInUse(player);
         event.setCancelled(harvest(player, block, item));
     }
 
     private static boolean harvest(Player player, Block block, ItemStack item) {
         BlockState state = block.getState();
-        if (!(state.getBlockData() instanceof Ageable)) return false;
+        if (!(state.getBlockData() instanceof Ageable)) {
+            return false;
+        }
+
         Ageable ageable = (Ageable) state.getBlockData();
-        if (ageable.getAge() != ageable.getMaximumAge()) return false;
+        if (ageable.getAge() != ageable.getMaximumAge()) {
+            return false;
+        }
+        
         WorldTools.dropBlockItems(player, block, item);
         ageable.setAge(0);
         block.setBlockData(ageable);

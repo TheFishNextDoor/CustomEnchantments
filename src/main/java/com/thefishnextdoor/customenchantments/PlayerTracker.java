@@ -51,7 +51,9 @@ public class PlayerTracker {
 
     public static TrackedPlayer get(Player player) {
         for (TrackedPlayer trackedPlayer : trackedPlayers) {
-            if (trackedPlayer.is(player)) return trackedPlayer;
+            if (trackedPlayer.is(player)) {
+                return trackedPlayer;
+            }
         }
         return new TrackedPlayer(player);
     }
