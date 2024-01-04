@@ -5,19 +5,29 @@ api-version: 1.15
 authors: ["TheFishNextDoor"]
 description: Custom Enchantments by TheFishNextDoor
 commands:
-  reloadenchantments:
-    description: Reload custom enchantments
-    usage: /reloadenchantments
-    permission: customenchantments.commands.reload
+  fishescustomenchantments:
+    description: Custom Enchantments by TheFishNextDoor
+    usage: /fce <subcommand>
+    aliases: [fce]
   fenchant:
     description: Apply an enchantment to the item in your hand
     usage: /fenchant <enchantment> [level]
-    permission: customenchantments.commands.fenchant
+    permission: fce.admin.fenchant
   enchantinfo:
     description: Get information about an enchantment
     usage: /enchantinfo <enchantment>
-    permission: customenchantments.commands.enchantinfo
+    permission: fce.user.enchantinfo
   disenchant:
     description: Remove an enchantment from the item in your hand and return the enchantment book
     usage: /disenchant <enchantment>
-    permission: customenchantments.commands.disenchant
+    permission: fce.user.disenchant
+permissions:
+  fce.admin.reload:
+    description: Allows the use of the reload command
+  fce.admin.fenchant:
+    description: Allows the use of the fenchant command
+  fce.user.enchantinfo:
+    description: Allows the use of the enchantinfo command
+    default: true
+  fce.user.disenchant:
+    description: Allows the use of the disenchant command

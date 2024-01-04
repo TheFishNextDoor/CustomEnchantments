@@ -12,7 +12,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.util.CommandUtil;
+import com.thefishnextdoor.customenchantments.Commands;
 import com.thefishnextdoor.customenchantments.util.EnchantUtil;
 import com.thefishnextdoor.customenchantments.util.InventoryUtil;
 
@@ -30,7 +30,7 @@ public class Disenchant implements CommandExecutor, TabCompleter {
             return null;
         }
 
-        return CommandUtil.equippedEnchantmentNames(InventoryUtil.getMeleeItemInUse((Player) sender));
+        return Commands.equippedEnchantmentNames(InventoryUtil.getMeleeItemInUse((Player) sender));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Disenchant implements CommandExecutor, TabCompleter {
         }
         Player player = (Player) sender;
 
-        Enchantment enchantment = CommandUtil.getEnchantment(args[0]);
+        Enchantment enchantment = EnchantUtil.getEnchantment(args[0]);
         if (enchantment == null) {
             player.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;

@@ -10,7 +10,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 
-import com.thefishnextdoor.customenchantments.util.CommandUtil;
+import com.thefishnextdoor.customenchantments.Commands;
 import com.thefishnextdoor.customenchantments.util.EnchantUtil;
 import com.thefishnextdoor.customenchantments.util.InventoryUtil;
 
@@ -22,10 +22,10 @@ public class Fenchant implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (!(sender instanceof Player)) return null;
         Player player = (Player) sender;
-        if (args.length == 1) return CommandUtil.recommendedEnchantmentNames(InventoryUtil.getMeleeItemInUse(player));
+        if (args.length == 1) return Commands.recommendedEnchantmentNames(InventoryUtil.getMeleeItemInUse(player));
         else if (args.length == 2) {
             ArrayList<String> levels = new ArrayList<>();
-            Enchantment enchantment = CommandUtil.getEnchantment(args[0]);
+            Enchantment enchantment = EnchantUtil.getEnchantment(args[0]);
             if (enchantment == null) return null;
             int maxLevel = enchantment.getMaxLevel();
             for (Integer i=0; i<=maxLevel; i++) {
@@ -41,7 +41,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player)) return false;
         Player player = (Player) sender;
         if (args.length == 0) return false;
-        Enchantment enchantment = CommandUtil.getEnchantment(args[0]);
+        Enchantment enchantment = EnchantUtil.getEnchantment(args[0]);
         if (enchantment == null) {
             player.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;

@@ -252,6 +252,13 @@ public class EnchantUtil {
         return enchantment.getKey().getKey();
     }
 
+    public static Enchantment getEnchantment(String name) {
+        for (Enchantment enchantment : Enchantment.values()) {
+            if (name(enchantment).equalsIgnoreCase(name)) return enchantment; 
+        }
+        return null;
+    }
+
     @SuppressWarnings("deprecation")
     public static String lore(Enchantment enchantment, Integer level) {
         if (level < 0) return null;

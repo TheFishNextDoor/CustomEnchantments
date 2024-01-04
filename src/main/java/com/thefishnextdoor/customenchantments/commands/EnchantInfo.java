@@ -11,8 +11,8 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
+import com.thefishnextdoor.customenchantments.Commands;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.util.CommandUtil;
 import com.thefishnextdoor.customenchantments.util.EnchantUtil;
 
 import net.md_5.bungee.api.ChatColor;
@@ -22,19 +22,19 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length != 1) return null;
-        return CommandUtil.allEnchantmentNames();
+        return Commands.allEnchantmentNames();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) return false;
         String enchantName = args[0];
-        Enchantment enchantment = CommandUtil.getEnchantment(enchantName);
+        Enchantment enchantment = EnchantUtil.getEnchantment(enchantName);
         if (enchantment == null) {
             sender.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;
         }
-        sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + CommandUtil.titleCase(EnchantUtil.name(enchantment)));
+        sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + Commands.titleCase(EnchantUtil.name(enchantment)));
         sender.sendMessage(ChatColor.AQUA + "Max Level: " + ChatColor.WHITE + enchantment.getMaxLevel());
         ArrayList<String> items = getItems(enchantment);
         if (!items.isEmpty()) {
@@ -76,7 +76,7 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
         for (Enchantment other : Enchantment.values()) {
             if (EnchantUtil.same(enchantment, other)) continue;
             if (enchantment.conflictsWith(other) || other.conflictsWith(enchantment)) {
-                conflicts.add(CommandUtil.titleCase(EnchantUtil.name(other)));
+                conflicts.add(Commands.titleCase(EnchantUtil.name(other)));
             }
         }
         return conflicts;

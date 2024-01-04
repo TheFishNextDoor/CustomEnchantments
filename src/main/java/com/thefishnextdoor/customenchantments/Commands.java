@@ -1,4 +1,4 @@
-package com.thefishnextdoor.customenchantments.util;
+package com.thefishnextdoor.customenchantments;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,13 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
-public class CommandUtil {
+import com.thefishnextdoor.customenchantments.util.EnchantUtil;
+
+public class Commands {
+    public static final String RELOAD_PERMISSION = "fce.admin.reload";
+    public static final String FENCHANT_PERMISSION = "fce.admin.fenchant";
+    public static final String ENCHANTINFO_PERMISSION = "fce.user.enchantinfo";
+    public static final String DISENCHANT_PERMISSION = "fce.user.disenchant";
 
     public static ArrayList<String> recommendedEnchantmentNames(ItemStack item) {
         ArrayList<String> names = new ArrayList<>();
@@ -45,12 +51,4 @@ public class CommandUtil {
         }
         return titleCase.trim();
     }
-
-    public static Enchantment getEnchantment(String name) {
-        for (Enchantment enchantment : Enchantment.values()) {
-            if (EnchantUtil.name(enchantment).equalsIgnoreCase(name)) return enchantment; 
-        }
-        return null;
-    }
-    
 }
