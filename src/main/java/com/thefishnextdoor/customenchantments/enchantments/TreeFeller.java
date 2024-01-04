@@ -18,8 +18,8 @@ import org.bukkit.potion.PotionEffectType;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.PlayerTracker;
 import com.thefishnextdoor.customenchantments.Settings;
+import com.thefishnextdoor.customenchantments.WorldTools;
 import com.thefishnextdoor.customenchantments.PlayerTracker.TrackedPlayer;
-import com.thefishnextdoor.customenchantments.util.BlockUtil;
 import com.thefishnextdoor.customenchantments.util.EnchantUtil;
 import com.thefishnextdoor.customenchantments.util.MaterialUtil;
 
@@ -88,7 +88,7 @@ public class TreeFeller extends CustomEnchantment {
 
         trackedPlayer.setTreeFellerTick();
         for (Block log : logs) {
-            BlockUtil.breakBlock(player, log);
+            WorldTools.breakBlock(player, log);
         }
 
         String msg = ChatColor.GRAY + "" + ChatColor.ITALIC + "You feel tired after chopping down a tree";

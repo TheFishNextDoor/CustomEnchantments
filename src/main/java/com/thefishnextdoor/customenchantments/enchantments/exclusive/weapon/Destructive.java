@@ -17,8 +17,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.Settings;
+import com.thefishnextdoor.customenchantments.WorldTools;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment.ArrowTransformEnchantment;
-import com.thefishnextdoor.customenchantments.util.BlockUtil;
 import com.thefishnextdoor.customenchantments.util.EnchantUtil;
 import com.thefishnextdoor.customenchantments.util.EntityUtil;
 import com.thefishnextdoor.customenchantments.util.InventoryUtil;
@@ -63,7 +63,7 @@ public class Destructive extends ArrowTransformEnchantment {
         if (material == null) return;
         ItemStack newItem = item.clone();
         newItem.setType(material);
-        BlockUtil.breakBlock(player, block, newItem);
+        WorldTools.breakBlock(player, block, newItem);
         if (Settings.PLAY_EFFECTS) playEffect(block.getLocation().add(0.5, 0.5, 0.5));
     }
 

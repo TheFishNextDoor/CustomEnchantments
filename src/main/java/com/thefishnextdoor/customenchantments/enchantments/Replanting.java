@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.PermChecker;
-import com.thefishnextdoor.customenchantments.util.BlockUtil;
+import com.thefishnextdoor.customenchantments.WorldTools;
 import com.thefishnextdoor.customenchantments.util.EnchantUtil;
 import com.thefishnextdoor.customenchantments.util.InventoryUtil;
 import com.thefishnextdoor.customenchantments.util.MaterialUtil;
@@ -89,7 +89,7 @@ public class Replanting extends CustomEnchantment {
         if (!(state.getBlockData() instanceof Ageable)) return false;
         Ageable ageable = (Ageable) state.getBlockData();
         if (ageable.getAge() != ageable.getMaximumAge()) return false;
-        BlockUtil.dropBlockItems(player, block, item);
+        WorldTools.dropBlockItems(player, block, item);
         ageable.setAge(0);
         block.setBlockData(ageable);
         return true;

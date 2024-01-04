@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.PlayerTracker;
-import com.thefishnextdoor.customenchantments.util.BlockUtil;
+import com.thefishnextdoor.customenchantments.WorldTools;
 import com.thefishnextdoor.customenchantments.util.EnchantUtil;
 import com.thefishnextdoor.customenchantments.util.InventoryUtil;
 import com.thefishnextdoor.customenchantments.util.MaterialUtil;
@@ -100,7 +100,7 @@ public class Excavating extends CustomEnchantment {
         ItemStack item = InventoryUtil.getMeleeItemInUse(player);
         while (iter.hasNext()) {
             Block iblock = iter.next();
-            if ((!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) BlockUtil.breakBlock(player, iblock, item);
+            if ((!iblock.getDrops(item).isEmpty() || !iblock.getDrops(new ItemStack(Material.SHEARS)).isEmpty())) WorldTools.breakBlock(player, iblock, item);
         }
     }
 }

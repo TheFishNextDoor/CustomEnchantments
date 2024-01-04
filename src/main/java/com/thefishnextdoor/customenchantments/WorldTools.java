@@ -1,4 +1,4 @@
-package com.thefishnextdoor.customenchantments.util;
+package com.thefishnextdoor.customenchantments;
 
 import java.util.Collection;
 
@@ -10,24 +10,25 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.PermChecker;
 import com.thefishnextdoor.customenchantments.enchantments.Smelting;
 import com.thefishnextdoor.customenchantments.enchantments.Telekinesis;
 
-public class BlockUtil {
+public class WorldTools {
 
     public static void breakBlock(Player player, Block block) {
-        BlockUtil.breakBlock(player, block, null);
+        WorldTools.breakBlock(player, block, null);
     }
 
     public static void breakBlock(Player player, Block block, ItemStack item) {
-        if (!PermChecker.canBreak(player, block)) return;
-        BlockUtil.dropBlockItems(player, block, item);
+        if (!PermChecker.canBreak(player, block)) {
+            return;
+        }
+        WorldTools.dropBlockItems(player, block, item);
         block.setType(Material.AIR);
     }
 
     public static void dropBlockItems(Player player, Block block) {
-        BlockUtil.dropBlockItems(player, block, null);
+        WorldTools.dropBlockItems(player, block, null);
     }
 
     public static void dropBlockItems(Player player, Block block, ItemStack item) {
@@ -40,8 +41,10 @@ public class BlockUtil {
                 drops.add(content);
             }
         }
+
         Smelting.onBlockDropItems(player, drops);
         Telekinesis.transferDrops(player, drops);
+
         World world = block.getWorld();
         for (ItemStack drop : drops) {
             world.dropItemNaturally(block.getLocation(), drop);
