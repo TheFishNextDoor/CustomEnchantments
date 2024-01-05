@@ -36,7 +36,7 @@ public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
         if (item == null) {
             return false;
         }
-        return MaterialTools.isRangedWeapon(item.getType());
+        return MaterialTools.firesArrows(item.getType());
     }
 
     @Override

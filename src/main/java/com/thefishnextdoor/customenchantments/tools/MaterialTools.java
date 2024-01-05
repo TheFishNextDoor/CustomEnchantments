@@ -41,7 +41,21 @@ public class MaterialTools {
     }
 
     public static boolean isRanged(Material material) {
-        return isRangedWeapon(material) || material == Material.FISHING_ROD;
+        switch (material) {
+            case BOW:
+            case CROSSBOW:
+            case TRIDENT:
+            case FISHING_ROD:
+            case SNOWBALL:
+            case EGG:
+            case ENDER_PEARL:
+            case EXPERIENCE_BOTTLE:
+            case SPLASH_POTION:
+            case LINGERING_POTION:
+                return true;
+            default:
+                return false;
+        }
     }
 
     public static boolean isRangedWeapon(Material material) {

@@ -47,7 +47,7 @@ public class Range extends CustomEnchantment {
         if (item == null) {
             return false;
         }
-        return MaterialTools.isRanged(item.getType());
+        return MaterialTools.isRangedWeapon(item.getType());
     }
 
     @Override
