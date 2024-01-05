@@ -54,7 +54,7 @@ public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
 
     public static void onPlayerFireProjectile(Player player) {
         if (EnchantTools.holdingRangedWith(player, CustomEnchantment.BLOOD_TIPPED)) {
-            player.damage(1);
+            player.damage(1, player);
         }
     }
 }

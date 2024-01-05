@@ -10,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
@@ -63,7 +64,7 @@ public class Destructive extends ArrowTransformEnchantment {
             return;
         }
 
-        Material material = breakableMaterial(block);
+        Material material = breakWith(block);
         if (material == null) {
             return;
         }
@@ -81,12 +82,16 @@ public class Destructive extends ArrowTransformEnchantment {
         if (level < 1) {
             return;
         }
+        if (entity instanceof LivingEntity) {
+            LivingEntity livingEntity = (LivingEntity) entity;
+            livingEntity.damage(10.0, player);
+        }
         if (Settings.PLAY_EFFECTS) {
             playEffect(entity.getLocation());
         }
     }
 
-    private static Material breakableMaterial(Block block) {
+    private static Material breakWith(Block block) {
         ItemStack silkTouchPickaxe = new ItemStack(Material.IRON_PICKAXE);
         silkTouchPickaxe.addEnchantment(Enchantment.SILK_TOUCH, 1);
         if (!block.getDrops(silkTouchPickaxe).isEmpty()) {
