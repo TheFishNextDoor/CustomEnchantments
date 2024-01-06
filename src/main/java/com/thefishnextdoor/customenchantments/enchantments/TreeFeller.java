@@ -91,13 +91,14 @@ public class TreeFeller extends CustomEnchantment {
 
         ArrayList<Block> logs = new ArrayList<>();
         ArrayList<Block> leaves = new ArrayList<>();
-        logs(block.getLocation(), logs, leaves);
+        selectTree(block.getLocation(), logs, leaves);
         
         if (logs.size() <= 3 || leaves.size() <= 15) {
             return;
         }
 
         trackedPlayer.setTreeFellerTick();
+        logs.remove(block);
         for (Block log : logs) {
             WorldTools.breakBlock(player, log);
         }
@@ -107,14 +108,14 @@ public class TreeFeller extends CustomEnchantment {
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, Settings.TREE_FELLER_COOLDOWN, 2), true);
     }
 
-    private static void logs(Location start, ArrayList<Block> logs, ArrayList<Block> leaves) {
+    private static void selectTree(Location start, ArrayList<Block> logs, ArrayList<Block> leaves) {
         Material type = start.getBlock().getType();
         if (MaterialTools.isLog(type)) {
-            logs(start, start, type, logs, leaves,  new HashSet<Location>(), 0);
+            selectTree(start, start, type, logs, leaves, new HashSet<Location>(), 0);
         }
     }
 
-    private static void logs(Location start, Location current, Material logType, ArrayList<Block> logs, ArrayList<Block> leaves, HashSet<Location> checked, int outOfTree) {
+    private static void selectTree(Location start, Location current, Material logType, ArrayList<Block> logs, ArrayList<Block> leaves, HashSet<Location> checked, int outOfTree) {
         if (checked.contains(current)) {
             return;
         }
@@ -135,7 +136,7 @@ public class TreeFeller extends CustomEnchantment {
         boolean log = type == logType;
         boolean leaf = MaterialTools.isLeaves(type);
 
-        if (log && !current.equals(start)) {
+        if (log) {
             logs.add(block);
         }
         else if (leaf) {
@@ -153,11 +154,11 @@ public class TreeFeller extends CustomEnchantment {
             return;
         }
 
-        logs(start, current.clone().add(1, 0, 0), logType, logs, leaves, checked, outOfTree);
-        logs(start, current.clone().add(-1, 0, 0), logType, logs, leaves, checked, outOfTree);
-        logs(start, current.clone().add(0, 0, 1), logType, logs,leaves, checked, outOfTree);
-        logs(start, current.clone().add(0, 0, -1), logType, logs, leaves, checked, outOfTree);
-        logs(start ,current.clone().add(0, 1, 0), logType, logs, leaves, checked, outOfTree);
-        logs(start, current.clone().add(0, -1, 0), logType, logs, leaves, checked, outOfTree);
+        selectTree(start, current.clone().add(1, 0, 0), logType, logs, leaves, checked, outOfTree);
+        selectTree(start, current.clone().add(-1, 0, 0), logType, logs, leaves, checked, outOfTree);
+        selectTree(start, current.clone().add(0, 0, 1), logType, logs,leaves, checked, outOfTree);
+        selectTree(start, current.clone().add(0, 0, -1), logType, logs, leaves, checked, outOfTree);
+        selectTree(start ,current.clone().add(0, 1, 0), logType, logs, leaves, checked, outOfTree);
+        selectTree(start, current.clone().add(0, -1, 0), logType, logs, leaves, checked, outOfTree);
     }
 }
