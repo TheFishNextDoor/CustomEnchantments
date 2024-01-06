@@ -2,11 +2,8 @@ package com.thefishnextdoor.customenchantments.enchantments.exclusive.chestplate
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-
-import com.thefishnextdoor.customenchantments.ArmorEffects;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveChestplateEnchantment;
 import com.thefishnextdoor.customenchantments.tools.EnchantTools;
@@ -37,9 +34,14 @@ public class FireResistance extends MutuallyExclusiveChestplateEnchantment {
         return "Wearer is immune to fire damage. Rare drop from blaze.";
     }
 
-    public static void onTimer(Player player, ItemStack chestplate) {
-        if (EnchantTools.has(chestplate, CustomEnchantment.FIRE_RESISTANCE)) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, ArmorEffects.PERIOD * 2, 0));
+    public static void modifyCancelStatus(Player player, EntityDamageEvent event) {
+        DamageCause cause = event.getCause();
+        if (cause != DamageCause.FIRE && cause != DamageCause.FIRE_TICK && cause != DamageCause.LAVA && cause != DamageCause.HOT_FLOOR) {
+            return;
         }
+        if (!EnchantTools.has(player.getInventory().getChestplate(), CustomEnchantment.FIRE_RESISTANCE)) {
+            return;
+        }
+        event.setCancelled(true);
     }
 }

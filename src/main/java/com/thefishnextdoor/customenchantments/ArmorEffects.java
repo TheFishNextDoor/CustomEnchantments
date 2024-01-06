@@ -17,7 +17,6 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.boots.Ancho
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.boots.Leaping;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.boots.SlowFalling;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.chestplate.DragonScales;
-import com.thefishnextdoor.customenchantments.enchantments.exclusive.chestplate.FireResistance;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.chestplate.Haste;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.chestplate.Healing;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.chestplate.HeroOfTheVillage;
@@ -90,7 +89,6 @@ public class ArmorEffects {
                         Strength.onTimer(player, o.CHESTPLATE);
                         Haste.onTimer(player, o.CHESTPLATE);
                         HeroOfTheVillage.onTimer(player, o.CHESTPLATE);
-                        FireResistance.onTimer(player, o.CHESTPLATE);
                     }
                     if (o.CHECK_LEGGINGS) {
                         DolphinsGrace.onTimer(player, o.LEGGINGS);
