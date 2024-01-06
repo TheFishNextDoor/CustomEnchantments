@@ -47,13 +47,13 @@ public class EnchantTools {
         }
 
         if (Settings.CHECK_LORE && level == 0 && meta.hasLore()) {
-            String enchantLore = EnchantTools.lore(enchant, 1);
+            String enchantLoreBase = nonLeveledLoreString(enchant);
             for (String line : meta.getLore()) {
-                if (!line.startsWith(enchantLore)) {
+                if (!line.startsWith(enchantLoreBase)) {
                     continue;
                 }
 
-                level = line.equals(enchantLore) ? 1 : number(line.replaceFirst(enchantLore, "").trim());
+                level = line.equals(enchantLoreBase) ? 1 : number(line.replaceFirst(enchantLoreBase, "").trim());
                 if (level > 0) {
                     EnchantTools.fix(item, enchant, level);
                     break;
@@ -200,7 +200,7 @@ public class EnchantTools {
 
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
-        lore.add(0, lore(enchantment, level));
+        lore.add(0, leveledLoreString(enchantment, level));
         meta.setLore(lore);
         item.setItemMeta(meta);
         return true;
@@ -237,9 +237,9 @@ public class EnchantTools {
         }
 
         List<String> newLore = new ArrayList<>();
-        String enchantLore = lore(enchantment, 1);
+        String enchantLoreBase = nonLeveledLoreString(enchantment);
         for (String line : lore) {
-            if (!line.contains(enchantLore)) {
+            if (!line.startsWith(enchantLoreBase)) {
                 newLore.add(line);
             }
         }
@@ -327,6 +327,15 @@ public class EnchantTools {
         return true;
     }
 
+    public static Enchantment getEnchantment(String name) {
+        for (Enchantment enchantment : Enchantment.values()) {
+            if (name(enchantment).equalsIgnoreCase(name)) {
+                return enchantment;
+            }
+        }
+        return null;
+    }
+
     public static ItemStack enchantedBook(Enchantment enchantment, int level) {
         ItemStack enchantedBook = new ItemStack(Material.ENCHANTED_BOOK);
         addEnchant(enchantedBook, enchantment, level, true, false);
@@ -340,29 +349,20 @@ public class EnchantTools {
     public static String name(Enchantment enchantment) {
         return enchantment.getKey().getKey();
     }
-
-    public static Enchantment getEnchantment(String name) {
-        for (Enchantment enchantment : Enchantment.values()) {
-            if (name(enchantment).equalsIgnoreCase(name)) {
-                return enchantment;
-            }
-        }
-        return null;
-    }
-
-    @SuppressWarnings("deprecation")
-    public static String lore(Enchantment enchantment, Integer level) {
-        if (level < 0) {
-            return null;
-        }
-
-        String lore = enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
-        if (level == 1) {
+    
+    public static String leveledLoreString(Enchantment enchantment, Integer level) {
+        String lore = nonLeveledLoreString(enchantment);
+        if (level == 1 && enchantment.getMaxLevel() == 1) {
             return lore;
         }
         else {
             return lore + " " + (Settings.USE_ARABIC_NUMERALS ? level.toString() : numeral(level));
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static String nonLeveledLoreString(Enchantment enchantment) {
+        return enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
     }
 
     public static String numeral(int number) {

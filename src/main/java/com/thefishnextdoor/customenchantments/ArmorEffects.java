@@ -57,7 +57,7 @@ public class ArmorEffects {
         }
 
         private static boolean couldHaveCustomEnchantment (ItemStack item) {
-            return item != null && item.hasItemMeta() && item.getItemMeta().hasLore() && item.getItemMeta().hasEnchants();
+            return item != null && item.hasItemMeta() && item.getItemMeta().hasLore();
         }
     }
 
