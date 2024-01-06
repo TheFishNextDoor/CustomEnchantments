@@ -240,9 +240,8 @@ public class EnchantTools {
         String enchantLore = lore(enchantment, 1);
         for (String line : lore) {
             if (!line.contains(enchantLore)) {
-                continue;
+                newLore.add(line);
             }
-            newLore.add(line);
         }
         meta.setLore(newLore);
         item.setItemMeta(meta);

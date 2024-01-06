@@ -1,14 +1,13 @@
-name: CustomEnchantments
+name: FishsCustomEnchantments
 main: com.thefishnextdoor.customenchantments.Plugin
 version: 0.3.3
 api-version: 1.15
 authors: ["TheFishNextDoor"]
 description: Custom Enchantments by TheFishNextDoor
 commands:
-  fishescustomenchantments:
+  fce:
     description: Custom Enchantments by TheFishNextDoor
     usage: /fce <subcommand>
-    aliases: [fce]
   fenchant:
     description: Apply an enchantment to the item in your hand
     usage: /fenchant <enchantment> [level]

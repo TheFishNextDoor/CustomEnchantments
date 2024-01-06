@@ -13,9 +13,9 @@ import com.thefishnextdoor.customenchantments.Plugin;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class FishesCustomEnchantments implements CommandExecutor, TabCompleter {
+public class FCE implements CommandExecutor, TabCompleter {
     private final Plugin plugin;
-    public FishesCustomEnchantments(Plugin plugin) {
+    public FCE(Plugin plugin) {
         this.plugin = plugin;
     }
 
