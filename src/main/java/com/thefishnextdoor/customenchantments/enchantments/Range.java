@@ -60,7 +60,7 @@ public class Range extends CustomEnchantment {
             return;
         }
 
-        final int level = EnchantTools.rangedLevel(player, CustomEnchantment.RANGE);
+        int level = EnchantTools.rangedLevel(player, CustomEnchantment.RANGE);
         if (level < 1) {
             return;
         }
