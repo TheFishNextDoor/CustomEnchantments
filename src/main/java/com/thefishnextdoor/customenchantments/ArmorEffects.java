@@ -30,8 +30,9 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.leggings.Do
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.leggings.Swiftness;
 
 public class ArmorEffects {
+    
     public static final int PERIOD = 30;
-    private static Plugin plugin = null;
+
     private static int armorEffectsTaskId = -1;
     
     public static class ArmorCheckOptimizer {
@@ -60,8 +61,7 @@ public class ArmorEffects {
         }
     }
 
-    public static void startTask(final Plugin p) {
-        plugin = p;
+    public static void startTask(final Plugin plugin) {
         if (armorEffectsTaskId == -1) armorEffectsTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {

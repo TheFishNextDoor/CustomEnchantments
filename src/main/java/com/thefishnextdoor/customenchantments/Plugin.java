@@ -27,6 +27,7 @@ import com.thefishnextdoor.customenchantments.events.ProjectileHit;
 import com.thefishnextdoor.customenchantments.events.ProjectileLaunch;
 
 public class Plugin extends JavaPlugin {
+    
     public static final Logger LOGGER = Logger.getLogger("Fish's Custom Enchantments");
 
     public Plugin() {

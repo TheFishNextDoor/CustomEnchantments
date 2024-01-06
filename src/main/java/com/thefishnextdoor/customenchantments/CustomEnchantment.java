@@ -80,6 +80,7 @@ import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public abstract class CustomEnchantment extends Enchantment {
+
     private static ArrayList<CustomEnchantment> customEnchantments = new ArrayList<>();
     private static ArrayList<MutuallyExclusiveWeaponEnchantment> mutuallyExclusiveWeaponEnchantments = new ArrayList<>();
     private static ArrayList<MutuallyExclusiveHelmetEnchantment> mutuallyExclusiveHelmetEnchantments = new ArrayList<>();
@@ -87,7 +88,9 @@ public abstract class CustomEnchantment extends Enchantment {
     private static ArrayList<MutuallyExclusiveElytraEnchantment> mutuallyExclusiveElytraEnchantments = new ArrayList<>();
     private static ArrayList<MutuallyExclusiveLeggingsEnchantment> mutuallyExclusiveLeggingsEnchantments = new ArrayList<>();
     private static ArrayList<MutuallyExclusiveBootsEnchantment> mutuallyExclusiveBootsEnchantments = new ArrayList<>();
+
     private static HashMap<String, String> descriptions = new HashMap<>();
+    
     public static CustomEnchantment AQUA_ASPECT;
     public static CustomEnchantment CURSE_OF_AQUAPHOBIA;
     public static CustomEnchantment CURSE_OF_IRON_GRIP;
@@ -111,6 +114,24 @@ public abstract class CustomEnchantment extends Enchantment {
     public static CustomEnchantment TILLING;
     public static CustomEnchantment TREE_FELLER;
     public static CustomEnchantment UNBREAKABLE;
+    public static MutuallyExclusiveWeaponEnchantment BLOOD_TIPPED;
+    public static MutuallyExclusiveWeaponEnchantment CRIPPLING;
+    public static MutuallyExclusiveWeaponEnchantment DEBILITATING;
+    public static MutuallyExclusiveWeaponEnchantment DESTRUCTIVE;
+    public static MutuallyExclusiveWeaponEnchantment DISORIENTING;
+    public static MutuallyExclusiveWeaponEnchantment FIRE_BLAST;
+    public static MutuallyExclusiveWeaponEnchantment GLASS;
+    public static MutuallyExclusiveWeaponEnchantment HARPOON;
+    public static MutuallyExclusiveWeaponEnchantment LEVITATING;
+    public static MutuallyExclusiveWeaponEnchantment LIFE_STEAL;
+    public static MutuallyExclusiveWeaponEnchantment OBSCURE;
+    public static MutuallyExclusiveWeaponEnchantment SALMON_SLINGER;
+    public static MutuallyExclusiveWeaponEnchantment SEEKING;
+    public static MutuallyExclusiveWeaponEnchantment STARVING;
+    public static MutuallyExclusiveWeaponEnchantment TELEPORT;
+    public static MutuallyExclusiveWeaponEnchantment VENOM;
+    public static MutuallyExclusiveWeaponEnchantment VOLLEY;
+    public static MutuallyExclusiveWeaponEnchantment WITHERING;
     public static MutuallyExclusiveHelmetEnchantment CONDUIT_POWER;
     public static MutuallyExclusiveHelmetEnchantment GILLS;
     public static MutuallyExclusiveHelmetEnchantment NIGHT_VISION;
@@ -131,24 +152,6 @@ public abstract class CustomEnchantment extends Enchantment {
     public static MutuallyExclusiveLeggingsEnchantment DOLPHINS_GRACE;
     public static MutuallyExclusiveLeggingsEnchantment HEAVY;
     public static MutuallyExclusiveLeggingsEnchantment SWIFTNESS;
-    public static MutuallyExclusiveWeaponEnchantment BLOOD_TIPPED;
-    public static MutuallyExclusiveWeaponEnchantment CRIPPLING;
-    public static MutuallyExclusiveWeaponEnchantment DEBILITATING;
-    public static MutuallyExclusiveWeaponEnchantment DESTRUCTIVE;
-    public static MutuallyExclusiveWeaponEnchantment DISORIENTING;
-    public static MutuallyExclusiveWeaponEnchantment FIRE_BLAST;
-    public static MutuallyExclusiveWeaponEnchantment GLASS;
-    public static MutuallyExclusiveWeaponEnchantment HARPOON;
-    public static MutuallyExclusiveWeaponEnchantment LEVITATING;
-    public static MutuallyExclusiveWeaponEnchantment LIFE_STEAL;
-    public static MutuallyExclusiveWeaponEnchantment OBSCURE;
-    public static MutuallyExclusiveWeaponEnchantment SALMON_SLINGER;
-    public static MutuallyExclusiveWeaponEnchantment SEEKING;
-    public static MutuallyExclusiveWeaponEnchantment STARVING;
-    public static MutuallyExclusiveWeaponEnchantment TELEPORT;
-    public static MutuallyExclusiveWeaponEnchantment VENOM;
-    public static MutuallyExclusiveWeaponEnchantment VOLLEY;
-    public static MutuallyExclusiveWeaponEnchantment WITHERING;
     public static MutuallyExclusiveBootsEnchantment ANCHOR;
     public static MutuallyExclusiveBootsEnchantment BOUNCE;
     public static MutuallyExclusiveBootsEnchantment CRUSH;
@@ -173,6 +176,7 @@ public abstract class CustomEnchantment extends Enchantment {
     public abstract String getDescription();
 
     public static abstract class MutuallyExclusiveWeaponEnchantment extends CustomEnchantment {
+
         public MutuallyExclusiveWeaponEnchantment(NamespacedKey key) {
             super(key);
         }
@@ -188,6 +192,7 @@ public abstract class CustomEnchantment extends Enchantment {
         }
 
         public static abstract class ArrowTransformEnchantment extends MutuallyExclusiveWeaponEnchantment {
+
             public ArrowTransformEnchantment(NamespacedKey key) {
                 super(key);
             }
@@ -211,6 +216,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static abstract class MutuallyExclusiveHelmetEnchantment extends CustomEnchantment {
+
         public MutuallyExclusiveHelmetEnchantment(NamespacedKey key) {
             super(key);
         }
@@ -235,6 +241,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static abstract class MutuallyExclusiveChestplateEnchantment extends CustomEnchantment {
+
         public MutuallyExclusiveChestplateEnchantment(NamespacedKey key) {
             super(key);
         }
@@ -259,6 +266,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static abstract class MutuallyExclusiveElytraEnchantment extends CustomEnchantment {
+
         public MutuallyExclusiveElytraEnchantment(NamespacedKey key) {
             super(key);
         }
@@ -283,6 +291,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static abstract class MutuallyExclusiveLeggingsEnchantment extends CustomEnchantment {
+
         public MutuallyExclusiveLeggingsEnchantment(NamespacedKey key) {
             super(key);
         }
@@ -307,6 +316,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static abstract class MutuallyExclusiveBootsEnchantment extends CustomEnchantment {
+
         public MutuallyExclusiveBootsEnchantment(NamespacedKey key) {
             super(key);
         }

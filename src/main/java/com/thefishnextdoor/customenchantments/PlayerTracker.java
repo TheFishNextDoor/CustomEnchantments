@@ -7,10 +7,13 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
 public class PlayerTracker {
+
     private static ArrayList<TrackedPlayer> trackedPlayers = new ArrayList<TrackedPlayer>();
 
     public static class TrackedPlayer {
+
         private final String id;
+        
         private BlockFace miningFace = null;
         private long lastTreeFellerTick = 0;
 

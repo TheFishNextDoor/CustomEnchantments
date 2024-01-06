@@ -5,6 +5,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
 public class EndOfTick {
+    
     public static Plugin plugin;
 
     public static void init(Plugin plugin) {

@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 
 public class Commands {
+    
     public static final String RELOAD_PERMISSION = "fce.admin.reload";
     public static final String FENCHANT_PERMISSION = "fce.admin.fenchant";
     public static final String ENCHANTINFO_PERMISSION = "fce.user.enchantinfo";

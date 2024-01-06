@@ -4,6 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Settings {
+    
     public static boolean MOBS_DROP_BOOKS = true;
     public static boolean REMOVE_OVERRIDDEN_ENCHANTMENTS = true;
     public static boolean CHECK_LORE = true;

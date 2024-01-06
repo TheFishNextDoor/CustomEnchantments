@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 
 public class PermChecker {
+    
     private static BlockBreakEvent checking = null;
 
     public static boolean canBreak(Player player, Block block) {
