@@ -20,7 +20,7 @@ public class Settings {
         PLAY_EFFECTS = config.getBoolean("play-effects", true);
     }
 
-    private FileConfiguration getPluginConfig(JavaPlugin plugin) {
+    private static FileConfiguration getPluginConfig(JavaPlugin plugin) {
         plugin.saveDefaultConfig();
         plugin.reloadConfig();
         plugin.getConfig().options().copyDefaults(true);
