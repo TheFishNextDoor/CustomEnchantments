@@ -17,7 +17,7 @@ import org.bukkit.entity.Snowball;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.Settings;
+import com.thefishnextdoor.customenchantments.Plugin;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment.ArrowTransformEnchantment;
 import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 import com.thefishnextdoor.customenchantments.tools.EntityTools;
@@ -72,9 +72,7 @@ public class Destructive extends ArrowTransformEnchantment {
         ItemStack newItem = item.clone();
         newItem.setType(material);
         WorldTools.breakBlock(player, block, newItem);
-        if (Settings.PLAY_EFFECTS) {
-            playEffect(block.getLocation().add(0.5, 0.5, 0.5));
-        }
+        playEffect(block.getLocation().add(0.5, 0.5, 0.5));
     }
 
     public static void onProjectileHitEntity(Player player, Projectile projectile, Entity entity) {
@@ -86,9 +84,7 @@ public class Destructive extends ArrowTransformEnchantment {
             LivingEntity livingEntity = (LivingEntity) entity;
             livingEntity.damage(10.0, player);
         }
-        if (Settings.PLAY_EFFECTS) {
-            playEffect(entity.getLocation());
-        }
+        playEffect(entity.getLocation());
     }
 
     private static Material breakWith(Block block) {
@@ -107,6 +103,9 @@ public class Destructive extends ArrowTransformEnchantment {
     }
 
     private static void playEffect(Location location) {
+        if (!Plugin.getSettings().PLAY_EFFECTS) {
+            return;
+        }
         World world = location.getWorld();
         world.spawnParticle(Particle.EXPLOSION_LARGE, location, 1);
         world.playSound(location, Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.0f);

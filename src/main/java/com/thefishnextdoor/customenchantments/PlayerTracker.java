@@ -39,7 +39,7 @@ public class PlayerTracker {
         }
 
         public boolean treeFellerReady() {
-            return currentTimeTicks() >= lastTreeFellerTick + Settings.TREE_FELLER_COOLDOWN - 2;
+            return currentTimeTicks() >= lastTreeFellerTick + 48;
         }
 
         public void setTreeFellerTick() {

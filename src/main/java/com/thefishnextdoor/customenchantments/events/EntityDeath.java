@@ -10,7 +10,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.Loot;
-import com.thefishnextdoor.customenchantments.Settings;
+import com.thefishnextdoor.customenchantments.Plugin;
 import com.thefishnextdoor.customenchantments.enchantments.Enlightenment;
 import com.thefishnextdoor.customenchantments.enchantments.Telekinesis;
 
@@ -18,7 +18,7 @@ public class EntityDeath implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (!Settings.MOBS_DROP_BOOKS) {
+        if (!Plugin.getSettings().MOBS_DROP_BOOKS) {
             return;
         }
 
