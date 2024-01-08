@@ -15,7 +15,7 @@ import com.thefishnextdoor.customenchantments.tools.NumberTools;
 public class Loot {
 
     public static void addDrops(Player player, LivingEntity livingEntity, List<ItemStack> drops) {
-        if (!Settings.MOBS_DROP_BOOKS) {
+        if (!Plugin.getSettings().MOBS_DROP_BOOKS) {
             return;
         }
 

@@ -17,7 +17,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.PlayerTracker;
-import com.thefishnextdoor.customenchantments.Settings;
 import com.thefishnextdoor.customenchantments.PlayerTracker.TrackedPlayer;
 import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 import com.thefishnextdoor.customenchantments.tools.MaterialTools;
@@ -105,7 +104,7 @@ public class TreeFeller extends CustomEnchantment {
 
         String msg = ChatColor.GRAY + "" + ChatColor.ITALIC + "You feel tired after chopping down a tree";
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(msg));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, Settings.TREE_FELLER_COOLDOWN, 2), true);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 50, 2), true);
     }
 
     private static void selectTree(Location start, ArrayList<Block> logs, ArrayList<Block> leaves) {

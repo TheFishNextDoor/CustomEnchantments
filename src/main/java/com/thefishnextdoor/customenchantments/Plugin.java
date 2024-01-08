@@ -30,13 +30,12 @@ public class Plugin extends JavaPlugin {
     
     public static final Logger LOGGER = Logger.getLogger("Fish's Custom Enchantments");
 
-    public Plugin() {
+    private static Settings Settings;
+
+    public void onEnable() {
+        Settings = new Settings(this);
         CustomEnchantment.init(this);
         EndOfTick.init(this);
-    }
-    
-    public void onEnable() {
-        Settings.loadPluginConfig(this);
         ArmorEffects.startTask(this);
         Seeking.startTask(this);
         registerEvents();
@@ -51,7 +50,11 @@ public class Plugin extends JavaPlugin {
     }
 
     public void reload() {
-        Settings.loadPluginConfig(this);
+        Settings = new Settings(this);
+    }
+
+    public static Settings getSettings() {
+        return Settings;
     }
 
     private void registerEvents() {

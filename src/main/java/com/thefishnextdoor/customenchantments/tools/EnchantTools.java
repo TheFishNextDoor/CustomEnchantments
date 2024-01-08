@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.Settings;
+import com.thefishnextdoor.customenchantments.Plugin;
 import com.thefishnextdoor.customenchantments.ArmorEffects.ArmorCheckOptimizer;
 
 import net.md_5.bungee.api.ChatColor;
@@ -46,7 +46,7 @@ public class EnchantTools {
             level = meta.getEnchantLevel(enchant);
         }
 
-        if (Settings.CHECK_LORE && level == 0 && meta.hasLore()) {
+        if (Plugin.getSettings().CHECK_LORE && level == 0 && meta.hasLore()) {
             String enchantLoreBase = nonLeveledLoreString(enchant);
             for (String line : meta.getLore()) {
                 if (!line.startsWith(enchantLoreBase)) {
@@ -157,7 +157,7 @@ public class EnchantTools {
         }
     
         // Remove Overridden Enchantments
-        if (Settings.REMOVE_OVERRIDDEN_ENCHANTMENTS) {
+        if (Plugin.getSettings().REMOVE_OVERRIDDEN_ENCHANTMENTS) {
             if (same(enchantment, CustomEnchantment.UNBREAKABLE)) {
                 EnchantTools.removeEnchant(item, Enchantment.DURABILITY);
                 EnchantTools.removeEnchant(item, Enchantment.MENDING);
@@ -356,7 +356,7 @@ public class EnchantTools {
             return lore;
         }
         else {
-            return lore + " " + (Settings.USE_ARABIC_NUMERALS ? level.toString() : numeral(level));
+            return lore + " " + (Plugin.getSettings().USE_ARABIC_NUMERALS ? level.toString() : numeral(level));
         }
     }
 
