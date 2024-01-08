@@ -73,7 +73,7 @@ public class Replanting extends CustomEnchantment {
         }
 
         if (level == 1) {
-            if (PermChecker.canBreak(player, block)) {
+            if (isHarvestable(block) && PermChecker.canBreak(player, block)) {
                 harvest(player, block, item);
             }
         }
@@ -82,7 +82,7 @@ public class Replanting extends CustomEnchantment {
             int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
             for (int[] coords : allCoords) {
                 Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                if (PermChecker.canBreak(player, modifiedBlock)) {
+                if (isHarvestable(block) && PermChecker.canBreak(player, modifiedBlock)) {
                     harvest(player, modifiedBlock, item);
                 }
             }
@@ -95,7 +95,9 @@ public class Replanting extends CustomEnchantment {
             return;
         }
         ItemStack item = InventoryTools.getMeleeItemInUse(player);
-        event.setCancelled(harvest(player, block, item));
+        if (harvest(player, block, item)) {
+            event.setCancelled(true);
+        }
     }
 
     private static boolean harvest(Player player, Block block, ItemStack item) {
@@ -112,6 +114,20 @@ public class Replanting extends CustomEnchantment {
         WorldTools.dropBlockItems(player, block, item);
         ageable.setAge(0);
         block.setBlockData(ageable);
+        return true;
+    }
+
+    private static boolean isHarvestable(Block block) {
+        BlockState state = block.getState();
+        if (!(state.getBlockData() instanceof Ageable)) {
+            return false;
+        }
+
+        Ageable ageable = (Ageable) state.getBlockData();
+        if (ageable.getAge() != ageable.getMaximumAge()) {
+            return false;
+        }
+
         return true;
     }
 }
