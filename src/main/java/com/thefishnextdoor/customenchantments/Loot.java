@@ -24,177 +24,178 @@ public class Loot {
         }
 
         EntityType type = livingEntity.getType();
+        double baseChance = 0.1;
         double lootingMultiplier = 1.0 + (EnchantTools.lootingLevel(player) * 0.1);
-        double c = 0.1 * lootingMultiplier;
+        double chance = baseChance * lootingMultiplier;
         switch (type) {
             case ZOMBIE:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.SUSTENANCE, 1));
                 }
                 break;
             case WITHER_SKELETON:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.DEATH_WISH, 1));
                 }
                 break;
             case HUSK:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.STARVING, 1));
                 }
                 break;
             case SILVERFISH:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.WORM, 1));
                 }
                 break;
             case GHAST:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.SLOW_FALLING, 1));
                 }
                 break;
             case GUARDIAN:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.DOLPHINS_GRACE, 1));
                 }
                 break;
             case BLAZE:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.FIRE_RESISTANCE, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.FLAMING, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.SMELTING, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.FIRE_BLAST, 1));
                 }
                 break;
             case DROWNED:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.GILLS, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.ANCHOR, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.AQUA_ASPECT, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.HARPOON, 1));
                 }
                 break;
             case SLIME:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.LEAPING, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.BOUNCE, 1));
                 }
                 break;
             case MAGMA_CUBE:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.RADIANCE, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.CURSE_OF_RADIANCE, 1));
                 }
                 break;
             case CAVE_SPIDER:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.CURSE_OF_WEAKNESS, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.VENOM, 1));
                 }
                 break;
             case SPIDER:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.DISORIENTING, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.NIGHT_VISION, 1));
                 }
                 break;
             case ENDERMAN:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.CURSE_OF_AQUAPHOBIA, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.TELEKINESIS, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.TELEPORT, 1));
                 }
                 break;
             case PILLAGER:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.HERO_OF_THE_VILLAGE, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.REPLANTING, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.TILLING, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.REFLECTION, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.SPURS, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.TREE_FELLER, 1));
                 }
                 break;
             case PIGLIN:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.BLOOD_TIPPED, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.HASTE, 1));
                 }
                 break;
             case ZOMBIFIED_PIGLIN:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.HEALING, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.STRENGTH, 1));
                 }
                 break;
             case SHULKER:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.CURSE_OF_LEVITATING, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.LEVITATING, 1));
                 }
                 break;
             case WITCH:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.DEBILITATING, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.INVISIBILITY, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.SWIFTNESS, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.CURSE_OF_IRON_GRIP, 1));
                 }
                 break;
             case CREEPER:
                 Creeper creeper = (Creeper) livingEntity;
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.FLING, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.DESTRUCTIVE, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.BOOSTERS, 1));
                 }
                 if (creeper.isPowered() && NumberTools.chance(10.0 * lootingMultiplier)) {
@@ -202,24 +203,24 @@ public class Loot {
                 }
                 break;
             case SKELETON:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.VOLLEY, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.RANGE, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.PRECISION, 1));
                 }
                 break;
             case STRAY:
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.GLASS, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.CRIPPLING, 1));
                 }
-                if (NumberTools.chance(c)) {
+                if (NumberTools.chance(chance)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.SEEKING, 1));
                 }
                 break;
