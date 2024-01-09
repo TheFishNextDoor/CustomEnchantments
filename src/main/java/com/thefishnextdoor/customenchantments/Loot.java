@@ -230,29 +230,29 @@ public class Loot {
                 break;
             case WARDEN:
                 if (NumberTools.chance(5.0 * lootingMultiplier)) {
-                    drops.add(EnchantTools.enchantedBook(CustomEnchantment.OBSCURE, 1));
-                }
-                if (NumberTools.chance(4.0 * lootingMultiplier)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.ENLIGHTENMENT, 1));
                 }
-                if (NumberTools.chance(3.0 * lootingMultiplier)) {
+                if (NumberTools.chance(4.0 * lootingMultiplier)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.HEAVY, 1));
                 }
-                if (NumberTools.chance(2.5 * lootingMultiplier)) {
+                if (NumberTools.chance(3.0 * lootingMultiplier)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.CURSE_OF_SLOWNESS, 1));
+                }
+                if (NumberTools.chance(2.0 * lootingMultiplier)) {
+                    drops.add(EnchantTools.enchantedBook(CustomEnchantment.OBSCURE, 1));
                 }
                 break;
             case WITHER:
                 if (NumberTools.chance(10.0 * lootingMultiplier)) {
-                    drops.add(EnchantTools.enchantedBook(CustomEnchantment.WITHERING, 1));
-                }
-                if (NumberTools.chance(8.0 * lootingMultiplier)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.UNBREAKABLE, 1));
                 }
-                if (NumberTools.chance(2.5 * lootingMultiplier)) {
+                if (NumberTools.chance(5.0 * lootingMultiplier)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.LIFE_STEAL, 1));
                 }
-                if (NumberTools.chance(1.0 * lootingMultiplier)) {
+                if (NumberTools.chance(4.0 * lootingMultiplier)) {
+                    drops.add(EnchantTools.enchantedBook(CustomEnchantment.WITHERING, 1));
+                }
+                if (NumberTools.chance(3.0 * lootingMultiplier)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.PROJECTILE_RESISTANCE, 1));
                 }
                 break;
@@ -263,7 +263,7 @@ public class Loot {
                 if (NumberTools.chance(8.0 * lootingMultiplier)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.MOMENTUM, 1));
                 }
-                if (NumberTools.chance(2.5 * lootingMultiplier)) {
+                if (NumberTools.chance(4.0 * lootingMultiplier)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.INCREASED_HEALTH, 1));
                 }
                 break;
@@ -271,7 +271,7 @@ public class Loot {
                 if (NumberTools.chance(70.0 * lootingMultiplier)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.CONDUIT_POWER, 1));
                 }
-                if (NumberTools.chance(30.0 * lootingMultiplier)) {
+                if (NumberTools.chance(40.0 * lootingMultiplier)) {
                     drops.add(EnchantTools.enchantedBook(CustomEnchantment.CURSE_OF_MINING_FATIGUE, 1));
                 }
                 break;
