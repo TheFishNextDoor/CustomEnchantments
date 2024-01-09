@@ -21,11 +21,10 @@ public class WorldTools {
     }
 
     public static void breakBlock(Player player, Block block, ItemStack item) {
-        if (!PermChecker.canBreak(player, block)) {
-            return;
+        if (PermChecker.canBreak(player, block)) {
+            WorldTools.dropBlockItems(player, block, item);
+            block.setType(Material.AIR);
         }
-        WorldTools.dropBlockItems(player, block, item);
-        block.setType(Material.AIR);
     }
 
     public static void dropBlockItems(Player player, Block block) {

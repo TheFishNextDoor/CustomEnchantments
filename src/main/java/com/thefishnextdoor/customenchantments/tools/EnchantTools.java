@@ -60,6 +60,7 @@ public class EnchantTools {
                 }
             }
         }
+
         return level;
     }
 
@@ -324,6 +325,7 @@ public class EnchantTools {
                 }
             }
         }
+        
         return true;
     }
 

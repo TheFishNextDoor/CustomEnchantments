@@ -16,7 +16,9 @@ public class EntityTools {
         }
 
         Entity newEntity = entity.getWorld().spawnEntity(entity.getLocation(), type);
+        
         newEntity.setFireTicks(entity.getFireTicks());
+
         if (newEntity instanceof Fireball) {
             ((Fireball) newEntity).setDirection(entity.getVelocity());
         }
