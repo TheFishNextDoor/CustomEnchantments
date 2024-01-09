@@ -82,7 +82,7 @@ public class Replanting extends CustomEnchantment {
             int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
             for (int[] coords : allCoords) {
                 Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                if (isHarvestable(block) && PermChecker.canBreak(player, modifiedBlock)) {
+                if (isHarvestable(modifiedBlock) && PermChecker.canBreak(player, modifiedBlock)) {
                     harvest(player, modifiedBlock, item);
                 }
             }
