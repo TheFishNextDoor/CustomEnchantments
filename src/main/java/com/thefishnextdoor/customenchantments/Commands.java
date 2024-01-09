@@ -16,9 +16,13 @@ public class Commands {
     public static final String DISENCHANT_PERMISSION = "fce.user.disenchant";
 
     public static ArrayList<String> recommendedEnchantmentNames(ItemStack item) {
+        if (item.getType() == Material.BOOK) {
+            return allEnchantmentNames();
+        }
+        
         ArrayList<String> names = new ArrayList<>();
         for (Enchantment enchantment : Enchantment.values()) {
-            if (EnchantTools.has(item, enchantment) || enchantment.canEnchantItem(item) || item.getType() == Material.ENCHANTED_BOOK) {
+            if (EnchantTools.has(item, enchantment) || enchantment.canEnchantItem(item)) {
                 names.add(EnchantTools.name(enchantment));
             }
         }
