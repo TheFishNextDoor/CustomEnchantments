@@ -6,6 +6,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.thefishnextdoor.customenchantments.commands.EnchantInfo;
+import com.thefishnextdoor.customenchantments.commands.EnchantedBook;
 import com.thefishnextdoor.customenchantments.commands.Fenchant;
 import com.thefishnextdoor.customenchantments.commands.FCE;
 import com.thefishnextdoor.customenchantments.commands.Disenchant;
@@ -81,5 +82,6 @@ public class Plugin extends JavaPlugin {
         getCommand("fenchant").setExecutor(new Fenchant());
         getCommand("enchantinfo").setExecutor(new EnchantInfo());
         getCommand("disenchant").setExecutor(new Disenchant());
+        getCommand("enchantedbook").setExecutor(new EnchantedBook());
     }
 }

@@ -12,6 +12,10 @@ commands:
     description: Apply an enchantment to the item in your hand
     usage: /fenchant <enchantment> [level]
     permission: fce.admin.fenchant
+  enchantedbook:
+    description: Get an enchanted book with the specified enchantment
+    usage: /enchantedbook <enchantment> [level]
+    permission: fce.admin.enchantedbook
   enchantinfo:
     description: Get information about an enchantment
     usage: /enchantinfo <enchantment>
@@ -25,6 +29,8 @@ permissions:
     description: Allows the use of the reload command
   fce.admin.fenchant:
     description: Allows the use of the fenchant command
+  fce.admin.enchantedbook:
+    description: Allows the use of the enchantedbook command
   fce.user.enchantinfo:
     description: Allows the use of the enchantinfo command
     default: true
