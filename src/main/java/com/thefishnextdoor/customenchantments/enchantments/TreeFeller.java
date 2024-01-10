@@ -28,7 +28,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class TreeFeller extends CustomEnchantment {
 
-    private static final int RADIUS = 8;
+    private static final int RADIUS = 6;
     private static final int HEIGHT = 32;
 
     public TreeFeller(NamespacedKey key) {
