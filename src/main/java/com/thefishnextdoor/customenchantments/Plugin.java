@@ -2,6 +2,8 @@ package com.thefishnextdoor.customenchantments;
 
 import java.util.logging.Logger;
 
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -41,6 +43,7 @@ public class Plugin extends JavaPlugin {
         Seeking.startTask(this);
         registerEvents();
         registerCommands();
+        forceLoadClasses();
         LOGGER.info("Plugin enabled");
     }
     
@@ -83,5 +86,17 @@ public class Plugin extends JavaPlugin {
         getCommand("enchantinfo").setExecutor(new EnchantInfo());
         getCommand("disenchant").setExecutor(new Disenchant());
         getCommand("enchantedbook").setExecutor(new EnchantedBook());
+    }
+
+    private void forceLoadClasses() {
+        // This fixes an issue where some commands wouldn't work if you reloaded before running the command atleast once.
+        // I think it has somethingn to do with the way the classloader works.
+        try {
+            ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
+            Commands.recommendedEnchantmentNames(item);
+        }
+        catch (Exception e) {
+            LOGGER.warning("Some classes failed to load.");
+        }
     }
 }
