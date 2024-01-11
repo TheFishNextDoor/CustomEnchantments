@@ -96,16 +96,10 @@ public class Destructive extends ArrowTransformEnchantment {
     private static Material breakWith(Block block) {
         ItemStack silkTouchPickaxe = new ItemStack(Material.IRON_PICKAXE);
         silkTouchPickaxe.addEnchantment(Enchantment.SILK_TOUCH, 1);
-        if (!block.getDrops(silkTouchPickaxe).isEmpty()) {
-            return Material.IRON_PICKAXE;
+        if (block.getDrops(silkTouchPickaxe).isEmpty()) {
+            return null;
         }
-
-        ItemStack shears = new ItemStack(Material.SHEARS);
-        if (!block.getDrops(shears).isEmpty()) {
-            return Material.SHEARS;
-        }
-        
-        return null;
+        return Material.IRON_PICKAXE;
     }
 
     private static void playEffect(Location location) {
