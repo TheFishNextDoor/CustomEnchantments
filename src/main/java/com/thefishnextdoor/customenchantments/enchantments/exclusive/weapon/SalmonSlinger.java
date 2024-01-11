@@ -2,10 +2,12 @@ package com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Salmon;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.Tag;
@@ -49,10 +51,9 @@ public class SalmonSlinger extends ArrowTransformEnchantment {
 
     public static void convertProjectile(Player player, Projectile projectile) {
         if (EnchantTools.holdingRangedWith(player, CustomEnchantment.SALMON_SLINGER)) {
-            Entity entity = EntityTools.convert(projectile, EntityType.SALMON);
-            entity.setPersistent(false);
-            entity.setFallDistance(100);
-            Tag.NO_DROPS.applyTo(entity);
+            Salmon salmon = (Salmon) EntityTools.convert(projectile, EntityType.SALMON);
+            salmon.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 1200, 0));
+            Tag.NO_DROPS.applyTo(salmon);
         }
     }
 }
