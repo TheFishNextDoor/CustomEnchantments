@@ -95,13 +95,12 @@ public class Plugin extends JavaPlugin {
 
     private void forceLoadClasses() {
         // This fixes an issue where some commands wouldn't work if you reloaded before running the command atleast once.
-        // I think it has somethingn to do with the way the classloader works.
         try {
             ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
             Commands.recommendedEnchantmentNames(item);
         }
         catch (Exception e) {
-            LOGGER.warning("Some classes failed to load.");
+            LOGGER.warning("Failed to force load classes.");
         }
     }
 }
