@@ -52,7 +52,7 @@ public class SalmonSlinger extends ArrowTransformEnchantment {
             Entity entity = EntityTools.convert(projectile, EntityType.SALMON);
             entity.setPersistent(false);
             entity.setFallDistance(100);
-            Tag.add(entity, Tag.NO_DROPS);
+            Tag.NO_DROPS.applyTo(entity);
         }
     }
 }

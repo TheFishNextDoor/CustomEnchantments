@@ -20,7 +20,7 @@ public class EntityDeath implements Listener {
     public void onEntityDeath(EntityDeathEvent event) {
         LivingEntity entity = event.getEntity();
         List<ItemStack> drops = event.getDrops();
-        if (Tag.has(entity, Tag.NO_DROPS)) {
+        if (Tag.NO_DROPS.isOn(entity)) {
             drops.clear();
         }
 

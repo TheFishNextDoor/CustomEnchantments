@@ -5,21 +5,22 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 public enum Tag {
 
-    NO_DROPS;
+    NO_DROPS,
+    EXPLODE_ON_IMPACT;
 
     private static final String METADATA_KEY_PREFIX = "FCE_";
 
-    public static boolean has(Entity entity, Tag tag) {
-        return entity.hasMetadata(tag.key());
+    public boolean isOn(Entity entity) {
+        return entity.hasMetadata(this.key());
 
     }
 
-    public static void add(Entity entity, Tag tag) {
-        entity.setMetadata(tag.key(), new FixedMetadataValue(Plugin.getInstance(), true));
+    public void applyTo(Entity entity) {
+        entity.setMetadata(this.key(), new FixedMetadataValue(Plugin.getInstance(), true));
     }
 
-    public static void remove(Entity entity, Tag tag) {
-        entity.removeMetadata(tag.key(), Plugin.getInstance());
+    public void remove(Entity entity) {
+        entity.removeMetadata(this.key(), Plugin.getInstance());
 
     }
 
