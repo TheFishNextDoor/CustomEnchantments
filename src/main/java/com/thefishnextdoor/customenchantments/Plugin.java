@@ -33,9 +33,11 @@ public class Plugin extends JavaPlugin {
     
     public static final Logger LOGGER = Logger.getLogger("Fish's Custom Enchantments");
 
+    private static Plugin instance;
     private static Settings Settings;
 
     public void onEnable() {
+        instance = this;
         Settings = new Settings(this);
         CustomEnchantment.init(this);
         EndOfTick.init(this);
@@ -55,6 +57,10 @@ public class Plugin extends JavaPlugin {
 
     public void reload() {
         Settings = new Settings(this);
+    }
+
+    public static Plugin getInstance() {
+        return instance;
     }
 
     public static Settings getSettings() {

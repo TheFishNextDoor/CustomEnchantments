@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
+import com.thefishnextdoor.customenchantments.Tag;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment.ArrowTransformEnchantment;
 import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 import com.thefishnextdoor.customenchantments.tools.EntityTools;
@@ -49,7 +50,9 @@ public class SalmonSlinger extends ArrowTransformEnchantment {
     public static void convertProjectile(Player player, Projectile projectile) {
         if (EnchantTools.holdingRangedWith(player, CustomEnchantment.SALMON_SLINGER)) {
             Entity entity = EntityTools.convert(projectile, EntityType.SALMON);
+            entity.setPersistent(false);
             entity.setFallDistance(100);
+            Tag.add(entity, Tag.NO_DROPS);
         }
     }
 }

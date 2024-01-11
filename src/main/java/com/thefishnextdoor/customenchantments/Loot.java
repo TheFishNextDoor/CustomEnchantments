@@ -23,6 +23,10 @@ public class Loot {
             return;
         }
 
+        if (Tag.has(livingEntity, Tag.NO_DROPS)) {
+            return;
+        }
+
         EntityType type = livingEntity.getType();
         double baseChance = 0.1;
         double lootingMultiplier = 1.0 + (EnchantTools.lootingLevel(player) * 0.1);
