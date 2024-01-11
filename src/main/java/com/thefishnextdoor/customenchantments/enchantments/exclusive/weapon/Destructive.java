@@ -70,8 +70,14 @@ public class Destructive extends ArrowTransformEnchantment {
         }
 
         ItemStack item = InventoryTools.getRangedItemInUse(player);
-        ItemStack newItem = item != null ? item.clone() : new ItemStack(material);
-        newItem.setType(material);
+        ItemStack newItem;
+        if (item != null) {
+            newItem = item.clone();
+            newItem.setType(material);
+        } 
+        else {
+            newItem = new ItemStack(material);
+        }
         WorldTools.breakBlock(player, block, newItem);
         playEffect(block.getLocation().add(0.5, 0.5, 0.5));
     }
