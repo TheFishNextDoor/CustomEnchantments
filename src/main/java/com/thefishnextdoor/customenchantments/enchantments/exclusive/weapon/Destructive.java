@@ -18,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.Tag;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment.ArrowTransformEnchantment;
 import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 import com.thefishnextdoor.customenchantments.tools.EntityTools;
@@ -54,13 +55,12 @@ public class Destructive extends ArrowTransformEnchantment {
         if (EnchantTools.holdingRangedWith(player, CustomEnchantment.DESTRUCTIVE)) {
             Snowball snowball = (Snowball) EntityTools.convert(projectile, EntityType.SNOWBALL);
             snowball.setItem(new ItemStack(Material.TNT));
+            Tag.EXPLODE_ON_IMPACT.applyTo(snowball);
         }
     }
 
     public static void onProjectileHitBlock(Player player, Projectile projectile, Block block) {
-        ItemStack item = InventoryTools.getRangedItemInUse(player);
-        final int level = EnchantTools.level(item, CustomEnchantment.DESTRUCTIVE);
-        if (level < 1) {
+        if (!Tag.EXPLODE_ON_IMPACT.isOn(projectile)) {
             return;
         }
 
@@ -69,15 +69,15 @@ public class Destructive extends ArrowTransformEnchantment {
             return;
         }
 
-        ItemStack newItem = item.clone();
+        ItemStack item = InventoryTools.getRangedItemInUse(player);
+        ItemStack newItem = item != null ? item.clone() : new ItemStack(material);
         newItem.setType(material);
         WorldTools.breakBlock(player, block, newItem);
         playEffect(block.getLocation().add(0.5, 0.5, 0.5));
     }
 
     public static void onProjectileHitEntity(Player player, Projectile projectile, Entity entity) {
-        final int level = EnchantTools.rangedLevel(player, CustomEnchantment.DESTRUCTIVE);
-        if (level < 1) {
+        if (!Tag.EXPLODE_ON_IMPACT.isOn(projectile)) {
             return;
         }
         if (entity instanceof LivingEntity) {
