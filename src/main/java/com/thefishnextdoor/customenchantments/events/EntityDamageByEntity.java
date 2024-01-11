@@ -16,7 +16,6 @@ import com.thefishnextdoor.customenchantments.enchantments.Radiance;
 import com.thefishnextdoor.customenchantments.enchantments.Reflection;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.chestplate.DeathWish;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.chestplate.Flaming;
-import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.BloodTipped;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Crippling;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Debilitating;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Disorienting;
@@ -85,7 +84,6 @@ public class EntityDamageByEntity implements Listener {
         Fling.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
         Venom.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
         Withering.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
-        BloodTipped.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
         Radiance.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
         Obscure.onPlayerAttackEntity(player, entity, RANGED_ATTACK);
         Disorienting.onPlayerAttackEntity(player, entity, RANGED_ATTACK);

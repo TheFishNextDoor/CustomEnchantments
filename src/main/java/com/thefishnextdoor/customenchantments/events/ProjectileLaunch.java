@@ -33,7 +33,7 @@ public class ProjectileLaunch implements Listener {
         Volley.summonProjectiles(player, projectile);
         Range.modifyVelocity(player, projectile);
         Precision.modifyVelocity(player, projectile);
-        BloodTipped.onPlayerFireProjectile(player);
+        BloodTipped.onPlayerFireProjectile(player, projectile);
         Seeking.onPlayerFireProjectile(player, projectile);
         SalmonSlinger.convertProjectile(player, projectile);
         FireBlast.convertProjectile(player, projectile);

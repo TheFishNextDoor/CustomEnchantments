@@ -1,9 +1,13 @@
 package com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon;
 
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.AbstractArrow.PickupStatus;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
@@ -52,9 +56,24 @@ public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
         livingEntity.addPotionEffects(player.getActivePotionEffects());
     }
 
-    public static void onPlayerFireProjectile(Player player) {
-        if (EnchantTools.holdingRangedWith(player, CustomEnchantment.BLOOD_TIPPED)) {
-            player.damage(1, player);
+    public static void onPlayerFireProjectile(Player player, Projectile projectile) {
+        if (!EnchantTools.holdingRangedWith(player, CustomEnchantment.BLOOD_TIPPED)) {
+            return;
+        }
+
+        player.damage(1, player);
+
+        if (!(projectile instanceof Arrow)) {
+            return;
+        }
+
+        Arrow arrow = (Arrow) projectile;
+        for (PotionEffect effect : player.getActivePotionEffects()) {
+            arrow.addCustomEffect(effect, true);
+        }
+
+        if (arrow.hasCustomEffects()) {
+            arrow.setPickupStatus(PickupStatus.DISALLOWED);
         }
     }
 }
