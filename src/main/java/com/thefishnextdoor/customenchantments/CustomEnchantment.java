@@ -34,6 +34,7 @@ import com.thefishnextdoor.customenchantments.enchantments.Telekinesis;
 import com.thefishnextdoor.customenchantments.enchantments.Tilling;
 import com.thefishnextdoor.customenchantments.enchantments.TreeFeller;
 import com.thefishnextdoor.customenchantments.enchantments.Unbreakable;
+import com.thefishnextdoor.customenchantments.enchantments.Volley;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.boots.Anchor;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.boots.Bounce;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.boots.Crush;
@@ -75,7 +76,6 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Seek
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Starving;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Teleport;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Venom;
-import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Volley;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Withering;
 import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 import com.thefishnextdoor.customenchantments.tools.MaterialTools;
@@ -115,6 +115,7 @@ public abstract class CustomEnchantment extends Enchantment {
     public static CustomEnchantment TILLING;
     public static CustomEnchantment TREE_FELLER;
     public static CustomEnchantment UNBREAKABLE;
+    public static CustomEnchantment VOLLEY;
     public static MutuallyExclusiveWeaponEnchantment BLOOD_TIPPED;
     public static MutuallyExclusiveWeaponEnchantment CRIPPLING;
     public static MutuallyExclusiveWeaponEnchantment DEBILITATING;
@@ -131,7 +132,6 @@ public abstract class CustomEnchantment extends Enchantment {
     public static MutuallyExclusiveWeaponEnchantment STARVING;
     public static MutuallyExclusiveWeaponEnchantment TELEPORT;
     public static MutuallyExclusiveWeaponEnchantment VENOM;
-    public static MutuallyExclusiveWeaponEnchantment VOLLEY;
     public static MutuallyExclusiveWeaponEnchantment WITHERING;
     public static MutuallyExclusiveHelmetEnchantment CONDUIT_POWER;
     public static MutuallyExclusiveHelmetEnchantment GILLS;
@@ -401,13 +401,13 @@ public abstract class CustomEnchantment extends Enchantment {
         STARVING = new Starving(new NamespacedKey(plugin, "starving"));
         TELEPORT = new Teleport(new NamespacedKey(plugin, "teleport"));
         VENOM = new Venom(new NamespacedKey(plugin, "venom"));
-        VOLLEY = new Volley(new NamespacedKey(plugin, "volley"));
         WITHERING = new Withering(new NamespacedKey(plugin, "withering"));
         ANCHOR = new Anchor(new NamespacedKey(plugin, "anchor"));
         BOUNCE = new Bounce(new NamespacedKey(plugin, "bounce"));
         CRUSH = new Crush(new NamespacedKey(plugin, "crush"));
         LEAPING = new Leaping(new NamespacedKey(plugin, "leaping"));
         SLOW_FALLING = new SlowFalling(new NamespacedKey(plugin, "slow_falling"));
+        VOLLEY = new Volley(new NamespacedKey(plugin, "volley"));
     }
 
     public static ArrayList<CustomEnchantment> all() {

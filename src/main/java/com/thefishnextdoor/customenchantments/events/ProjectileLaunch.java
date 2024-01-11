@@ -9,6 +9,7 @@ import org.bukkit.projectiles.ProjectileSource;
 
 import com.thefishnextdoor.customenchantments.enchantments.Precision;
 import com.thefishnextdoor.customenchantments.enchantments.Range;
+import com.thefishnextdoor.customenchantments.enchantments.Volley;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.BloodTipped;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Destructive;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.FireBlast;
@@ -17,7 +18,6 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Levi
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.SalmonSlinger;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Seeking;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Teleport;
-import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Volley;
 
 public class ProjectileLaunch implements Listener {
 

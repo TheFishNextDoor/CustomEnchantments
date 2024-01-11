@@ -8,6 +8,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
+import com.thefishnextdoor.customenchantments.Tag;
 import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
@@ -62,6 +63,10 @@ public class Range extends CustomEnchantment {
 
         int level = EnchantTools.rangedLevel(player, CustomEnchantment.RANGE);
         if (level < 1) {
+            return;
+        }
+
+        if (Tag.FROM_VOLLEY.isOn(projectile)) {
             return;
         }
         

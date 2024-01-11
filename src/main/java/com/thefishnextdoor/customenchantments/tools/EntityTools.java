@@ -7,6 +7,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.customenchantments.EndOfTick;
+import com.thefishnextdoor.customenchantments.Tag;
 
 public class EntityTools {
 
@@ -29,6 +30,8 @@ public class EntityTools {
         if (entity instanceof Projectile && newEntity instanceof Projectile) {
             ((Projectile) newEntity).setShooter(((Projectile) entity).getShooter());
         }
+
+        Tag.transfer(entity, newEntity);
         
         EndOfTick.remove(entity);
         return newEntity;

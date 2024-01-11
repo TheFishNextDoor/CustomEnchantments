@@ -6,7 +6,8 @@ import org.bukkit.metadata.FixedMetadataValue;
 public enum Tag {
 
     NO_DROPS,
-    EXPLODE_ON_IMPACT;
+    EXPLODE_ON_IMPACT,
+    FROM_VOLLEY;
 
     private static final String METADATA_KEY_PREFIX = "FCE_";
 
@@ -21,7 +22,14 @@ public enum Tag {
 
     public void remove(Entity entity) {
         entity.removeMetadata(this.key(), Plugin.getInstance());
+    }
 
+    public static void transfer(Entity from, Entity to) {
+        for (Tag tag : Tag.values()) {
+            if (tag.isOn(from)) {
+                tag.applyTo(to);
+            }
+        }
     }
 
     private String key() {
