@@ -38,9 +38,8 @@ public class Plugin extends JavaPlugin {
 
     public void onEnable() {
         instance = this;
-        Settings = new Settings(this);
+        Settings = new Settings();
         CustomEnchantment.init(this);
-        EndOfTick.init(this);
         ArmorEffects.startTask(this);
         Seeking.startTask(this);
         registerEvents();
@@ -55,8 +54,8 @@ public class Plugin extends JavaPlugin {
         LOGGER.info("Plugin disabled");
     }
 
-    public void reload() {
-        Settings = new Settings(this);
+    public static void reload() {
+        Settings = new Settings();
     }
 
     public static Plugin getInstance() {
@@ -87,7 +86,7 @@ public class Plugin extends JavaPlugin {
     }
 
     private void registerCommands() {
-        getCommand("fce").setExecutor(new FCE(this));
+        getCommand("fce").setExecutor(new FCE());
         getCommand("fenchant").setExecutor(new Fenchant());
         getCommand("enchantinfo").setExecutor(new EnchantInfo());
         getCommand("disenchant").setExecutor(new Disenchant());

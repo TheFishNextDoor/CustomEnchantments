@@ -14,10 +14,6 @@ import com.thefishnextdoor.customenchantments.Plugin;
 import net.md_5.bungee.api.ChatColor;
 
 public class FCE implements CommandExecutor, TabCompleter {
-    private final Plugin plugin;
-    public FCE(Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
@@ -64,7 +60,7 @@ public class FCE implements CommandExecutor, TabCompleter {
         }
 
         if (subcommand.equals("reload") && reloadPermission) {
-            plugin.reload();
+            Plugin.reload();
             sender.sendMessage(ChatColor.AQUA + "Plugin reloaded");
             return true;
         }
