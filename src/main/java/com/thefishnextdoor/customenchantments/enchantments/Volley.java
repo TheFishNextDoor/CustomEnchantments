@@ -63,7 +63,7 @@ public class Volley extends CustomEnchantment {
         return "Fire multiple arrows at once. Rare drop from skeleton.";
     }
 
-    public static void onPlayerFireProjectile(Player player, Projectile projectile) {
+    public static void summonProjectiles(Player player, Projectile projectile) {
         if (!(projectile instanceof AbstractArrow)) {
             return;
         }
