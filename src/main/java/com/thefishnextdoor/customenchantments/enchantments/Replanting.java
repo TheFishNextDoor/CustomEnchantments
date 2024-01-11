@@ -73,18 +73,14 @@ public class Replanting extends CustomEnchantment {
         }
 
         if (level == 1) {
-            if (isHarvestable(block) && PermChecker.canBreak(player, block)) {
-                harvest(player, block, item);
-            }
+            harvest(player, block, item);
         }
         else {
             int x = block.getX(); int y = block.getY(); int z = block.getZ();
             int[][] allCoords = {{x, y, z},{x + 1, y, z},{x - 1, y, z},{x, y, z + 1},{x, y, z - 1},{x + 1, y, z + 1},{x + 1, y, z - 1},{x - 1, y, z + 1},{x - 1, y, z - 1}};
             for (int[] coords : allCoords) {
                 Block modifiedBlock = block.getWorld().getBlockAt(coords[0], coords[1], coords[2]);
-                if (isHarvestable(modifiedBlock) && PermChecker.canBreak(player, modifiedBlock)) {
-                    harvest(player, modifiedBlock, item);
-                }
+                harvest(player, modifiedBlock, item);
             }
         }
     }
@@ -110,24 +106,14 @@ public class Replanting extends CustomEnchantment {
         if (ageable.getAge() != ageable.getMaximumAge()) {
             return false;
         }
+
+        if (!PermChecker.canBreak(player, block)) {
+            return false;
+        }
         
         WorldTools.dropBlockItems(player, block, item);
         ageable.setAge(0);
         block.setBlockData(ageable);
-        return true;
-    }
-
-    private static boolean isHarvestable(Block block) {
-        BlockState state = block.getState();
-        if (!(state.getBlockData() instanceof Ageable)) {
-            return false;
-        }
-
-        Ageable ageable = (Ageable) state.getBlockData();
-        if (ageable.getAge() != ageable.getMaximumAge()) {
-            return false;
-        }
-
         return true;
     }
 }
