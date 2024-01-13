@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 
 import com.thefishnextdoor.customenchantments.Commands;
@@ -36,34 +37,24 @@ public class FCE implements CommandExecutor, TabCompleter {
             subcommand = args[0];
         }
 
-        boolean reloadPermission = sender.hasPermission(Commands.RELOAD_PERMISSION);
-        boolean fenchantPermission = sender.hasPermission(Commands.FENCHANT_PERMISSION);
-        boolean enchantInfoPermission = sender.hasPermission(Commands.ENCHANT_INFO_PERMISSION);
-        boolean disenchantPermission = sender.hasPermission(Commands.DISENCHANT_PERMISSION);
-        boolean combineEnchantmentPermission = sender.hasPermission(Commands.COMBINE_ENCHANTMENT_PERMISSION);
+        
 
         if (subcommand.equals("help")) {
+            Commands commands = Plugin.getCommands();
             sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Fish's Custom Enchantments");
             sender.sendMessage(ChatColor.AQUA + "/fce help " + ChatColor.WHITE + "Show this message");
-            if (reloadPermission) {
+            if (sender.hasPermission(Commands.RELOAD_PERMISSION)) {
                 sender.sendMessage(ChatColor.AQUA + "/fce reload " + ChatColor.WHITE + "Reload the plugin");
             }
-            if (fenchantPermission) {
-                sender.sendMessage(ChatColor.AQUA + "/fenchant <enchantment> [level] " + ChatColor.WHITE + "Enchant the item in your hand");
-            }
-            if (enchantInfoPermission) {
-                sender.sendMessage(ChatColor.AQUA + "/enchantinfo <enchantment> " + ChatColor.WHITE + "Show information about an enchantment");
-            }
-            if (disenchantPermission) {
-                sender.sendMessage(ChatColor.AQUA + "/disenchant <enchantment> " + ChatColor.WHITE + "Move an enchantment from an item to a book");
-            }
-            if (combineEnchantmentPermission) {
-                sender.sendMessage(ChatColor.AQUA + "/combineenchantment " + ChatColor.WHITE + "Applies the enchantments in your off hand to the item in your main hand like an anvil. Allows for combining custom enchantments on bedrock edition.");
-            }
+            sendHelpMessage(commands.ENCHANT_INFO_COMMAND, sender);
+            sendHelpMessage(commands.FENCHANT_COMMAND, sender);
+            sendHelpMessage(commands.DISENCHANT_COMMAND, sender);
+            sendHelpMessage(commands.ENCHANTED_BOOK_COMMAND, sender);
+            sendHelpMessage(commands.COMBINE_ENCHANTMENTS_COMMAND, sender);
             return true;
         }
 
-        if (subcommand.equals("reload") && reloadPermission) {
+        if (subcommand.equals("reload") && sender.hasPermission(Commands.RELOAD_PERMISSION)) {
             Plugin.reload();
             sender.sendMessage(ChatColor.AQUA + "Plugin reloaded");
             return true;
@@ -71,5 +62,11 @@ public class FCE implements CommandExecutor, TabCompleter {
 
         sender.sendMessage(ChatColor.RED + "Unknown subcommand");
         return true;
+    }
+
+    private static void sendHelpMessage(PluginCommand command, CommandSender sender) {
+        if (sender.hasPermission(command.getPermission())) {
+            sender.sendMessage(ChatColor.AQUA + command.getUsage() + ChatColor.WHITE + " " + command.getDescription());
+        }
     }
 }

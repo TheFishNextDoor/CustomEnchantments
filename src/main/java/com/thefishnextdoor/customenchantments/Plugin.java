@@ -7,12 +7,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.thefishnextdoor.customenchantments.commands.EnchantInfo;
-import com.thefishnextdoor.customenchantments.commands.EnchantedBook;
-import com.thefishnextdoor.customenchantments.commands.Fenchant;
-import com.thefishnextdoor.customenchantments.commands.CombineEnchantments;
-import com.thefishnextdoor.customenchantments.commands.FCE;
-import com.thefishnextdoor.customenchantments.commands.Disenchant;
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Seeking;
 import com.thefishnextdoor.customenchantments.events.BlockBreak;
 import com.thefishnextdoor.customenchantments.events.BlockDropItems;
@@ -35,16 +29,17 @@ public class Plugin extends JavaPlugin {
     public static final Logger LOGGER = Logger.getLogger("Fish's Custom Enchantments");
 
     private static Plugin instance;
-    private static Settings Settings;
+    private static Settings settings;
+    private static Commands commands;
 
     public void onEnable() {
         instance = this;
-        Settings = new Settings();
+        settings = new Settings();
+        commands = new Commands(this);
         CustomEnchantment.init(this);
         ArmorEffects.startTask(this);
         Seeking.startTask(this);
         registerEvents();
-        registerCommands();
         forceLoadClasses();
         LOGGER.info("Plugin enabled");
     }
@@ -56,7 +51,7 @@ public class Plugin extends JavaPlugin {
     }
 
     public static void reload() {
-        Settings = new Settings();
+        settings = new Settings();
     }
 
     public static Plugin getInstance() {
@@ -64,7 +59,11 @@ public class Plugin extends JavaPlugin {
     }
 
     public static Settings getSettings() {
-        return Settings;
+        return settings;
+    }
+
+    public static Commands getCommands() {
+        return commands;
     }
 
     private void registerEvents() {
@@ -84,15 +83,6 @@ public class Plugin extends JavaPlugin {
         pluginManager.registerEvents(new InventoryClick(), this);
         pluginManager.registerEvents(new EntityDeath(), this);
         pluginManager.registerEvents(new DropItem(), this);
-    }
-
-    private void registerCommands() {
-        getCommand("fce").setExecutor(new FCE());
-        getCommand("fenchant").setExecutor(new Fenchant());
-        getCommand("enchantinfo").setExecutor(new EnchantInfo());
-        getCommand("disenchant").setExecutor(new Disenchant());
-        getCommand("enchantedbook").setExecutor(new EnchantedBook());
-        getCommand("combineenchantments").setExecutor(new CombineEnchantments());
     }
 
     private void forceLoadClasses() {
