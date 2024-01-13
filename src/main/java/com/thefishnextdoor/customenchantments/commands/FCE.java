@@ -37,8 +37,6 @@ public class FCE implements CommandExecutor, TabCompleter {
             subcommand = args[0];
         }
 
-        
-
         if (subcommand.equals("help")) {
             Commands commands = Plugin.getCommands();
             sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Fish's Custom Enchantments");
