@@ -12,8 +12,9 @@ public class Commands {
     
     public static final String RELOAD_PERMISSION = "fce.admin.reload";
     public static final String FENCHANT_PERMISSION = "fce.admin.fenchant";
-    public static final String ENCHANTINFO_PERMISSION = "fce.user.enchantinfo";
+    public static final String ENCHANT_INFO_PERMISSION = "fce.user.enchantinfo";
     public static final String DISENCHANT_PERMISSION = "fce.user.disenchant";
+    public static final String COMBINE_ENCHANTMENT_PERMISSION = "fce.user.combineenchantment";
 
     public static ArrayList<String> recommendedEnchantmentNames(ItemStack item) {
         if (item == null) {

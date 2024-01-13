@@ -1,6 +1,7 @@
 package com.thefishnextdoor.customenchantments.tools;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -249,35 +250,13 @@ public class EnchantTools {
         return hasEnchant;
     }
 
-    public static ArrayList<Enchantment> enchantments(ItemStack item) {
-        ArrayList<Enchantment> enchantments = new ArrayList<Enchantment>();
-
-        if (item == null) {
-            return enchantments;
-        }
-
-        if (!item.hasItemMeta()) {
-            return enchantments;
-        }
-
-        Iterator<Enchantment> iter;
-        if (item.getType() == Material.ENCHANTED_BOOK) {
-            EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-            if (!meta.hasStoredEnchants()) {
-                return enchantments;
+    public static HashMap<Enchantment, Integer> enchantments(ItemStack item) {
+        HashMap<Enchantment, Integer> enchantments = new HashMap<>();
+        for (Enchantment enchantment : Enchantment.values()) {
+            int level = level(item, enchantment);
+            if (level > 0) {
+                enchantments.put(enchantment, level);
             }
-            iter = meta.getStoredEnchants().keySet().iterator();
-        }
-        else {
-            ItemMeta meta = item.getItemMeta();
-            if (!meta.hasEnchants()) {
-                return enchantments;
-            }
-            iter = meta.getEnchants().keySet().iterator();
-        }
-
-        while (iter.hasNext()) {
-            enchantments.add(iter.next());
         }
         return enchantments;
     }
@@ -427,7 +406,7 @@ public class EnchantTools {
     }
 
     public static boolean hasConflictingEnchantments(ItemStack item, Enchantment enchantment) {
-        Iterator<Enchantment> iter = enchantments(item).iterator();
+        Iterator<Enchantment> iter = enchantments(item).keySet().iterator();
         while (iter.hasNext()) {
             Enchantment ienchantment = iter.next();
             if (same(ienchantment, enchantment)) {

@@ -1,7 +1,5 @@
 package com.thefishnextdoor.customenchantments.events;
 
-import java.util.ArrayList;
-
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,12 +34,15 @@ public class InventoryClick implements Listener {
         if (!(CustomEnchantment.hasCustomEnchantments(zero) || CustomEnchantment.hasCustomEnchantments(one))) {
             return;
         }
-        
-        ArrayList<Enchantment> fishchantments = CustomEnchantment.customEnchantments(zero);
-        fishchantments.addAll(CustomEnchantment.customEnchantments(one));
-        for (int i = 0; i < fishchantments.size(); i++) {
-            Enchantment enchantment = fishchantments.get(i);
+
+        for (Enchantment enchantment : CustomEnchantment.customEnchantments(zero).keySet()) {
             EnchantTools.removeEnchant(result, enchantment);
         }
+
+        for (Enchantment enchantment : CustomEnchantment.customEnchantments(one).keySet()) {
+            EnchantTools.removeEnchant(result, enchantment);
+        }
+
+
     }
 }

@@ -24,6 +24,10 @@ commands:
     description: Remove an enchantment from the item in your hand and return the enchantment book
     usage: /disenchant <enchantment>
     permission: fce.user.disenchant
+  combineenchantments:
+    description: Applies the enchantments in your off hand to the item in your main hand like an anvil. Allows for combining custom enchantments on bedrock edition.
+    usage: /combineenchantments
+    permission: fce.user.combineenchantments
 permissions:
   fce.admin.reload:
     description: Allows the use of the reload command
@@ -36,3 +40,5 @@ permissions:
     default: true
   fce.user.disenchant:
     description: Allows the use of the disenchant command
+  fce.user.combineenchantments:
+    description: Allows the use of the combineenchantments command

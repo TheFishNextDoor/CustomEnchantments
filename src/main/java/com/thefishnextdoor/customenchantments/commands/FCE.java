@@ -38,8 +38,9 @@ public class FCE implements CommandExecutor, TabCompleter {
 
         boolean reloadPermission = sender.hasPermission(Commands.RELOAD_PERMISSION);
         boolean fenchantPermission = sender.hasPermission(Commands.FENCHANT_PERMISSION);
-        boolean enchantinfoPermission = sender.hasPermission(Commands.ENCHANTINFO_PERMISSION);
+        boolean enchantInfoPermission = sender.hasPermission(Commands.ENCHANT_INFO_PERMISSION);
         boolean disenchantPermission = sender.hasPermission(Commands.DISENCHANT_PERMISSION);
+        boolean combineEnchantmentPermission = sender.hasPermission(Commands.COMBINE_ENCHANTMENT_PERMISSION);
 
         if (subcommand.equals("help")) {
             sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Fish's Custom Enchantments");
@@ -50,11 +51,14 @@ public class FCE implements CommandExecutor, TabCompleter {
             if (fenchantPermission) {
                 sender.sendMessage(ChatColor.AQUA + "/fenchant <enchantment> [level] " + ChatColor.WHITE + "Enchant the item in your hand");
             }
-            if (enchantinfoPermission) {
+            if (enchantInfoPermission) {
                 sender.sendMessage(ChatColor.AQUA + "/enchantinfo <enchantment> " + ChatColor.WHITE + "Show information about an enchantment");
             }
             if (disenchantPermission) {
                 sender.sendMessage(ChatColor.AQUA + "/disenchant <enchantment> " + ChatColor.WHITE + "Move an enchantment from an item to a book");
+            }
+            if (combineEnchantmentPermission) {
+                sender.sendMessage(ChatColor.AQUA + "/combineenchantment " + ChatColor.WHITE + "Applies the enchantments in your off hand to the item in your main hand like an anvil. Allows for combining custom enchantments on bedrock edition.");
             }
             return true;
         }

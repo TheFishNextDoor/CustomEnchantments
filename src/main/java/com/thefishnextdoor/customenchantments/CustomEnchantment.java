@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map.Entry;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -489,7 +490,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static boolean hasCustomEnchantments(ItemStack item) {
-        for (Enchantment enchantment : EnchantTools.enchantments(item)) {
+        for (Enchantment enchantment : EnchantTools.enchantments(item).keySet()) {
             if (isCustomEnchantment(enchantment)) {
                 return true;
             }
@@ -497,11 +498,11 @@ public abstract class CustomEnchantment extends Enchantment {
         return false;
     }
 
-    public static ArrayList<Enchantment> customEnchantments(ItemStack item) {
-        ArrayList<Enchantment> foundFishchantments = new ArrayList<>();
-        for (Enchantment enchantment : EnchantTools.enchantments(item)) {
-            if (isCustomEnchantment(enchantment)) {
-                foundFishchantments.add(enchantment);
+    public static HashMap<Enchantment, Integer> customEnchantments(ItemStack item) {
+        HashMap<Enchantment, Integer>  foundFishchantments = new HashMap<>();
+        for (Entry<Enchantment, Integer> entry : EnchantTools.enchantments(item).entrySet()) {
+            if (isCustomEnchantment(entry.getKey())) {
+                foundFishchantments.put(entry.getKey(), entry.getValue());
             }
         }
         return foundFishchantments;

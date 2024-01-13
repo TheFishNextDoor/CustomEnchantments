@@ -1,6 +1,6 @@
 package com.thefishnextdoor.customenchantments.events;
 
-import java.util.ArrayList;
+import java.util.Map.Entry;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
@@ -33,19 +33,13 @@ public class PrepareAnvil implements Listener {
             cloned = true;
         }
         else {
-            ArrayList<Enchantment> fishchantments = CustomEnchantment.customEnchantments(zero);
-            for (int i = 0; i < fishchantments.size(); i++) {
-                Enchantment enchantment = fishchantments.get(i);
-                int level = EnchantTools.level(zero, enchantment);
-                EnchantTools.addEnchant(result, enchantment, level, true, false);
+            for (Entry<Enchantment, Integer> entry : CustomEnchantment.customEnchantments(zero).entrySet()) {
+                EnchantTools.addEnchant(result, entry.getKey(), entry.getValue(), true, false);
             }
         }
         
-        ArrayList<Enchantment> enchantments = EnchantTools.enchantments(one);
-        for (int i = 0; i < enchantments.size(); i++) {
-            Enchantment enchantment = enchantments.get(i);
-            int level = EnchantTools.level(one, enchantment);
-            EnchantTools.addEnchant(result, enchantment, level, false, true);
+        for (Entry<Enchantment, Integer> entry : EnchantTools.enchantments(one).entrySet()) {
+            EnchantTools.addEnchant(result, entry.getKey(), entry.getValue(), false, true);
         }
         if (EnchantTools.sameEnchantments(zero, result) && cloned) {
             event.setResult(null);
