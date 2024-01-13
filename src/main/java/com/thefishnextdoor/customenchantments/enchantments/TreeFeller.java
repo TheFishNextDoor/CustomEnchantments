@@ -28,8 +28,9 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class TreeFeller extends CustomEnchantment {
 
-    private static final int RADIUS = 6;
-    private static final int HEIGHT = 32;
+    public static final int RADIUS = 6;
+    public static final int HEIGHT = 32;
+    public static final int DELAY_TICKS = 50;
 
     public TreeFeller(NamespacedKey key) {
         super(key);
@@ -104,7 +105,7 @@ public class TreeFeller extends CustomEnchantment {
 
         String msg = ChatColor.GRAY + "" + ChatColor.ITALIC + "You feel tired after chopping down a tree";
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(msg));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 50, 2), true);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, DELAY_TICKS, 2), true);
     }
 
     private static void selectTree(Location start, ArrayList<Block> logs, ArrayList<Block> leaves) {

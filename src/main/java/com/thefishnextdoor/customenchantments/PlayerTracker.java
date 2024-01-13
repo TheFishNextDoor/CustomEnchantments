@@ -6,6 +6,8 @@ import java.util.Iterator;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
+import com.thefishnextdoor.customenchantments.enchantments.TreeFeller;
+
 public class PlayerTracker {
 
     private static ArrayList<TrackedPlayer> trackedPlayers = new ArrayList<TrackedPlayer>();
@@ -39,7 +41,7 @@ public class PlayerTracker {
         }
 
         public boolean treeFellerReady() {
-            return currentTimeTicks() >= lastTreeFellerTick + 48;
+            return currentTimeTicks() >= lastTreeFellerTick + TreeFeller.DELAY_TICKS - 2;
         }
 
         public void setTreeFellerTick() {
