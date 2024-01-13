@@ -34,13 +34,34 @@ public class Plugin extends JavaPlugin {
 
     public void onEnable() {
         instance = this;
+
         settings = new Settings();
         commands = new Commands(this);
+
         CustomEnchantment.init(this);
+
         ArmorEffects.startTask(this);
         Seeking.startTask(this);
-        registerEvents();
+
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new EntityDamage(), this);
+        pluginManager.registerEvents(new EntityDamageByEntity(), this);
+        pluginManager.registerEvents(new PlayerQuit(), this);
+        pluginManager.registerEvents(new ProjectileHit(), this);
+        pluginManager.registerEvents(new BlockDropItems(), this);
+        pluginManager.registerEvents(new PlayerItemDamage(), this);
+        pluginManager.registerEvents(new ProjectileLaunch(), this);
+        pluginManager.registerEvents(new PlayerMove(), this);
+        pluginManager.registerEvents(new HungerChange(), this);
+        pluginManager.registerEvents(new PlayerInteract(), this);
+        pluginManager.registerEvents(new BlockBreak(), this);
+        pluginManager.registerEvents(new PrepareAnvil(), this);
+        pluginManager.registerEvents(new InventoryClick(), this);
+        pluginManager.registerEvents(new EntityDeath(), this);
+        pluginManager.registerEvents(new DropItem(), this);
+
         forceLoadClasses();
+
         LOGGER.info("Plugin enabled");
     }
     
@@ -64,25 +85,6 @@ public class Plugin extends JavaPlugin {
 
     public static Commands getCommands() {
         return commands;
-    }
-
-    private void registerEvents() {
-        PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(new EntityDamage(), this);
-        pluginManager.registerEvents(new EntityDamageByEntity(), this);
-        pluginManager.registerEvents(new PlayerQuit(), this);
-        pluginManager.registerEvents(new ProjectileHit(), this);
-        pluginManager.registerEvents(new BlockDropItems(), this);
-        pluginManager.registerEvents(new PlayerItemDamage(), this);
-        pluginManager.registerEvents(new ProjectileLaunch(), this);
-        pluginManager.registerEvents(new PlayerMove(), this);
-        pluginManager.registerEvents(new HungerChange(), this);
-        pluginManager.registerEvents(new PlayerInteract(), this);
-        pluginManager.registerEvents(new BlockBreak(), this);
-        pluginManager.registerEvents(new PrepareAnvil(), this);
-        pluginManager.registerEvents(new InventoryClick(), this);
-        pluginManager.registerEvents(new EntityDeath(), this);
-        pluginManager.registerEvents(new DropItem(), this);
     }
 
     private void forceLoadClasses() {
