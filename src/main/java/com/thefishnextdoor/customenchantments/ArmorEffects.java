@@ -61,13 +61,16 @@ public class ArmorEffects {
     }
 
     public static void startTask(final Plugin plugin) {
-        if (armorEffectsTaskId == -1) armorEffectsTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+        if (armorEffectsTaskId != -1) {
+            return;
+        }
+        armorEffectsTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
                 Collection<? extends Player> players = Bukkit.getOnlinePlayers();
                 for (Player player : players) {
                     ArmorCheckOptimizer o = new ArmorCheckOptimizer(player);
-                    if (! o.CHECK_HELMET && !o.CHECK_CHESTPLATE && !o.CHECK_LEGGINGS && !o.CHECK_BOOTS) {
+                    if (!o.CHECK_HELMET && !o.CHECK_CHESTPLATE && !o.CHECK_LEGGINGS && !o.CHECK_BOOTS) {
                         continue;
                     }
                     CurseOfRadiance.onTimer(player, o);
