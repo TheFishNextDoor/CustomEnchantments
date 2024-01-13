@@ -11,8 +11,8 @@ public class Settings {
     public final boolean USE_ARABIC_NUMERALS;
     public final boolean PLAY_EFFECTS;
 
-    public Settings() {
-        FileConfiguration config = getPluginConfig(Plugin.getInstance());
+    public Settings(Plugin plugin) {
+        FileConfiguration config = getPluginConfig(plugin);
         MOBS_DROP_BOOKS = config.getBoolean("mobs-drop-books", true);
         REMOVE_OVERRIDDEN_ENCHANTMENTS = config.getBoolean("remove-overridden-enchantments", true);
         CHECK_LORE = config.getBoolean("check-lore", true);

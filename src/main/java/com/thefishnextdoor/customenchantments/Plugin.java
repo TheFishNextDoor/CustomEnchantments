@@ -35,7 +35,7 @@ public class Plugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        settings = new Settings();
+        settings = new Settings(this);
         commands = new Commands(this);
 
         CustomEnchantment.init(this);
@@ -71,8 +71,8 @@ public class Plugin extends JavaPlugin {
         LOGGER.info("Plugin disabled");
     }
 
-    public static void reload() {
-        settings = new Settings();
+    public void reload() {
+        settings = new Settings(this);
     }
 
     public static Plugin getInstance() {

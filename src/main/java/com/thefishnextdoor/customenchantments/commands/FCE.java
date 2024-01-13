@@ -53,7 +53,7 @@ public class FCE implements CommandExecutor, TabCompleter {
         }
 
         if (subcommand.equals("reload") && sender.hasPermission(Commands.RELOAD_PERMISSION)) {
-            Plugin.reload();
+            Plugin.getInstance().reload();
             sender.sendMessage(ChatColor.AQUA + "Plugin reloaded");
             return true;
         }
