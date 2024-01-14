@@ -3,6 +3,7 @@ package com.thefishnextdoor.customenchantments.commands;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,8 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.Commands;
+import com.thefishnextdoor.customenchantments.Plugin;
 import com.thefishnextdoor.customenchantments.tools.EnchantTools;
-
 import net.md_5.bungee.api.ChatColor;
 
 public class CombineEnchantments implements CommandExecutor, TabCompleter {
@@ -49,6 +50,13 @@ public class CombineEnchantments implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        boolean creative = player.getGameMode() == GameMode.CREATIVE;
+        int cost = creative ? 0 : Plugin.getSettings().COMBINE_ENCHANTMENTS_COST_LEVELS;
+        if (player.getLevel() < cost) {
+            sender.sendMessage(ChatColor.RED + "You need " + cost + " levels to use this command.");
+            return true;
+        }
+
         boolean confirm = args.length >= 1 && args[0].equalsIgnoreCase("confirm");
         if (!confirm) {
             sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Resulting Item");
@@ -67,6 +75,9 @@ public class CombineEnchantments implements CommandExecutor, TabCompleter {
 
         player.getInventory().setItemInMainHand(result);
         player.getInventory().setItemInOffHand(null);
+        if (!creative) {
+            player.setLevel(player.getLevel() - cost);
+        }
         sender.sendMessage(ChatColor.AQUA + "Enchantments merged.");
         return true;
     }

@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.Commands;
+import com.thefishnextdoor.customenchantments.Plugin;
 import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 import com.thefishnextdoor.customenchantments.tools.InventoryTools;
 
@@ -57,6 +58,12 @@ public class Disenchant implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        int cost = creative ? 0 : Plugin.getSettings().DISENCHANT_COST_LEVELS;
+        if (player.getLevel() < cost) {
+            player.sendMessage(ChatColor.RED + "You need " + cost + " levels to use this command.");
+            return true;
+        }
+
         ItemStack item = InventoryTools.getMeleeItemInUse(player);
         int level = EnchantTools.level(item, enchantment);
         boolean confirm = args.length >= 2 && args[1].equalsIgnoreCase("confirm");
@@ -76,6 +83,7 @@ public class Disenchant implements CommandExecutor, TabCompleter {
         if (!creative) {
             InventoryTools.take(player, Material.BOOK, 1);
             InventoryTools.give(player, EnchantTools.enchantedBook(enchantment, level));
+            player.setLevel(player.getLevel() - cost);
         }
         player.sendMessage(ChatColor.AQUA + "Enchantment removed from item in hand.");
         return true;

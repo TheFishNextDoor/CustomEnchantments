@@ -3,3 +3,5 @@ remove-overridden-enchantments: true # Remove unbreaking and mending when unbrea
 check-lore: true # Fixes plugins with lossy item saving from losing the applied enchantments (e.g. Essentials kits)
 use-arabic-numerals: false # Use 1, 2, 3 instead of I, II, III
 play-effects: true # Certain enchantments will create particle effects
+disenchant-cost-levels: 3 # The number of levels it costs to use the disenchant command
+combine-enchantments-cost-levels: 3 # The number of levels it costs to use the combine enchantments command
