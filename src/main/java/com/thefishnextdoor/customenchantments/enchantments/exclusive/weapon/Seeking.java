@@ -68,8 +68,12 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
                 Iterator<SeekingArrow> iter = seekingArrows.iterator();
                 while (iter.hasNext()) {
                     SeekingArrow seekingArrow = iter.next();
-                    if (seekingArrow.valid()) seekingArrow.seek();
-                    else iter.remove();
+                    if (seekingArrow.valid()) {
+                        seekingArrow.seek();
+                    }
+                    else {
+                        iter.remove();
+                    }
                 }
             }
         }, 0, 1);
@@ -110,14 +114,14 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
         }
 
         public void seek() {
-            Entity nearest = nearestEntity();
-            if (nearest == null) {
-                return;
-            }
-
             Vector originalVelocity = arrow.getVelocity();
             double speed = originalVelocity.length();
             if (speed < 0.6) {
+                return;
+            }
+
+            Entity nearest = nearestEntity();
+            if (nearest == null) {
                 return;
             }
 
@@ -135,13 +139,24 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
                 if (!(entity instanceof LivingEntity)) {
                     continue;
                 }
+
                 if (entity instanceof Player && ((Player) entity).getUniqueId().equals(playerID)) {
                     continue;
                 }
-                double distance = arrow.getLocation().distance(entity.getLocation());
+
+                Location entityLocation = entity.getLocation();
+                Location arrowLocation = arrow.getLocation();
+
+                Vector direction = direction(arrowLocation, entityLocation);
+                if (direction.dot(arrow.getVelocity()) < 0) {
+                    continue;
+                }
+
+                double distance = arrowLocation.distance(entityLocation);
                 if (distance >= nearestDistance) {
                     continue;
                 }
+
                 nearest = entity;
                 nearestDistance = distance;
             }
