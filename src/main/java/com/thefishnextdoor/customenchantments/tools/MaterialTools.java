@@ -85,40 +85,4 @@ public class MaterialTools {
     public static boolean isBoots(Material material) {
         return material.name().endsWith("_BOOTS");
     }
-
-    public static boolean isLog(Material type) {
-        switch (type) {
-            case OAK_LOG:
-            case BIRCH_LOG:
-            case SPRUCE_LOG:
-            case JUNGLE_LOG:
-            case ACACIA_LOG:
-            case DARK_OAK_LOG:
-            case MANGROVE_LOG:
-            case CHERRY_LOG:
-            case CRIMSON_STEM:
-            case WARPED_STEM:
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    public static boolean isLeaves(Material type) {
-        switch (type) {
-            case OAK_LEAVES:
-            case BIRCH_LEAVES:
-            case SPRUCE_LEAVES:
-            case JUNGLE_LEAVES:
-            case ACACIA_LEAVES:
-            case DARK_OAK_LEAVES:
-            case MANGROVE_LEAVES:
-            case CHERRY_LEAVES:
-            case CRIMSON_FUNGUS:
-            case WARPED_FUNGUS:
-                return true;
-            default:
-                return false;
-        }
-    }
 }
