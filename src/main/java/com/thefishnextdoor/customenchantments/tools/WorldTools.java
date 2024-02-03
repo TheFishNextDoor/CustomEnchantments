@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -34,7 +35,7 @@ public class WorldTools {
     public static void dropBlockItems(Player player, Block block, ItemStack item) {
         Collection<ItemStack> drops = item == null ? block.getDrops() : block.getDrops(item);
         BlockState state = block.getState();
-        if (state instanceof InventoryHolder) {
+        if (state instanceof InventoryHolder && !(state instanceof ShulkerBox)) {
             ItemStack[] contents = ((InventoryHolder) state).getInventory().getContents();
             for (ItemStack content : contents) {
                 if (content == null) continue;
