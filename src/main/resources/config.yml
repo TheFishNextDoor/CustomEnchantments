@@ -5,3 +5,4 @@ use-arabic-numerals: false # Use 1, 2, 3 instead of I, II, III
 play-effects: true # Certain enchantments will create particle effects
 disenchant-cost-levels: 3 # The number of levels it costs to use the disenchant command
 combine-enchantments-cost-levels: 3 # The number of levels it costs to use the combine enchantments command
+seeking-radius: 12 # How far away the seeking enchantment will look for entities

@@ -14,6 +14,7 @@ public class Settings {
     public final boolean PLAY_EFFECTS;
     public final Integer DISENCHANT_COST_LEVELS;
     public final Integer COMBINE_ENCHANTMENTS_COST_LEVELS;
+    public final Integer SEEKING_RADIUS;
 
     public Settings(Plugin plugin) {
         FileConfiguration config = getPluginConfig(plugin);
@@ -24,7 +25,7 @@ public class Settings {
         PLAY_EFFECTS = config.getBoolean("play-effects", true);
         DISENCHANT_COST_LEVELS = NumberTools.clamp(config.getInt("disenchant-cost-levels", 3), 0, Integer.MAX_VALUE);
         COMBINE_ENCHANTMENTS_COST_LEVELS = NumberTools.clamp(config.getInt("combine-enchantments-cost-levels", 3), 0, Integer.MAX_VALUE);
-
+        SEEKING_RADIUS = NumberTools.clamp(config.getInt("seeking-radius", 12), 4, 64);
     }
 
     private static FileConfiguration getPluginConfig(JavaPlugin plugin) {
