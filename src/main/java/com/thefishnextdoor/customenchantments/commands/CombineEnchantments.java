@@ -11,6 +11,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import com.thefishnextdoor.customenchantments.Commands;
 import com.thefishnextdoor.customenchantments.Plugin;
@@ -32,20 +33,22 @@ public class CombineEnchantments implements CommandExecutor, TabCompleter {
         }
 
         Player player = (Player) sender;
-        ItemStack zero = player.getInventory().getItemInMainHand();
-        ItemStack one = player.getInventory().getItemInOffHand();
+        PlayerInventory inventory = player.getInventory();
+        ItemStack currentItem = inventory.getItemInMainHand();
+        int nextSlot = (inventory.getHeldItemSlot() + 1) % 9;
+        ItemStack nextItem = inventory.getItem(nextSlot);
 
-        if (!EnchantTools.canMergeInAnvil(zero, one)) {
+        if (!EnchantTools.canMergeInAnvil(currentItem, nextItem)) {
             sender.sendMessage(ChatColor.RED + "These items cannot be merged.");
             return true;
         }
 
-        ItemStack result = zero.clone();
-        for (Entry<Enchantment, Integer> entry : EnchantTools.enchantments(one).entrySet()) {
+        ItemStack result = currentItem.clone();
+        for (Entry<Enchantment, Integer> entry : EnchantTools.enchantments(nextItem).entrySet()) {
             EnchantTools.addEnchant(result, entry.getKey(), entry.getValue(), false, true);
         }
 
-        if (EnchantTools.sameEnchantments(zero, result)) {
+        if (EnchantTools.sameEnchantments(currentItem, result)) {
             sender.sendMessage(ChatColor.RED + "These items cannot be merged.");
             return true;
         }
@@ -73,8 +76,8 @@ public class CombineEnchantments implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        player.getInventory().setItemInMainHand(result);
-        player.getInventory().setItemInOffHand(null);
+        inventory.setItemInMainHand(result);
+        inventory.setItem(nextSlot, null);
         if (!creative) {
             player.setLevel(player.getLevel() - cost);
         }

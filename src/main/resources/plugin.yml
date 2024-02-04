@@ -25,7 +25,7 @@ commands:
     usage: /disenchant <enchantment>
     permission: fce.user.disenchant
   combineenchantments:
-    description: Applies the enchantments in your off hand to the item in your main hand like an anvil. Allows for combining custom enchantments on bedrock edition.
+    description: Combines the item in your main hand with the item in the slot to the right of it. Allows for combining custom enchantments on bedrock edition.
     usage: /combineenchantments
     permission: fce.user.combineenchantments
 permissions:
