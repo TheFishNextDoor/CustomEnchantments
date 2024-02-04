@@ -23,7 +23,9 @@ import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 import com.thefishnextdoor.customenchantments.tools.MaterialTools;
 
 public class Seeking extends MutuallyExclusiveWeaponEnchantment {
+
     private static ArrayList<SeekingArrow> seekingArrows = new ArrayList<>();
+
     private static int taskID = -1;
 
     public Seeking(NamespacedKey key) {
@@ -97,8 +99,10 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
     }
 
     private static class SeekingArrow {
-        private static final int RADIUS = 8;
-        private static final double WEIGHT = 0.12;
+
+        private static final int RADIUS = 12;
+        private static final double TURN_STRENGTH = 0.12; // 0.0 to 1.0
+
         private final AbstractArrow arrow;
         private final UUID playerID;
         private final long created = System.currentTimeMillis();
@@ -125,15 +129,15 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
                 return;
             }
 
-            Vector newDirection = direction(arrow.getLocation(), nearest.getLocation());
+            Vector newDirection = direction(arrow.getLocation(), centerLocation(nearest));
             Vector newVelocity = newDirection.multiply(speed);
-            Vector weightedVelocity = originalVelocity.multiply(1 - WEIGHT).add(newVelocity.multiply(WEIGHT));
+            Vector weightedVelocity = originalVelocity.multiply(1.0 - TURN_STRENGTH).add(newVelocity.multiply(TURN_STRENGTH));
             arrow.setVelocity(weightedVelocity);
         }
 
         private Entity nearestEntity() {
             Entity nearest = null;
-            double nearestDistance = RADIUS;
+            double nearestAngle = 0;
             List<Entity> nearby = arrow.getNearbyEntities(RADIUS, RADIUS, RADIUS);
             for (Entity entity : nearby) {
                 if (!(entity instanceof LivingEntity)) {
@@ -144,27 +148,25 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
                     continue;
                 }
 
-                Location entityLocation = entity.getLocation();
+                Location entityLocation = centerLocation(entity);
                 Location arrowLocation = arrow.getLocation();
-
-                Vector direction = direction(arrowLocation, entityLocation);
-                if (direction.dot(arrow.getVelocity()) < 0) {
-                    continue;
+                Vector entityDirection = direction(arrowLocation, entityLocation);
+                Vector arrowDirection = arrow.getVelocity().clone().normalize();
+                double angle = entityDirection.dot(arrowDirection);
+                if (angle > nearestAngle && angle > 0.866) {
+                    nearest = entity;
+                    nearestAngle = angle;
                 }
-
-                double distance = arrowLocation.distance(entityLocation);
-                if (distance >= nearestDistance) {
-                    continue;
-                }
-
-                nearest = entity;
-                nearestDistance = distance;
             }
             return nearest;
         }
 
         private static Vector direction(Location from, Location to) {
             return to.toVector().subtract(from.toVector()).normalize();
+        }
+
+        private static Location centerLocation(Entity entity) {
+            return entity.getLocation().add(0, entity.getHeight()/2, 0);
         }
     }
 } 
