@@ -1,9 +1,11 @@
 package com.thefishnextdoor.customenchantments.commands;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.Registry;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -115,7 +117,9 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
     
     private ArrayList<String> getConflicts(Enchantment enchantment) {
         ArrayList<String> conflicts = new ArrayList<>();
-        for (Enchantment other : Enchantment.values()) {
+        Iterator<Enchantment> enchantments = Registry.ENCHANTMENT.iterator();
+        while(enchantments.hasNext()) {
+            Enchantment other = enchantments.next();
             if (EnchantTools.same(enchantment, other)) {
                 continue;
             }

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -251,14 +252,16 @@ public class EnchantTools {
     }
 
     public static HashMap<Enchantment, Integer> enchantments(ItemStack item) {
-        HashMap<Enchantment, Integer> enchantments = new HashMap<>();
-        for (Enchantment enchantment : Enchantment.values()) {
+        HashMap<Enchantment, Integer> itemEnchantments = new HashMap<>();
+        Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
+        while(allEnchantments.hasNext()) {
+            Enchantment enchantment = allEnchantments.next();
             int level = level(item, enchantment);
             if (level > 0) {
-                enchantments.put(enchantment, level);
+                itemEnchantments.put(enchantment, level);
             }
         }
-        return enchantments;
+        return itemEnchantments;
     }
 
     public static boolean sameEnchantments(ItemStack itemA, ItemStack itemB) {
@@ -309,7 +312,9 @@ public class EnchantTools {
     }
 
     public static Enchantment getEnchantment(String name) {
-        for (Enchantment enchantment : Enchantment.values()) {
+        Iterator<Enchantment> enchantments = Registry.ENCHANTMENT.iterator();
+        while(enchantments.hasNext()) {
+            Enchantment enchantment = enchantments.next();
             if (name(enchantment).equalsIgnoreCase(name)) {
                 return enchantment;
             }

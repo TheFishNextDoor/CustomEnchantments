@@ -1,8 +1,10 @@
 package com.thefishnextdoor.customenchantments;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.bukkit.Material;
+import org.bukkit.Registry;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -56,7 +58,9 @@ public class Commands {
         }
         
         ArrayList<String> names = new ArrayList<>();
-        for (Enchantment enchantment : Enchantment.values()) {
+        Iterator<Enchantment> enchantments = Registry.ENCHANTMENT.iterator();
+        while(enchantments.hasNext()) {
+            Enchantment enchantment = enchantments.next();
             if (EnchantTools.has(item, enchantment) || enchantment.canEnchantItem(item)) {
                 names.add(EnchantTools.name(enchantment));
             }
@@ -66,7 +70,9 @@ public class Commands {
 
     public static ArrayList<String> equippedEnchantmentNames(ItemStack item) {
         ArrayList<String> names = new ArrayList<>();
-        for (Enchantment enchantment : Enchantment.values()) {
+        Iterator<Enchantment> enchantments = Registry.ENCHANTMENT.iterator();
+        while(enchantments.hasNext()) {
+            Enchantment enchantment = enchantments.next();
             if (EnchantTools.has(item, enchantment)) {
                 names.add(EnchantTools.name(enchantment));
             }
@@ -76,7 +82,9 @@ public class Commands {
 
     public static ArrayList<String> allEnchantmentNames() {
         ArrayList<String> names = new ArrayList<>();
-        for (Enchantment enchantment : Enchantment.values()) {
+        Iterator<Enchantment> enchantments = Registry.ENCHANTMENT.iterator();
+        while(enchantments.hasNext()) {
+            Enchantment enchantment = enchantments.next();
             names.add(EnchantTools.name(enchantment));
         }
         return names;
