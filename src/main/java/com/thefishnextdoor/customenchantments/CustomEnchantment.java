@@ -80,6 +80,7 @@ import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Veno
 import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Withering;
 import com.thefishnextdoor.customenchantments.tools.EnchantTools;
 import com.thefishnextdoor.customenchantments.tools.MaterialTools;
+
 public abstract class CustomEnchantment extends Enchantment {
 
     private static HashSet<CustomEnchantment> customEnchantments = new HashSet<>();
