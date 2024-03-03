@@ -3,7 +3,7 @@ package com.thefishnextdoor.customenchantments;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.thefishnextdoor.customenchantments.tools.NumberTools;
+import com.thefishnextdoor.customenchantments.util.NumberTools;
 
 public class Settings {
     

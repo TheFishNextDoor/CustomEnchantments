@@ -7,13 +7,13 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.commands.CombineEnchantments;
-import com.thefishnextdoor.customenchantments.commands.Disenchant;
-import com.thefishnextdoor.customenchantments.commands.EnchantInfo;
-import com.thefishnextdoor.customenchantments.commands.EnchantedBook;
-import com.thefishnextdoor.customenchantments.commands.FCE;
-import com.thefishnextdoor.customenchantments.commands.Fenchant;
-import com.thefishnextdoor.customenchantments.tools.EnchantTools;
+import com.thefishnextdoor.customenchantments.command.CombineEnchantments;
+import com.thefishnextdoor.customenchantments.command.Disenchant;
+import com.thefishnextdoor.customenchantments.command.EnchantInfo;
+import com.thefishnextdoor.customenchantments.command.EnchantedBook;
+import com.thefishnextdoor.customenchantments.command.FCE;
+import com.thefishnextdoor.customenchantments.command.Fenchant;
+import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Commands {
     

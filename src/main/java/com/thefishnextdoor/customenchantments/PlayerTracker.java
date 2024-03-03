@@ -6,7 +6,7 @@ import java.util.Iterator;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
-import com.thefishnextdoor.customenchantments.enchantments.TreeFeller;
+import com.thefishnextdoor.customenchantments.enchantment.TreeFeller;
 
 public class PlayerTracker {
 

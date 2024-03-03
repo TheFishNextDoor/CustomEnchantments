@@ -7,22 +7,22 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.thefishnextdoor.customenchantments.enchantments.exclusive.weapon.Seeking;
-import com.thefishnextdoor.customenchantments.events.BlockBreak;
-import com.thefishnextdoor.customenchantments.events.BlockDropItems;
-import com.thefishnextdoor.customenchantments.events.DropItem;
-import com.thefishnextdoor.customenchantments.events.EntityDamage;
-import com.thefishnextdoor.customenchantments.events.EntityDamageByEntity;
-import com.thefishnextdoor.customenchantments.events.EntityDeath;
-import com.thefishnextdoor.customenchantments.events.HungerChange;
-import com.thefishnextdoor.customenchantments.events.InventoryClick;
-import com.thefishnextdoor.customenchantments.events.PlayerInteract;
-import com.thefishnextdoor.customenchantments.events.PlayerItemDamage;
-import com.thefishnextdoor.customenchantments.events.PlayerMove;
-import com.thefishnextdoor.customenchantments.events.PlayerQuit;
-import com.thefishnextdoor.customenchantments.events.PrepareAnvil;
-import com.thefishnextdoor.customenchantments.events.ProjectileHit;
-import com.thefishnextdoor.customenchantments.events.ProjectileLaunch;
+import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Seeking;
+import com.thefishnextdoor.customenchantments.event.BlockBreak;
+import com.thefishnextdoor.customenchantments.event.BlockDropItems;
+import com.thefishnextdoor.customenchantments.event.DropItem;
+import com.thefishnextdoor.customenchantments.event.EntityDamage;
+import com.thefishnextdoor.customenchantments.event.EntityDamageByEntity;
+import com.thefishnextdoor.customenchantments.event.EntityDeath;
+import com.thefishnextdoor.customenchantments.event.HungerChange;
+import com.thefishnextdoor.customenchantments.event.InventoryClick;
+import com.thefishnextdoor.customenchantments.event.PlayerInteract;
+import com.thefishnextdoor.customenchantments.event.PlayerItemDamage;
+import com.thefishnextdoor.customenchantments.event.PlayerMove;
+import com.thefishnextdoor.customenchantments.event.PlayerQuit;
+import com.thefishnextdoor.customenchantments.event.PrepareAnvil;
+import com.thefishnextdoor.customenchantments.event.ProjectileHit;
+import com.thefishnextdoor.customenchantments.event.ProjectileLaunch;
 
 public class Plugin extends JavaPlugin {
     
