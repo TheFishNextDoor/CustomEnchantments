@@ -159,8 +159,11 @@ public abstract class CustomEnchantment extends Enchantment {
     public static MutuallyExclusiveBootsEnchantment LEAPING;
     public static MutuallyExclusiveBootsEnchantment SLOW_FALLING;
 
+    private NamespacedKey key;
+
     public CustomEnchantment(NamespacedKey key) {
-        super(key);
+        super();
+        this.key = key;
         register(this);
     }
 
@@ -172,6 +175,11 @@ public abstract class CustomEnchantment extends Enchantment {
     @Override
     public boolean isTreasure() {
         return true;
+    }
+
+    @Override
+    public NamespacedKey getKey() {
+        return key;
     }
 
     public abstract String getDescription();
