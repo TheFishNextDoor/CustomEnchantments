@@ -3,7 +3,7 @@ package com.thefishnextdoor.customenchantments;
 import org.bukkit.entity.Entity;
 import org.bukkit.metadata.FixedMetadataValue;
 
-public enum Tag {
+public enum EntityTag {
 
     NO_DROPS,
     EXPLODE_ON_IMPACT,
@@ -25,7 +25,7 @@ public enum Tag {
     }
 
     public static void transfer(Entity from, Entity to) {
-        for (Tag tag : Tag.values()) {
+        for (EntityTag tag : EntityTag.values()) {
             if (tag.isOn(from)) {
                 tag.applyTo(to);
             }

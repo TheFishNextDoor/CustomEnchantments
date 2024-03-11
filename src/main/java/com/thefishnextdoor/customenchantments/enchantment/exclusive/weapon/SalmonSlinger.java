@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.Tag;
+import com.thefishnextdoor.customenchantments.EntityTag;
 import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment.ArrowTransformEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.EntityTools;
@@ -53,7 +53,7 @@ public class SalmonSlinger extends ArrowTransformEnchantment {
         if (EnchantTools.holdingRangedWith(player, CustomEnchantment.SALMON_SLINGER)) {
             Salmon salmon = (Salmon) EntityTools.convert(projectile, EntityType.SALMON);
             salmon.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 1200, 0));
-            Tag.NO_DROPS.applyTo(salmon);
+            EntityTag.NO_DROPS.applyTo(salmon);
         }
     }
 }

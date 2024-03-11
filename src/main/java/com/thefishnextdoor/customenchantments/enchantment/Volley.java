@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.Tag;
+import com.thefishnextdoor.customenchantments.EntityTag;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
@@ -74,7 +74,7 @@ public class Volley extends CustomEnchantment {
             return;
         }
 
-        if (Tag.FROM_VOLLEY.isOn(projectile)) {
+        if (EntityTag.FROM_VOLLEY.isOn(projectile)) {
             return;
         }
         
@@ -91,7 +91,7 @@ public class Volley extends CustomEnchantment {
         arrow.setShooter(player);
         arrow.setVelocity(velocity);
         arrow.setPickupStatus(PickupStatus.CREATIVE_ONLY);
-        Tag.FROM_VOLLEY.applyTo(arrow);
+        EntityTag.FROM_VOLLEY.applyTo(arrow);
         Bukkit.getServer().getPluginManager().callEvent(new ProjectileLaunchEvent(arrow));
     }
 }

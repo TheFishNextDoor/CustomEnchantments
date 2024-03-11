@@ -10,7 +10,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.Loot;
-import com.thefishnextdoor.customenchantments.Tag;
+import com.thefishnextdoor.customenchantments.EntityTag;
 import com.thefishnextdoor.customenchantments.enchantment.Enlightenment;
 import com.thefishnextdoor.customenchantments.enchantment.Telekinesis;
 
@@ -20,7 +20,7 @@ public class EntityDeath implements Listener {
     public void onEntityDeath(EntityDeathEvent event) {
         LivingEntity entity = event.getEntity();
         List<ItemStack> drops = event.getDrops();
-        if (Tag.NO_DROPS.isOn(entity)) {
+        if (EntityTag.NO_DROPS.isOn(entity)) {
             drops.clear();
         }
 

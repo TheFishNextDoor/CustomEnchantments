@@ -23,7 +23,7 @@ public class Loot {
             return;
         }
 
-        if (Tag.NO_DROPS.isOn(livingEntity)) {
+        if (EntityTag.NO_DROPS.isOn(livingEntity)) {
             return;
         }
 
