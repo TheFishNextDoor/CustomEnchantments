@@ -11,7 +11,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.Commands;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.StringTools;
@@ -23,7 +22,7 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
-            return Commands.allEnchantmentNames();
+            return EnchantTools.namesOfAllEnchantments();
         }
         else {
             return null;
@@ -37,7 +36,7 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
         }
 
         String enchantName = args[0];
-        Enchantment enchantment = EnchantTools.getEnchantment(enchantName);
+        Enchantment enchantment = EnchantTools.getEnchantmentFromName(enchantName);
         if (enchantment == null) {
             sender.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;

@@ -23,6 +23,7 @@ import com.thefishnextdoor.customenchantments.event.PlayerQuit;
 import com.thefishnextdoor.customenchantments.event.PrepareAnvil;
 import com.thefishnextdoor.customenchantments.event.ProjectileHit;
 import com.thefishnextdoor.customenchantments.event.ProjectileLaunch;
+import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Plugin extends JavaPlugin {
     
@@ -91,7 +92,7 @@ public class Plugin extends JavaPlugin {
         // This fixes an issue where some commands wouldn't work if you reloaded before running the command atleast once.
         try {
             ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
-            Commands.recommendedEnchantmentNames(item);
+            EnchantTools.namesOfCompatibleEnchantments(item);
         }
         catch (Exception e) {
             LOGGER.warning("Failed to force load classes.");

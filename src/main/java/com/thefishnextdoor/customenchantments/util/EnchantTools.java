@@ -308,7 +308,7 @@ public class EnchantTools {
         return true;
     }
 
-    public static Enchantment getEnchantment(String name) {
+    public static Enchantment getEnchantmentFromName(String name) {
         for (Enchantment enchantment : Enchantment.values()) {
             if (name(enchantment).equalsIgnoreCase(name)) {
                 return enchantment;
@@ -329,6 +329,39 @@ public class EnchantTools {
 
     public static String name(Enchantment enchantment) {
         return enchantment.getKey().getKey();
+    }
+
+    public static ArrayList<String> namesOfCompatibleEnchantments(ItemStack item) {
+        if (item == null || item.getType() == Material.BOOK) {
+            return EnchantTools.namesOfAllEnchantments();
+        }
+        
+        ArrayList<String> names = new ArrayList<>();
+        for (Enchantment enchantment : Enchantment.values()) {
+            if (has(item, enchantment) || enchantment.canEnchantItem(item)) {
+                names.add(name(enchantment));
+            }
+        }
+    
+        return names.isEmpty() ? EnchantTools.namesOfAllEnchantments() : names;
+    }
+
+    public static ArrayList<String> namesOfEnchantmentsOnItem(ItemStack item) {
+        ArrayList<String> names = new ArrayList<>();
+        for (Enchantment enchantment : Enchantment.values()) {
+            if (has(item, enchantment)) {
+                names.add(name(enchantment));
+            }
+        }
+        return names;
+    }
+
+    public static ArrayList<String> namesOfAllEnchantments() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Enchantment enchantment : Enchantment.values()) {
+            names.add(name(enchantment));
+        }
+        return names;
     }
     
     public static String leveledLoreString(Enchantment enchantment, Integer level) {

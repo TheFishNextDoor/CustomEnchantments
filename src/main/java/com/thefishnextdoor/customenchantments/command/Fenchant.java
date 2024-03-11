@@ -10,7 +10,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 
-import com.thefishnextdoor.customenchantments.Commands;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.InventoryTools;
 
@@ -26,10 +25,10 @@ public class Fenchant implements CommandExecutor, TabCompleter {
 
         Player player = (Player) sender;
         if (args.length == 1) {
-            return Commands.recommendedEnchantmentNames(InventoryTools.getMeleeItemInUse(player));
+            return EnchantTools.namesOfCompatibleEnchantments(InventoryTools.getMeleeItemInUse(player));
         }
         else if (args.length == 2) {
-            Enchantment enchantment = EnchantTools.getEnchantment(args[0]);
+            Enchantment enchantment = EnchantTools.getEnchantmentFromName(args[0]);
             if (enchantment == null) {
                 return null;
             }
@@ -59,7 +58,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         }
 
         Player player = (Player) sender;
-        Enchantment enchantment = EnchantTools.getEnchantment(args[0]);
+        Enchantment enchantment = EnchantTools.getEnchantmentFromName(args[0]);
         if (enchantment == null) {
             player.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;

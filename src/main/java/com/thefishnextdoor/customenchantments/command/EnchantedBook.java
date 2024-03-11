@@ -9,7 +9,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 
-import com.thefishnextdoor.customenchantments.Commands;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.InventoryTools;
 
@@ -20,7 +19,7 @@ public class EnchantedBook implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
-            return Commands.allEnchantmentNames();
+            return EnchantTools.namesOfAllEnchantments();
         }
         else {
             return null;
@@ -40,7 +39,7 @@ public class EnchantedBook implements CommandExecutor, TabCompleter {
         }
 
         Player player = (Player) sender;
-        Enchantment enchantment = EnchantTools.getEnchantment(args[0]);
+        Enchantment enchantment = EnchantTools.getEnchantmentFromName(args[0]);
         if (enchantment == null) {
             player.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;
