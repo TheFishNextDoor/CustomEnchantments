@@ -3,7 +3,6 @@ package com.thefishnextdoor.customenchantments;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map.Entry;
 
 import org.bukkit.Material;
@@ -83,13 +82,13 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public abstract class CustomEnchantment extends Enchantment {
 
-    private static HashSet<CustomEnchantment> customEnchantments = new HashSet<>();
-    private static HashSet<MutuallyExclusiveWeaponEnchantment> mutuallyExclusiveWeaponEnchantments = new HashSet<>();
-    private static HashSet<MutuallyExclusiveHelmetEnchantment> mutuallyExclusiveHelmetEnchantments = new HashSet<>();
-    private static HashSet<MutuallyExclusiveChestplateEnchantment> mutuallyExclusiveChestplateEnchantments = new HashSet<>();
-    private static HashSet<MutuallyExclusiveElytraEnchantment> mutuallyExclusiveElytraEnchantments = new HashSet<>();
-    private static HashSet<MutuallyExclusiveLeggingsEnchantment> mutuallyExclusiveLeggingsEnchantments = new HashSet<>();
-    private static HashSet<MutuallyExclusiveBootsEnchantment> mutuallyExclusiveBootsEnchantments = new HashSet<>();
+    private static ArrayList<CustomEnchantment> customEnchantments = new ArrayList<>();
+    private static ArrayList<MutuallyExclusiveWeaponEnchantment> mutuallyExclusiveWeaponEnchantments = new ArrayList<>();
+    private static ArrayList<MutuallyExclusiveHelmetEnchantment> mutuallyExclusiveHelmetEnchantments = new ArrayList<>();
+    private static ArrayList<MutuallyExclusiveChestplateEnchantment> mutuallyExclusiveChestplateEnchantments = new ArrayList<>();
+    private static ArrayList<MutuallyExclusiveElytraEnchantment> mutuallyExclusiveElytraEnchantments = new ArrayList<>();
+    private static ArrayList<MutuallyExclusiveLeggingsEnchantment> mutuallyExclusiveLeggingsEnchantments = new ArrayList<>();
+    private static ArrayList<MutuallyExclusiveBootsEnchantment> mutuallyExclusiveBootsEnchantments = new ArrayList<>();
 
     private static HashMap<String, String> descriptions = new HashMap<>();
     
