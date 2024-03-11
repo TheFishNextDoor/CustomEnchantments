@@ -13,9 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import com.thefishnextdoor.customenchantments.Commands;
 import com.thefishnextdoor.customenchantments.Plugin;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
+import com.thefishnextdoor.customenchantments.util.StringTools;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -67,10 +67,10 @@ public class CombineEnchantments implements CommandExecutor, TabCompleter {
             if (result.hasItemMeta() && result.getItemMeta().hasDisplayName()) {
                 sender.sendMessage(ChatColor.AQUA + "Name: " + ChatColor.WHITE + result.getItemMeta().getDisplayName());
             }
-            sender.sendMessage(ChatColor.AQUA + "Type: " + ChatColor.WHITE + Commands.titleCase(result.getType().toString()));
+            sender.sendMessage(ChatColor.AQUA + "Type: " + ChatColor.WHITE + StringTools.titleCase(result.getType().toString()));
             sender.sendMessage(ChatColor.AQUA + "Enchantments:");
             for (Entry<Enchantment, Integer> entry : EnchantTools.enchantments(result).entrySet()) {
-                String name = Commands.titleCase(EnchantTools.name(entry.getKey()));
+                String name = StringTools.titleCase(EnchantTools.name(entry.getKey()));
                 sender.sendMessage(ChatColor.WHITE + "  " + name + " " + entry.getValue());
             }
             sender.sendMessage(ChatColor.YELLOW + "Type " + ChatColor.GOLD + "/combineenchantments confirm" + ChatColor.YELLOW + " to confirm.");

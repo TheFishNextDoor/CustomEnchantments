@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.customenchantments.Commands;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
+import com.thefishnextdoor.customenchantments.util.StringTools;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -42,7 +43,7 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + Commands.titleCase(EnchantTools.name(enchantment)));
+        sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + StringTools.titleCase(EnchantTools.name(enchantment)));
         sender.sendMessage(ChatColor.AQUA + "Max Level: " + ChatColor.WHITE + enchantment.getMaxLevel());
 
         ArrayList<String> items = getItems(enchantment);
@@ -121,7 +122,7 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
             }
             
             if (enchantment.conflictsWith(other) || other.conflictsWith(enchantment)) {
-                conflicts.add(Commands.titleCase(EnchantTools.name(other)));
+                conflicts.add(StringTools.titleCase(EnchantTools.name(other)));
             }
         }
         return conflicts;
