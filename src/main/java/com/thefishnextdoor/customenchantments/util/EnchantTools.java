@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -252,7 +253,9 @@ public class EnchantTools {
 
     public static HashMap<Enchantment, Integer> enchantments(ItemStack item) {
         HashMap<Enchantment, Integer> enchantments = new HashMap<>();
-        for (Enchantment enchantment : Enchantment.values()) {
+        Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
+        while (allEnchantments.hasNext()) {
+            Enchantment enchantment = allEnchantments.next();
             int level = level(item, enchantment);
             if (level > 0) {
                 enchantments.put(enchantment, level);
@@ -309,7 +312,9 @@ public class EnchantTools {
     }
 
     public static Enchantment getEnchantmentFromName(String name) {
-        for (Enchantment enchantment : Enchantment.values()) {
+        Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
+        while (allEnchantments.hasNext()) {
+            Enchantment enchantment = allEnchantments.next();
             if (name(enchantment).equalsIgnoreCase(name)) {
                 return enchantment;
             }
@@ -337,7 +342,9 @@ public class EnchantTools {
         }
         
         ArrayList<String> names = new ArrayList<>();
-        for (Enchantment enchantment : Enchantment.values()) {
+        Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
+        while (allEnchantments.hasNext()) {
+            Enchantment enchantment = allEnchantments.next();
             if (has(item, enchantment) || enchantment.canEnchantItem(item)) {
                 names.add(name(enchantment));
             }
@@ -348,7 +355,9 @@ public class EnchantTools {
 
     public static ArrayList<String> namesOfEnchantmentsOnItem(ItemStack item) {
         ArrayList<String> names = new ArrayList<>();
-        for (Enchantment enchantment : Enchantment.values()) {
+        Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
+        while (allEnchantments.hasNext()) {
+            Enchantment enchantment = allEnchantments.next();
             if (has(item, enchantment)) {
                 names.add(name(enchantment));
             }
@@ -358,7 +367,9 @@ public class EnchantTools {
 
     public static ArrayList<String> namesOfAllEnchantments() {
         ArrayList<String> names = new ArrayList<>();
-        for (Enchantment enchantment : Enchantment.values()) {
+        Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
+        while (allEnchantments.hasNext()) {
+            Enchantment enchantment = allEnchantments.next();
             names.add(name(enchantment));
         }
         return names;
