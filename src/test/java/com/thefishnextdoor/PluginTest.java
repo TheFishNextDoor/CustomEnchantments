@@ -1,17 +1,11 @@
-package fun.sunrisemc;
+package com.thefishnextdoor;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-/**
- * Unit test for simple Plugin.
- */
-public class PluginTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
+public class PluginTest {
+    
     @Test
     public void shouldAnswerWithTrue()
     {
