@@ -547,7 +547,7 @@ public abstract class CustomEnchantment extends Enchantment {
             Field f = Enchantment.class.getDeclaredField("acceptingNew");
             f.setAccessible(true);
             f.set(null, true);
-            Enchantment.registerEnchantment(enchant);
+            //Enchantment.registerEnchantment(enchant);
         } 
         catch (Exception e) {
             Plugin.LOGGER.warning("Failed to register " + enchant.getKey().getKey() + ": " + e.getMessage());
