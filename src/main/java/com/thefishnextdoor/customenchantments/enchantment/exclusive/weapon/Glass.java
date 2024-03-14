@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment;
+import com.thefishnextdoor.customenchantments.enchantment.type.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
@@ -44,7 +44,7 @@ public class Glass extends MutuallyExclusiveWeaponEnchantment {
         if (EnchantTools.same(other, CustomEnchantment.UNBREAKABLE)){
             return true;
         }
-        return CustomEnchantment.isMutuallyExclusiveWeaponEnchantment(other);
+        return isMutuallyExclusiveWeaponEnchantment(other);
     }
 
     public static void modifyDamage(Player player, EntityDamageByEntityEvent event, boolean ranged) {

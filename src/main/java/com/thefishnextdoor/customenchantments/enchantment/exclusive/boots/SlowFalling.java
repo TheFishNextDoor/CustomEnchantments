@@ -8,7 +8,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveBootsEnchantment;
+import com.thefishnextdoor.customenchantments.enchantment.type.MutuallyExclusiveBootsEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class SlowFalling extends MutuallyExclusiveBootsEnchantment {

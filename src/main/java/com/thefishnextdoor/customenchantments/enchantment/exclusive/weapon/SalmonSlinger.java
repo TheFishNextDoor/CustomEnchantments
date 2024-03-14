@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.EntityTag;
-import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveWeaponEnchantment.ArrowTransformEnchantment;
+import com.thefishnextdoor.customenchantments.enchantment.type.ArrowTransformEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.EntityTools;
 
@@ -41,7 +41,7 @@ public class SalmonSlinger extends ArrowTransformEnchantment {
         if (EnchantTools.same(other, Enchantment.ARROW_INFINITE)) {
             return true;
         }
-        return CustomEnchantment.isMutuallyExclusiveWeaponEnchantment(other);
+        return isMutuallyExclusiveWeaponEnchantment(other);
     }
 
     @Override

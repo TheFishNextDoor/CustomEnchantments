@@ -8,7 +8,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveChestplateEnchantment;
+import com.thefishnextdoor.customenchantments.enchantment.type.MutuallyExclusiveChestplateEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Healing extends MutuallyExclusiveChestplateEnchantment {

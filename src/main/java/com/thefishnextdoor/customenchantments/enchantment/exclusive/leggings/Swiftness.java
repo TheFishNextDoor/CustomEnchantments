@@ -8,7 +8,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveLeggingsEnchantment;
+import com.thefishnextdoor.customenchantments.enchantment.type.MutuallyExclusiveLeggingsEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Swiftness extends MutuallyExclusiveLeggingsEnchantment {

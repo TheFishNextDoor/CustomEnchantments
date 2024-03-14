@@ -8,7 +8,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.thefishnextdoor.customenchantments.ArmorEffects;
 import com.thefishnextdoor.customenchantments.CustomEnchantment;
-import com.thefishnextdoor.customenchantments.CustomEnchantment.MutuallyExclusiveHelmetEnchantment;
+import com.thefishnextdoor.customenchantments.enchantment.type.MutuallyExclusiveHelmetEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class ConduitPower extends MutuallyExclusiveHelmetEnchantment {

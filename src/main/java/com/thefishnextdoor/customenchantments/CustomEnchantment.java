@@ -2,12 +2,11 @@ package com.thefishnextdoor.customenchantments;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map.Entry;
 
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.enchantment.AquaAspect;
@@ -77,19 +76,8 @@ import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Telep
 import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Venom;
 import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Withering;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
-import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public abstract class CustomEnchantment extends Enchantment {
-
-    private static ArrayList<CustomEnchantment> customEnchantments = new ArrayList<>();
-    private static ArrayList<MutuallyExclusiveWeaponEnchantment> mutuallyExclusiveWeaponEnchantments = new ArrayList<>();
-    private static ArrayList<MutuallyExclusiveHelmetEnchantment> mutuallyExclusiveHelmetEnchantments = new ArrayList<>();
-    private static ArrayList<MutuallyExclusiveChestplateEnchantment> mutuallyExclusiveChestplateEnchantments = new ArrayList<>();
-    private static ArrayList<MutuallyExclusiveElytraEnchantment> mutuallyExclusiveElytraEnchantments = new ArrayList<>();
-    private static ArrayList<MutuallyExclusiveLeggingsEnchantment> mutuallyExclusiveLeggingsEnchantments = new ArrayList<>();
-    private static ArrayList<MutuallyExclusiveBootsEnchantment> mutuallyExclusiveBootsEnchantments = new ArrayList<>();
-
-    private static HashMap<String, String> descriptions = new HashMap<>();
     
     // General Enchantments
     public static Enchantment AQUA_ASPECT;
@@ -171,11 +159,19 @@ public abstract class CustomEnchantment extends Enchantment {
     public static Enchantment LEAPING;
     public static Enchantment SLOW_FALLING;
 
+    private static ArrayList<CustomEnchantment> customEnchantments = new ArrayList<>();
+    private static HashSet<String> customEnchantmentLookup = new HashSet<>();
+    private static HashMap<String, String> descriptions = new HashMap<>();
+
     private NamespacedKey key;
 
     public CustomEnchantment(NamespacedKey key) {
         super();
         this.key = key;
+        if (!customEnchantmentLookup.contains(EnchantTools.name(this))) {
+            customEnchantments.add(this);
+            customEnchantmentLookup.add(EnchantTools.name(this));
+        }
     }
 
     @Override
@@ -195,172 +191,7 @@ public abstract class CustomEnchantment extends Enchantment {
 
     public abstract String getDescription();
 
-    public static abstract class MutuallyExclusiveWeaponEnchantment extends CustomEnchantment {
-
-        public MutuallyExclusiveWeaponEnchantment(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public boolean conflictsWith(Enchantment other) {
-            return isMutuallyExclusiveWeaponEnchantment(other);
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.BREAKABLE;
-        }
-
-        public static abstract class ArrowTransformEnchantment extends MutuallyExclusiveWeaponEnchantment {
-
-            public ArrowTransformEnchantment(NamespacedKey key) {
-                super(key);
-            }
-
-            @Override
-            public boolean conflictsWith(Enchantment other) {
-                if (EnchantTools.same(other, Enchantment.PIERCING)) {
-                    return true;
-                }
-                return isMutuallyExclusiveWeaponEnchantment(other);
-            }
-
-            @Override
-            public boolean canEnchantItem(ItemStack item) {
-                if (item == null) {
-                    return false;
-                }
-                return MaterialTools.firesArrows(item.getType());
-            }
-        }
-    }
-
-    public static abstract class MutuallyExclusiveHelmetEnchantment extends CustomEnchantment {
-
-        public MutuallyExclusiveHelmetEnchantment(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public boolean conflictsWith(Enchantment other) {
-            return isMutuallyExclusiveHelmetEnchantment(other);
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.ARMOR_HEAD;
-        }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) {
-                return false;
-            }
-            return MaterialTools.isHelmet(item.getType());
-        }
-    }
-
-    public static abstract class MutuallyExclusiveChestplateEnchantment extends CustomEnchantment {
-
-        public MutuallyExclusiveChestplateEnchantment(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public boolean conflictsWith(Enchantment other) {
-            return isMutuallyExclusiveChestplateEnchantment(other);
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.ARMOR_TORSO;
-        }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) {
-                return false;
-            }
-            return MaterialTools.isChestplate(item.getType());
-        }
-    }
-
-    public static abstract class MutuallyExclusiveElytraEnchantment extends CustomEnchantment {
-
-        public MutuallyExclusiveElytraEnchantment(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public boolean conflictsWith(Enchantment other) {
-            return isMutuallyExclusiveElytraEnchantment(other);
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.ARMOR_TORSO;
-        }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) {
-                return false;
-            }
-            return item.getType() == Material.ELYTRA;
-        }
-    }
-
-    public static abstract class MutuallyExclusiveLeggingsEnchantment extends CustomEnchantment {
-
-        public MutuallyExclusiveLeggingsEnchantment(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public boolean conflictsWith(Enchantment other) {
-            return isMutuallyExclusiveLeggingsEnchantment(other);
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.ARMOR_LEGS;
-        }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) {
-                return false;
-            }
-            return MaterialTools.isLeggings(item.getType());
-        }
-    }
-
-    public static abstract class MutuallyExclusiveBootsEnchantment extends CustomEnchantment {
-
-        public MutuallyExclusiveBootsEnchantment(NamespacedKey key) {
-            super(key);
-        }
-
-        @Override
-        public boolean conflictsWith(Enchantment other) {
-            return isMutuallyExclusiveBootsEnchantment(other);
-        }
-
-        @Override
-        public EnchantmentTarget getItemTarget() {
-            return EnchantmentTarget.ARMOR_FEET;
-        }
-
-        @Override
-        public boolean canEnchantItem(ItemStack item) {
-            if (item == null) {
-                return false;
-            }
-            return MaterialTools.isBoots(item.getType());
-        }
-    }
-
-    static void registerAll(Plugin plugin) {
+    protected static void registerAll(Plugin plugin) {
         AQUA_ASPECT = NMS.registerEnchantment(new AquaAspect(new NamespacedKey(plugin, "aqua_aspect")));
         CURSE_OF_AQUAPHOBIA = NMS.registerEnchantment(new CurseOfAquaphobia(new NamespacedKey(plugin, "curse_of_aquaphobia")));
         CURSE_OF_IRON_GRIP = NMS.registerEnchantment(new CurseOfIronGrip(new NamespacedKey(plugin, "curse_of_iron_grip")));
@@ -434,73 +265,8 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     public static boolean isCustomEnchantment(Enchantment enchantment) {
-        //return enchantment instanceof CustomEnchantment; // Not reload safe
-        for (CustomEnchantment customEnchantment : customEnchantments) {
-            if (EnchantTools.same(customEnchantment, enchantment)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveWeaponEnchantment(Enchantment enchantment) {
-        //return enchantment instanceof MutuallyExclusiveWeaponEnchantment; // Not reload safe
-        for (MutuallyExclusiveWeaponEnchantment mutuallyExclusiveWeaponEnchantment : mutuallyExclusiveWeaponEnchantments) {
-            if (EnchantTools.same(mutuallyExclusiveWeaponEnchantment, enchantment)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveHelmetEnchantment(Enchantment enchantment) {
-        //return enchantment instanceof MutuallyExclusiveHelmetEnchantment; // Not reload safe
-        for (MutuallyExclusiveHelmetEnchantment mutuallyExclusiveHelmetEnchantment : mutuallyExclusiveHelmetEnchantments) {
-            if (EnchantTools.same(mutuallyExclusiveHelmetEnchantment, enchantment)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveChestplateEnchantment(Enchantment enchantment) {
-        //return enchantment instanceof MutuallyExclusiveChestplateEnchantment; // Not reload safe
-        for (MutuallyExclusiveChestplateEnchantment mutuallyExclusiveChestplateEnchantment : mutuallyExclusiveChestplateEnchantments) {
-            if (EnchantTools.same(mutuallyExclusiveChestplateEnchantment, enchantment)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveElytraEnchantment(Enchantment enchantment) {
-        //return enchantment instanceof MutuallyExclusiveElytraEnchantment; // Not reload safe
-        for (MutuallyExclusiveElytraEnchantment mutuallyExclusiveElytraEnchantment : mutuallyExclusiveElytraEnchantments) {
-            if (EnchantTools.same(mutuallyExclusiveElytraEnchantment, enchantment)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveLeggingsEnchantment(Enchantment enchantment) {
-        //return enchantment instanceof MutuallyExclusiveLeggingsEnchantment; // Not reload safe
-        for (MutuallyExclusiveLeggingsEnchantment mutuallyExclusiveLeggingsEnchantment : mutuallyExclusiveLeggingsEnchantments) {
-            if (EnchantTools.same(mutuallyExclusiveLeggingsEnchantment, enchantment)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isMutuallyExclusiveBootsEnchantment(Enchantment enchantment) {
-        //return enchantment instanceof MutuallyExclusiveBootsEnchantment; // Not reload safe
-        for (MutuallyExclusiveBootsEnchantment mutuallyExclusiveBootsEnchantment : mutuallyExclusiveBootsEnchantments) {
-            if (EnchantTools.same(mutuallyExclusiveBootsEnchantment, enchantment)) {
-                return true;
-            }
-        }
-        return false;
+        // return enchantment instanceof CustomEnchantment; // Not reload safe
+        return customEnchantmentLookup.contains(EnchantTools.name(enchantment));
     }
 
     public static String description(Enchantment enchantment) {
