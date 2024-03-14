@@ -5,15 +5,13 @@ import java.util.IdentityHashMap;
 
 import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
 
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class NMS {
 
-    public static class NMSEnchantment extends Enchantment {
+    public static class NMSEnchantment extends net.minecraft.world.item.enchantment.Enchantment {
 
         private CustomEnchantment enchantment;
 
@@ -63,9 +61,10 @@ public class NMS {
         BuiltInRegistries.ENCHANTMENT.freeze();
     }
 
-    public static void registerEnchantment(CustomEnchantment enchantment) {
+    public static org.bukkit.enchantments.Enchantment registerEnchantment(CustomEnchantment enchantment) {
         NMSEnchantment nmsEnchantment = new NMSEnchantment(enchantment);
-        Registry.register(BuiltInRegistries.ENCHANTMENT, enchantment.getKey().getKey(), nmsEnchantment);
+        net.minecraft.core.Registry.register(BuiltInRegistries.ENCHANTMENT, enchantment.getKey().getKey(), nmsEnchantment);
+        return org.bukkit.Registry.ENCHANTMENT.get(enchantment.getKey());
     }
 
     private static boolean setFieldValue(Object of, String fieldName, Object value) {

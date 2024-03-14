@@ -39,7 +39,7 @@ public class Plugin extends JavaPlugin {
         settings = new Settings(this);
         commands = new Commands(this);
 
-        CustomEnchantment.init(this);
+        CustomEnchantment.registerAll(this);
 
         ArmorEffects.startTask(this);
         Seeking.startTask(this);
