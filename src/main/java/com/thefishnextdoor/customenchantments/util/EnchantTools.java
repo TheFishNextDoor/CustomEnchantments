@@ -329,6 +329,9 @@ public class EnchantTools {
     }
 
     public static boolean same(Enchantment enchant1, Enchantment enchant2) {
+        if (enchant1 == null || enchant2 == null) {
+            return false;
+        }
         return name(enchant1).equals(name(enchant2));
     }
 
