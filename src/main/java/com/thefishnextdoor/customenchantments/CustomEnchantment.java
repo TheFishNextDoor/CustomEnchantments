@@ -189,6 +189,11 @@ public abstract class CustomEnchantment extends Enchantment {
         return key;
     }
 
+    @Override
+    public String getTranslationKey() {
+        return getKey().getKey();
+    }
+
     public abstract String getDescription();
 
     protected static void registerAll(Plugin plugin) {
