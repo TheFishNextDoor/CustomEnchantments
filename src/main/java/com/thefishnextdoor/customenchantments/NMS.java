@@ -17,6 +17,7 @@ public class NMS {
 
         private NMSEnchantment(CustomEnchantment enchantment) {
             super(Rarity.VERY_RARE, EnchantmentCategory.BREAKABLE, null);
+            this.enchantment = enchantment;
 
         }
 
