@@ -1,7 +1,5 @@
 package com.thefishnextdoor.customenchantments;
 
-import java.util.logging.Logger;
-
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
@@ -26,8 +24,6 @@ import com.thefishnextdoor.customenchantments.event.ProjectileLaunch;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Plugin extends JavaPlugin {
-    
-    public static final Logger LOGGER = Logger.getLogger("Fish's Custom Enchantments");
 
     private static Plugin instance;
     private static Settings settings;
@@ -63,13 +59,13 @@ public class Plugin extends JavaPlugin {
 
         forceLoadClasses();
 
-        LOGGER.info("Plugin enabled");
+        getLogger().info("Plugin enabled");
     }
     
     public void onDisable() {
         ArmorEffects.stopTask();
         Seeking.stopTask();
-        LOGGER.info("Plugin disabled");
+        getLogger().info("Plugin disabled");
     }
 
     public void reload() {
@@ -95,7 +91,7 @@ public class Plugin extends JavaPlugin {
             EnchantTools.namesOfCompatibleEnchantments(item);
         }
         catch (Exception e) {
-            LOGGER.warning("Failed to force load classes.");
+            getLogger().warning("Failed to force load classes.");
         }
     }
 }
