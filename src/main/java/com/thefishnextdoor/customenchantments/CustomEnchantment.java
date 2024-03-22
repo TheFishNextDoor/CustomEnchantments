@@ -221,7 +221,6 @@ public abstract class CustomEnchantment {
 
     protected static void registerAll(Plugin plugin) {
         NMS.unfreezeEnchantmentRegistry();
-        
         AQUA_ASPECT = NMS.registerEnchantment(new AquaAspect());
         CURSE_OF_AQUAPHOBIA = NMS.registerEnchantment(new CurseOfAquaphobia());
         CURSE_OF_IRON_GRIP = NMS.registerEnchantment(new CurseOfIronGrip());
