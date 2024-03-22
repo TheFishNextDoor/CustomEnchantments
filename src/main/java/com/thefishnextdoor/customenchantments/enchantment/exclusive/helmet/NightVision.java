@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.helmet;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class NightVision extends MutuallyExclusiveHelmetEnchantment {
 
-    public NightVision(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Night Vision";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer has improved vision in the dark. Rare drop from spider.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class NightVision extends MutuallyExclusiveHelmetEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer has improved vision in the dark. Rare drop from spider.";
     }
 
     public static void onTimer(Player player, ItemStack helmet) {

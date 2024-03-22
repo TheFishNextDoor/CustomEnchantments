@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.type;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
@@ -8,10 +7,6 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public abstract class ArrowTransformEnchantment extends MutuallyExclusiveWeaponEnchantment {
-
-    public ArrowTransformEnchantment(NamespacedKey key) {
-        super(key);
-    }
 
     @Override
     public boolean conflictsWith(Enchantment other) {

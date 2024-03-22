@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -17,13 +16,14 @@ import com.thefishnextdoor.customenchantments.util.EntityTools;
 
 public class SalmonSlinger extends ArrowTransformEnchantment {
 
-    public SalmonSlinger(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Salmon Slinger";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Launched projectiles are transformed into salmon. This enchantment is not dropped by any mob.";
     }
 
     @Override
@@ -42,11 +42,6 @@ public class SalmonSlinger extends ArrowTransformEnchantment {
             return true;
         }
         return isMutuallyExclusiveWeaponEnchantment(other);
-    }
-
-    @Override
-    public String getDescription() {
-        return "Launched projectiles are transformed into salmon. This enchantment is not dropped by any mob.";
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {

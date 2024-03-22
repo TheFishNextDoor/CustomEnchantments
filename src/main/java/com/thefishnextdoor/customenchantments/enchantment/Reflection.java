@@ -1,7 +1,6 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Reflection extends CustomEnchantment {
 
-    public Reflection(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Reflection";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Reflect arrows at a higher velocity. Rare drop from pillager.";
     }
 
     @Override
@@ -48,11 +48,6 @@ public class Reflection extends CustomEnchantment {
             return false;
         }
         return item.getType() == Material.SHIELD;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Reflect arrows at a higher velocity. Rare drop from pillager.";
     }
 
     public static void onDeflectProjectile(Player player, Projectile projectile) {

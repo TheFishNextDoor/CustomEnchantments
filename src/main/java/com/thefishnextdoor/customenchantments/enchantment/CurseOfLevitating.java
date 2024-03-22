@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -16,13 +15,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class CurseOfLevitating extends CustomEnchantment {
 
-    public CurseOfLevitating(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Curse of Levitating";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer levitates uncontrollably. Rare drop from shulkers.";
     }
 
     @Override
@@ -51,11 +51,6 @@ public class CurseOfLevitating extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isArmor(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer levitates uncontrollably. Rare drop from shulkers.";
     }
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {

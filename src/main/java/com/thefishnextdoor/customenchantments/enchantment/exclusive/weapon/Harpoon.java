@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -14,13 +13,14 @@ import com.thefishnextdoor.customenchantments.util.EntityTools;
 
 public class Harpoon extends ArrowTransformEnchantment {
 
-    public Harpoon(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Harpoon";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Launched projectiles are transformed into tridents. Rare drop from drowned.";
     }
 
     @Override
@@ -31,11 +31,6 @@ public class Harpoon extends ArrowTransformEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Launched projectiles are transformed into tridents. Rare drop from drowned.";
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {

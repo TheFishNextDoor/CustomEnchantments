@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -16,13 +15,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Invisibility extends CustomEnchantment {
 
-    public Invisibility(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Invisivility";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer receives invisibility. Rare drop from witch.";
     }
 
     @Override
@@ -51,11 +51,6 @@ public class Invisibility extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isArmor(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer receives invisibility. Rare drop from witch.";
     }
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {

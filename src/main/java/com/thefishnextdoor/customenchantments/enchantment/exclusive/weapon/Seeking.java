@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -29,13 +28,14 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
 
     private static int taskID = -1;
 
-    public Seeking(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Seeking";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Arrows are attracted to the nearest entity. Rare drop from Stray.";
     }
 
     @Override
@@ -54,11 +54,6 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
             return false;
         }
         return MaterialTools.firesArrows(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Arrows are attracted to the nearest entity. Rare drop from Stray.";
     }
 
     public static void startTask(JavaPlugin plugin) {

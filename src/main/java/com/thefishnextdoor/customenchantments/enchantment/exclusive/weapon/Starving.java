@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,13 +13,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Starving extends MutuallyExclusiveWeaponEnchantment {
 
-    public Starving(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Starving";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Attacked entities receive hunger. Rare drop from husk.";
     }
 
     @Override
@@ -39,11 +39,6 @@ public class Starving extends MutuallyExclusiveWeaponEnchantment {
             return false;
         }
         return MaterialTools.isWeapon(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Attacked entities receive hunger. Rare drop from husk.";
     }
 
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {

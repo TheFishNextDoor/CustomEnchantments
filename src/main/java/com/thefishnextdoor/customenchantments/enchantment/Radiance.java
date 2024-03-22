@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
@@ -15,14 +14,16 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Radiance extends CustomEnchantment {
 
-    public Radiance(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Radiance";
     }
+
+    @Override
+    public String getDescription() {
+        return "Attacked entities receive glowing. Rare drop from magma cube.";
+    }
+
 
     @Override
     public int getMaxLevel() {
@@ -50,11 +51,6 @@ public class Radiance extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isWeapon(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Attacked entities receive glowing. Rare drop from magma cube.";
     }
 
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {

@@ -315,7 +315,7 @@ public class EnchantTools {
         Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
         while (allEnchantments.hasNext()) {
             Enchantment enchantment = allEnchantments.next();
-            if (name(enchantment).equalsIgnoreCase(name)) {
+            if (enchantment.getKey().getKey().equalsIgnoreCase(name)) {
                 return enchantment;
             }
         }
@@ -332,12 +332,9 @@ public class EnchantTools {
         if (enchant1 == null || enchant2 == null) {
             return false;
         }
-        return name(enchant1).equals(name(enchant2));
+        return enchant1.getKey().toString().equals(enchant2.getKey().toString());
     }
 
-    public static String name(Enchantment enchantment) {
-        return enchantment.getKey().getKey();
-    }
 
     public static ArrayList<String> namesOfCompatibleEnchantments(ItemStack item) {
         if (item == null || item.getType() == Material.BOOK) {
@@ -349,7 +346,7 @@ public class EnchantTools {
         while (allEnchantments.hasNext()) {
             Enchantment enchantment = allEnchantments.next();
             if (has(item, enchantment) || enchantment.canEnchantItem(item)) {
-                names.add(name(enchantment));
+                names.add(enchantment.getKey().getKey());
             }
         }
     
@@ -362,7 +359,7 @@ public class EnchantTools {
         while (allEnchantments.hasNext()) {
             Enchantment enchantment = allEnchantments.next();
             if (has(item, enchantment)) {
-                names.add(name(enchantment));
+                names.add(enchantment.getKey().getKey());
             }
         }
         return names;
@@ -373,7 +370,7 @@ public class EnchantTools {
         Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
         while (allEnchantments.hasNext()) {
             Enchantment enchantment = allEnchantments.next();
-            names.add(name(enchantment));
+            names.add(enchantment.getKey().getKey());
         }
         return names;
     }
@@ -487,7 +484,7 @@ public class EnchantTools {
     }
 
     public static void verify(ItemStack item) {
-        for (CustomEnchantment enchant : CustomEnchantment.all()) {
+        for (Enchantment enchant : CustomEnchantment.all()) {
             level(item, enchant);
         }
     }

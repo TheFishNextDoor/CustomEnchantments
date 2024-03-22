@@ -70,7 +70,7 @@ public class CombineEnchantments implements CommandExecutor, TabCompleter {
             sender.sendMessage(ChatColor.AQUA + "Type: " + ChatColor.WHITE + StringTools.titleCase(result.getType().toString()));
             sender.sendMessage(ChatColor.AQUA + "Enchantments:");
             for (Entry<Enchantment, Integer> entry : EnchantTools.enchantments(result).entrySet()) {
-                String name = StringTools.titleCase(EnchantTools.name(entry.getKey()));
+                String name = StringTools.titleCase(entry.getKey().getKey().getKey());
                 sender.sendMessage(ChatColor.WHITE + "  " + name + " " + entry.getValue());
             }
             sender.sendMessage(ChatColor.YELLOW + "Type " + ChatColor.GOLD + "/combineenchantments confirm" + ChatColor.YELLOW + " to confirm.");

@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.helmet;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Gills extends MutuallyExclusiveHelmetEnchantment {
 
-    public Gills(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Gills";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer can breath underwater. Rare drop from drowned.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class Gills extends MutuallyExclusiveHelmetEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer can breath underwater. Rare drop from drowned.";
     }
 
     public static void onTimer(Player player, ItemStack helmet) {

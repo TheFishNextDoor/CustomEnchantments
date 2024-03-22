@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.chestplate;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class HeroOfTheVillage extends MutuallyExclusiveChestplateEnchantment {
 
-    public HeroOfTheVillage(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Hero of the Village";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer receives reduced villager prices. Rare drop from pillager.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class HeroOfTheVillage extends MutuallyExclusiveChestplateEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer receives reduced villager prices. Rare drop from pillager.";
     }
 
     public static void onTimer(Player player, ItemStack chestplate) {

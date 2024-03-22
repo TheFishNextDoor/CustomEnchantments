@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -15,13 +14,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class CurseOfMiningFatigue extends CustomEnchantment {
 
-    public CurseOfMiningFatigue(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Curse of Mining Fatigue";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer has decreased mining speed. Rare drop from elder guardian.";
     }
 
     @Override
@@ -50,11 +50,6 @@ public class CurseOfMiningFatigue extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isArmor(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer has decreased mining speed. Rare drop from elder guardian.";
     }
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {

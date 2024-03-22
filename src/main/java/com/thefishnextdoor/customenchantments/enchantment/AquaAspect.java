@@ -1,7 +1,6 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
@@ -21,13 +20,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class AquaAspect extends CustomEnchantment {
 
-    public AquaAspect(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Aqua Aspect";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Deal extra damage to enderman, blaze etc. Rare drop from drowned.";
     }
 
     @Override
@@ -59,11 +59,6 @@ public class AquaAspect extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isWeapon(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Deal extra damage to enderman, blaze etc. Rare drop from drowned.";
     }
 
     public static void modifyDamage(Player player, final LivingEntity entity, EntityDamageByEntityEvent event, boolean ranged) {

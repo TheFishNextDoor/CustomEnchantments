@@ -3,7 +3,6 @@ package com.thefishnextdoor.customenchantments.enchantment;
 import java.util.Collection;
 import java.util.List;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Item;
@@ -19,13 +18,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Telekinesis extends CustomEnchantment {
 
-    public Telekinesis(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Telekinesis";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Dropped items are added to your inventory. Rare drop from enderman.";
     }
 
     @Override
@@ -54,11 +54,6 @@ public class Telekinesis extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isTool(item.getType()) || MaterialTools.isWeapon(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Dropped items are added to your inventory. Rare drop from enderman.";
     }
 
     public static void transferDrops(Player player, List<Item> drops) {

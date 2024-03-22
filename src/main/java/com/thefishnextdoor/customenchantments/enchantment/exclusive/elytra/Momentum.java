@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.elytra;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
@@ -10,13 +9,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Momentum extends MutuallyExclusiveElytraEnchantment {
 
-    public Momentum(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Momentum";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer will gain speed faster when gliding. Rare drop from ender dragon.";
     }
 
     @Override
@@ -27,11 +27,6 @@ public class Momentum extends MutuallyExclusiveElytraEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer will gain speed faster when gliding. Rare drop from ender dragon.";
     }
 
     public static void whenGliding(Player player) {

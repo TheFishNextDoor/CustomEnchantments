@@ -1,7 +1,6 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
@@ -15,13 +14,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Tilling extends CustomEnchantment {
 
-    public Tilling(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Tilling";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Hoe farmland 3x3. Rare drop from pillager.";
     }
 
     @Override
@@ -50,11 +50,6 @@ public class Tilling extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isHoe(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Hoe farmland 3x3. Rare drop from pillager.";
     }
 
     public static void onTill(Player player, Block block) {

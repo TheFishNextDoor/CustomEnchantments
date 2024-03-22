@@ -22,19 +22,19 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 
 public class Smelting extends CustomEnchantment {
 
     public static HashMap<Material, Material> smeltingMap = generateSmeltingMap();
 
-    public Smelting(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Smelting";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Dropped items will be smelted if possible. Rare drop from blaze.";
     }
 
     @Override
@@ -63,11 +63,6 @@ public class Smelting extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isTool(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Dropped items will be smelted if possible. Rare drop from blaze.";
     }
     
     public static void modifyDrops(Player player, List<Item> drops) {

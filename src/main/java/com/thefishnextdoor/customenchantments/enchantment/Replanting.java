@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.Ageable;
@@ -19,13 +18,14 @@ import com.thefishnextdoor.customenchantments.util.WorldTools;
 
 public class Replanting extends CustomEnchantment {
 
-    public Replanting(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Replanting";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Replants anything harvested automatically. Rare drop from pillager.";
     }
 
     @Override
@@ -54,11 +54,6 @@ public class Replanting extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isHoe(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Replants anything harvested automatically. Rare drop from pillager.";
     }
 
     public static void onRightClick(Player player, Block block) {

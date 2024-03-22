@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -14,13 +13,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Enlightenment extends CustomEnchantment {
 
-    public Enlightenment(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Enlightenment";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Increased Xp drops from blocks and mobs. Rare drop from warden.";
     }
 
     @Override
@@ -49,11 +49,6 @@ public class Enlightenment extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isWeapon(item.getType()) || MaterialTools.isTool(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Increased Xp drops from blocks and mobs. Rare drop from warden.";
     }
 
     public static void modifyXp(Player player, EntityDeathEvent event) {

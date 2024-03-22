@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.boots;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class SlowFalling extends MutuallyExclusiveBootsEnchantment {
 
-    public SlowFalling(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Slow Falling";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer falls gracefully like a feather. Rare drop from ghast.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class SlowFalling extends MutuallyExclusiveBootsEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer falls gracefully like a feather. Rare drop from ghast.";
     }
 
     public static void onTimer(Player player, ItemStack boots) {

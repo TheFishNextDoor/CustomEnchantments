@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -16,13 +15,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class CurseOfRadiance extends CustomEnchantment {
 
-    public CurseOfRadiance(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Curse of Radiance";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer will begin to glow. Rare drop from magma cube.";
     }
 
     @Override
@@ -51,11 +51,6 @@ public class CurseOfRadiance extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isArmor(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer will begin to glow. Rare drop from magma cube.";
     }
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {

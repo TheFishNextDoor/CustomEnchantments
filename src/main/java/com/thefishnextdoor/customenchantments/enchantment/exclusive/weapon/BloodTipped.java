@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -16,13 +15,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
 
-    public BloodTipped(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Blood Tipped";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Take slight damage when firing, applies your potion effects to the arrow. Rare drop from piglin.";
     }
 
     @Override
@@ -41,11 +41,6 @@ public class BloodTipped extends MutuallyExclusiveWeaponEnchantment {
             return false;
         }
         return MaterialTools.firesArrows(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Take slight damage when firing, applies your potion effects to the arrow. Rare drop from piglin.";
     }
 
     public static void onPlayerAttackEntity(Player player, LivingEntity livingEntity, boolean ranged) {

@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.helmet;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class ConduitPower extends MutuallyExclusiveHelmetEnchantment {
 
-    public ConduitPower(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Conduit Power";
+    }
+
+    @Override
+    public String getDescription() {
+        return "See underwater, breathe underwater, mine faster underwater. Drop from elder guardian.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class ConduitPower extends MutuallyExclusiveHelmetEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "See underwater, breathe underwater, mine faster underwater. Drop from elder guardian.";
     }
 
     public static void onTimer(Player player, ItemStack helmet) {

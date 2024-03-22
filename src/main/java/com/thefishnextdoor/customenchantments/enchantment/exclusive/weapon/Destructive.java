@@ -2,7 +2,6 @@ package com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -27,8 +26,9 @@ import com.thefishnextdoor.customenchantments.util.WorldTools;
 
 public class Destructive extends ArrowTransformEnchantment {
 
-    public Destructive(NamespacedKey key) {
-        super(key);
+    @Override
+    public String getDescription() {
+        return "Projectiles destroy blocks. Rare drop from creeper.";
     }
 
     @Override
@@ -44,11 +44,6 @@ public class Destructive extends ArrowTransformEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Projectiles destroy blocks. Rare drop from creeper.";
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {

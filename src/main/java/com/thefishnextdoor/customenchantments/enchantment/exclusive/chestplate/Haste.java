@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.chestplate;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Haste extends MutuallyExclusiveChestplateEnchantment {
 
-    public Haste(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Haste";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer has increased mining speed. Rare drop from piglin.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class Haste extends MutuallyExclusiveChestplateEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer has increased mining speed. Rare drop from piglin.";
     }
 
     public static void onTimer(Player player, ItemStack chestplate) {

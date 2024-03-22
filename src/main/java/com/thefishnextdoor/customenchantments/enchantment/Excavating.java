@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
@@ -22,13 +21,14 @@ import com.thefishnextdoor.customenchantments.util.WorldTools;
 
 public class Excavating extends CustomEnchantment {
 
-    public Excavating(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Excavating";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Mine blocks in a 3x3 grid. Rare drop from charged creeper.";
     }
 
     @Override
@@ -57,11 +57,6 @@ public class Excavating extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isTool(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Mine blocks in a 3x3 grid. Rare drop from charged creeper.";
     }
 
     public static void onBlockBreak(Player player, Block block, BlockBreakEvent event) {

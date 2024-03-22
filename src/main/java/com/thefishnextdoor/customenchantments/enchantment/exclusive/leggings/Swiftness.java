@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.leggings;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Swiftness extends MutuallyExclusiveLeggingsEnchantment {
 
-    public Swiftness(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Swiftness";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer has increased movement speed. Rare drop from witch.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class Swiftness extends MutuallyExclusiveLeggingsEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer has increased movement speed. Rare drop from witch.";
     }
 
     public static void onTimer(Player player, ItemStack boots) {

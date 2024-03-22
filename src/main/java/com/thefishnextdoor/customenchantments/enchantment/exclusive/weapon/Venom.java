@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,13 +13,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Venom extends MutuallyExclusiveWeaponEnchantment {
 
-    public Venom(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Venom";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Attacked entities receive poison. Rare drop from cave spider.";
     }
 
     @Override
@@ -39,11 +39,6 @@ public class Venom extends MutuallyExclusiveWeaponEnchantment {
             return false;
         }
         return MaterialTools.isWeapon(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Attacked entities receive poison. Rare drop from cave spider.";
     }
 
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {

@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.chestplate;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Strength extends MutuallyExclusiveChestplateEnchantment {
 
-    public Strength(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Strength";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer has increased melee damage. Rare drop from zombified piglin.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class Strength extends MutuallyExclusiveChestplateEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer has increased melee damage. Rare drop from zombified piglin.";
     }
 
     public static void onTimer(Player player, ItemStack chestplate) {

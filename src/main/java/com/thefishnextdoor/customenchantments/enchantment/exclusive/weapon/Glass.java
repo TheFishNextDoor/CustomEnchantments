@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -14,13 +13,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Glass extends MutuallyExclusiveWeaponEnchantment {
 
-    public Glass(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Glass";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Increased damage, decreased durability. Rare drop from skeleton.";
     }
 
     @Override
@@ -61,11 +61,6 @@ public class Glass extends MutuallyExclusiveWeaponEnchantment {
             return false;
         }
         return MaterialTools.isWeapon(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Increased damage, decreased durability. Rare drop from skeleton.";
     }
 
     public static void modifyDamage(Player player, ItemStack item, PlayerItemDamageEvent event) {

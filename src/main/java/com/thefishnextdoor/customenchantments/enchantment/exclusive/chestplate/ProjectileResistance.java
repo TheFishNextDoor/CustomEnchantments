@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.chestplate;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 
@@ -10,13 +9,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class ProjectileResistance extends MutuallyExclusiveChestplateEnchantment {
 
-    public ProjectileResistance(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Projectile Resistance";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer is immune to projectile damage. Rare drop from wither.";
     }
 
     @Override
@@ -27,11 +27,6 @@ public class ProjectileResistance extends MutuallyExclusiveChestplateEnchantment
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer is immune to projectile damage. Rare drop from wither.";
     }
 
     public static void modifyCancelStatus(Player player, EntityDamageEvent event) {

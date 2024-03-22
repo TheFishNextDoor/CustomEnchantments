@@ -5,7 +5,6 @@ import java.util.HashSet;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
@@ -32,13 +31,14 @@ public class TreeFeller extends CustomEnchantment {
     public static final int HEIGHT = 32;
     public static final int DELAY_TICKS = 50;
 
-    public TreeFeller(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Tree Feller";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Breaks the entire trunk of the tree. Rare drop from pillager.";
     }
 
     @Override
@@ -67,11 +67,6 @@ public class TreeFeller extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isAxe(item.getType());
-    }
-    
-    @Override
-    public String getDescription() {
-        return "Breaks the entire trunk of the tree. Rare drop from pillager.";
     }
 
     @SuppressWarnings("deprecation")

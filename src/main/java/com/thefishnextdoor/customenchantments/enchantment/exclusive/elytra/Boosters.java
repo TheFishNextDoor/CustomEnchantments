@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.elytra;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
@@ -10,13 +9,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Boosters extends MutuallyExclusiveElytraEnchantment {
 
-    public Boosters(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Boosters";
+    }
+
+    @Override
+    public String getDescription() {
+        return "A small amount of constant thrust is added to the elytra. Rare drop from creeper.";
     }
 
     @Override
@@ -27,11 +27,6 @@ public class Boosters extends MutuallyExclusiveElytraEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "A small amount of constant thrust is added to the elytra. Rare drop from creeper.";
     }
 
     public static void whenGliding(Player player) {

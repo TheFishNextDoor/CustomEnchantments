@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.chestplate;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Healing extends MutuallyExclusiveChestplateEnchantment {
 
-    public Healing(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Healing";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer has faster health regeneration. Rare drop from zombified piglin.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class Healing extends MutuallyExclusiveChestplateEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer has faster health regeneration. Rare drop from zombified piglin.";
     }
 
     public static void onTimer(Player player, ItemStack chestplate) {

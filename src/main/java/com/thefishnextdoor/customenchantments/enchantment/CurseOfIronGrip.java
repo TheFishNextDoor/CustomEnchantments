@@ -1,7 +1,6 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -14,13 +13,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class CurseOfIronGrip extends CustomEnchantment {
 
-    public CurseOfIronGrip(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Curse of Iron Grip";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Prevents the holder from dropping the item. Rare drop from witch.";
     }
 
     @Override
@@ -50,11 +50,6 @@ public class CurseOfIronGrip extends CustomEnchantment {
         }
         Material type = item.getType();
         return MaterialTools.isWeapon(type) || MaterialTools.isTool(type);
-    }
-
-    @Override
-    public String getDescription() {
-        return "Prevents the holder from dropping the item. Rare drop from witch.";
     }
 
     public static void modifyCancelStatus(Player player, ItemStack item, PlayerDropItemEvent event) {

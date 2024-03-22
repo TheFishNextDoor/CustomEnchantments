@@ -3,10 +3,13 @@ package com.thefishnextdoor.customenchantments;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map.Entry;
 
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.enchantment.AquaAspect;
@@ -77,7 +80,11 @@ import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Venom
 import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Withering;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
-public abstract class CustomEnchantment extends Enchantment {
+public abstract class CustomEnchantment {
+
+    // ------------------- //
+    // Custom Enchantments //
+    // ------------------- //
     
     // General Enchantments
     public static Enchantment AQUA_ASPECT;
@@ -159,125 +166,152 @@ public abstract class CustomEnchantment extends Enchantment {
     public static Enchantment LEAPING;
     public static Enchantment SLOW_FALLING;
 
-    private static ArrayList<CustomEnchantment> customEnchantments = new ArrayList<>();
+    // ---------------- //
+    // Static Variables //
+    // ---------------- //
+
     private static HashSet<String> customEnchantmentLookup = new HashSet<>();
+
     private static HashMap<String, String> descriptions = new HashMap<>();
+
+    // -------- //
+    // Instance //
+    // -------- //
 
     private NamespacedKey key;
 
-    public CustomEnchantment(NamespacedKey key) {
-        super();
-        this.key = key;
-        if (!customEnchantmentLookup.contains(EnchantTools.name(this))) {
-            customEnchantments.add(this);
-            customEnchantmentLookup.add(EnchantTools.name(this));
+    public CustomEnchantment() {
+        this.key = NamespacedKey.minecraft(getName().toLowerCase().replace(" ", "_"));
+
+        if (!customEnchantmentLookup.contains(key.toString())) {
+            customEnchantmentLookup.add(key.toString());
+            descriptions.put(key.toString(), getDescription());
         }
     }
 
-    @Override
-    public int getStartLevel() {
-        return 1;
-    }
-
-    @Override
-    public boolean isTreasure() {
-        return true;
-    }
-
-    @Override
     public NamespacedKey getKey() {
         return key;
     }
 
-    @Override
-    public String getTranslationKey() {
-        return getKey().getKey();
+    public int getStartLevel() {
+        return 1;
     }
 
+    public boolean isTreasure() {
+        return true;
+    }
+
+    public abstract String getName();
+
     public abstract String getDescription();
+
+    public abstract int getMaxLevel();
+
+    public abstract EnchantmentTarget getItemTarget();
+
+    public abstract boolean isCursed();
+
+    public abstract boolean conflictsWith(Enchantment other);
+
+    public abstract boolean canEnchantItem(ItemStack item);
+
+    // -------------- //
+    // Static Methods //
+    // -------------- //
 
     protected static void registerAll(Plugin plugin) {
         NMS.unfreezeEnchantmentRegistry();
         
-        AQUA_ASPECT = NMS.registerEnchantment(new AquaAspect(new NamespacedKey(plugin, "aqua_aspect")));
-        CURSE_OF_AQUAPHOBIA = NMS.registerEnchantment(new CurseOfAquaphobia(new NamespacedKey(plugin, "curse_of_aquaphobia")));
-        CURSE_OF_IRON_GRIP = NMS.registerEnchantment(new CurseOfIronGrip(new NamespacedKey(plugin, "curse_of_iron_grip")));
-        CURSE_OF_LEVITATING = NMS.registerEnchantment(new CurseOfLevitating(new NamespacedKey(plugin, "curse_of_levitating")));
-        CURSE_OF_MINING_FATIGUE = NMS.registerEnchantment(new CurseOfMiningFatigue(new NamespacedKey(plugin, "curse_of_mining_fatigue")));
-        CURSE_OF_RADIANCE = NMS.registerEnchantment(new CurseOfRadiance(new NamespacedKey(plugin, "curse_of_radiance")));
-        CURSE_OF_SLOWNESS = NMS.registerEnchantment(new CurseOfSlowness(new NamespacedKey(plugin, "curse_of_slowness")));
-        CURSE_OF_WEAKNESS = NMS.registerEnchantment(new CurseOfWeakness(new NamespacedKey(plugin, "curse_of_weakness")));
-        ENLIGHTENMENT = NMS.registerEnchantment(new Enlightenment(new NamespacedKey(plugin, "enlightenment")));
-        EXCAVATING = NMS.registerEnchantment(new Excavating(new NamespacedKey(plugin, "excavating")));
-        FLING = NMS.registerEnchantment(new Fling(new NamespacedKey(plugin, "fling")));
-        INVISIBILITY = NMS.registerEnchantment(new Invisibility(new NamespacedKey(plugin, "invisibility")));
-        PRECISION = NMS.registerEnchantment(new Precision(new NamespacedKey(plugin, "precision")));
-        RADIANCE = NMS.registerEnchantment(new Radiance(new NamespacedKey(plugin, "radiance")));
-        RANGE = NMS.registerEnchantment(new Range(new NamespacedKey(plugin, "range")));
-        REFLECTION = NMS.registerEnchantment(new Reflection(new NamespacedKey(plugin, "reflection")));
-        REPLANTING = NMS.registerEnchantment(new Replanting(new NamespacedKey(plugin, "replanting")));
-        SMELTING = NMS.registerEnchantment(new Smelting(new NamespacedKey(plugin, "smelting")));
-        SPURS = NMS.registerEnchantment(new Spurs(new NamespacedKey(plugin, "spurs")));
-        TELEKINESIS = NMS.registerEnchantment(new Telekinesis(new NamespacedKey(plugin, "telekinesis")));
-        TILLING = NMS.registerEnchantment(new Tilling(new NamespacedKey(plugin, "tilling")));
-        TREE_FELLER = NMS.registerEnchantment(new TreeFeller(new NamespacedKey(plugin, "tree_feller")));
-        UNBREAKABLE = NMS.registerEnchantment(new Unbreakable(new NamespacedKey(plugin, "unbreakable")));
-        CONDUIT_POWER = NMS.registerEnchantment(new ConduitPower(new NamespacedKey(plugin, "conduit_power")));
-        GILLS = NMS.registerEnchantment(new Gills(new NamespacedKey(plugin, "gills")));
-        NIGHT_VISION = NMS.registerEnchantment(new NightVision(new NamespacedKey(plugin, "night_vision")));
-        SUSTENANCE = NMS.registerEnchantment(new Sustenance(new NamespacedKey(plugin, "sustenance")));
-        WORM = NMS.registerEnchantment(new Worm(new NamespacedKey(plugin, "worm")));
-        DEATH_WISH = NMS.registerEnchantment(new DeathWish(new NamespacedKey(plugin, "death_wish")));
-        DRAGON_SCALES = NMS.registerEnchantment(new DragonScales(new NamespacedKey(plugin, "dragon_scales")));
-        FIRE_RESISTANCE = NMS.registerEnchantment(new FireResistance(new NamespacedKey(plugin, "fire_resistance")));
-        FLAMING = NMS.registerEnchantment(new Flaming(new NamespacedKey(plugin, "flaming")));
-        HASTE = NMS.registerEnchantment(new Haste(new NamespacedKey(plugin, "haste")));
-        HEALING = NMS.registerEnchantment(new Healing(new NamespacedKey(plugin, "healing")));
-        HERO_OF_THE_VILLAGE = NMS.registerEnchantment(new HeroOfTheVillage(new NamespacedKey(plugin, "hero_of_the_village")));
-        INCREASED_HEALTH = NMS.registerEnchantment(new IncreasedHealth(new NamespacedKey(plugin, "increased_health")));
-        PROJECTILE_RESISTANCE = NMS.registerEnchantment(new ProjectileResistance(new NamespacedKey(plugin, "projectile_resistance")));
-        STRENGTH = NMS.registerEnchantment(new Strength(new NamespacedKey(plugin, "strength")));
-        BOOSTERS = NMS.registerEnchantment(new Boosters(new NamespacedKey(plugin, "boosters")));
-        MOMENTUM = NMS.registerEnchantment(new Momentum(new NamespacedKey(plugin, "momentum")));
-        DOLPHINS_GRACE = NMS.registerEnchantment(new DolphinsGrace(new NamespacedKey(plugin, "dolphins_grace")));
-        HEAVY = NMS.registerEnchantment(new Heavy(new NamespacedKey(plugin, "heavy")));
-        SWIFTNESS = NMS.registerEnchantment(new Swiftness(new NamespacedKey(plugin, "swiftness")));
-        BLOOD_TIPPED = NMS.registerEnchantment(new BloodTipped(new NamespacedKey(plugin, "blood_tipped")));
-        CRIPPLING = NMS.registerEnchantment(new Crippling(new NamespacedKey(plugin, "crippling")));
-        DEBILITATING = NMS.registerEnchantment(new Debilitating(new NamespacedKey(plugin, "debilitating")));
-        DESTRUCTIVE = NMS.registerEnchantment(new Destructive(new NamespacedKey(plugin, "destructive")));
-        DISORIENTING = NMS.registerEnchantment(new Disorienting(new NamespacedKey(plugin, "disorienting")));
-        FIRE_BLAST = NMS.registerEnchantment(new FireBlast(new NamespacedKey(plugin, "fire_blast")));
-        GLASS = NMS.registerEnchantment(new Glass(new NamespacedKey(plugin, "glass")));
-        HARPOON = NMS.registerEnchantment(new Harpoon(new NamespacedKey(plugin, "harpoon")));
-        LEVITATING = NMS.registerEnchantment(new Levitating(new NamespacedKey(plugin, "levitating")));
-        LIFE_STEAL = NMS.registerEnchantment(new LifeSteal(new NamespacedKey(plugin, "life_steal")));
-        OBSCURE = NMS.registerEnchantment(new Obscure(new NamespacedKey(plugin, "obscure")));
-        SALMON_SLINGER = NMS.registerEnchantment(new SalmonSlinger(new NamespacedKey(plugin, "salmon_slinger")));
-        SEEKING = NMS.registerEnchantment(new Seeking(new NamespacedKey(plugin, "seeking")));
-        STARVING = NMS.registerEnchantment(new Starving(new NamespacedKey(plugin, "starving")));
-        TELEPORT = NMS.registerEnchantment(new Teleport(new NamespacedKey(plugin, "teleport")));
-        VENOM = NMS.registerEnchantment(new Venom(new NamespacedKey(plugin, "venom")));
-        WITHERING = NMS.registerEnchantment(new Withering(new NamespacedKey(plugin, "withering")));
-        ANCHOR = NMS.registerEnchantment(new Anchor(new NamespacedKey(plugin, "anchor")));
-        BOUNCE = NMS.registerEnchantment(new Bounce(new NamespacedKey(plugin, "bounce")));
-        CRUSH = NMS.registerEnchantment(new Crush(new NamespacedKey(plugin, "crush")));
-        LEAPING = NMS.registerEnchantment(new Leaping(new NamespacedKey(plugin, "leaping")));
-        SLOW_FALLING = NMS.registerEnchantment(new SlowFalling(new NamespacedKey(plugin, "slow_falling")));
-        VOLLEY = NMS.registerEnchantment(new Volley(new NamespacedKey(plugin, "volley")));
+        AQUA_ASPECT = NMS.registerEnchantment(new AquaAspect());
+        CURSE_OF_AQUAPHOBIA = NMS.registerEnchantment(new CurseOfAquaphobia());
+        CURSE_OF_IRON_GRIP = NMS.registerEnchantment(new CurseOfIronGrip());
+        CURSE_OF_LEVITATING = NMS.registerEnchantment(new CurseOfLevitating());
+        CURSE_OF_MINING_FATIGUE = NMS.registerEnchantment(new CurseOfMiningFatigue());
+        CURSE_OF_RADIANCE = NMS.registerEnchantment(new CurseOfRadiance());
+        CURSE_OF_SLOWNESS = NMS.registerEnchantment(new CurseOfSlowness());
+        CURSE_OF_WEAKNESS = NMS.registerEnchantment(new CurseOfWeakness());
+        ENLIGHTENMENT = NMS.registerEnchantment(new Enlightenment());
+        EXCAVATING = NMS.registerEnchantment(new Excavating());
+        FLING = NMS.registerEnchantment(new Fling());
+        INVISIBILITY = NMS.registerEnchantment(new Invisibility());
+        PRECISION = NMS.registerEnchantment(new Precision());
+        RADIANCE = NMS.registerEnchantment(new Radiance());
+        RANGE = NMS.registerEnchantment(new Range());
+        REFLECTION = NMS.registerEnchantment(new Reflection());
+        REPLANTING = NMS.registerEnchantment(new Replanting());
+        SMELTING = NMS.registerEnchantment(new Smelting());
+        SPURS = NMS.registerEnchantment(new Spurs());
+        TELEKINESIS = NMS.registerEnchantment(new Telekinesis());
+        TILLING = NMS.registerEnchantment(new Tilling());
+        TREE_FELLER = NMS.registerEnchantment(new TreeFeller());
+        UNBREAKABLE = NMS.registerEnchantment(new Unbreakable());
+        CONDUIT_POWER = NMS.registerEnchantment(new ConduitPower());
+        GILLS = NMS.registerEnchantment(new Gills());
+        NIGHT_VISION = NMS.registerEnchantment(new NightVision());
+        SUSTENANCE = NMS.registerEnchantment(new Sustenance());
+        WORM = NMS.registerEnchantment(new Worm());
+        DEATH_WISH = NMS.registerEnchantment(new DeathWish());
+        DRAGON_SCALES = NMS.registerEnchantment(new DragonScales());
+        FIRE_RESISTANCE = NMS.registerEnchantment(new FireResistance());
+        FLAMING = NMS.registerEnchantment(new Flaming());
+        HASTE = NMS.registerEnchantment(new Haste());
+        HEALING = NMS.registerEnchantment(new Healing());
+        HERO_OF_THE_VILLAGE = NMS.registerEnchantment(new HeroOfTheVillage());
+        INCREASED_HEALTH = NMS.registerEnchantment(new IncreasedHealth());
+        PROJECTILE_RESISTANCE = NMS.registerEnchantment(new ProjectileResistance());
+        STRENGTH = NMS.registerEnchantment(new Strength());
+        BOOSTERS = NMS.registerEnchantment(new Boosters());
+        MOMENTUM = NMS.registerEnchantment(new Momentum());
+        DOLPHINS_GRACE = NMS.registerEnchantment(new DolphinsGrace());
+        HEAVY = NMS.registerEnchantment(new Heavy());
+        SWIFTNESS = NMS.registerEnchantment(new Swiftness());
+        BLOOD_TIPPED = NMS.registerEnchantment(new BloodTipped());
+        CRIPPLING = NMS.registerEnchantment(new Crippling());
+        DEBILITATING = NMS.registerEnchantment(new Debilitating());
+        DESTRUCTIVE = NMS.registerEnchantment(new Destructive());
+        DISORIENTING = NMS.registerEnchantment(new Disorienting());
+        FIRE_BLAST = NMS.registerEnchantment(new FireBlast());
+        GLASS = NMS.registerEnchantment(new Glass());
+        HARPOON = NMS.registerEnchantment(new Harpoon());
+        LEVITATING = NMS.registerEnchantment(new Levitating());
+        LIFE_STEAL = NMS.registerEnchantment(new LifeSteal());
+        OBSCURE = NMS.registerEnchantment(new Obscure());
+        SALMON_SLINGER = NMS.registerEnchantment(new SalmonSlinger());
+        SEEKING = NMS.registerEnchantment(new Seeking());
+        STARVING = NMS.registerEnchantment(new Starving());
+        TELEPORT = NMS.registerEnchantment(new Teleport());
+        VENOM = NMS.registerEnchantment(new Venom());
+        WITHERING = NMS.registerEnchantment(new Withering());
+        ANCHOR = NMS.registerEnchantment(new Anchor());
+        BOUNCE = NMS.registerEnchantment(new Bounce());
+        CRUSH = NMS.registerEnchantment(new Crush());
+        LEAPING = NMS.registerEnchantment(new Leaping());
+        SLOW_FALLING = NMS.registerEnchantment(new SlowFalling());
+        VOLLEY = NMS.registerEnchantment(new Volley());
     }
 
-    public static ArrayList<CustomEnchantment> all() {
-        return new ArrayList<>(customEnchantments);
+    public static ArrayList<Enchantment> all() {
+        ArrayList<Enchantment> customEnchantments = new ArrayList<>();
+        Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
+        while (allEnchantments.hasNext()) {
+            Enchantment enchantment = allEnchantments.next();
+            if (isCustomEnchantment(enchantment)) {
+                customEnchantments.add(enchantment);
+            }
+        }
+        return customEnchantments;
     }
 
     public static boolean isCustomEnchantment(Enchantment enchantment) {
         // return enchantment instanceof CustomEnchantment; // Not reload safe
-        return customEnchantmentLookup.contains(EnchantTools.name(enchantment));
+        if (enchantment == null) {
+            return false;
+        }
+        return customEnchantmentLookup.contains(enchantment.getKey().toString());
     }
 
     public static String description(Enchantment enchantment) {
-        return descriptions.get(EnchantTools.name(enchantment));
+        return descriptions.get(enchantment.getKey().toString());
     }
 
     public static boolean hasCustomEnchantments(ItemStack item) {

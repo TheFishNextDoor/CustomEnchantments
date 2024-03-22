@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
 
-    public LifeSteal(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Life Steal";
+    }
+
+    @Override
+    public String getDescription() {
+        return "A portion of the damage you deal is added to your health. Rare drop from wither.";
     }
 
     @Override
@@ -38,11 +38,6 @@ public class LifeSteal extends MutuallyExclusiveWeaponEnchantment {
             return false;
         }
         return MaterialTools.isWeapon(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "A portion of the damage you deal is added to your health. Rare drop from wither.";
     }
 
     public static void onPlayerAttackEntity(Player player, EntityDamageByEntityEvent event, boolean ranged) {

@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
@@ -15,13 +14,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Fling extends CustomEnchantment {
 
-    public Fling(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Fling";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Sends attacked entities upwards. Rare drop from creeper.";
     }
 
     @Override
@@ -50,11 +50,6 @@ public class Fling extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isWeapon(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Sends attacked entities upwards. Rare drop from creeper.";
     }
 
     public static void onPlayerAttackEntity(Player player, final Entity entity, boolean ranged) {

@@ -1,7 +1,6 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon;
 
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -14,13 +13,14 @@ import com.thefishnextdoor.customenchantments.util.EntityTools;
 
 public class FireBlast extends ArrowTransformEnchantment {
 
-    public FireBlast(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Fire Blast";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Launched projectiles are transformed into a blaze fire ball. Rare drop from blaze.";
     }
 
     @Override
@@ -40,11 +40,6 @@ public class FireBlast extends ArrowTransformEnchantment {
         }
         Material type = item.getType();
         return type == Material.CROSSBOW;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Launched projectiles are transformed into a blaze fire ball. Rare drop from blaze.";
     }
 
     public static void convertProjectile(Player player, Projectile projectile) {

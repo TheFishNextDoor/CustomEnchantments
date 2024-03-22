@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.boots;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Crush extends MutuallyExclusiveBootsEnchantment {
 
-    public Crush(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Crush";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Falling on an entity will damage it. Rare drop from ravagers.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class Crush extends MutuallyExclusiveBootsEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Falling on an entity will damage it. Rare drop from ravagers.";
     }
 
     public static void onPlayerTakeDamage(Player player, EntityDamageEvent event) {

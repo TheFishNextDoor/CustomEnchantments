@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.boots;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -14,13 +13,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Anchor extends MutuallyExclusiveBootsEnchantment {
 
-    public Anchor(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Anchor";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer sinks in water and has increased traction in water. Should be combined with depth strider for best effect. Rare drop from drowned.";
     }
 
     @Override
@@ -31,11 +31,6 @@ public class Anchor extends MutuallyExclusiveBootsEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer sinks in water and has increased traction in water. Should be combined with depth strider for best effect. Rare drop from drowned.";
     }
 
     public static void whenSwimming(Player player) {

@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.chestplate;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class IncreasedHealth extends MutuallyExclusiveChestplateEnchantment {
 
-    public IncreasedHealth(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Increased Health";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer has increased max health. Rare drop from ender dragon.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class IncreasedHealth extends MutuallyExclusiveChestplateEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer has increased max health. Rare drop from ender dragon.";
     }
 
     public static void onTimer(Player player, ItemStack chestplate) {

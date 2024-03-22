@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
@@ -14,13 +13,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class CurseOfAquaphobia extends CustomEnchantment {
 
-    public CurseOfAquaphobia(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Curse of Aquaphobia";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer takes damage from water and rain. Rare drop from enderman.";
     }
 
     @Override
@@ -49,11 +49,6 @@ public class CurseOfAquaphobia extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isArmor(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer takes damage from water and rain. Rare drop from enderman.";
     }
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {

@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.helmet;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 
@@ -10,13 +9,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Sustenance extends MutuallyExclusiveHelmetEnchantment {
 
-    public Sustenance(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Sustenance";
+    }
+    
+    @Override
+    public String getDescription() {
+        return "Hunger bar replenishes over time. Rare drop from zombie.";
     }
 
     @Override
@@ -27,11 +27,6 @@ public class Sustenance extends MutuallyExclusiveHelmetEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Hunger bar replenishes over time. Rare drop from zombie.";
     }
 
     public static void modifyFood(Player player, FoodLevelChangeEvent event) {

@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -14,13 +13,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Precision extends CustomEnchantment {
 
-    public Precision(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Precision";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Fired projectiles have 100% accuracy. Rare drop from skeleton.";
     }
 
     @Override
@@ -49,11 +49,6 @@ public class Precision extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isRangedWeapon(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Fired projectiles have 100% accuracy. Rare drop from skeleton.";
     }
 
     public static void modifyVelocity(Player player, Projectile projectile) {

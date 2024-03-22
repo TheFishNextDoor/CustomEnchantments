@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -15,13 +14,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class CurseOfWeakness extends CustomEnchantment {
 
-    public CurseOfWeakness(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Curse of Weakness";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer has decreased melee damage. Rare drop from cave spider.";
     }
 
     @Override
@@ -50,11 +50,6 @@ public class CurseOfWeakness extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isArmor(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer has decreased melee damage. Rare drop from cave spider.";
     }
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {

@@ -44,7 +44,7 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + StringTools.titleCase(EnchantTools.name(enchantment)));
+        sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + StringTools.titleCase(enchantment.getKey().getKey()));
         sender.sendMessage(ChatColor.AQUA + "Max Level: " + ChatColor.WHITE + enchantment.getMaxLevel());
 
         ArrayList<String> items = getItems(enchantment);
@@ -125,7 +125,7 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
             }
             
             if (enchantment.conflictsWith(other) || other.conflictsWith(enchantment)) {
-                conflicts.add(StringTools.titleCase(EnchantTools.name(other)));
+                conflicts.add(StringTools.titleCase(other.getKey().getKey()));
             }
         }
         return conflicts;

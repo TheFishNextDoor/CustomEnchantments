@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.boots;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class Leaping extends MutuallyExclusiveBootsEnchantment {
 
-    public Leaping(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Leaping";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer has increased jump height. Rare drop from slime.";
     }
 
     @Override
@@ -30,11 +30,6 @@ public class Leaping extends MutuallyExclusiveBootsEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer has increased jump height. Rare drop from slime.";
     }
 
     public static void onTimer(Player player, ItemStack boots) {

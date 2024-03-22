@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.chestplate;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -10,13 +9,14 @@ import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class FireResistance extends MutuallyExclusiveChestplateEnchantment {
 
-    public FireResistance(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Fire Resistance";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer is immune to fire damage. Rare drop from blaze.";
     }
 
     @Override
@@ -27,11 +27,6 @@ public class FireResistance extends MutuallyExclusiveChestplateEnchantment {
     @Override
     public boolean isCursed() {
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer is immune to fire damage. Rare drop from blaze.";
     }
 
     public static void modifyCancelStatus(Player player, EntityDamageEvent event) {

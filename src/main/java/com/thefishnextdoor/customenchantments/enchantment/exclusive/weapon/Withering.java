@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,13 +13,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Withering extends MutuallyExclusiveWeaponEnchantment {
 
-    public Withering(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Withering";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Attacked entities receive wither. Rare drop from the wither.";
     }
 
     @Override
@@ -39,11 +39,6 @@ public class Withering extends MutuallyExclusiveWeaponEnchantment {
             return false;
         }
         return MaterialTools.isWeapon(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Attacked entities receive wither. Rare drop from the wither.";
     }
 
     public static void onPlayerAttackEntity(Player player, LivingEntity reciever, boolean ranged) {

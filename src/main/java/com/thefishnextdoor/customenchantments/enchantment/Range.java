@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -13,13 +12,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Range extends CustomEnchantment {
 
-    public Range(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Range";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Fired projectiles have a higher velocity. Rare drop from skeleton.";
     }
 
     @Override
@@ -48,11 +48,6 @@ public class Range extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isRangedWeapon(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Fired projectiles have a higher velocity. Rare drop from skeleton.";
     }
 
     public static void modifyVelocity(Player player, Projectile projectile) {

@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
@@ -16,13 +15,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Spurs extends CustomEnchantment {
 
-    public Spurs(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Spurs";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Mounted mobs receive speed and jump boost. Rare drop from pillager.";
     }
 
     @Override
@@ -51,11 +51,6 @@ public class Spurs extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isBoots(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Mounted mobs receive speed and jump boost. Rare drop from pillager.";
     }
 
     public static void onTimer(Player player, ItemStack boots) {

@@ -1,6 +1,5 @@
 package com.thefishnextdoor.customenchantments.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -15,13 +14,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class CurseOfSlowness extends CustomEnchantment {
 
-    public CurseOfSlowness(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Curse of Slowness";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Wearer has decreased movement speed. Rare drop from warden.";
     }
 
     @Override
@@ -50,11 +50,6 @@ public class CurseOfSlowness extends CustomEnchantment {
             return false;
         }
         return MaterialTools.isArmor(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Wearer has decreased movement speed. Rare drop from warden.";
     }
 
     public static void onTimer(Player player, ArmorCheckOptimizer o) {

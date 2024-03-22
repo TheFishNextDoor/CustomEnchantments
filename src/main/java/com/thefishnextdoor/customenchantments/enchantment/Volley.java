@@ -2,7 +2,6 @@ package com.thefishnextdoor.customenchantments.enchantment;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.AbstractArrow;
@@ -21,13 +20,14 @@ import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Volley extends CustomEnchantment {
 
-    public Volley(NamespacedKey key) {
-        super(key);
-    }
-
     @Override
     public String getName() {
         return "Volley";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Fire multiple arrows at once. Rare drop from skeleton.";
     }
 
     @Override
@@ -56,11 +56,6 @@ public class Volley extends CustomEnchantment {
             return false;
         }
         return MaterialTools.firesArrows(item.getType());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Fire multiple arrows at once. Rare drop from skeleton.";
     }
 
     public static void summonProjectiles(Player player, Projectile projectile) {
