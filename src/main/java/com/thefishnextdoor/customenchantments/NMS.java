@@ -41,7 +41,6 @@ public class NMS {
             return this.enchantment.isTreasure();
         }
       
-        @SuppressWarnings("deprecation")
         @Override
         public boolean isCurse() {
             return this.enchantment.isCursed();
