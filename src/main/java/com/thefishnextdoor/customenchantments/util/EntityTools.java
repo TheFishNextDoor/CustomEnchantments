@@ -6,7 +6,6 @@ import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Projectile;
 import org.bukkit.util.Vector;
 
-import com.thefishnextdoor.customenchantments.EndOfTick;
 import com.thefishnextdoor.customenchantments.EntityTag;
 
 public class EntityTools {

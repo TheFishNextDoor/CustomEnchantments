@@ -1,8 +1,10 @@
-package com.thefishnextdoor.customenchantments;
+package com.thefishnextdoor.customenchantments.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
+
+import com.thefishnextdoor.customenchantments.Plugin;
 
 public class EndOfTick {
 

@@ -7,9 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import com.thefishnextdoor.customenchantments.EndOfTick;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
+import com.thefishnextdoor.customenchantments.util.EndOfTick;
 import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Fling extends CustomEnchantment {
