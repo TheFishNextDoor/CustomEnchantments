@@ -335,7 +335,6 @@ public class EnchantTools {
         return enchant1.getKey().toString().equals(enchant2.getKey().toString());
     }
 
-
     public static ArrayList<String> namesOfCompatibleEnchantments(ItemStack item) {
         if (item == null || item.getType() == Material.BOOK) {
             return EnchantTools.namesOfAllEnchantments();
