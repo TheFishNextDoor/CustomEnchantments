@@ -2,7 +2,6 @@ package com.thefishnextdoor.customenchantments;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
@@ -79,6 +78,8 @@ import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Telep
 import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Venom;
 import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Withering;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
+
+import net.md_5.bungee.api.ChatColor;
 
 public abstract class CustomEnchantment {
 
@@ -170,9 +171,7 @@ public abstract class CustomEnchantment {
     // Static Variables //
     // ---------------- //
 
-    private static HashSet<String> customEnchantmentLookup = new HashSet<>();
-
-    private static HashMap<String, String> descriptions = new HashMap<>();
+    private static HashMap<String, CustomEnchantment> customEnchantmentLookup = new HashMap<>();
 
     // -------- //
     // Instance //
@@ -183,9 +182,8 @@ public abstract class CustomEnchantment {
     public CustomEnchantment() {
         this.key = NamespacedKey.minecraft(getName().toLowerCase().replace(" ", "_"));
 
-        if (!customEnchantmentLookup.contains(key.toString())) {
-            customEnchantmentLookup.add(key.toString());
-            descriptions.put(key.toString(), getDescription());
+        if (!customEnchantmentLookup.containsKey(key.toString())) {
+            customEnchantmentLookup.put(key.toString(), this);
         }
     }
 
@@ -301,16 +299,19 @@ public abstract class CustomEnchantment {
         return customEnchantments;
     }
 
+    public static CustomEnchantment unWrap(Enchantment enchantment) {
+        if (enchantment == null) {
+            return null;
+        }
+        return customEnchantmentLookup.get(enchantment.getKey().toString());
+    }
+
     public static boolean isCustomEnchantment(Enchantment enchantment) {
         // return enchantment instanceof CustomEnchantment; // Not reload safe
         if (enchantment == null) {
             return false;
         }
-        return customEnchantmentLookup.contains(enchantment.getKey().toString());
-    }
-
-    public static String description(Enchantment enchantment) {
-        return descriptions.get(enchantment.getKey().toString());
+        return customEnchantmentLookup.containsKey(enchantment.getKey().toString());
     }
 
     public static boolean hasCustomEnchantments(ItemStack item) {
@@ -330,5 +331,19 @@ public abstract class CustomEnchantment {
             }
         }
         return foundFishchantments;
+    }
+
+    public static String leveledLoreString(CustomEnchantment customEnchantment, Integer level) {
+        String lore = nonLeveledLoreString(customEnchantment);
+        if (level == 1 && customEnchantment.getMaxLevel() == 1) {
+            return lore;
+        }
+        else {
+            return lore + " " + (Plugin.getSettings().USE_ARABIC_NUMERALS ? level.toString() : EnchantTools.numeral(level));
+        }
+    }
+
+    public static String nonLeveledLoreString(CustomEnchantment customEnchantment) {
+        return customEnchantment.isCursed() ? ChatColor.RED + customEnchantment.getName() : ChatColor.GRAY + customEnchantment.getName();
     }
 }

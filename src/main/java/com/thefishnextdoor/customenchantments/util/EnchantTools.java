@@ -19,8 +19,6 @@ import com.thefishnextdoor.customenchantments.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.Plugin;
 import com.thefishnextdoor.customenchantments.ArmorEffects.ArmorCheckOptimizer;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class EnchantTools {
 
     public static boolean has(ItemStack item, Enchantment enchant) {
@@ -48,8 +46,9 @@ public class EnchantTools {
             level = meta.getEnchantLevel(enchant);
         }
 
-        if (Plugin.getSettings().CHECK_LORE && level == 0 && meta.hasLore()) {
-            String enchantLoreBase = nonLeveledLoreString(enchant);
+        CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchant);
+        if (Plugin.getSettings().CHECK_LORE && level == 0 && customEnchantment != null && meta.hasLore()) {
+            String enchantLoreBase = CustomEnchantment.nonLeveledLoreString(customEnchantment);
             for (String line : meta.getLore()) {
                 if (!line.startsWith(enchantLoreBase)) {
                     continue;
@@ -197,13 +196,14 @@ public class EnchantTools {
         }
         
         // Add Lore
-        if (!CustomEnchantment.isCustomEnchantment(enchantment)) {
+        CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchantment);
+        if (customEnchantment == null) {
             return true;
         }
 
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
-        lore.add(0, leveledLoreString(enchantment, level));
+        lore.add(0, CustomEnchantment.leveledLoreString(customEnchantment, level));
         meta.setLore(lore);
         item.setItemMeta(meta);
         return true;
@@ -229,8 +229,9 @@ public class EnchantTools {
         }
         
         // Remove Lore
-        if (!CustomEnchantment.isCustomEnchantment(enchantment)) {
-            return hasEnchant;
+        CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchantment);
+        if (customEnchantment == null) {
+            return true;
         }
 
         ItemMeta meta = item.getItemMeta();
@@ -240,7 +241,7 @@ public class EnchantTools {
         }
 
         List<String> newLore = new ArrayList<>();
-        String enchantLoreBase = nonLeveledLoreString(enchantment);
+        String enchantLoreBase = CustomEnchantment.nonLeveledLoreString(customEnchantment);
         for (String line : lore) {
             if (!line.startsWith(enchantLoreBase)) {
                 newLore.add(line);
@@ -374,21 +375,6 @@ public class EnchantTools {
         return names;
     }
     
-    public static String leveledLoreString(Enchantment enchantment, Integer level) {
-        String lore = nonLeveledLoreString(enchantment);
-        if (level == 1 && enchantment.getMaxLevel() == 1) {
-            return lore;
-        }
-        else {
-            return lore + " " + (Plugin.getSettings().USE_ARABIC_NUMERALS ? level.toString() : numeral(level));
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    public static String nonLeveledLoreString(Enchantment enchantment) {
-        return enchantment.isCursed() ? ChatColor.RED + enchantment.getName() : ChatColor.GRAY + enchantment.getName();
-    }
-
     public static String numeral(int number) {
         switch (number) {
             case 10:
