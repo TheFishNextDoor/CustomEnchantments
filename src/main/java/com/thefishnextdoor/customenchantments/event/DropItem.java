@@ -4,7 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
-import com.thefishnextdoor.customenchantments.enchantment.CurseOfIronGrip;
+import com.thefishnextdoor.customenchantments.enchantment.impl.CurseOfIronGrip;
 
 public class DropItem implements Listener {
 

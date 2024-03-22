@@ -12,8 +12,8 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.PermChecker;
-import com.thefishnextdoor.customenchantments.enchantment.Smelting;
-import com.thefishnextdoor.customenchantments.enchantment.Telekinesis;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Smelting;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Telekinesis;
 
 public class WorldTools {
 

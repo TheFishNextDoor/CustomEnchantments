@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Destructive;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Destructive;
 
 public class ProjectileHit implements Listener {
 

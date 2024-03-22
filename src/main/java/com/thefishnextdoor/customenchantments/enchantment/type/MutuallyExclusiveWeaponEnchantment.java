@@ -5,7 +5,7 @@ import java.util.HashSet;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 
-import com.thefishnextdoor.customenchantments.CustomEnchantment;
+import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 
 public abstract class MutuallyExclusiveWeaponEnchantment extends CustomEnchantment {
 

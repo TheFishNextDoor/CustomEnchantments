@@ -7,11 +7,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import com.thefishnextdoor.customenchantments.PermChecker;
-import com.thefishnextdoor.customenchantments.enchantment.Enlightenment;
-import com.thefishnextdoor.customenchantments.enchantment.Excavating;
-import com.thefishnextdoor.customenchantments.enchantment.Replanting;
-import com.thefishnextdoor.customenchantments.enchantment.Telekinesis;
-import com.thefishnextdoor.customenchantments.enchantment.TreeFeller;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Enlightenment;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Excavating;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Replanting;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Telekinesis;
+import com.thefishnextdoor.customenchantments.enchantment.impl.TreeFeller;
 
 public class BlockBreak implements Listener {
 

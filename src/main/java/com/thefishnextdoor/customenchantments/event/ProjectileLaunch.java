@@ -7,17 +7,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
-import com.thefishnextdoor.customenchantments.enchantment.Precision;
-import com.thefishnextdoor.customenchantments.enchantment.Range;
-import com.thefishnextdoor.customenchantments.enchantment.Volley;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.BloodTipped;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Destructive;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.FireBlast;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Harpoon;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Levitating;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.SalmonSlinger;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Seeking;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Teleport;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Precision;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Range;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Volley;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.BloodTipped;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Destructive;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.FireBlast;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Harpoon;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Levitating;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.SalmonSlinger;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Seeking;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Teleport;
 
 public class ProjectileLaunch implements Listener {
 

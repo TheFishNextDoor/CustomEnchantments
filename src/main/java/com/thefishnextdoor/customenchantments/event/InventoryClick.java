@@ -9,7 +9,7 @@ import org.bukkit.inventory.GrindstoneInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.CustomEnchantment;
+import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 public class InventoryClick implements Listener {

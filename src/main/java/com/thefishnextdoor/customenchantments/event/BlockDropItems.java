@@ -9,8 +9,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
 
-import com.thefishnextdoor.customenchantments.enchantment.Smelting;
-import com.thefishnextdoor.customenchantments.enchantment.Telekinesis;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Smelting;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Telekinesis;
 
 public class BlockDropItems implements Listener {
 

@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.helmet.Sustenance;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.helmet.Sustenance;
 
 public class HungerChange implements Listener {
 

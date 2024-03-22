@@ -6,8 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.enchantment.Unbreakable;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Glass;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Unbreakable;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Glass;
 
 public class PlayerItemDamage implements Listener {
 

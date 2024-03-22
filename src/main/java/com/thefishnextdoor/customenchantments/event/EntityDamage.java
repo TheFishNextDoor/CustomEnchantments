@@ -6,13 +6,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.boots.Bounce;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.boots.Crush;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.chestplate.DeathWish;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.chestplate.FireResistance;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.chestplate.ProjectileResistance;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.helmet.Worm;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.leggings.Heavy;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.boots.Bounce;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.boots.Crush;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.chestplate.DeathWish;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.chestplate.FireResistance;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.chestplate.ProjectileResistance;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.helmet.Worm;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.leggings.Heavy;
 
 public class EntityDamage implements Listener {
 

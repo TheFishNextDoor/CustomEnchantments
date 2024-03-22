@@ -7,8 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.thefishnextdoor.customenchantments.PlayerTracker;
-import com.thefishnextdoor.customenchantments.enchantment.Replanting;
-import com.thefishnextdoor.customenchantments.enchantment.Tilling;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Replanting;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Tilling;
 
 public class PlayerInteract implements Listener {
 

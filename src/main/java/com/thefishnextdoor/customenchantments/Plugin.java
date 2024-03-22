@@ -5,7 +5,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.weapon.Seeking;
+import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Seeking;
 import com.thefishnextdoor.customenchantments.event.BlockBreak;
 import com.thefishnextdoor.customenchantments.event.BlockDropItems;
 import com.thefishnextdoor.customenchantments.event.DropItem;

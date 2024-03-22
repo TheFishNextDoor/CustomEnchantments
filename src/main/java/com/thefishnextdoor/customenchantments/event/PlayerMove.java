@@ -6,9 +6,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.boots.Anchor;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.elytra.Boosters;
-import com.thefishnextdoor.customenchantments.enchantment.exclusive.elytra.Momentum;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.boots.Anchor;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.elytra.Boosters;
+import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.elytra.Momentum;
 
 public class PlayerMove implements Listener {
 

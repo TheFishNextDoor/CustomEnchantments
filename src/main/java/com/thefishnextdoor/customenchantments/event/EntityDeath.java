@@ -10,9 +10,9 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.Loot;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Enlightenment;
+import com.thefishnextdoor.customenchantments.enchantment.impl.Telekinesis;
 import com.thefishnextdoor.customenchantments.EntityTag;
-import com.thefishnextdoor.customenchantments.enchantment.Enlightenment;
-import com.thefishnextdoor.customenchantments.enchantment.Telekinesis;
 
 public class EntityDeath implements Listener {
 
