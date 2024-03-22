@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.IdentityHashMap;
 
 import org.bukkit.NamespacedKey;
+import org.bukkit.craftbukkit.v1_20_R3.enchantments.CraftEnchantment;
 import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
 
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,6 +30,10 @@ public class NMS {
         @Override
         public int getMaxLevel() {
             return this.enchantment.getMaxLevel();
+        }
+
+        protected boolean checkCompatibility(net.minecraft.world.item.enchantment.Enchantment nmsEnchantment) {
+            return !enchantment.conflictsWith(CraftEnchantment.minecraftToBukkit(nmsEnchantment));
         }
 
         @Override
