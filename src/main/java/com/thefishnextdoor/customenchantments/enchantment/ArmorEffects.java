@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.CustomEnchantments;
 import com.thefishnextdoor.customenchantments.enchantment.impl.CurseOfAquaphobia;
 import com.thefishnextdoor.customenchantments.enchantment.impl.CurseOfLevitating;
 import com.thefishnextdoor.customenchantments.enchantment.impl.CurseOfMiningFatigue;
@@ -61,7 +61,7 @@ public class ArmorEffects {
         }
     }
 
-    public static void startTask(final Plugin plugin) {
+    public static void startTask(final CustomEnchantments plugin) {
         if (armorEffectsTaskId != -1) {
             return;
         }

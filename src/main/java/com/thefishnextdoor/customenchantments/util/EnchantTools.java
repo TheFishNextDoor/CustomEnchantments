@@ -15,7 +15,7 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.CustomEnchantments;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.enchantment.ArmorEffects.ArmorCheckOptimizer;
 
@@ -47,7 +47,7 @@ public class EnchantTools {
         }
 
         CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchant);
-        if (Plugin.getSettings().CHECK_LORE && level == 0 && customEnchantment != null && meta.hasLore()) {
+        if (CustomEnchantments.getSettings().CHECK_LORE && level == 0 && customEnchantment != null && meta.hasLore()) {
             String enchantLoreBase = CustomEnchantment.nonLeveledLoreString(customEnchantment);
             for (String line : meta.getLore()) {
                 if (!line.startsWith(enchantLoreBase)) {
@@ -159,7 +159,7 @@ public class EnchantTools {
         }
     
         // Remove Overridden Enchantments
-        if (Plugin.getSettings().REMOVE_OVERRIDDEN_ENCHANTMENTS) {
+        if (CustomEnchantments.getSettings().REMOVE_OVERRIDDEN_ENCHANTMENTS) {
             if (same(enchantment, CustomEnchantment.UNBREAKABLE)) {
                 EnchantTools.removeEnchant(item, Enchantment.DURABILITY);
                 EnchantTools.removeEnchant(item, Enchantment.MENDING);

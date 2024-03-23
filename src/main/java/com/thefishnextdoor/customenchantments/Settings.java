@@ -16,7 +16,7 @@ public class Settings {
     public final Integer COMBINE_ENCHANTMENTS_COST_LEVELS;
     public final Integer SEEKING_RADIUS;
 
-    public Settings(Plugin plugin) {
+    public Settings(CustomEnchantments plugin) {
         FileConfiguration config = getPluginConfig(plugin);
         MOBS_DROP_BOOKS = config.getBoolean("mobs-drop-books", true);
         REMOVE_OVERRIDDEN_ENCHANTMENTS = config.getBoolean("remove-overridden-enchantments", true);

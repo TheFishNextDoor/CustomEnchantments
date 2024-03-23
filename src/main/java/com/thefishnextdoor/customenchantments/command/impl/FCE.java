@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 
-import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.CustomEnchantments;
 import com.thefishnextdoor.customenchantments.command.Commands;
 
 import net.md_5.bungee.api.ChatColor;
@@ -38,7 +38,7 @@ public class FCE implements CommandExecutor, TabCompleter {
         }
 
         if (subcommand.equals("help")) {
-            Commands commands = Plugin.getCommands();
+            Commands commands = CustomEnchantments.getCommands();
             sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Fish's Custom Enchantments");
             sender.sendMessage(ChatColor.AQUA + "/fce help " + ChatColor.WHITE + "Show this message");
             if (sender.hasPermission(Commands.RELOAD_PERMISSION)) {
@@ -53,7 +53,7 @@ public class FCE implements CommandExecutor, TabCompleter {
         }
 
         if (subcommand.equals("reload") && sender.hasPermission(Commands.RELOAD_PERMISSION)) {
-            Plugin.getInstance().reload();
+            CustomEnchantments.getInstance().reload();
             sender.sendMessage(ChatColor.AQUA + "Plugin reloaded");
             return true;
         }

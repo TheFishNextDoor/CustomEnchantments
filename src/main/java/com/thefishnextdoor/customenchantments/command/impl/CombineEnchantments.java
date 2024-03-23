@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.CustomEnchantments;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.StringTools;
 
@@ -55,7 +55,7 @@ public class CombineEnchantments implements CommandExecutor, TabCompleter {
         }
 
         boolean creative = player.getGameMode() == GameMode.CREATIVE;
-        int cost = creative ? 0 : Plugin.getSettings().COMBINE_ENCHANTMENTS_COST_LEVELS;
+        int cost = creative ? 0 : CustomEnchantments.getSettings().COMBINE_ENCHANTMENTS_COST_LEVELS;
         if (player.getLevel() < cost) {
             sender.sendMessage(ChatColor.RED + "You need " + cost + " levels to use this command.");
             return true;

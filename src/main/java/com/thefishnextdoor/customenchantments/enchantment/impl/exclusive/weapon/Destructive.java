@@ -15,7 +15,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.CustomEnchantments;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.enchantment.type.ArrowTransformEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
@@ -98,7 +98,7 @@ public class Destructive extends ArrowTransformEnchantment {
     }
 
     private static void playEffect(Location location) {
-        if (!Plugin.getSettings().PLAY_EFFECTS) {
+        if (!CustomEnchantments.getSettings().PLAY_EFFECTS) {
             return;
         }
         World world = location.getWorld();

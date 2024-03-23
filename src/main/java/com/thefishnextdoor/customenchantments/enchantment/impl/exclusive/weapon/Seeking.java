@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
-import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.CustomEnchantments;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.enchantment.type.MutuallyExclusiveWeaponEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
@@ -133,7 +133,7 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
         private Entity nearestEntity() {
             Entity nearest = null;
             double nearestAngle = 0;
-            int radius = Plugin.getSettings().SEEKING_RADIUS;
+            int radius = CustomEnchantments.getSettings().SEEKING_RADIUS;
             List<Entity> nearby = arrow.getNearbyEntities(radius, radius, radius);
             for (Entity entity : nearby) {
                 if (!(entity instanceof LivingEntity)) {

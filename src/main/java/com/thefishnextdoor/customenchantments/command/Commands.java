@@ -2,7 +2,7 @@ package com.thefishnextdoor.customenchantments.command;
 
 import org.bukkit.command.PluginCommand;
 
-import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.CustomEnchantments;
 import com.thefishnextdoor.customenchantments.command.impl.CombineEnchantments;
 import com.thefishnextdoor.customenchantments.command.impl.Disenchant;
 import com.thefishnextdoor.customenchantments.command.impl.EnchantInfo;
@@ -21,7 +21,7 @@ public class Commands {
     public final PluginCommand ENCHANTED_BOOK_COMMAND;
     public final PluginCommand COMBINE_ENCHANTMENTS_COMMAND;
 
-    public Commands(Plugin plugin) {
+    public Commands(CustomEnchantments plugin) {
         FCE_COMMAND = plugin.getCommand("fce");
         FCE_COMMAND.setExecutor(new FCE());
 

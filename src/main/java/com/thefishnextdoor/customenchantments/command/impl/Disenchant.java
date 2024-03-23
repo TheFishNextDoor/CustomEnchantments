@@ -12,7 +12,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.CustomEnchantments;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.InventoryTools;
 
@@ -57,7 +57,7 @@ public class Disenchant implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        int cost = creative ? 0 : Plugin.getSettings().DISENCHANT_COST_LEVELS;
+        int cost = creative ? 0 : CustomEnchantments.getSettings().DISENCHANT_COST_LEVELS;
         if (player.getLevel() < cost) {
             player.sendMessage(ChatColor.RED + "You need " + cost + " levels to use this command.");
             return true;

@@ -3,7 +3,7 @@ package com.thefishnextdoor.customenchantments.util;
 import org.bukkit.entity.Entity;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.CustomEnchantments;
 
 public enum EntityTag {
 
@@ -19,11 +19,11 @@ public enum EntityTag {
     }
 
     public void applyTo(Entity entity) {
-        entity.setMetadata(this.key(), new FixedMetadataValue(Plugin.getInstance(), true));
+        entity.setMetadata(this.key(), new FixedMetadataValue(CustomEnchantments.getInstance(), true));
     }
 
     public void remove(Entity entity) {
-        entity.removeMetadata(this.key(), Plugin.getInstance());
+        entity.removeMetadata(this.key(), CustomEnchantments.getInstance());
     }
 
     public static void transfer(Entity from, Entity to) {

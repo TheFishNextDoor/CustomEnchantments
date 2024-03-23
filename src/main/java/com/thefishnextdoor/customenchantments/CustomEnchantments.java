@@ -26,9 +26,9 @@ import com.thefishnextdoor.customenchantments.event.ProjectileHit;
 import com.thefishnextdoor.customenchantments.event.ProjectileLaunch;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
-public class Plugin extends JavaPlugin {
+public class CustomEnchantments extends JavaPlugin {
 
-    private static Plugin instance;
+    private static CustomEnchantments instance;
     private static Settings settings;
     private static Commands commands;
 
@@ -75,7 +75,7 @@ public class Plugin extends JavaPlugin {
         settings = new Settings(this);
     }
 
-    public static Plugin getInstance() {
+    public static CustomEnchantments getInstance() {
         return instance;
     }
 

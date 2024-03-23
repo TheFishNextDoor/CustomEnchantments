@@ -12,7 +12,7 @@ import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.NMS;
-import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.CustomEnchantments;
 import com.thefishnextdoor.customenchantments.enchantment.impl.AquaAspect;
 import com.thefishnextdoor.customenchantments.enchantment.impl.CurseOfAquaphobia;
 import com.thefishnextdoor.customenchantments.enchantment.impl.CurseOfIronGrip;
@@ -219,7 +219,7 @@ public abstract class CustomEnchantment {
     // Static Methods //
     // -------------- //
 
-    public static void registerAll(Plugin plugin) {
+    public static void registerAll(CustomEnchantments plugin) {
         NMS.unfreezeEnchantmentRegistry();
         AQUA_ASPECT = NMS.registerEnchantment(new AquaAspect());
         CURSE_OF_AQUAPHOBIA = NMS.registerEnchantment(new CurseOfAquaphobia());
@@ -341,7 +341,7 @@ public abstract class CustomEnchantment {
             return lore;
         }
         else {
-            return lore + " " + (Plugin.getSettings().USE_ARABIC_NUMERALS ? level.toString() : EnchantTools.numeral(level));
+            return lore + " " + (CustomEnchantments.getSettings().USE_ARABIC_NUMERALS ? level.toString() : EnchantTools.numeral(level));
         }
     }
 
