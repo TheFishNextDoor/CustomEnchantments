@@ -51,7 +51,6 @@ public class PlayerTracker {
         private static long currentTimeTicks() {
             return System.currentTimeMillis() / 50;
         }
-
     }
 
     public static TrackedPlayer get(Player player) {
