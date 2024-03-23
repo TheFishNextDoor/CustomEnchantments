@@ -27,24 +27,14 @@ public class PrepareAnvil implements Listener {
             return;
         }
 
-        boolean cloned = false;
-        if (result == null) {
-            result = zero.clone();
-            cloned = true;
-        }
-        else {
-            for (Entry<Enchantment, Integer> entry : CustomEnchantment.customEnchantments(zero).entrySet()) {
-                EnchantTools.addEnchant(result, entry.getKey(), entry.getValue(), true, false);
-            }
-        }
         
         for (Entry<Enchantment, Integer> entry : EnchantTools.enchantments(one).entrySet()) {
-            EnchantTools.addEnchant(result, entry.getKey(), entry.getValue(), false, true);
+            CustomEnchantment customEnchantment = CustomEnchantment.unWrap(entry.getKey());
+            if (customEnchantment != null) {
+                CustomEnchantment.addLore(customEnchantment, result, entry.getValue());
+            }
         }
-        if (EnchantTools.sameEnchantments(zero, result) && cloned) {
-            event.setResult(null);
-            return;
-        }
+
         event.setResult(result);
     }
 }
