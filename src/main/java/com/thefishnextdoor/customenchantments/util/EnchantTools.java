@@ -3,7 +3,6 @@ package com.thefishnextdoor.customenchantments.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.Registry;
@@ -195,17 +194,11 @@ public class EnchantTools {
             item.addUnsafeEnchantment(enchantment, level);
         }
         
-        // Add Lore
         CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchantment);
-        if (customEnchantment == null) {
-            return true;
+        if (customEnchantment != null) {
+            CustomEnchantment.addLore(customEnchantment, item, level);
         }
 
-        ItemMeta meta = item.getItemMeta();
-        List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
-        lore.add(0, CustomEnchantment.leveledLoreString(customEnchantment, level));
-        meta.setLore(lore);
-        item.setItemMeta(meta);
         return true;
     }
 
@@ -228,27 +221,11 @@ public class EnchantTools {
             }
         }
         
-        // Remove Lore
         CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchantment);
-        if (customEnchantment == null) {
-            return true;
+        if (customEnchantment != null) {
+            CustomEnchantment.removeLore(customEnchantment, item);
         }
 
-        ItemMeta meta = item.getItemMeta();
-        List<String> lore = meta.getLore();
-        if (lore == null) {
-            return hasEnchant;
-        }
-
-        List<String> newLore = new ArrayList<>();
-        String enchantLoreBase = CustomEnchantment.nonLeveledLoreString(customEnchantment);
-        for (String line : lore) {
-            if (!line.startsWith(enchantLoreBase)) {
-                newLore.add(line);
-            }
-        }
-        meta.setLore(newLore);
-        item.setItemMeta(meta);
         return hasEnchant;
     }
 

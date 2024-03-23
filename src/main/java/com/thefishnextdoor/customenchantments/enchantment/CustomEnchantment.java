@@ -3,6 +3,7 @@ package com.thefishnextdoor.customenchantments.enchantment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.bukkit.NamespacedKey;
@@ -10,6 +11,7 @@ import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import com.thefishnextdoor.customenchantments.CustomEnchantments;
 import com.thefishnextdoor.customenchantments.enchantment.impl.AquaAspect;
@@ -333,6 +335,39 @@ public abstract class CustomEnchantment {
             }
         }
         return foundFishchantments;
+    }
+
+    public static void addLore(CustomEnchantment customEnchantment, ItemStack item, int level) {
+        if (!item.hasItemMeta()) {
+            return;
+        }
+        ItemMeta meta = item.getItemMeta();
+        List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
+        lore.add(0, leveledLoreString(customEnchantment, level));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+    }
+
+    public static void removeLore(CustomEnchantment customEnchantment, ItemStack item) {
+        if (!item.hasItemMeta()) {
+            return;
+        }
+        ItemMeta meta = item.getItemMeta();
+    
+        List<String> lore = meta.getLore();
+        if (lore == null) {
+            return;
+        }
+    
+        List<String> newLore = new ArrayList<>();
+        String enchantLoreBase = nonLeveledLoreString(customEnchantment);
+        for (String line : lore) {
+            if (!line.startsWith(enchantLoreBase)) {
+                newLore.add(line);
+            }
+        }
+        meta.setLore(newLore);
+        item.setItemMeta(meta);
     }
 
     public static String leveledLoreString(CustomEnchantment customEnchantment, Integer level) {
