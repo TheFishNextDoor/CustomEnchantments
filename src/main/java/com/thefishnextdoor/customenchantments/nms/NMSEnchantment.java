@@ -29,12 +29,12 @@ public class NMSEnchantment extends net.minecraft.world.item.enchantment.Enchant
 
     @Override
     public int getMinCost(int var0) {
-        return 3;
+        return 0;
     }
   
     @Override
     public int getMaxCost(int var0) {
-        return this.getMinCost(var0);
+        return 0;
     }
 
     @Override
