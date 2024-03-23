@@ -11,7 +11,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.NMS;
 import com.thefishnextdoor.customenchantments.CustomEnchantments;
 import com.thefishnextdoor.customenchantments.enchantment.impl.AquaAspect;
 import com.thefishnextdoor.customenchantments.enchantment.impl.CurseOfAquaphobia;
@@ -79,6 +78,7 @@ import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.
 import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Teleport;
 import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Venom;
 import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Withering;
+import com.thefishnextdoor.customenchantments.nms.NMS;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 
 import net.md_5.bungee.api.ChatColor;

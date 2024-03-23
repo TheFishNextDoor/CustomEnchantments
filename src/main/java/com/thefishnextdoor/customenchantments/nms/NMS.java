@@ -1,4 +1,4 @@
-package com.thefishnextdoor.customenchantments;
+package com.thefishnextdoor.customenchantments.nms;
 
 import java.lang.reflect.Field;
 import java.util.IdentityHashMap;
