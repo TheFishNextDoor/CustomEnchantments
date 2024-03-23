@@ -23,21 +23,33 @@ public class Commands {
 
     public Commands(CustomEnchantments plugin) {
         FCE_COMMAND = plugin.getCommand("fce");
-        FCE_COMMAND.setExecutor(new FCE());
+        FCE fce = new FCE();
+        FCE_COMMAND.setExecutor(fce);
+        FCE_COMMAND.setTabCompleter(fce);
 
         FENCHANT_COMMAND = plugin.getCommand("fenchant");
-        FENCHANT_COMMAND.setExecutor(new Fenchant());
+        Fenchant fenchant = new Fenchant();
+        FENCHANT_COMMAND.setExecutor(fenchant);
+        FENCHANT_COMMAND.setTabCompleter(fenchant);
 
         ENCHANT_INFO_COMMAND = plugin.getCommand("enchantinfo");
-        ENCHANT_INFO_COMMAND.setExecutor(new EnchantInfo());
+        EnchantInfo enchantInfo = new EnchantInfo();
+        ENCHANT_INFO_COMMAND.setExecutor(enchantInfo);
+        ENCHANT_INFO_COMMAND.setTabCompleter(enchantInfo);
 
         DISENCHANT_COMMAND = plugin.getCommand("disenchant");
-        DISENCHANT_COMMAND.setExecutor(new Disenchant());
+        Disenchant disenchant = new Disenchant();
+        DISENCHANT_COMMAND.setExecutor(disenchant);
+        DISENCHANT_COMMAND.setTabCompleter(disenchant);
 
         ENCHANTED_BOOK_COMMAND = plugin.getCommand("enchantedbook");
-        ENCHANTED_BOOK_COMMAND.setExecutor(new EnchantedBook());
+        EnchantedBook enchantedBook = new EnchantedBook();
+        ENCHANTED_BOOK_COMMAND.setExecutor(enchantedBook);
+        ENCHANTED_BOOK_COMMAND.setTabCompleter(enchantedBook);
 
         COMBINE_ENCHANTMENTS_COMMAND = plugin.getCommand("combineenchantments");
-        COMBINE_ENCHANTMENTS_COMMAND.setExecutor(new CombineEnchantments());
+        CombineEnchantments combineEnchantments = new CombineEnchantments();
+        COMBINE_ENCHANTMENTS_COMMAND.setExecutor(combineEnchantments);
+        COMBINE_ENCHANTMENTS_COMMAND.setTabCompleter(combineEnchantments);
     }
 }
