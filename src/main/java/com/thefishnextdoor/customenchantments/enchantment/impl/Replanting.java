@@ -9,11 +9,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.PermChecker;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.InventoryTools;
 import com.thefishnextdoor.customenchantments.util.MaterialTools;
+import com.thefishnextdoor.customenchantments.util.PermChecker;
 import com.thefishnextdoor.customenchantments.util.WorldTools;
 
 public class Replanting extends CustomEnchantment {

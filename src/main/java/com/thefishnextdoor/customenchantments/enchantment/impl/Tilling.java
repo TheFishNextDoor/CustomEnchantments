@@ -7,10 +7,10 @@ import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.PermChecker;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.MaterialTools;
+import com.thefishnextdoor.customenchantments.util.PermChecker;
 
 public class Tilling extends CustomEnchantment {
 

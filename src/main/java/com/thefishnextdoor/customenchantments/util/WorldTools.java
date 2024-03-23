@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.customenchantments.PermChecker;
 import com.thefishnextdoor.customenchantments.enchantment.impl.Smelting;
 import com.thefishnextdoor.customenchantments.enchantment.impl.Telekinesis;
 

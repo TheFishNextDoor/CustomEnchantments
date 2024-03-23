@@ -1,4 +1,4 @@
-package com.thefishnextdoor.customenchantments;
+package com.thefishnextdoor.customenchantments.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
