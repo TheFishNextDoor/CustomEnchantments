@@ -1,13 +1,14 @@
-package com.thefishnextdoor.customenchantments;
+package com.thefishnextdoor.customenchantments.command;
 
 import org.bukkit.command.PluginCommand;
 
-import com.thefishnextdoor.customenchantments.command.CombineEnchantments;
-import com.thefishnextdoor.customenchantments.command.Disenchant;
-import com.thefishnextdoor.customenchantments.command.EnchantInfo;
-import com.thefishnextdoor.customenchantments.command.EnchantedBook;
-import com.thefishnextdoor.customenchantments.command.FCE;
-import com.thefishnextdoor.customenchantments.command.Fenchant;
+import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.command.impl.CombineEnchantments;
+import com.thefishnextdoor.customenchantments.command.impl.Disenchant;
+import com.thefishnextdoor.customenchantments.command.impl.EnchantInfo;
+import com.thefishnextdoor.customenchantments.command.impl.EnchantedBook;
+import com.thefishnextdoor.customenchantments.command.impl.FCE;
+import com.thefishnextdoor.customenchantments.command.impl.Fenchant;
 
 public class Commands {
     

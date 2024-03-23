@@ -1,4 +1,4 @@
-package com.thefishnextdoor.customenchantments.command;
+package com.thefishnextdoor.customenchantments.command.impl;
 
 import java.util.ArrayList;
 import java.util.Iterator;

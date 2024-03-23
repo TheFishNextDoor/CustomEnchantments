@@ -1,4 +1,4 @@
-package com.thefishnextdoor.customenchantments.command;
+package com.thefishnextdoor.customenchantments.command.impl;
 
 import java.util.List;
 import java.util.Map.Entry;

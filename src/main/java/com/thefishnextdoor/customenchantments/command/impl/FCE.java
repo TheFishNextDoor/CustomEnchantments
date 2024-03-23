@@ -1,4 +1,4 @@
-package com.thefishnextdoor.customenchantments.command;
+package com.thefishnextdoor.customenchantments.command.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 
-import com.thefishnextdoor.customenchantments.Commands;
 import com.thefishnextdoor.customenchantments.Plugin;
+import com.thefishnextdoor.customenchantments.command.Commands;
 
 import net.md_5.bungee.api.ChatColor;
 
