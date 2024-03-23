@@ -35,14 +35,18 @@ public class InventoryClick implements Listener {
             return;
         }
 
-        for (Enchantment enchantment : CustomEnchantment.customEnchantments(zero).keySet()) {
-            EnchantTools.removeEnchant(result, enchantment);
+        for (Enchantment enchantment : EnchantTools.enchantments(zero).keySet()) {
+            CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchantment);
+            if (customEnchantment != null) {
+                CustomEnchantment.removeLore(customEnchantment, result);
+            }
         }
 
-        for (Enchantment enchantment : CustomEnchantment.customEnchantments(one).keySet()) {
-            EnchantTools.removeEnchant(result, enchantment);
+        for (Enchantment enchantment : EnchantTools.enchantments(one).keySet()) {
+            CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchantment);
+            if (customEnchantment != null) {
+                CustomEnchantment.removeLore(customEnchantment, result);
+            }
         }
-
-
     }
 }
