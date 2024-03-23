@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
+import com.thefishnextdoor.customenchantments.util.EntityTag;
 import com.thefishnextdoor.customenchantments.util.NumberTools;
 
 public class Loot {

@@ -1,7 +1,9 @@
-package com.thefishnextdoor.customenchantments;
+package com.thefishnextdoor.customenchantments.util;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.metadata.FixedMetadataValue;
+
+import com.thefishnextdoor.customenchantments.Plugin;
 
 public enum EntityTag {
 

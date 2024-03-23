@@ -13,9 +13,9 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import com.thefishnextdoor.customenchantments.EntityTag;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
+import com.thefishnextdoor.customenchantments.util.EntityTag;
 import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
 public class Volley extends CustomEnchantment {

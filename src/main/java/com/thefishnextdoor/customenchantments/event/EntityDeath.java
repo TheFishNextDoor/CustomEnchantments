@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.customenchantments.Loot;
 import com.thefishnextdoor.customenchantments.enchantment.impl.Enlightenment;
 import com.thefishnextdoor.customenchantments.enchantment.impl.Telekinesis;
-import com.thefishnextdoor.customenchantments.EntityTag;
+import com.thefishnextdoor.customenchantments.util.EntityTag;
 
 public class EntityDeath implements Listener {
 

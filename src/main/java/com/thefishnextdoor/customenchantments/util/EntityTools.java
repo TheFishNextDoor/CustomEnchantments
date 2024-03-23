@@ -6,8 +6,6 @@ import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Projectile;
 import org.bukkit.util.Vector;
 
-import com.thefishnextdoor.customenchantments.EntityTag;
-
 public class EntityTools {
 
     public static Entity convert(Entity entity, EntityType type) {

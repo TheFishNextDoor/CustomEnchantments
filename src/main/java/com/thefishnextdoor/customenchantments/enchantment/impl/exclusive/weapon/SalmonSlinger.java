@@ -8,10 +8,10 @@ import org.bukkit.entity.Salmon;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.thefishnextdoor.customenchantments.EntityTag;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.enchantment.type.ArrowTransformEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
+import com.thefishnextdoor.customenchantments.util.EntityTag;
 import com.thefishnextdoor.customenchantments.util.EntityTools;
 
 public class SalmonSlinger extends ArrowTransformEnchantment {
