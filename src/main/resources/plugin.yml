@@ -1,5 +1,5 @@
 name: FishsCustomEnchantments
-main: com.thefishnextdoor.customenchantments.Plugin
+main: com.thefishnextdoor.customenchantments.CustomEnchantments
 version: 2.0.0
 api-version: 1.15
 authors: ["TheFishNextDoor"]
