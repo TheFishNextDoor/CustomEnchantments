@@ -57,7 +57,7 @@ public class Disenchant implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        int cost = creative ? 0 : CustomEnchantments.getSettings().DISENCHANT_COST_LEVELS;
+        int cost = creative ? 0 : CustomEnchantments.getSettings().DISENCHANT_COMMAND_COST_LEVELS;
         if (player.getLevel() < cost) {
             player.sendMessage(ChatColor.RED + "You need " + cost + " levels to use this command.");
             return true;

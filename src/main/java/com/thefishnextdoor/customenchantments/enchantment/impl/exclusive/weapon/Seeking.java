@@ -133,7 +133,7 @@ public class Seeking extends MutuallyExclusiveWeaponEnchantment {
         private Entity nearestEntity() {
             Entity nearest = null;
             double nearestAngle = 0;
-            int radius = CustomEnchantments.getSettings().SEEKING_RADIUS;
+            int radius = CustomEnchantments.getSettings().SEEKING_ENCHANTMENT_RADIUS;
             List<Entity> nearby = arrow.getNearbyEntities(radius, radius, radius);
             for (Entity entity : nearby) {
                 if (!(entity instanceof LivingEntity)) {
