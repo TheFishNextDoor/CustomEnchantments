@@ -3,7 +3,7 @@ package com.thefishnextdoor.customenchantments.nms;
 import java.lang.reflect.Field;
 import java.util.IdentityHashMap;
 
-import org.bukkit.NamespacedKey;
+import org.bukkit.craftbukkit.v1_20_R3.enchantments.CraftEnchantment;
 
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 
@@ -25,10 +25,9 @@ public class NMS {
 
         net.minecraft.core.Registry.register(BuiltInRegistries.ENCHANTMENT, enchantment.getKey().getKey(), nmsEnchantment);
 
-        NamespacedKey key = NamespacedKey.minecraft(enchantment.getKey().getKey());
-        org.bukkit.enchantments.Enchantment bukkitEnchantment = org.bukkit.Registry.ENCHANTMENT.get(key);
+        org.bukkit.enchantments.Enchantment bukkitEnchantment = CraftEnchantment.minecraftToBukkit(nmsEnchantment);
         if (bukkitEnchantment == null) {
-            throw new IllegalStateException("Failed to register enchantment " + enchantment.getKey());
+            throw new IllegalStateException("Failed to retrieve enchantment " + enchantment.getKey());
         }
         return bukkitEnchantment;
     }
