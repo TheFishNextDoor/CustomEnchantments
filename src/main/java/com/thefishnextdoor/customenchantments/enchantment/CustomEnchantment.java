@@ -338,9 +338,7 @@ public abstract class CustomEnchantment {
     }
 
     public static void addLore(CustomEnchantment customEnchantment, ItemStack item, int level) {
-        if (!item.hasItemMeta()) {
-            return;
-        }
+        removeLore(customEnchantment, item);
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
         lore.add(0, leveledLoreString(customEnchantment, level));

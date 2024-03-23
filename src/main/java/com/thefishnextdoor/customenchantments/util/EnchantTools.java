@@ -179,8 +179,6 @@ public class EnchantTools {
         }
         
         // Add Enchantment
-        EnchantTools.removeEnchant(item, enchantment); // Remove old lore
-
         if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) {
             level++;
         }
