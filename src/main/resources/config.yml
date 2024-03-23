@@ -3,6 +3,8 @@ remove-overridden-enchantments: true # Remove unbreaking and mending when unbrea
 check-lore: true # Fixes plugins with lossy item saving from losing the applied enchantments (e.g. Essentials kits)
 use-arabic-numerals: false # Use 1, 2, 3 instead of I, II, III
 play-effects: true # Certain enchantments will create particle effects
+anvil-cost-multiplier: 1.0 # The multiplier for the anvil cost
+max-anvil-cost-levels: -1 # The maximum number of levels it costs to use the anvil, -1 to disable
 override-anvil-cost-levels: -1 # The number of levels it costs to use the anvil, -1 to use the default cost
 disenchant-command-cost-levels: 3 # The number of levels it costs to use the disenchant command
 combine-enchantments-command-cost-levels: 3 # The number of levels it costs to use the combine enchantments command
