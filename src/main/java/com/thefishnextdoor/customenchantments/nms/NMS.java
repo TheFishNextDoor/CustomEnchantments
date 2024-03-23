@@ -36,9 +36,9 @@ public class NMS {
     private static boolean setFieldValue(Object of, String fieldName, Object value) {
         try {
             boolean isStatic = of instanceof Class;
-            Class<?> clazz = isStatic ? (Class<?>) of : of.getClass();
+            Class<?> fieldClass = isStatic ? (Class<?>) of : of.getClass();
 
-            Field field = getField(clazz, fieldName);
+            Field field = getField(fieldClass, fieldName);
             if (field == null) return false;
 
             field.setAccessible(true);
