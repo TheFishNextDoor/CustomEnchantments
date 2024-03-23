@@ -30,9 +30,8 @@ public class Loot {
         }
 
         EntityType type = livingEntity.getType();
-        double baseChance = 0.1;
         double lootingMultiplier = 1.0 + (EnchantTools.lootingLevel(player) * 0.1);
-        double chance = baseChance * lootingMultiplier;
+        double chance = 0.1 * lootingMultiplier;
         switch (type) {
             case ZOMBIE:
                 if (NumberTools.chance(chance)) {
