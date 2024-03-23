@@ -6,6 +6,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.thefishnextdoor.customenchantments.command.Commands;
+import com.thefishnextdoor.customenchantments.enchantment.ArmorEffects;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.enchantment.impl.exclusive.weapon.Seeking;
 import com.thefishnextdoor.customenchantments.event.BlockBreak;

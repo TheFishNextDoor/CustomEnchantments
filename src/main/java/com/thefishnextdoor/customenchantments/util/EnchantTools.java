@@ -16,8 +16,8 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.thefishnextdoor.customenchantments.Plugin;
-import com.thefishnextdoor.customenchantments.ArmorEffects.ArmorCheckOptimizer;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
+import com.thefishnextdoor.customenchantments.enchantment.ArmorEffects.ArmorCheckOptimizer;
 
 public class EnchantTools {
 

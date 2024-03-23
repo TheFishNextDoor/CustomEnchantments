@@ -6,7 +6,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import com.thefishnextdoor.customenchantments.ArmorEffects;
+import com.thefishnextdoor.customenchantments.enchantment.ArmorEffects;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
 import com.thefishnextdoor.customenchantments.enchantment.type.MutuallyExclusiveBootsEnchantment;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;

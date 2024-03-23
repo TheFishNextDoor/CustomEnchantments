@@ -1,10 +1,11 @@
-package com.thefishnextdoor.customenchantments;
+package com.thefishnextdoor.customenchantments.enchantment;
 
 import java.util.Collection;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.thefishnextdoor.customenchantments.Plugin;
 import com.thefishnextdoor.customenchantments.enchantment.impl.CurseOfAquaphobia;
 import com.thefishnextdoor.customenchantments.enchantment.impl.CurseOfLevitating;
 import com.thefishnextdoor.customenchantments.enchantment.impl.CurseOfMiningFatigue;

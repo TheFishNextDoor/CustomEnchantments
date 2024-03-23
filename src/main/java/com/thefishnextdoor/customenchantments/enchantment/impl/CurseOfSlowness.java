@@ -7,8 +7,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.thefishnextdoor.customenchantments.ArmorEffects.ArmorCheckOptimizer;
 import com.thefishnextdoor.customenchantments.enchantment.CustomEnchantment;
+import com.thefishnextdoor.customenchantments.enchantment.ArmorEffects.ArmorCheckOptimizer;
 import com.thefishnextdoor.customenchantments.util.EnchantTools;
 import com.thefishnextdoor.customenchantments.util.MaterialTools;
 
