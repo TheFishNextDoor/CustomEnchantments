@@ -28,16 +28,6 @@ public class NMSEnchantment extends net.minecraft.world.item.enchantment.Enchant
     }
 
     @Override
-    public int getMinCost(int var0) {
-        return 0;
-    }
-  
-    @Override
-    public int getMaxCost(int var0) {
-        return 0;
-    }
-
-    @Override
     protected boolean checkCompatibility(net.minecraft.world.item.enchantment.Enchantment nmsEnchantment) {
         return !enchantment.conflictsWith(CraftEnchantment.minecraftToBukkit(nmsEnchantment));
     }
