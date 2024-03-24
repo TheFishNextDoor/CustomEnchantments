@@ -85,5 +85,4 @@ public class CombineEnchantments implements CommandExecutor, TabCompleter {
         sender.sendMessage(ChatColor.AQUA + "Enchantments merged.");
         return true;
     }
-    
 }
