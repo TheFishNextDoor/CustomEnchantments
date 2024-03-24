@@ -45,7 +45,7 @@ public class Disenchant implements CommandExecutor, TabCompleter {
         }
 
         Player player = (Player) sender;
-        Enchantment enchantment = EnchantTools.getEnchantmentFromName(args[0]);
+        Enchantment enchantment = EnchantTools.getEnchantFromName(args[0]);
         if (enchantment == null) {
             player.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;
@@ -81,7 +81,7 @@ public class Disenchant implements CommandExecutor, TabCompleter {
 
         if (!creative) {
             InventoryTools.take(player, Material.BOOK, 1);
-            InventoryTools.give(player, EnchantTools.enchantedBook(enchantment, level));
+            InventoryTools.give(player, EnchantTools.getEnchantedBook(enchantment, level));
             player.setLevel(player.getLevel() - cost);
         }
         player.sendMessage(ChatColor.AQUA + "Enchantment removed from item in hand.");

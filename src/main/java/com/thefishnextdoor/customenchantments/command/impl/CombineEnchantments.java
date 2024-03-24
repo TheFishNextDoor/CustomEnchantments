@@ -45,7 +45,7 @@ public class CombineEnchantments implements CommandExecutor, TabCompleter {
         }
 
         ItemStack result = currentItem.clone();
-        for (Entry<Enchantment, Integer> entry : EnchantTools.getEnchants(nextItem).entrySet()) {
+        for (Entry<Enchantment, Integer> entry : EnchantTools.getEnchantsOn(nextItem).entrySet()) {
             EnchantTools.addEnchant(result, entry.getKey(), entry.getValue(), false, true);
         }
 
@@ -69,7 +69,7 @@ public class CombineEnchantments implements CommandExecutor, TabCompleter {
             }
             sender.sendMessage(ChatColor.AQUA + "Type: " + ChatColor.WHITE + StringTools.titleCase(result.getType().toString()));
             sender.sendMessage(ChatColor.AQUA + "Enchantments:");
-            for (Entry<Enchantment, Integer> entry : EnchantTools.getEnchants(result).entrySet()) {
+            for (Entry<Enchantment, Integer> entry : EnchantTools.getEnchantsOn(result).entrySet()) {
                 String name = StringTools.titleCase(entry.getKey().getKey().getKey());
                 sender.sendMessage(ChatColor.WHITE + "  " + name + " " + entry.getValue());
             }

@@ -28,7 +28,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
             return EnchantTools.namesOfCompatibleEnchantments(InventoryTools.getMeleeItemInUse(player));
         }
         else if (args.length == 2) {
-            Enchantment enchantment = EnchantTools.getEnchantmentFromName(args[0]);
+            Enchantment enchantment = EnchantTools.getEnchantFromName(args[0]);
             if (enchantment == null) {
                 return null;
             }
@@ -58,7 +58,7 @@ public class Fenchant implements CommandExecutor, TabCompleter {
         }
 
         Player player = (Player) sender;
-        Enchantment enchantment = EnchantTools.getEnchantmentFromName(args[0]);
+        Enchantment enchantment = EnchantTools.getEnchantFromName(args[0]);
         if (enchantment == null) {
             player.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;

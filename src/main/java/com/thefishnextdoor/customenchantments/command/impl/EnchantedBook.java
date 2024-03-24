@@ -39,7 +39,7 @@ public class EnchantedBook implements CommandExecutor, TabCompleter {
         }
 
         Player player = (Player) sender;
-        Enchantment enchantment = EnchantTools.getEnchantmentFromName(args[0]);
+        Enchantment enchantment = EnchantTools.getEnchantFromName(args[0]);
         if (enchantment == null) {
             player.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;
@@ -55,7 +55,7 @@ public class EnchantedBook implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        InventoryTools.give(player, EnchantTools.enchantedBook(enchantment, level));
+        InventoryTools.give(player, EnchantTools.getEnchantedBook(enchantment, level));
         return true;
     }
 }

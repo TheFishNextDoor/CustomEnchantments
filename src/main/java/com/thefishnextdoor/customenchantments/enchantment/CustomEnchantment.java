@@ -291,7 +291,7 @@ public abstract class CustomEnchantment {
         VOLLEY = NMS.registerEnchantment(new Volley());
     }
 
-    public static ArrayList<Enchantment> all() {
+    public static ArrayList<Enchantment> getAll() {
         ArrayList<Enchantment> customEnchantments = new ArrayList<>();
         Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
         while (allEnchantments.hasNext()) {
@@ -319,7 +319,7 @@ public abstract class CustomEnchantment {
     }
 
     public static boolean hasCustomEnchantments(ItemStack item) {
-        for (Enchantment enchantment : EnchantTools.getEnchants(item).keySet()) {
+        for (Enchantment enchantment : EnchantTools.getEnchantsOn(item).keySet()) {
             if (isCustomEnchantment(enchantment)) {
                 return true;
             }
@@ -327,9 +327,9 @@ public abstract class CustomEnchantment {
         return false;
     }
 
-    public static HashMap<Enchantment, Integer> customEnchantments(ItemStack item) {
+    public static HashMap<Enchantment, Integer> getCustomEnchantmentsOn(ItemStack item) {
         HashMap<Enchantment, Integer>  foundFishchantments = new HashMap<>();
-        for (Entry<Enchantment, Integer> entry : EnchantTools.getEnchants(item).entrySet()) {
+        for (Entry<Enchantment, Integer> entry : EnchantTools.getEnchantsOn(item).entrySet()) {
             if (isCustomEnchantment(entry.getKey())) {
                 foundFishchantments.put(entry.getKey(), entry.getValue());
             }
@@ -341,7 +341,7 @@ public abstract class CustomEnchantment {
         removeLore(customEnchantment, item);
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
-        lore.add(0, leveledLoreString(customEnchantment, level));
+        lore.add(0, getLeveledLoreString(customEnchantment, level));
         meta.setLore(lore);
         item.setItemMeta(meta);
     }
@@ -358,7 +358,7 @@ public abstract class CustomEnchantment {
         }
     
         List<String> newLore = new ArrayList<>();
-        String enchantLoreBase = nonLeveledLoreString(customEnchantment);
+        String enchantLoreBase = getNonLeveledLoreString(customEnchantment);
         for (String line : lore) {
             if (!line.startsWith(enchantLoreBase)) {
                 newLore.add(line);
@@ -368,8 +368,8 @@ public abstract class CustomEnchantment {
         item.setItemMeta(meta);
     }
 
-    public static String leveledLoreString(CustomEnchantment customEnchantment, Integer level) {
-        String lore = nonLeveledLoreString(customEnchantment);
+    public static String getLeveledLoreString(CustomEnchantment customEnchantment, Integer level) {
+        String lore = getNonLeveledLoreString(customEnchantment);
         if (level == 1 && customEnchantment.getMaxLevel() == 1) {
             return lore;
         }
@@ -378,7 +378,7 @@ public abstract class CustomEnchantment {
         }
     }
 
-    public static String nonLeveledLoreString(CustomEnchantment customEnchantment) {
+    public static String getNonLeveledLoreString(CustomEnchantment customEnchantment) {
         return customEnchantment.isCursed() ? ChatColor.RED + customEnchantment.getName() : ChatColor.GRAY + customEnchantment.getName();
     }
 }

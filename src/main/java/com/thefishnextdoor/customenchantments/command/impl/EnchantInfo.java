@@ -38,7 +38,7 @@ public class EnchantInfo implements CommandExecutor, TabCompleter {
         }
 
         String enchantName = args[0];
-        Enchantment enchantment = EnchantTools.getEnchantmentFromName(enchantName);
+        Enchantment enchantment = EnchantTools.getEnchantFromName(enchantName);
         if (enchantment == null) {
             sender.sendMessage(ChatColor.RED + "Enchantment not found.");
             return true;

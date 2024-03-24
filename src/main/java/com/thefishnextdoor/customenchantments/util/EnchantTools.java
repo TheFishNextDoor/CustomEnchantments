@@ -47,7 +47,7 @@ public class EnchantTools {
 
         CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchant);
         if (CustomEnchantments.getSettings().CHECK_LORE && level == 0 && customEnchantment != null && meta.hasLore()) {
-            String enchantLoreBase = CustomEnchantment.nonLeveledLoreString(customEnchantment);
+            String enchantLoreBase = CustomEnchantment.getNonLeveledLoreString(customEnchantment);
             for (String line : meta.getLore()) {
                 if (!line.startsWith(enchantLoreBase)) {
                     continue;
@@ -227,7 +227,7 @@ public class EnchantTools {
         return hasEnchant;
     }
 
-    public static HashMap<Enchantment, Integer> getEnchants(ItemStack item) {
+    public static HashMap<Enchantment, Integer> getEnchantsOn(ItemStack item) {
         HashMap<Enchantment, Integer> enchants = new HashMap<>();
         Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
         while (allEnchantments.hasNext()) {
@@ -287,7 +287,7 @@ public class EnchantTools {
         return true;
     }
 
-    public static Enchantment getEnchantmentFromName(String name) {
+    public static Enchantment getEnchantFromName(String name) {
         Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
         while (allEnchantments.hasNext()) {
             Enchantment enchant = allEnchantments.next();
@@ -298,7 +298,7 @@ public class EnchantTools {
         return null;
     }
 
-    public static ItemStack enchantedBook(Enchantment enchant, int level) {
+    public static ItemStack getEnchantedBook(Enchantment enchant, int level) {
         ItemStack enchantedBook = new ItemStack(Material.ENCHANTED_BOOK);
         addEnchant(enchantedBook, enchant, level, true, false);
         return enchantedBook;
@@ -410,7 +410,7 @@ public class EnchantTools {
     }
 
     public static boolean hasConflictingEnchantments(ItemStack item, Enchantment enchant) {
-        Iterator<Enchantment> itemEnchantIter = getEnchants(item).keySet().iterator();
+        Iterator<Enchantment> itemEnchantIter = getEnchantsOn(item).keySet().iterator();
         while (itemEnchantIter.hasNext()) {
             Enchantment itemEnchant = itemEnchantIter.next();
             if (same(itemEnchant, enchant)) {
@@ -444,7 +444,7 @@ public class EnchantTools {
     }
 
     public static void verify(ItemStack item) {
-        for (Enchantment enchant : CustomEnchantment.all()) {
+        for (Enchantment enchant : CustomEnchantment.getAll()) {
             level(item, enchant);
         }
     }
