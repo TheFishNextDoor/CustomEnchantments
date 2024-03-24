@@ -319,7 +319,7 @@ public abstract class CustomEnchantment {
     }
 
     public static boolean hasCustomEnchantments(ItemStack item) {
-        for (Enchantment enchantment : EnchantTools.enchantments(item).keySet()) {
+        for (Enchantment enchantment : EnchantTools.getEnchants(item).keySet()) {
             if (isCustomEnchantment(enchantment)) {
                 return true;
             }
@@ -329,7 +329,7 @@ public abstract class CustomEnchantment {
 
     public static HashMap<Enchantment, Integer> customEnchantments(ItemStack item) {
         HashMap<Enchantment, Integer>  foundFishchantments = new HashMap<>();
-        for (Entry<Enchantment, Integer> entry : EnchantTools.enchantments(item).entrySet()) {
+        for (Entry<Enchantment, Integer> entry : EnchantTools.getEnchants(item).entrySet()) {
             if (isCustomEnchantment(entry.getKey())) {
                 foundFishchantments.put(entry.getKey(), entry.getValue());
             }

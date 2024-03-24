@@ -136,40 +136,40 @@ public class EnchantTools {
         return Math.max(mainHandLevel, offHandLevel);
     }
 
-    public static boolean addEnchant(ItemStack item, Enchantment enchantment, Integer level, boolean force, boolean combine) {
+    public static boolean addEnchant(ItemStack item, Enchantment enchant, Integer level, boolean force, boolean combine) {
 
         // Verify
         if (level < 1 || item == null || item.getType() == Material.AIR) {
             return false;
         }
 
-        int currentLevel = level(item, enchantment);
+        int currentLevel = level(item, enchant);
         level = Math.min(level, 255);        
         if (!force) {
             if (level < currentLevel) {
                 return false;
             }
-            if (!(enchantment.canEnchantItem(item) || item.getType() == Material.ENCHANTED_BOOK)) {
+            if (!(enchant.canEnchantItem(item) || item.getType() == Material.ENCHANTED_BOOK)) {
                 return false;
             }
-            if (EnchantTools.hasConflictingEnchantments(item, enchantment)) {
+            if (EnchantTools.hasConflictingEnchantments(item, enchant)) {
                 return false;
             }
         }
     
         // Remove Overridden Enchantments
         if (CustomEnchantments.getSettings().REMOVE_OVERRIDDEN_ENCHANTMENTS) {
-            if (same(enchantment, CustomEnchantment.UNBREAKABLE)) {
+            if (same(enchant, CustomEnchantment.UNBREAKABLE)) {
                 EnchantTools.removeEnchant(item, Enchantment.DURABILITY);
                 EnchantTools.removeEnchant(item, Enchantment.MENDING);
             }
-            else if (same(enchantment, CustomEnchantment.FIRE_RESISTANCE)) {
+            else if (same(enchant, CustomEnchantment.FIRE_RESISTANCE)) {
                 EnchantTools.removeEnchant(item, Enchantment.PROTECTION_FIRE);
             }
         }
     
         // Fix item
-        if (same(enchantment, CustomEnchantment.UNBREAKABLE)) {
+        if (same(enchant, CustomEnchantment.UNBREAKABLE)) {
             ItemMeta meta = item.getItemMeta();
             if (meta instanceof Damageable) {
                 Damageable damageable = (Damageable) meta;
@@ -179,20 +179,20 @@ public class EnchantTools {
         }
         
         // Add Enchantment
-        if (combine && level == currentLevel && currentLevel < enchantment.getMaxLevel()) {
+        if (combine && level == currentLevel && currentLevel < enchant.getMaxLevel()) {
             level++;
         }
 
         if (item.getType() == Material.ENCHANTED_BOOK) {
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-            meta.addStoredEnchant(enchantment, level, true);
+            meta.addStoredEnchant(enchant, level, true);
             item.setItemMeta(meta);
         }
         else {
-            item.addUnsafeEnchantment(enchantment, level);
+            item.addUnsafeEnchantment(enchant, level);
         }
         
-        CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchantment);
+        CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchant);
         if (customEnchantment != null) {
             CustomEnchantment.addLore(customEnchantment, item, level);
         }
@@ -200,26 +200,26 @@ public class EnchantTools {
         return true;
     }
 
-    public static boolean removeEnchant(ItemStack item, Enchantment enchantment) {
+    public static boolean removeEnchant(ItemStack item, Enchantment enchant) {
 
         // Remove Enchantment
         if (item == null) {
             return false;
         }
 
-        boolean hasEnchant = has(item, enchantment);
+        boolean hasEnchant = has(item, enchant);
         if (hasEnchant) {
             if (item.getType() == Material.ENCHANTED_BOOK) {
                 EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-                meta.removeStoredEnchant(enchantment);
+                meta.removeStoredEnchant(enchant);
                 item.setItemMeta(meta);
             }
             else {
-                item.removeEnchantment(enchantment);
+                item.removeEnchantment(enchant);
             }
         }
         
-        CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchantment);
+        CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchant);
         if (customEnchantment != null) {
             CustomEnchantment.removeLore(customEnchantment, item);
         }
@@ -227,20 +227,20 @@ public class EnchantTools {
         return hasEnchant;
     }
 
-    public static HashMap<Enchantment, Integer> enchantments(ItemStack item) {
-        HashMap<Enchantment, Integer> enchantments = new HashMap<>();
+    public static HashMap<Enchantment, Integer> getEnchants(ItemStack item) {
+        HashMap<Enchantment, Integer> enchants = new HashMap<>();
         Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
         while (allEnchantments.hasNext()) {
-            Enchantment enchantment = allEnchantments.next();
-            int level = level(item, enchantment);
+            Enchantment enchant = allEnchantments.next();
+            int level = level(item, enchant);
             if (level > 0) {
-                enchantments.put(enchantment, level);
+                enchants.put(enchant, level);
             }
         }
-        return enchantments;
+        return enchants;
     }
 
-    public static boolean sameEnchantments(ItemStack itemA, ItemStack itemB) {
+    public static boolean sameEnchants(ItemStack itemA, ItemStack itemB) {
         if (itemA == null || itemB == null) {
             return false;
         }
@@ -256,13 +256,13 @@ public class EnchantTools {
                 return false;
             }
 
-            Iterator<Enchantment> iter = metaA.getStoredEnchants().keySet().iterator();
-            while (iter.hasNext()) {
-                Enchantment enchantment = iter.next();
-                if (!metaB.hasStoredEnchant(enchantment)) {
+            Iterator<Enchantment> metaAEnchantIter = metaA.getStoredEnchants().keySet().iterator();
+            while (metaAEnchantIter.hasNext()) {
+                Enchantment enchant = metaAEnchantIter.next();
+                if (!metaB.hasStoredEnchant(enchant)) {
                     return false;
                 }
-                if (metaA.getStoredEnchantLevel(enchantment) != metaB.getStoredEnchantLevel(enchantment)) {
+                if (metaA.getStoredEnchantLevel(enchant) != metaB.getStoredEnchantLevel(enchant)) {
                     return false;
                 }
             }
@@ -272,13 +272,13 @@ public class EnchantTools {
                 return false;
             }
 
-            Iterator<Enchantment> iter = itemA.getEnchantments().keySet().iterator();
-            while (iter.hasNext()) {
-                Enchantment enchantment = iter.next();
-                if (!itemB.containsEnchantment(enchantment)) {
+            Iterator<Enchantment> itemAEnchantIter = itemA.getEnchantments().keySet().iterator();
+            while (itemAEnchantIter.hasNext()) {
+                Enchantment enchant = itemAEnchantIter.next();
+                if (!itemB.containsEnchantment(enchant)) {
                     return false;
                 }
-                if (itemA.getEnchantmentLevel(enchantment) != itemB.getEnchantmentLevel(enchantment)) {
+                if (itemA.getEnchantmentLevel(enchant) != itemB.getEnchantmentLevel(enchant)) {
                     return false;
                 }
             }
@@ -290,25 +290,25 @@ public class EnchantTools {
     public static Enchantment getEnchantmentFromName(String name) {
         Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
         while (allEnchantments.hasNext()) {
-            Enchantment enchantment = allEnchantments.next();
-            if (enchantment.getKey().getKey().equalsIgnoreCase(name)) {
-                return enchantment;
+            Enchantment enchant = allEnchantments.next();
+            if (enchant.getKey().getKey().equalsIgnoreCase(name)) {
+                return enchant;
             }
         }
         return null;
     }
 
-    public static ItemStack enchantedBook(Enchantment enchantment, int level) {
+    public static ItemStack enchantedBook(Enchantment enchant, int level) {
         ItemStack enchantedBook = new ItemStack(Material.ENCHANTED_BOOK);
-        addEnchant(enchantedBook, enchantment, level, true, false);
+        addEnchant(enchantedBook, enchant, level, true, false);
         return enchantedBook;
     }
 
-    public static boolean same(Enchantment enchant1, Enchantment enchant2) {
-        if (enchant1 == null || enchant2 == null) {
+    public static boolean same(Enchantment enchantA, Enchantment enchantB) {
+        if (enchantA == null || enchantB == null) {
             return false;
         }
-        return enchant1.getKey().toString().equals(enchant2.getKey().toString());
+        return enchantA.getKey().toString().equals(enchantB.getKey().toString());
     }
 
     public static ArrayList<String> namesOfCompatibleEnchantments(ItemStack item) {
@@ -319,9 +319,9 @@ public class EnchantTools {
         ArrayList<String> names = new ArrayList<>();
         Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
         while (allEnchantments.hasNext()) {
-            Enchantment enchantment = allEnchantments.next();
-            if (has(item, enchantment) || enchantment.canEnchantItem(item)) {
-                names.add(enchantment.getKey().getKey());
+            Enchantment enchant = allEnchantments.next();
+            if (has(item, enchant) || enchant.canEnchantItem(item)) {
+                names.add(enchant.getKey().getKey());
             }
         }
     
@@ -332,9 +332,9 @@ public class EnchantTools {
         ArrayList<String> names = new ArrayList<>();
         Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
         while (allEnchantments.hasNext()) {
-            Enchantment enchantment = allEnchantments.next();
-            if (has(item, enchantment)) {
-                names.add(enchantment.getKey().getKey());
+            Enchantment enchant = allEnchantments.next();
+            if (has(item, enchant)) {
+                names.add(enchant.getKey().getKey());
             }
         }
         return names;
@@ -344,8 +344,8 @@ public class EnchantTools {
         ArrayList<String> names = new ArrayList<>();
         Iterator<Enchantment> allEnchantments = Registry.ENCHANTMENT.iterator();
         while (allEnchantments.hasNext()) {
-            Enchantment enchantment = allEnchantments.next();
-            names.add(enchantment.getKey().getKey());
+            Enchantment enchant = allEnchantments.next();
+            names.add(enchant.getKey().getKey());
         }
         return names;
     }
@@ -409,14 +409,14 @@ public class EnchantTools {
         }
     }
 
-    public static boolean hasConflictingEnchantments(ItemStack item, Enchantment enchantment) {
-        Iterator<Enchantment> iter = enchantments(item).keySet().iterator();
-        while (iter.hasNext()) {
-            Enchantment ienchantment = iter.next();
-            if (same(ienchantment, enchantment)) {
+    public static boolean hasConflictingEnchantments(ItemStack item, Enchantment enchant) {
+        Iterator<Enchantment> itemEnchantIter = getEnchants(item).keySet().iterator();
+        while (itemEnchantIter.hasNext()) {
+            Enchantment itemEnchant = itemEnchantIter.next();
+            if (same(itemEnchant, enchant)) {
                 continue;
             }
-            if (enchantment.conflictsWith(ienchantment) || ienchantment.conflictsWith(enchantment)) {
+            if (enchant.conflictsWith(itemEnchant) || itemEnchant.conflictsWith(enchant)) {
                 return true;
             }
         }
@@ -449,7 +449,7 @@ public class EnchantTools {
         }
     }
 
-    private static void fix(ItemStack item, Enchantment enchantment, Integer level) {
+    private static void fix(ItemStack item, Enchantment enchant, Integer level) {
         if (item == null) {
             return;
         }
@@ -460,11 +460,11 @@ public class EnchantTools {
         
         if (item.getType() == Material.ENCHANTED_BOOK) {
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-            meta.addStoredEnchant(enchantment, level, true);
+            meta.addStoredEnchant(enchant, level, true);
             item.setItemMeta(meta);
         }
         else {
-            item.addUnsafeEnchantment(enchantment, level);
+            item.addUnsafeEnchantment(enchant, level);
         }
     }
 }

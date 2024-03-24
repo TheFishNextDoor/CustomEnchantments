@@ -47,7 +47,7 @@ public class PrepareAnvil implements Listener {
         }
 
         
-        for (Entry<Enchantment, Integer> entry : EnchantTools.enchantments(result).entrySet()) {
+        for (Entry<Enchantment, Integer> entry : EnchantTools.getEnchants(result).entrySet()) {
             CustomEnchantment customEnchantment = CustomEnchantment.unWrap(entry.getKey());
             if (customEnchantment != null) {
                 CustomEnchantment.addLore(customEnchantment, result, entry.getValue());
