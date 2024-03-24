@@ -11,5 +11,4 @@ public class StringTools {
         }
         return titleCase.trim();
     }
-    
 }
