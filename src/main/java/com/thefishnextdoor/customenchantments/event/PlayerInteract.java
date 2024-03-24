@@ -16,17 +16,17 @@ public class PlayerInteract implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         switch (event.getAction()) {
             case LEFT_CLICK_BLOCK:
-                leftClickBlock(event);
+                onLeftClickBlock(event);
                 break;
             case RIGHT_CLICK_BLOCK:
-                rightClickBlock(event);
+                onRightClickBlock(event);
                 break;
             default:
                 break;
         }
     }
 
-    private static void leftClickBlock(PlayerInteractEvent event) {
+    private static void onLeftClickBlock(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Block clickedBlock = event.getClickedBlock();
         if (clickedBlock == null) {
@@ -35,7 +35,7 @@ public class PlayerInteract implements Listener {
         PlayerTracker.get(player).setMiningFace(event.getBlockFace());
     }
 
-    private static void rightClickBlock(PlayerInteractEvent event) {
+    private static void onRightClickBlock(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Block clickedBlock = event.getClickedBlock();
         if (clickedBlock == null) {

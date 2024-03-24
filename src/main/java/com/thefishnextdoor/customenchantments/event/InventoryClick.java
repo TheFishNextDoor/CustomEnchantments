@@ -28,21 +28,21 @@ public class InventoryClick implements Listener {
         }
 
         ItemStack result = grindstone.getItem(event.getRawSlot());
-        ItemStack zero = grindstone.getItem(0);
-        ItemStack one = grindstone.getItem(1);
-        EnchantTools.verify(zero); EnchantTools.verify(one);
-        if (!(CustomEnchantment.hasCustomEnchantments(zero) || CustomEnchantment.hasCustomEnchantments(one))) {
+        ItemStack itemA = grindstone.getItem(0);
+        ItemStack itemB = grindstone.getItem(1);
+        EnchantTools.verify(itemA); EnchantTools.verify(itemB);
+        if (!(CustomEnchantment.hasCustomEnchantments(itemA) || CustomEnchantment.hasCustomEnchantments(itemB))) {
             return;
         }
 
-        for (Enchantment enchantment : EnchantTools.getEnchantsOn(zero).keySet()) {
+        for (Enchantment enchantment : EnchantTools.getEnchantsOn(itemA).keySet()) {
             CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchantment);
             if (customEnchantment != null) {
                 CustomEnchantment.removeLore(customEnchantment, result);
             }
         }
 
-        for (Enchantment enchantment : EnchantTools.getEnchantsOn(one).keySet()) {
+        for (Enchantment enchantment : EnchantTools.getEnchantsOn(itemB).keySet()) {
             CustomEnchantment customEnchantment = CustomEnchantment.unWrap(enchantment);
             if (customEnchantment != null) {
                 CustomEnchantment.removeLore(customEnchantment, result);
